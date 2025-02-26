@@ -4,11 +4,24 @@
   
   
   <entry>
-    <title>TEST.md</title>
-    <link href="/2025/02/25/TEST-md/"/>
-    <url>/2025/02/25/TEST-md/</url>
+    <title>文章标题</title>
+    <link href="/2025/02/26/%E6%96%87%E7%AB%A0%E6%A0%87%E9%A2%98/"/>
+    <url>/2025/02/26/%E6%96%87%E7%AB%A0%E6%A0%87%E9%A2%98/</url>
     
     <content type="html"><![CDATA[]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title></title>
+    <link href="/2025/02/26/%E6%9C%AA%E5%91%BD%E5%90%8D/"/>
+    <url>/2025/02/26/%E6%9C%AA%E5%91%BD%E5%90%8D/</url>
+    
+    <content type="html"><![CDATA[<table><thead><tr><th></th><th></th></tr></thead><tbody><tr><td>rear</td><td>举起</td></tr><tr><td>turnover</td><td></td></tr><tr><td>swamp</td><td></td></tr><tr><td>perpetuate</td><td>长存的</td></tr><tr><td>patronage</td><td>赞助</td></tr><tr><td>retort</td><td>反驳</td></tr><tr><td>permeate</td><td>渗透</td></tr><tr><td>nurture</td><td>养育</td></tr><tr><td>finite</td><td>有限的</td></tr><tr><td>disruptive</td><td>创新的</td></tr><tr><td>franchise</td><td>选举权</td></tr><tr><td>plaza</td><td>广场</td></tr><tr><td>lever</td><td>杠杆</td></tr><tr><td>indebted</td><td>感激的</td></tr><tr><td>poultry</td><td>家禽</td></tr><tr><td>trivial</td><td>微不足道的</td></tr><tr><td>sprawl</td><td>杂乱无序拓展的地区</td></tr><tr><td>precede</td><td>先于</td></tr><tr><td>plumbing</td><td>管道工程</td></tr><tr><td>slum</td><td>贫民窟</td></tr><tr><td>polytechnic</td><td>理工专科学校</td></tr><tr><td>vocational</td><td>职业的</td></tr><tr><td>verse</td><td>诗句</td></tr><tr><td>incur</td><td>引起</td></tr><tr><td>exotic</td><td>奇异的</td></tr><tr><td>allotment</td><td>分配</td></tr><tr><td>culminate</td><td>达到高潮</td></tr><tr><td>pant</td><td>喘气</td></tr><tr><td>quest</td><td>探索</td></tr><tr><td>petitioner</td><td>情愿人</td></tr><tr><td>scenario</td><td>情况</td></tr><tr><td>bureaucracy</td><td>官僚主义</td></tr><tr><td>reassure</td><td>使放心</td></tr><tr><td>premise</td><td>前提</td></tr><tr><td>imperative</td><td>必要的</td></tr><tr><td>reciprocal</td><td>相互的</td></tr><tr><td>reckon</td><td>期盼</td></tr><tr><td>patron</td><td>老主顾</td></tr><tr><td>slash</td><td>砍</td></tr><tr><td>regime</td><td>政权</td></tr><tr><td>rectification</td><td>改正</td></tr><tr><td>redundancy</td><td>冗余</td></tr><tr><td>presumption</td><td>推测</td></tr><tr><td>notwithstanding</td><td>尽管</td></tr><tr><td>rejoice</td><td>感到欣喜</td></tr><tr><td>preoccupied</td><td>全神贯注的</td></tr><tr><td>requisite</td><td>必要条件</td></tr><tr><td>contagious</td><td>有感染力的</td></tr><tr><td>futile</td><td>无用的</td></tr><tr><td>scrutiny</td><td>监视</td></tr><tr><td>relentless</td><td>持续的</td></tr><tr><td>buzz</td><td>兴奋</td></tr><tr><td>conspicuous</td><td>显眼的</td></tr><tr><td>recede</td><td>退去</td></tr><tr><td>refutation</td><td>反驳</td></tr><tr><td>whereby</td><td>由此</td></tr><tr><td></td><td></td></tr></tbody></table><p>![[file-20250226214504022.png]]</p>]]></content>
     
     
     
@@ -23,6 +36,40 @@
     
     <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
     
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>TEST.md</title>
+    <link href="/2025/02/25/TEST-md/"/>
+    <url>/2025/02/25/TEST-md/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>How one journalist risked her life to hold murderers accountable</title>
+    <link href="/2025/02/25/How%20one%20journalist%20risked%20her%20life%20to%20hold%20murderers%20accountable/"/>
+    <url>/2025/02/25/How%20one%20journalist%20risked%20her%20life%20to%20hold%20murderers%20accountable/</url>
+    
+    <content type="html"><![CDATA[<p>In March of 1892, three Black grocery store owners in Memphis, Tennessee, were murdered by a mob of white men. </p><p> <em>&#x3D;&#x3D;Lynchings&#x3D;&#x3D;</em>  like these were happening all over the American South, often without any subsequent legal investigation or consequences for the murderers. </p><p>But this time, a young journalist and friend of the victims set out to expose the truth about these killings. </p><p>Her reports would shock the nation and launch her career as an investigative journalist, civic leader, and civil rights advocate. </p><p>Her name was Ida B. Wells. </p><p>Ida Bell Wells was born into slavery in Holly Springs, Mississippi on July 16, 1862, several months before the Emancipation Proclamation released her and her family. </p><p>After losing both parents and a brother to  <em>&#x3D;&#x3D;yellow fever&#x3D;&#x3D;</em>  at the age of 16,  <em>&#x3D;&#x3D;she supported her five remaining siblings&#x3D;&#x3D;</em>  by working as a schoolteacher in Memphis, Tennessee. </p><p>During this time, she began working as a journalist. </p><p>Writing under the pen name “Iola,” by the early 1890s she gained a reputation as a clear voice against racial injustice and become co-owner and editor of the Memphis Free Speech and Headlight newspaper. </p><p>She had no shortage of material: in the decades following the Civil War, Southern whites attempted to  <em>&#x3D;&#x3D;reassert&#x3D;&#x3D;</em>  their power by committing crimes against Black people including suppressing their votes,  <em>&#x3D;&#x3D;vandalizing&#x3D;&#x3D;</em>  their businesses, and even murdering them. </p><p>After the murder of her friends, Wells launched an investigation into lynching. </p><p>She analyzed specific cases through newspaper reports and police records, and interviewed people who had lost friends and family to lynch mobs. </p><p>She risked her life to get this information. </p><p>As a Black person investigating racially motivated murders, she  <em>&#x3D;&#x3D;enraged&#x3D;&#x3D;</em>  many of the same southern white men involved in lynchings. </p><p>Her bravery  <em>&#x3D;&#x3D;paid off&#x3D;&#x3D;</em> . </p><p>Most whites had claimed and subsequently reported that lynchings were responses to criminal acts by Black people. </p><p>But that was not usually the case. </p><p>Through her research, Wells showed that these murders were actually  <em>&#x3D;&#x3D;a deliberate&#x3D;&#x3D;</em> ,  <em>&#x3D;&#x3D;brutal tactic&#x3D;&#x3D;</em>  to control or punish black people who competed with whites. </p><p>Her friends, for example, had been lynched when their grocery store became popular enough to  <em>&#x3D;&#x3D;divert&#x3D;&#x3D;</em>  business from a white competitor. </p><p>Wells published her findings in 1892. </p><p>In response, a white  <em>&#x3D;&#x3D;mob&#x3D;&#x3D;</em>  destroyed her newspaper presses. </p><p>She was out of town when they struck, but they threatened to kill her if she ever returned to Memphis. </p><p>So she traveled to New York, where that same year she re-published her research in a pamphlet titled Southern Horrors: Lynch Law in All Its Phases. </p><p>In 1895, after settling in Chicago, she built on Southern Horrors in a longer piece called The Red Record. </p><p>Her careful documentation of the horrors of lynching and  <em>&#x3D;&#x3D;impassioned&#x3D;&#x3D;</em>  public speeches drew international attention. </p><p>Wells used her  <em>&#x3D;&#x3D;newfound fame&#x3D;&#x3D;</em>  to amplify her message. </p><p>She traveled to Europe, where she  <em>&#x3D;&#x3D;rallied&#x3D;&#x3D;</em>  European  <em>&#x3D;&#x3D;outrage&#x3D;&#x3D;</em>  against racial violence in the American South in hopes that the US government and public would follow their example. </p><p>Back in the US, she didn’t hesitate to confront powerful organizations, fighting the  <em>&#x3D;&#x3D;segregationist&#x3D;&#x3D;</em>  policies of the YMCA and leading a delegation to the White House to protest discriminatory workplace practices. </p><p>She did all this while  <em>&#x3D;&#x3D;disenfranchised&#x3D;&#x3D;</em>  herself. </p><p>Women didn’t win the right to vote until Wells was in her late 50s. </p><p>And even then, the vote was primarily extended to white women only. </p><p>Wells was a key player in the battle for voting inclusion, starting a Black women’s  <em>&#x3D;&#x3D;suffrage&#x3D;&#x3D;</em>  organization in Chicago. </p><p>But in spite of her deep  <em>&#x3D;&#x3D;commitment&#x3D;&#x3D;</em>  to women’s rights, she  <em>&#x3D;&#x3D;clashed&#x3D;&#x3D;</em>  with white leaders of the movement. </p><p>During a march for women’s suffrage in Washington D.C., she ignored the organizers’ attempt to  <em>&#x3D;&#x3D;placate&#x3D;&#x3D;</em>  Southern  <em>&#x3D;&#x3D;bigotry&#x3D;&#x3D;</em>  by placing Black women in the back, and marched up front alongside the white women. </p><p>She also  <em>&#x3D;&#x3D;chafed&#x3D;&#x3D;</em>  with other civil rights leaders, who saw her as a dangerous radical. </p><p>She insisted on  <em>&#x3D;&#x3D;airing&#x3D;&#x3D;</em> ,  <em>&#x3D;&#x3D;in full detail&#x3D;&#x3D;</em> , the  <em>&#x3D;&#x3D;atrocities&#x3D;&#x3D;</em>  taking place in the South, while others thought doing so would be  <em>&#x3D;&#x3D;counterproductive&#x3D;&#x3D;</em>  to negotiations with white politicians. </p><p>Although she participated in the founding of the NAACP, she was soon  <em>&#x3D;&#x3D;sidelined from the organization&#x3D;&#x3D;</em> . </p><p>Wells’ unwillingness to compromise any aspect of her  <em>&#x3D;&#x3D;vision&#x3D;&#x3D;</em>  of justice shined a light on the weak points of the various rights movements, and ultimately made them stronger— but also made it difficult for her to find a place within them. </p><p>She was ahead of her time,  <em>&#x3D;&#x3D;waging&#x3D;&#x3D;</em>  a  <em>&#x3D;&#x3D;tireless&#x3D;&#x3D;</em>  struggle for equality and justice decades before many had even begun to imagine it possible.</p><blockquote><p>The way to right wrongs is to turn the light of truth upon them.<br>—Ida B. Wells </p></blockquote>]]></content>
+    
+    
+    <categories>
+      
+      <category>Recordings of Stormy English</category>
+      
+      <category>TED-Education</category>
+      
+    </categories>
     
     
   </entry>

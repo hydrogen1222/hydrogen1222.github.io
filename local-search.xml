@@ -4,50 +4,11 @@
   
   
   <entry>
-    <title></title>
-    <link href="/2025/02/27/test3/index/"/>
-    <url>/2025/02/27/test3/index/</url>
+    <title>TEST</title>
+    <link href="/2025/02/27/TEST/"/>
+    <url>/2025/02/27/TEST/</url>
     
-    <content type="html"><![CDATA[<p>你好</p><p>你好</p><p>你好</p><p>你好</p><p>你好</p><p>你好</p><p><img src="/.xyz//image-20250227115229226.png" alt="image-20250227115229226"></p>]]></content>
-    
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>test2</title>
-    <link href="/2025/02/27/test2/"/>
-    <url>/2025/02/27/test2/</url>
-    
-    <content type="html"><![CDATA[<p>typora-root-url: test2</p>]]></content>
-    
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>test1</title>
-    <link href="/2025/02/27/test1/"/>
-    <url>/2025/02/27/test1/</url>
-    
-    <content type="html"><![CDATA[<p>cnn</p><p>你好</p><p>sdsadsadas</p><p><img src="/.xyz//02/27/test1/image-20250227113936728.png" alt="image-20250227113936728"></p>]]></content>
-    
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title></title>
-    <link href="/2025/02/27/123/index/"/>
-    <url>/2025/02/27/123/index/</url>
-    
-    <content type="html"><![CDATA[<p>TEST</p><p><img src="/.xyz//image-20250227112854428.png" alt="image-20250227112854428"></p>]]></content>
+    <content type="html"><![CDATA[<p>typora-root-url: TEST</p><p>能不能正常显示图片呢？</p><p><img src="/.xyz//image-20250227120302223.png" alt="image-20250227120302223"></p>]]></content>
     
     
     
@@ -61,19 +22,6 @@
     <url>/2025/02/27/nihao/</url>
     
     <content type="html"><![CDATA[<p>HELLO</p><p>![Pasted image 20240501115112](..&#x2F;images&#x2F;nihao&#x2F;Pasted image 20240501115112.png)</p><p>![Pasted image 20240501121030](..&#x2F;images&#x2F;nihao&#x2F;Pasted image 20240501121030.png)</p><p>![Pasted image 20240501121038](..&#x2F;images&#x2F;nihao&#x2F;Pasted image 20240501121038.png)</p>]]></content>
-    
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title></title>
-    <link href="/2025/02/27/test/"/>
-    <url>/2025/02/27/test/</url>
-    
-    <content type="html"><![CDATA[<p>hello</p><p><img src="/../images/test/image-20250227105309650.png" alt="image-20250227105309650"></p><p>test</p>]]></content>
     
     
     

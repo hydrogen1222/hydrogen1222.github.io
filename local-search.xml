@@ -8,7 +8,7 @@
     <link href="/2025/02/27/123/"/>
     <url>/2025/02/27/123/</url>
     
-    <content type="html"><![CDATA[<p>TEST</p><figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs django"><span class="hljs-template-tag">&#123;% <span class="hljs-name">asset_img</span> 1.png 这是图片描述 %&#125;</span><br></code></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<p>TEST</p><img src="/2025/02/27/123/1.png" class="" title="这是图片描述">]]></content>
     
     
     

@@ -4,11 +4,24 @@
   
   
   <entry>
+    <title></title>
+    <link href="/2025/02/27/TEST3/"/>
+    <url>/2025/02/27/TEST3/</url>
+    
+    <content type="html"><![CDATA[<p>ewqeqwewqeq</p><p><img src="/2025/02/27/TEST3/image-20250227122001924.png" alt="image-20250227122001924"></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>TEST2</title>
     <link href="/2025/02/27/TEST2/"/>
     <url>/2025/02/27/TEST2/</url>
     
-    <content type="html"><![CDATA[<p>typora-root-url: TEST2</p><p><img src="/.xyz//02/27/TEST2/image-20250227121055265.png"></p>]]></content>
+    <content type="html"><![CDATA[<p><img src="/2025/02/27/TEST2/02/27/TEST2/image.png"></p>]]></content>
     
     
     
@@ -21,7 +34,7 @@
     <link href="/2025/02/27/TEST/"/>
     <url>/2025/02/27/TEST/</url>
     
-    <content type="html"><![CDATA[<p>能不能正常显示图片呢？</p><p><img src="/.xyz//02/27/TEST/image-20250227120302223.png" alt="image-20250227120302223"></p><p><img src="/.xyz//02/27/TEST/image-20250227120627061.png" alt="image-20250227120627061"></p>]]></content>
+    <content type="html"><![CDATA[<p>能不能正常显示图片呢？</p><p><img src="/2025/02/27/TEST/02/27/TEST/image-20250227120302223.png" alt="image-20250227120302223"></p><p><img src="/2025/02/27/TEST/02/27/TEST/image-20250227120627061.png" alt="image-20250227120627061"></p>]]></content>
     
     
     

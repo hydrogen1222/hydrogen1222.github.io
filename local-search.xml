@@ -4,85 +4,12 @@
   
   
   <entry>
-    <title></title>
-    <link href="/2025/02/27/TEST3/"/>
-    <url>/2025/02/27/TEST3/</url>
+    <title>AMD显卡畅玩本地大模型</title>
+    <link href="/2025/02/27/%E7%95%85%E7%8E%A9%E6%9C%AC%E5%9C%B0%E5%A4%A7%E6%A8%A1%E5%9E%8B/"/>
+    <url>/2025/02/27/%E7%95%85%E7%8E%A9%E6%9C%AC%E5%9C%B0%E5%A4%A7%E6%A8%A1%E5%9E%8B/</url>
     
-    <content type="html"><![CDATA[<p>ewqeqwewqeq</p><p><img src="/2025/02/27/TEST3/image-20250227122001924.png" alt="image-20250227122001924"></p>]]></content>
+    <content type="html"><![CDATA[<h2 id="为什么选择AMD">为什么选择AMD</h2><p>因为穷（bushi✘），广大的DIY玩家因为各种各样的原因选择了AMD显卡，让我们相聚于此。AMD显卡相较于NVDIA以其高性价比著称，奈何NVDIA早已建立起CUDA的壁垒，AMD显卡在人工智能领域“有劲使不出”或者算力较NV差。几个月前，Ollama支持了部分AMD Radeon显卡以及AMD Radeon Pro显卡，让广大玩家有了尝鲜的机会，接下来咱们展开说说</p><h2 id="什么是Ollama">什么是Ollama</h2><p>“畅玩”之前，咱先把简单的原理搞清楚。</p><p>Ollama gihtub：<a href="https://github.com/ollama/ollama">https://github.com/ollama/ollama</a></p><p>Ollama官网：<a href="https://ollama.com/%EF%BC%88%E5%8F%AF%E6%AD%A3%E5%B8%B8%E8%AE%BF%E9%97%AE%EF%BC%89">https://ollama.com/（可正常访问）</a></p><p>什么是Ollama？</p><p>——Get up and running with large language models.</p><p>Ollama是一个调用和运行大模型的工具，可以是官方提供的大模型，也可以是非官方提供的途径，非Ollama官方提供的大模型可以前往Huggingface和魔搭社区（可正常访问）下载。</p><p>几个月前，Ollama官方终于支持了Radeon、Radeon Pro、以及AMD Instinct显卡👍👍👍这使得安装有AMD显卡的计算机在使用Ollama推理大模型时能够直接使用GPU而不是CPU推理</p><p><img src="/2025/02/27/%E7%95%85%E7%8E%A9%E6%9C%AC%E5%9C%B0%E5%A4%A7%E6%A8%A1%E5%9E%8B/640.png" alt="img"></p><p>==目前官方支持的显卡如下==</p><p><img src="/2025/02/27/%E7%95%85%E7%8E%A9%E6%9C%AC%E5%9C%B0%E5%A4%A7%E6%A8%A1%E5%9E%8B/231c4d90dbb166ce141803841024b48f.png" alt="231c4d90dbb166ce141803841024b48f"></p><h2 id="Let’s-start">Let’s start</h2><p>首先是下载Ollama客户端</p><p><img src="/2025/02/27/%E7%95%85%E7%8E%A9%E6%9C%AC%E5%9C%B0%E5%A4%A7%E6%A8%A1%E5%9E%8B/640-1740631088818-4.png" alt="图片"></p><p>单击下载好的OllamaSetup.exe文件，Ollama会安装在默认位置，无需选择。</p><p>需要注意的是，Ollama并没有提供图形化（GUI）的操作界面！！！因此，安装完成后Ollama将在后台运行，模型安装、对话等等交互都在终端中完成</p><p>对于A卡用户，这根本难不倒他👍</p><p><img src="/2025/02/27/%E7%95%85%E7%8E%A9%E6%9C%AC%E5%9C%B0%E5%A4%A7%E6%A8%A1%E5%9E%8B/640-1740631121515-7.png" alt="图片"></p><p>Ollama官方提供了多种模型，如llama3.1，qwen2，并列出了一键式安装方法。</p><p>此处以最热门的llama3.1为例</p><p><img src="/2025/02/27/%E7%95%85%E7%8E%A9%E6%9C%AC%E5%9C%B0%E5%A4%A7%E6%A8%A1%E5%9E%8B/640-1740631134786-10.png" alt="图片"></p><p>默认提供的是8b模型，大小4.7GB，这对于大多数的Radeon显卡的显存来说都是够用的，8b指的是参数大小，b即billion，此模型有80亿参数。llama3.1也提供了更多选择，若显存更大或者多张显卡交火也可尝试更大的模型。</p><p>复制右边的一键运行命令（ollama run llama3.1）</p><p>接着打开Windows终端，比如Windows PowerShell</p><p>打开开始菜单或者按下Win徽标键，搜索powershell即可找到。</p><p><img src="/2025/02/27/%E7%95%85%E7%8E%A9%E6%9C%AC%E5%9C%B0%E5%A4%A7%E6%A8%A1%E5%9E%8B/640-1740631147364-13.png" alt="图片"></p><p>在终端中输入ollama run llama3.1，相应的8b模型会被下载下来（可正常拉取），速度取决于网速，一段时间下载完成后将自动调用模型，即可与大模型对话。</p><p><img src="/2025/02/27/%E7%95%85%E7%8E%A9%E6%9C%AC%E5%9C%B0%E5%A4%A7%E6%A8%A1%E5%9E%8B/640-1740631159041-16.gif" alt="图片"></p><p><img src="/2025/02/27/%E7%95%85%E7%8E%A9%E6%9C%AC%E5%9C%B0%E5%A4%A7%E6%A8%A1%E5%9E%8B/640-1740631163258-19.gif" alt="图片"></p><p>下载完成后，当看到“&gt;&gt;&gt; ”符号时即可与大模型对话，输入“/bye”退出</p><p>笔者使用的是Ollama官方并不支持的AMD 780M核心显卡，因此推理（可理解为对话后文字的返回速度）由CPU完成，速度还行，可以正常接受。</p><p>各位读者的计算机上GPU的推理速度一定比CPU快得多得多</p><h2 id="后话">后话</h2><p>除了Ollama官方提供的模型外，Ollama也可以使用从Huggingface或者魔搭社区（可正常访问）下载模型，分为GGUF和PyTorch or Safetensors两种。</p><p>前者的操作如下，而后者通常对硬件设备（显存）要求更加严格</p><p><img src="/2025/02/27/%E7%95%85%E7%8E%A9%E6%9C%AC%E5%9C%B0%E5%A4%A7%E6%A8%A1%E5%9E%8B/640-1740631182060-22.png" alt="图片"></p><p>原文链接：<a href="https://mp.weixin.qq.com/s/u9RMrjh-_NJmMR7A4XFVBw">https://mp.weixin.qq.com/s/u9RMrjh-_NJmMR7A4XFVBw</a></p>]]></content>
     
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>TEST2</title>
-    <link href="/2025/02/27/TEST2/"/>
-    <url>/2025/02/27/TEST2/</url>
-    
-    <content type="html"><![CDATA[<p><img src="/2025/02/27/TEST2/02/27/TEST2/image.png"></p>]]></content>
-    
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>TEST</title>
-    <link href="/2025/02/27/TEST/"/>
-    <url>/2025/02/27/TEST/</url>
-    
-    <content type="html"><![CDATA[<p>能不能正常显示图片呢？</p><p><img src="/2025/02/27/TEST/02/27/TEST/image-20250227120302223.png" alt="image-20250227120302223"></p><p><img src="/2025/02/27/TEST/02/27/TEST/image-20250227120627061.png" alt="image-20250227120627061"></p>]]></content>
-    
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title></title>
-    <link href="/2025/02/27/nihao/"/>
-    <url>/2025/02/27/nihao/</url>
-    
-    <content type="html"><![CDATA[<p>HELLO</p><p>![Pasted image 20240501115112](..&#x2F;images&#x2F;nihao&#x2F;Pasted image 20240501115112.png)</p><p>![Pasted image 20240501121030](..&#x2F;images&#x2F;nihao&#x2F;Pasted image 20240501121030.png)</p><p>![Pasted image 20240501121038](..&#x2F;images&#x2F;nihao&#x2F;Pasted image 20240501121038.png)</p>]]></content>
-    
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="/2025/02/25/hello-world/"/>
-    <url>/2025/02/25/hello-world/</url>
-    
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
-    
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>How one journalist risked her life to hold murderers accountable</title>
-    <link href="/2025/02/25/How%20one%20journalist%20risked%20her%20life%20to%20hold%20murderers%20accountable/"/>
-    <url>/2025/02/25/How%20one%20journalist%20risked%20her%20life%20to%20hold%20murderers%20accountable/</url>
-    
-    <content type="html"><![CDATA[<p>In March of 1892, three Black grocery store owners in Memphis, Tennessee, were murdered by a mob of white men. </p><p> <em>&#x3D;&#x3D;Lynchings&#x3D;&#x3D;</em>  like these were happening all over the American South, often without any subsequent legal investigation or consequences for the murderers. </p><p>But this time, a young journalist and friend of the victims set out to expose the truth about these killings. </p><p>Her reports would shock the nation and launch her career as an investigative journalist, civic leader, and civil rights advocate. </p><p>Her name was Ida B. Wells. </p><p>Ida Bell Wells was born into slavery in Holly Springs, Mississippi on July 16, 1862, several months before the Emancipation Proclamation released her and her family. </p><p>After losing both parents and a brother to  <em>&#x3D;&#x3D;yellow fever&#x3D;&#x3D;</em>  at the age of 16,  <em>&#x3D;&#x3D;she supported her five remaining siblings&#x3D;&#x3D;</em>  by working as a schoolteacher in Memphis, Tennessee. </p><p>During this time, she began working as a journalist. </p><p>Writing under the pen name “Iola,” by the early 1890s she gained a reputation as a clear voice against racial injustice and become co-owner and editor of the Memphis Free Speech and Headlight newspaper. </p><p>She had no shortage of material: in the decades following the Civil War, Southern whites attempted to  <em>&#x3D;&#x3D;reassert&#x3D;&#x3D;</em>  their power by committing crimes against Black people including suppressing their votes,  <em>&#x3D;&#x3D;vandalizing&#x3D;&#x3D;</em>  their businesses, and even murdering them. </p><p>After the murder of her friends, Wells launched an investigation into lynching. </p><p>She analyzed specific cases through newspaper reports and police records, and interviewed people who had lost friends and family to lynch mobs. </p><p>She risked her life to get this information. </p><p>As a Black person investigating racially motivated murders, she  <em>&#x3D;&#x3D;enraged&#x3D;&#x3D;</em>  many of the same southern white men involved in lynchings. </p><p>Her bravery  <em>&#x3D;&#x3D;paid off&#x3D;&#x3D;</em> . </p><p>Most whites had claimed and subsequently reported that lynchings were responses to criminal acts by Black people. </p><p>But that was not usually the case. </p><p>Through her research, Wells showed that these murders were actually  <em>&#x3D;&#x3D;a deliberate&#x3D;&#x3D;</em> ,  <em>&#x3D;&#x3D;brutal tactic&#x3D;&#x3D;</em>  to control or punish black people who competed with whites. </p><p>Her friends, for example, had been lynched when their grocery store became popular enough to  <em>&#x3D;&#x3D;divert&#x3D;&#x3D;</em>  business from a white competitor. </p><p>Wells published her findings in 1892. </p><p>In response, a white  <em>&#x3D;&#x3D;mob&#x3D;&#x3D;</em>  destroyed her newspaper presses. </p><p>She was out of town when they struck, but they threatened to kill her if she ever returned to Memphis. </p><p>So she traveled to New York, where that same year she re-published her research in a pamphlet titled Southern Horrors: Lynch Law in All Its Phases. </p><p>In 1895, after settling in Chicago, she built on Southern Horrors in a longer piece called The Red Record. </p><p>Her careful documentation of the horrors of lynching and  <em>&#x3D;&#x3D;impassioned&#x3D;&#x3D;</em>  public speeches drew international attention. </p><p>Wells used her  <em>&#x3D;&#x3D;newfound fame&#x3D;&#x3D;</em>  to amplify her message. </p><p>She traveled to Europe, where she  <em>&#x3D;&#x3D;rallied&#x3D;&#x3D;</em>  European  <em>&#x3D;&#x3D;outrage&#x3D;&#x3D;</em>  against racial violence in the American South in hopes that the US government and public would follow their example. </p><p>Back in the US, she didn’t hesitate to confront powerful organizations, fighting the  <em>&#x3D;&#x3D;segregationist&#x3D;&#x3D;</em>  policies of the YMCA and leading a delegation to the White House to protest discriminatory workplace practices. </p><p>She did all this while  <em>&#x3D;&#x3D;disenfranchised&#x3D;&#x3D;</em>  herself. </p><p>Women didn’t win the right to vote until Wells was in her late 50s. </p><p>And even then, the vote was primarily extended to white women only. </p><p>Wells was a key player in the battle for voting inclusion, starting a Black women’s  <em>&#x3D;&#x3D;suffrage&#x3D;&#x3D;</em>  organization in Chicago. </p><p>But in spite of her deep  <em>&#x3D;&#x3D;commitment&#x3D;&#x3D;</em>  to women’s rights, she  <em>&#x3D;&#x3D;clashed&#x3D;&#x3D;</em>  with white leaders of the movement. </p><p>During a march for women’s suffrage in Washington D.C., she ignored the organizers’ attempt to  <em>&#x3D;&#x3D;placate&#x3D;&#x3D;</em>  Southern  <em>&#x3D;&#x3D;bigotry&#x3D;&#x3D;</em>  by placing Black women in the back, and marched up front alongside the white women. </p><p>She also  <em>&#x3D;&#x3D;chafed&#x3D;&#x3D;</em>  with other civil rights leaders, who saw her as a dangerous radical. </p><p>She insisted on  <em>&#x3D;&#x3D;airing&#x3D;&#x3D;</em> ,  <em>&#x3D;&#x3D;in full detail&#x3D;&#x3D;</em> , the  <em>&#x3D;&#x3D;atrocities&#x3D;&#x3D;</em>  taking place in the South, while others thought doing so would be  <em>&#x3D;&#x3D;counterproductive&#x3D;&#x3D;</em>  to negotiations with white politicians. </p><p>Although she participated in the founding of the NAACP, she was soon  <em>&#x3D;&#x3D;sidelined from the organization&#x3D;&#x3D;</em> . </p><p>Wells’ unwillingness to compromise any aspect of her  <em>&#x3D;&#x3D;vision&#x3D;&#x3D;</em>  of justice shined a light on the weak points of the various rights movements, and ultimately made them stronger— but also made it difficult for her to find a place within them. </p><p>She was ahead of her time,  <em>&#x3D;&#x3D;waging&#x3D;&#x3D;</em>  a  <em>&#x3D;&#x3D;tireless&#x3D;&#x3D;</em>  struggle for equality and justice decades before many had even begun to imagine it possible.</p><blockquote><p>The way to right wrongs is to turn the light of truth upon them.<br>—Ida B. Wells </p></blockquote>]]></content>
-    
-    
-    <categories>
-      
-      <category>Recordings of Stormy English</category>
-      
-      <category>TED-Education</category>
-      
-    </categories>
     
     
   </entry>

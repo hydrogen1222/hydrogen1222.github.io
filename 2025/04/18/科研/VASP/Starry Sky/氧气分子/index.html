@@ -22,19 +22,19 @@
     <meta name="description" content="单点能计算又叫做静态计算，计算时不会优化结构 INCAR 12345678SYSTEM &#x3D; OISMEAR &#x3D; 0 #绝缘体系ISMEAR &#x3D; 0SIGMA &#x3D; 0.01ISPIN &#x3D; 2 #氧气是顺磁性分子，ISPIN &#x3D; 2开启自旋MAGMON &#x3D; 2*2 #设置磁矩#IBRION &#x3D; 2 确定计算过程中晶体结构如何变化的参数，不设置使默认IBRION &#x3D; -1，IBRION &#x3D;2为共轭梯度算">
 <meta property="og:type" content="article">
 <meta property="og:title" content="氧气分子单点能的计算及结构优化">
-<meta property="og:url" content="https://hydrogen1222.xyz/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E6%B0%A7%E6%B0%94%E5%88%86%E5%AD%90/index.html">
+<meta property="og:url" content="https://hydrogen1222.xyz/2025/04/18/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E6%B0%A7%E6%B0%94%E5%88%86%E5%AD%90/index.html">
 <meta property="og:site_name" content="Stormy&#39;s Storehouse">
 <meta property="og:description" content="单点能计算又叫做静态计算，计算时不会优化结构 INCAR 12345678SYSTEM &#x3D; OISMEAR &#x3D; 0 #绝缘体系ISMEAR &#x3D; 0SIGMA &#x3D; 0.01ISPIN &#x3D; 2 #氧气是顺磁性分子，ISPIN &#x3D; 2开启自旋MAGMON &#x3D; 2*2 #设置磁矩#IBRION &#x3D; 2 确定计算过程中晶体结构如何变化的参数，不设置使默认IBRION &#x3D; -1，IBRION &#x3D;2为共轭梯度算">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://hydrogen1222.xyz/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E6%B0%A7%E6%B0%94%E5%88%86%E5%AD%90/imageedit_6_9897027704.png">
-<meta property="og:image" content="https://hydrogen1222.xyz/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E6%B0%A7%E6%B0%94%E5%88%86%E5%AD%90/QQ20250418-203001.png">
-<meta property="article:published_time" content="2025-04-14T08:40:00.000Z">
-<meta property="article:modified_time" content="2025-04-18T12:30:31.773Z">
+<meta property="og:image" content="https://hydrogen1222.xyz/2025/04/18/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E6%B0%A7%E6%B0%94%E5%88%86%E5%AD%90/imageedit_6_9897027704.png">
+<meta property="og:image" content="https://hydrogen1222.xyz/2025/04/18/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E6%B0%A7%E6%B0%94%E5%88%86%E5%AD%90/QQ20250418-203001.png">
+<meta property="article:published_time" content="2025-04-18T08:40:00.000Z">
+<meta property="article:modified_time" content="2025-04-18T12:32:58.077Z">
 <meta property="article:author" content="Storm Talia">
 <meta property="article:tag" content="化学">
 <meta property="article:tag" content="科研">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://hydrogen1222.xyz/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E6%B0%A7%E6%B0%94%E5%88%86%E5%AD%90/imageedit_6_9897027704.png">
+<meta name="twitter:image" content="https://hydrogen1222.xyz/2025/04/18/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E6%B0%A7%E6%B0%94%E5%88%86%E5%AD%90/imageedit_6_9897027704.png">
   
   
   
@@ -239,8 +239,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-04-14 16:40" pubdate>
-          2025年4月14日 下午
+        <time datetime="2025-04-18 16:40" pubdate>
+          2025年4月18日 下午
         </time>
       </span>
     
@@ -325,13 +325,13 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs VASP">spin component 1<br><br>k-point     1 :       0.0000    0.0000    0.0000<br> band No.  band energies     occupation<br>     1     -32.9044      1.00000			#1σ轨道<br>     2     -20.2474      1.00000			#2σ轨道<br>     3     -13.3174      1.00000			#3σ轨道,能量应比1π和2π轨道更低，不合理<br>     4     -13.3171      1.00000			#1π轨道<br>     5     -13.2940      1.00000			#2π轨道，能量应与1π轨道相同，不合理<br>     6      -6.5560      1.00000			#3π轨道<br>     7      -6.5524      1.00000			#4π轨道<br>     8      -0.3909      0.00000<br>     9       1.1220      0.00000<br>    10       1.5493      0.00000<br>    11       1.7604      0.00000<br>    12       2.0536      0.00000<br>    13       2.0592      0.00000<br>    14       2.4672      0.00000<br>    15       3.1984      0.00000<br>    16       3.6244      0.00000<br>Fermi energy:        -6.4848556277<br></code></pre></td></tr></table></figure>
 <p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi></mrow><annotation encoding="application/x-tex">\beta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.05278em;">β</span></span></span></span>电子，正常</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs VASP">spin component 2<br><br>k-point     1 :       0.0000    0.0000    0.0000<br> band No.  band energies     occupation<br>     1     -31.6977      1.00000<br>     2     -18.4541      1.00000<br>     3     -12.3485      1.00000<br>     4     -11.4763      1.00000<br>     5     -11.4760      1.00000<br>     6      -4.2772      0.00000<br>     7      -4.2742      0.00000<br>     8      -0.2440      0.00000<br>     9       1.4049      0.00000<br>    10       1.6215      0.00000<br>    11       1.9473      0.00000<br>    12       2.1710      0.00000<br>    13       2.2499      0.00000<br>    14       2.5860      0.00000<br>    15       3.5816      0.00000<br>    16       3.8831      0.00000<br></code></pre></td></tr></table></figure>
-<p><img src="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E6%B0%A7%E6%B0%94%E5%88%86%E5%AD%90/imageedit_6_9897027704.png" srcset="/img/loading.gif" lazyload alt="Molecule orbital of oxygen"></p>
+<p><img src="/2025/04/18/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E6%B0%A7%E6%B0%94%E5%88%86%E5%AD%90/imageedit_6_9897027704.png" srcset="/img/loading.gif" lazyload alt="Molecule orbital of oxygen"></p>
 <p>对氧气进行结构优化，更改INCAR</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs VASP">SYSTEM = O<br>ISMEAR = 0 #绝缘体系ISMEAR = 0<br>SIGMA = 0.01<br>ISPIN = 2 #氧气是顺磁性分子，ISPIN = 2开启自旋<br>MAGMON = 2*2 #设置磁矩<br><br>IBRION = 2 #确定计算过程中晶体结构如何变化的参数，不设置使默认IBRION = -1，IBRION =2为共轭梯度算法<br>NSW = 10  #离子步10步<br></code></pre></td></tr></table></figure>
 <p>计算后发现<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.0037em;">α</span></span></span></span>电子部分已经修正</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs VASP">spin component 1<br><br>k-point     1 :       0.0000    0.0000    0.0000<br> band No.  band energies     occupation<br>     1     -32.2878      1.00000			#1σ轨道<br>     2     -20.4859      1.00000			#2σ轨道<br>     3     -13.2238      1.00000			#3σ轨道，能量合理<br>     4     -13.0591      1.00000<br>     5     -13.0588      1.00000<br>     6      -6.7814      1.00000<br>     7      -6.7778      1.00000<br>     8      -0.3857      0.00000<br>     9       1.0213      0.00000<br>    10       1.6177      0.00000<br>    11       1.7818      0.00000<br>    12       2.0634      0.00000<br>    13       2.0746      0.00000<br>    14       2.4643      0.00000<br>    15       2.8035      0.00000<br>    16       3.6409      0.00000<br>Fermi energy:        -6.7122607632<br></code></pre></td></tr></table></figure>
 <p>用VESTA打开优化好的结构(<code>CONTCAR</code>)可以查看键长</p>
-<p><img src="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E6%B0%A7%E6%B0%94%E5%88%86%E5%AD%90/QQ20250418-203001.png" srcset="/img/loading.gif" lazyload alt="优化完的氧气分子的键长"></p>
+<p><img src="/2025/04/18/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E6%B0%A7%E6%B0%94%E5%88%86%E5%AD%90/QQ20250418-203001.png" srcset="/img/loading.gif" lazyload alt="优化完的氧气分子的键长"></p>
 
                 
               </div>
@@ -387,7 +387,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>氧气分子单点能的计算及结构优化</div>
-      <div>https://hydrogen1222.xyz/2025/04/14/科研/VASP/Starry Sky/氧气分子/</div>
+      <div>https://hydrogen1222.xyz/2025/04/18/科研/VASP/Starry Sky/氧气分子/</div>
     </div>
     <div class="license-meta">
       
@@ -399,7 +399,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年4月14日</div>
+          <div>2025年4月18日</div>
         </div>
       
       
@@ -431,9 +431,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/" title="VASP学习笔记">
+                      <a href="/2025/04/18/Stormy%20English/The%20TED-Ed%20project/What%20staying%20up%20all%20night%20does%20to%20your%20brain/" title="What staying up all nights does to your brain">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">VASP学习笔记</span>
+                        <span class="hidden-mobile">What staying up all nights does to your brain</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -441,8 +441,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/04/12/%E7%A7%91%E7%A0%94/%E7%94%B5%E6%B1%A0%E5%82%A8%E8%83%BD%E5%BE%AE%E4%B8%93%E4%B8%9A/" title="电池储能微专业">
-                        <span class="hidden-mobile">电池储能微专业</span>
+                      <a href="/2025/04/17/2025%E5%B9%B45%E6%9C%88AMD%E5%B9%B3%E5%8F%B0%E4%B8%8BVASP%E7%9A%84%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/" title="2025年5月AMD平台下VASP的编译安装">
+                        <span class="hidden-mobile">2025年5月AMD平台下VASP的编译安装</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

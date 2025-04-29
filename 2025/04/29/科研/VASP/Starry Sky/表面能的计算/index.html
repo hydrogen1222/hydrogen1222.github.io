@@ -22,18 +22,18 @@
     <meta name="description" content="关于表面能 根据VASP官方手册Hands on Session III，表面能的定义如下，大师兄的文章也提到了这个定义( Nanoscale, 2017, 9, 13089–13094) σ&#x3D;σunrelax+Erelax&#x3D;12(Esurf−Natoms⋅Ebulk)+Erelax\sigma&#x3D;\sigma^{unrelax}+E^{relax}&#x3D;\dfrac{1}{2}(E_{surf}-N">
 <meta property="og:type" content="article">
 <meta property="og:title" content="表面能的计算">
-<meta property="og:url" content="https://hydrogen1222.xyz/2025/04/18/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E8%A1%A8%E9%9D%A2%E8%83%BD%E7%9A%84%E8%AE%A1%E7%AE%97/index.html">
+<meta property="og:url" content="https://hydrogen1222.xyz/2025/04/29/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E8%A1%A8%E9%9D%A2%E8%83%BD%E7%9A%84%E8%AE%A1%E7%AE%97/index.html">
 <meta property="og:site_name" content="Stormy&#39;s Storehouse">
 <meta property="og:description" content="关于表面能 根据VASP官方手册Hands on Session III，表面能的定义如下，大师兄的文章也提到了这个定义( Nanoscale, 2017, 9, 13089–13094) σ&#x3D;σunrelax+Erelax&#x3D;12(Esurf−Natoms⋅Ebulk)+Erelax\sigma&#x3D;\sigma^{unrelax}+E^{relax}&#x3D;\dfrac{1}{2}(E_{surf}-N">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://hydrogen1222.xyz/2025/04/18/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E8%A1%A8%E9%9D%A2%E8%83%BD%E7%9A%84%E8%AE%A1%E7%AE%97/%E5%90%91%E9%87%8F%E5%A4%96%E7%A7%AF.jpg">
-<meta property="article:published_time" content="2025-04-18T08:40:00.000Z">
-<meta property="article:modified_time" content="2025-04-29T12:45:24.163Z">
+<meta property="og:image" content="https://hydrogen1222.xyz/2025/04/29/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E8%A1%A8%E9%9D%A2%E8%83%BD%E7%9A%84%E8%AE%A1%E7%AE%97/%E5%90%91%E9%87%8F%E5%A4%96%E7%A7%AF.jpg">
+<meta property="article:published_time" content="2025-04-29T13:40:00.000Z">
+<meta property="article:modified_time" content="2025-04-29T13:39:45.564Z">
 <meta property="article:author" content="Storm Talia">
 <meta property="article:tag" content="化学">
 <meta property="article:tag" content="科研">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://hydrogen1222.xyz/2025/04/18/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E8%A1%A8%E9%9D%A2%E8%83%BD%E7%9A%84%E8%AE%A1%E7%AE%97/%E5%90%91%E9%87%8F%E5%A4%96%E7%A7%AF.jpg">
+<meta name="twitter:image" content="https://hydrogen1222.xyz/2025/04/29/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E8%A1%A8%E9%9D%A2%E8%83%BD%E7%9A%84%E8%AE%A1%E7%AE%97/%E5%90%91%E9%87%8F%E5%A4%96%E7%A7%AF.jpg">
   
   
   
@@ -238,8 +238,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-04-18 16:40" pubdate>
-          2025年4月18日 下午
+        <time datetime="2025-04-29 21:40" pubdate>
+          2025年4月29日 晚上
         </time>
       </span>
     
@@ -330,7 +330,7 @@
 <p><strong>表面积可通过晶格基矢量的叉积确定</strong>，在POSCAR或CONTCAR文件中，晶格基矢量通常以三行的形式定义</p>
 <p>对于面积的计算，可设一组不共线的基矢量为<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi mathvariant="bold">a</mi><mn mathvariant="bold">1</mn></msub><mo>=</mo><mo stretchy="false">(</mo><msub><mi>a</mi><mn>11</mn></msub><mo separator="true">,</mo><msub><mi>a</mi><mn>12</mn></msub><mo separator="true">,</mo><mn>0</mn><mo stretchy="false">)</mo><mo separator="true">,</mo><msub><mi mathvariant="bold">a</mi><mn mathvariant="bold">2</mn></msub><mo>=</mo><mo stretchy="false">(</mo><msub><mi>a</mi><mn>21</mn></msub><mo separator="true">,</mo><msub><mi>a</mi><mn>22</mn></msub><mo separator="true">,</mo><mn>0</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\mathbf{a_1}=(a_{11},a_{12},0),\mathbf{a_2}=(a_{21},a_{22},0)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.59444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord"><span class="mord mathbf">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathbf mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">0</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord"><span class="mord mathbf">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathbf mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">0</span><span class="mclose">)</span></span></span></span></p>
 <p>下面这张图应该挺形象</p>
-<p><img src="/2025/04/18/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E8%A1%A8%E9%9D%A2%E8%83%BD%E7%9A%84%E8%AE%A1%E7%AE%97/%E5%90%91%E9%87%8F%E5%A4%96%E7%A7%AF.jpg" srcset="/img/loading.gif" lazyload alt="https://zhuanlan.zhihu.com/p/359975221"></p>
+<p><img src="/2025/04/29/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E8%A1%A8%E9%9D%A2%E8%83%BD%E7%9A%84%E8%AE%A1%E7%AE%97/%E5%90%91%E9%87%8F%E5%A4%96%E7%A7%AF.jpg" srcset="/img/loading.gif" lazyload alt="https://zhuanlan.zhihu.com/p/359975221"></p>
 <p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover accent="true"><mi>a</mi><mo>⃗</mo></mover><mo>×</mo><mover accent="true"><mi>b</mi><mo>⃗</mo></mover><mo>=</mo><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><mn>0</mn><mo separator="true">,</mo><msub><mi>a</mi><mn>11</mn></msub><mo>×</mo><msub><mi>a</mi><mn>22</mn></msub><mo>−</mo><msub><mi>a</mi><mn>12</mn></msub><mo>×</mo><msub><mi>a</mi><mn>21</mn></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\vec{a}\times \vec{b}=(0,0,a_{11}\times a_{22}-a_{12}\times a_{21})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.79733em;vertical-align:-0.08333em;"></span><span class="mord accent"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.714em;"><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">a</span></span></span><span style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="accent-body" style="left:-0.2355em;"><span class="overlay" style="height:0.714em;width:0.471em;"><svg width="0.471em" height="0.714em" style="width:0.471em" viewbox="0 0 471 714" preserveaspectratio="xMinYMin"><path d="M377 20c0-5.333 1.833-10 5.5-14S391 0 397 0c4.667 0 8.667 1.667 12 5
 3.333 2.667 6.667 9 10 19 6.667 24.667 20.333 43.667 41 57 7.333 4.667 11
 10.667 11 18 0 6-1 10-3 12s-6.667 5-14 9c-28.667 14.667-53.667 35.667-75 63
@@ -463,7 +463,7 @@ c-16-25.333-24-45-24-59z"/></svg></span></span></span></span></span></span></spa
   <div class="license-box my-3">
     <div class="license-title">
       <div>表面能的计算</div>
-      <div>https://hydrogen1222.xyz/2025/04/18/科研/VASP/Starry Sky/表面能的计算/</div>
+      <div>https://hydrogen1222.xyz/2025/04/29/科研/VASP/Starry Sky/表面能的计算/</div>
     </div>
     <div class="license-meta">
       
@@ -475,7 +475,7 @@ c-16-25.333-24-45-24-59z"/></svg></span></span></span></span></span></span></spa
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年4月18日</div>
+          <div>2025年4月29日</div>
         </div>
       
       
@@ -507,18 +507,12 @@ c-16-25.333-24-45-24-59z"/></svg></span></span></span></span></span></span></spa
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/04/18/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E6%B0%A7%E6%B0%94%E5%88%86%E5%AD%90/" title="氧气分子单点能的计算及结构优化">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">氧气分子单点能的计算及结构优化</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/04/17/%E7%A7%91%E7%A0%94/VASP/2025%E5%B9%B45%E6%9C%88AMD%E5%B9%B3%E5%8F%B0%E4%B8%8BVASP%E7%9A%84%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/" title="2025年4月AMD平台下VASP的编译安装">
-                        <span class="hidden-mobile">2025年4月AMD平台下VASP的编译安装</span>
+                      <a href="/2025/04/29/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/POTCAR%E8%B5%9D%E5%8A%BF%E7%9A%84%E9%80%89%E5%8F%96/" title="POTCAR赝势的选取">
+                        <span class="hidden-mobile">POTCAR赝势的选取</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

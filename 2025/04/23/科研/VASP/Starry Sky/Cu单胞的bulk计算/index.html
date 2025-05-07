@@ -19,12 +19,12 @@
   <meta name="author" content="Storm Talia">
   <meta name="keywords" content="百宝箱，宝藏，仓库，博客">
   
-    <meta name="description" content="bulk计算，直译为“体相计算”，指的是模拟理想的三维无限大晶体（无表面、界面或缺陷，不模拟则体系太大算不动），利用 周期性边界条件 描述材料的体相性质，主要用于研究材料的本征物理化学性质（如晶格结构、电子能带、热力学稳定性等） 准备POSCAR 打开materials studio-File-Import-Structures-Metals-pure metals-Cu.xsd，然后export">
+    <meta name="description" content="bulk计算，直译为“体相计算”，指的是模拟理想的三维无限大晶体（无表面、界面或缺陷，不模拟则体系太大算不动），利用 周期性边界条件 描述材料的体相性质，主要用于研究材料的本征物理化学性质（如晶格结构、电子能带、热力学稳定性等）  准备POSCAR 打开materials studio-File-Import-Structures-Metals-pure metals-Cu.xsd，然后expor">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Cu单胞的bulk计算">
 <meta property="og:url" content="https://hydrogen1222.xyz/2025/04/23/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Cu%E5%8D%95%E8%83%9E%E7%9A%84bulk%E8%AE%A1%E7%AE%97/index.html">
 <meta property="og:site_name" content="Stormy&#39;s Storehouse">
-<meta property="og:description" content="bulk计算，直译为“体相计算”，指的是模拟理想的三维无限大晶体（无表面、界面或缺陷，不模拟则体系太大算不动），利用 周期性边界条件 描述材料的体相性质，主要用于研究材料的本征物理化学性质（如晶格结构、电子能带、热力学稳定性等） 准备POSCAR 打开materials studio-File-Import-Structures-Metals-pure metals-Cu.xsd，然后export">
+<meta property="og:description" content="bulk计算，直译为“体相计算”，指的是模拟理想的三维无限大晶体（无表面、界面或缺陷，不模拟则体系太大算不动），利用 周期性边界条件 描述材料的体相性质，主要用于研究材料的本征物理化学性质（如晶格结构、电子能带、热力学稳定性等）  准备POSCAR 打开materials studio-File-Import-Structures-Metals-pure metals-Cu.xsd，然后expor">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-04-23T02:09:00.000Z">
 <meta property="article:modified_time" content="2025-04-26T03:08:23.201Z">
@@ -311,14 +311,14 @@
               <div class="markdown-body">
                 
                 <p>bulk计算，直译为“体相计算”，指的是模拟理想的三维无限大晶体（无表面、界面或缺陷，不模拟则体系太大算不动），利用 <strong>周期性边界条件</strong> 描述材料的体相性质，主要用于研究材料的本征物理化学性质（如晶格结构、电子能带、热力学稳定性等）</p>
-<h2 id="准备POSCAR">准备POSCAR</h2>
+<h2 id="准备poscar"><a class="markdownIt-Anchor" href="#准备poscar"></a> 准备POSCAR</h2>
 <p>打开materials studio-File-Import-Structures-Metals-pure metals-Cu.xsd，然后export为cif文件</p>
 <p>用vesta打开Cu.cif文件，再export data，导出保存为POSCAR文件</p>
-<h3 id="准备KPOINTS">准备KPOINTS</h3>
+<h3 id="准备kpoints"><a class="markdownIt-Anchor" href="#准备kpoints"></a> 准备KPOINTS</h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs KPOINTS">KPOINTS for Cu-concentional-cell-bulk-calc<br>0<br>Gamma<br>13 13 13<br>0 0 0<br></code></pre></td></tr></table></figure>
-<h2 id="准备INCAR">准备INCAR</h2>
+<h2 id="准备incar"><a class="markdownIt-Anchor" href="#准备incar"></a> 准备INCAR</h2>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs INCAR">SYSTEM = Cu-conventional-cell-bulk-calculation<br>ISMEAR = 0<br>SIGMA = 0.1<br>ENCUT = 700<br>ISIF = 3<br>NSW = 200<br>NELM = 200<br>IBRION = 2<br>POTIM = 0.1<br>EDIFFG = -0.01<br>ALGO = Normal<br>EDIFF = 1E-6<br></code></pre></td></tr></table></figure>
-<h2 id="提交任务">提交任务</h2>
+<h2 id="提交任务"><a class="markdownIt-Anchor" href="#提交任务"></a> 提交任务</h2>
 <p>第一次使用超算平台，还算顺利，稍微折腾了一下终于能成功提交任务了</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">[ctan@baifq-hpc141 Cu-statistic]$ sbatch vasp  <span class="hljs-comment">#vasp is the script</span><br>[ctan@baifq-hpc141 Cu-statistic]$ grep accuracy OUTCAR<br> reached required accuracy - stopping structural energy minimisation <span class="hljs-comment">#calculation finished normally</span><br></code></pre></td></tr></table></figure>
 <p>优化后的结构<code>CONTCAR</code>如下</p>

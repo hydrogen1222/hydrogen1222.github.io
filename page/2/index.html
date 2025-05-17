@@ -252,6 +252,76 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
+        <a href="/2025/04/29/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E8%A1%A8%E9%9D%A2%E8%83%BD%E7%9A%84%E8%AE%A1%E7%AE%97/" target="_self">
+          表面能的计算
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/29/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E8%A1%A8%E9%9D%A2%E8%83%BD%E7%9A%84%E8%AE%A1%E7%AE%97/" target="_self">
+        <div>
+          关于表面能 根据VASP官方手册Hands on Session III，表面能的定义如下，大师兄的文章也提到了这个定义( Nanoscale, 2017, 9, 13089–13094) $$ \sigma=\sigma^{unrelax}+E^{relax}=\dfrac{1}{2}(E_{surf}-N_{atoms}\cdot E_{bulk})+E^{relax} $$ $$ \gamm
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2025-04-29 21:40" pubdate>
+              2025-04-29
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/" class="category-chain-item">从零开始的科研之旅</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/VASP/" class="category-chain-item">VASP</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%8C%96%E5%AD%A6/">#化学</a>
+            
+              <a href="/tags/%E7%A7%91%E7%A0%94/">#科研</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
         <a href="/2025/04/29/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/POTCAR%E8%B5%9D%E5%8A%BF%E7%9A%84%E9%80%89%E5%8F%96/" target="_self">
           POTCAR赝势的选取
         </a>
@@ -400,7 +470,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2025/04/27/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Cu(111)%E6%99%B6%E9%9D%A2%E7%9A%84%E4%BC%98%E5%8C%96%E8%AE%A1%E7%AE%97/" target="_self">
         <div>
-          POSCAR的修改 与单点计算不同，优化计算可能涉及到离子步迭代、晶格常数的改变。但Cu(111)晶面的优化计算并不只是在INCAR里添加参数IBRION，优化计算确实允许原子弛豫，但在slab模型中，只允许表面的两层原子允许弛豫，而下面的那些原子则直接固定住  这样做的物理意义在于：在真实的环境下，催化剂体相看做是不变的，只有表面的原子参与催化反应  前面在乙醇分子的振动频率分析里面已经学过了
+          POSCAR的修改 与单点计算不同，优化计算可能涉及到离子步迭代、晶格常数的改变。但Cu(111)晶面的优化计算并不只是在INCAR里添加参数IBRION，优化计算确实允许原子弛豫，但在slab模型中，只允许表面的两层原子允许弛豫，而下面的那些原子则直接固定住  这样做的物理意义在于：在真实的环境下，催化剂体相看做是不变的，只有表面的原子参与催化反应  前面在乙醇分子的振动频率分析里面已经学过了，
         </div>
       </a>
 
@@ -540,7 +610,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2025/04/23/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Cu%E5%8D%95%E8%83%9E%E7%9A%84bulk%E8%AE%A1%E7%AE%97/" target="_self">
         <div>
-          bulk计算，直译为“体相计算”，指的是模拟理想的三维无限大晶体（无表面、界面或缺陷，不模拟则体系太大算不动），利用 周期性边界条件 描述材料的体相性质，主要用于研究材料的本征物理化学性质（如晶格结构、电子能带、热力学稳定性等）  准备POSCAR 打开materials studio-File-Import-Structures-Metals-pure metals-Cu.xsd，然后expor
+          bulk计算，直译为“体相计算”，指的是模拟理想的三维无限大晶体（无表面、界面或缺陷，不模拟则体系太大算不动），利用 周期性边界条件 描述材料的体相性质，主要用于研究材料的本征物理化学性质（如晶格结构、电子能带、热力学稳定性等） 准备POSCAR 打开materials studio-File-Import-Structures-Metals-pure metals-Cu.xsd，然后export
         </div>
       </a>
 
@@ -610,7 +680,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2025/04/19/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E4%B9%99%E9%86%87%E5%88%86%E5%AD%90/" target="_self">
         <div>
-          乙醇分子的结构优化  INCAR 1234567SYSTEM = ethanolISMEAR = 0 #Gaussian ismear, for insulatorSIGMA = 0.01NSW = 200IBRION = 2 #OptimizarionPOTIM = 0.01 #a little conservative step  KPOINTS 12345K-POINTS0Gamma1 1
+          乙醇分子的结构优化 INCAR 1234567SYSTEM = ethanolISMEAR = 0 #Gaussian ismear, for insulatorSIGMA = 0.01NSW = 200IBRION = 2 #OptimizarionPOTIM = 0.01 #a little conservative step KPOINTS 12345K-POINTS0Gamma1 1 10
         </div>
       </a>
 
@@ -680,7 +750,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2025/04/18/Stormy%20English/The%20TED-Ed%20project/Rocks%20could%20save%20the%20world%20(Yes,%20rocks)/" target="_self">
         <div>
-          Rocks could save the world (Yes, rocks) The Canary Islands are home to Mount Teide, one of the world’s largest active volcanoes. Capable of  spewing  tens of millions of cubic meters of lava in a sin
+          Rocks could save the world (Yes, rocks) The Canary Islands are home to Mount Teide, one of the world’s largest active volcanoes. Capable of  spewing  tens of millions of cubic meters of lava in a sing
         </div>
       </a>
 
@@ -748,7 +818,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2025/04/18/Stormy%20English/The%20TED-Ed%20project/What%20staying%20up%20all%20night%20does%20to%20your%20brain/" target="_self">
         <div>
-          What staying up all night does to your brain You’re just one Roman Empire history final away from a relaxing spring break. But you still have so much to study! So you decide to follow in the footstep
+          What staying up all night does to your brain You’re just one Roman Empire history final away from a relaxing spring break. But you still have so much to study! So you decide to follow in the footsteps
         </div>
       </a>
 
@@ -826,76 +896,6 @@
             <i class="iconfont icon-date"></i>
             <time datetime="2025-04-18 16:40" pubdate>
               2025-04-18
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/" class="category-chain-item">从零开始的科研之旅</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/VASP/" class="category-chain-item">VASP</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%8C%96%E5%AD%A6/">#化学</a>
-            
-              <a href="/tags/%E7%A7%91%E7%A0%94/">#科研</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2025/04/17/%E7%A7%91%E7%A0%94/VASP/2025%E5%B9%B45%E6%9C%88AMD%E5%B9%B3%E5%8F%B0%E4%B8%8BVASP%E7%9A%84%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/" target="_self">
-          2025年4月AMD平台下VASP的编译安装
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/04/17/%E7%A7%91%E7%A0%94/VASP/2025%E5%B9%B45%E6%9C%88AMD%E5%B9%B3%E5%8F%B0%E4%B8%8BVASP%E7%9A%84%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/" target="_self">
-        <div>
-          2025年4月AMD平台下VASP的编译安装  WSL2安装 本次安装选择的Ubuntu作为发行版，使用人数较多，解决方案较多  更新源 1sudo apt update  安装编译器  AOCC 下载aocc-compiler-5.0.0.tar，解压 1234tar -xvf aocc-compiler-5.0.0.tar #解压cd aocc-compiler-3.2.0 #进入目录./i
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2025-04-17 23:40" pubdate>
-              2025-04-17
             </time>
           </div>
         

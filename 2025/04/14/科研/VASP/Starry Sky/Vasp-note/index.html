@@ -250,7 +250,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.9k 字
+          4.8k 字
         
       </span>
     
@@ -335,7 +335,7 @@
 <p>以下情况需要考虑自旋极化</p>
 <ul>
 <li>单原子的计算</li>
-<li>O<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow></mrow><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.45110799999999995em;vertical-align:-0.15em;"></span><span class="mord"><span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 分子(基态为三重态)</li>
+<li>O$_2$ 分子(基态为三重态)</li>
 <li>自由基相关的计算</li>
 <li>含Fe,Co, Ni 的体系</li>
 <li>要计算的体系具有磁性：顺磁，铁磁，反铁磁等，要打开自旋极化。</li>
@@ -380,13 +380,16 @@
 <li>1 Birch-Murnaghan状态方程拟合</li>
 <li>2 VASP计算中通过调节ISIF参数直接优化Bulk</li>
 </ul>
-<p>Birch-Murnaghan方程</p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>E</mi><mo stretchy="false">(</mo><mi>a</mi><mo stretchy="false">)</mo><mo>=</mo><msub><mi>E</mi><mn>0</mn></msub><mo>+</mo><mfrac><mrow><mn>9</mn><msub><mi>V</mi><mn>0</mn></msub><msub><mi>B</mi><mn>0</mn></msub></mrow><mn>16</mn></mfrac><mo stretchy="false">(</mo><mo stretchy="false">[</mo><mo stretchy="false">(</mo><mfrac><msub><mi>a</mi><mn>0</mn></msub><mi>a</mi></mfrac><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>−</mo><mn>1</mn><msup><mo stretchy="false">]</mo><mn>3</mn></msup><msubsup><mi>B</mi><mn>0</mn><msup><mrow></mrow><mo mathvariant="normal" lspace="0em" rspace="0em">′</mo></msup></msubsup><mo>+</mo><mo stretchy="false">[</mo><mo stretchy="false">(</mo><mfrac><msub><mi>a</mi><mn>0</mn></msub><mi>a</mi></mfrac><mo stretchy="false">)</mo><mo>−</mo><mn>1</mn><msup><mo stretchy="false">]</mo><mn>2</mn></msup><mo stretchy="false">[</mo><mn>6</mn><mo>−</mo><mn>4</mn><mo stretchy="false">(</mo><mfrac><msub><mi>a</mi><mn>0</mn></msub><mi>a</mi></mfrac><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo stretchy="false">]</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">E(a)=E_0+\dfrac{9V_0B_0}{16}([(\frac{a_0}{a})^2-1]^3B_0^{&#x27;}+[(\dfrac{a_0}{a})-1]^2[6-4(\frac{a_0}{a})^2])
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mopen">(</span><span class="mord mathnormal">a</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:2.04633em;vertical-align:-0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span><span class="mord">6</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">9</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.05017em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mopen">(</span><span class="mopen">[</span><span class="mopen">(</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.1075599999999999em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">a</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.24248em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose"><span class="mclose">]</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9924799999999999em;"><span style="top:-2.4530000000000003em;margin-left:-0.05017em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span></span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8278285714285715em;"><span style="top:-2.931em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">′</span></span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.247em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.7935599999999998em;vertical-align:-0.686em;"></span><span class="mopen">[</span><span class="mopen">(</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.1075599999999999em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">a</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.1141079999999999em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose"><span class="mclose">]</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mopen">[</span><span class="mord">6</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1.7935599999999998em;vertical-align:-0.686em;"></span><span class="mord">4</span><span class="mopen">(</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.1075599999999999em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">a</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mclose">]</span><span class="mclose">)</span></span></span></span></span></p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mo stretchy="false">(</mo><mfrac><msub><mi>V</mi><mn>0</mn></msub><mi>V</mi></mfrac><msup><mo stretchy="false">)</mo><mfrac><mn>2</mn><mn>3</mn></mfrac></msup><mo>=</mo><mo stretchy="false">(</mo><mfrac><msubsup><mi>a</mi><mn>0</mn><mn>3</mn></msubsup><msubsup><mi>a</mi><mrow><mi>a</mi><mi>c</mi><mi>t</mi><mi>u</mi><mi>a</mi><mi>l</mi></mrow><mn>3</mn></msubsup></mfrac><msup><mo stretchy="false">)</mo><mfrac><mn>2</mn><mn>3</mn></mfrac></msup><mo>=</mo><mo stretchy="false">(</mo><mfrac><msub><mi>a</mi><mn>0</mn></msub><msub><mi>a</mi><mrow><mi>a</mi><mi>c</mi><mi>t</mi><mi>u</mi><mi>a</mi><mi>l</mi></mrow></msub></mfrac><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">(\dfrac{V_0}{V})^{\frac{2}{3}}=(\dfrac{a_0^3}{a_{actual}^3})^{\frac{2}{3}}=(\dfrac{a_0}{a_{actual}})^2
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:2.04633em;vertical-align:-0.686em;"></span><span class="mopen">(</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.36033em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.686em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.0040200000000001em;"><span style="top:-3.4130000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mopen nulldelimiter sizing reset-size3 size6"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8443142857142858em;"><span style="top:-2.656em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">3</span></span></span></span><span style="top:-3.2255000000000003em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line mtight" style="border-bottom-width:0.049em;"></span></span><span style="top:-3.384em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.344em;"><span></span></span></span></span></span><span class="mclose nulldelimiter sizing reset-size3 size6"></span></span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.478416em;vertical-align:-0.9873080000000001em;"></span><span class="mopen">(</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.4911079999999999em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.7959079999999998em;"><span style="top:-2.398692em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight">c</span><span class="mord mathnormal mtight">t</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span></span></span></span><span style="top:-3.0448em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.30130799999999996em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-2.4518920000000004em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24810799999999997em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.9873080000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:1.0040200000000001em;"><span style="top:-3.4130000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mopen nulldelimiter sizing reset-size3 size6"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8443142857142858em;"><span style="top:-2.656em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">3</span></span></span></span><span style="top:-3.2255000000000003em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line mtight" style="border-bottom-width:0.049em;"></span></span><span style="top:-3.384em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.344em;"><span></span></span></span></span></span><span class="mclose nulldelimiter sizing reset-size3 size6"></span></span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.94356em;vertical-align:-0.8360000000000001em;"></span><span class="mopen">(</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.1075599999999999em;"><span style="top:-2.3139999999999996em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight">c</span><span class="mord mathnormal mtight">t</span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight" style="margin-right:0.01968em;">l</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8360000000000001em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span></p>
-<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>x</mi><mo>=</mo><mfrac><mn>1</mn><mrow><mo stretchy="false">(</mo><mi>a</mi><mo>×</mo><mn>2.8664</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow></mfrac></mrow><annotation encoding="application/x-tex">x=\dfrac{1}{(a\times 2.8664)^2}
-</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.25744em;vertical-align:-0.936em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mopen">(</span><span class="mord mathnormal">a</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord">2</span><span class="mord">.</span><span class="mord">8</span><span class="mord">6</span><span class="mord">6</span><span class="mord">4</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.740108em;"><span style="top:-2.9890000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.936em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></p>
+<p>Birch-Murnaghan方程<br>
+$$<br>
+E(a)=E_0+\dfrac{9V_0B_0}{16}([(\frac{a_0}{a})^2-1]^3B_0^{'}+[(\dfrac{a_0}{a})-1]^2[6-4(\frac{a_0}{a})^2])<br>
+$$</p>
+<p>$$<br>
+(\dfrac{V_0}{V})^{\frac{2}{3}}=(\dfrac{a_0^3}{a_{actual}^3})^{\frac{2}{3}}=(\dfrac{a_0}{a_{actual}})^2<br>
+$$</p>
+<p>$$<br>
+x=\dfrac{1}{(a\times 2.8664)^2}<br>
+$$</p>
 <blockquote>
 <p>a代表缩放系数，2.8664是晶胞参数</p>
 </blockquote>
@@ -436,8 +439,8 @@
 <li>如果不知道怎么取ISMEAR，直接用0是一个很保险的做法。也可以测试不同的值对计算的影响，但是新手的话，即使测试完了，也不知道根据什么去判断对结果的影响。</li>
 </ul>
 <p>电子数的积分区间是从负无穷到费米能级</p>
-<h2 id="各种参数的作用"><a class="markdownIt-Anchor" href="#各种参数的作用"></a> 各种参数的作用</h2>
-<h3 id="istart确定是否读取-wavecar-文件"><a class="markdownIt-Anchor" href="#istart确定是否读取-wavecar-文件"></a> ISTART——确定是否读取 WAVECAR 文件</h3>
+<h2 id="各种参数的作用">各种参数的作用</h2>
+<h3 id="ISTART——确定是否读取-WAVECAR-文件">ISTART——确定是否读取 WAVECAR 文件</h3>
 <p>ISTART = 0 | 1 |2 |3</p>
 <p>默认值</p>
 <ul>
@@ -445,14 +448,14 @@
 <li>如果不存在WAVECAR，从头算: ISTART = 0</li>
 </ul>
 <p>ISTART = 2，读取WAVECAR，截断能原胞不发生改变</p>
-<h3 id="icharg确定-vasp-如何构造初始电荷密度"><a class="markdownIt-Anchor" href="#icharg确定-vasp-如何构造初始电荷密度"></a> ICHARG——确定 VASP 如何构造初始电荷密度</h3>
+<h3 id="ICHARG——确定-VASP-如何构造初始电荷密度">ICHARG——确定 VASP 如何构造初始电荷密度</h3>
 <p>ICHARG = 0 | 1 |2 | 4 | 5</p>
 <ul>
 <li>ICHARG = 0，默认值，从初始波函数计算电荷密度</li>
 <li>ICHARG = 1，从 CHGCAR 文件中读取电荷密度，并使用原子电荷密度的线性组合从旧位置（在 CHGCAR 上）外推到新位置</li>
 <li>ICHARG = 2，默认值，以原子电荷密度的叠加为例</li>
 </ul>
-<h3 id="prec指定精度模式"><a class="markdownIt-Anchor" href="#prec指定精度模式"></a> PREC——指定精度模式</h3>
+<h3 id="PREC——指定精度模式">PREC——指定精度模式</h3>
 <p>PREC = Normal | Single | SingleN | Accurate | Low | Medium | High</p>
 <ul>
 <li>PREC = Normal，默认</li>
@@ -460,25 +463,25 @@
 <li>PREC = SingleN</li>
 <li>PREC = Accurate</li>
 </ul>
-<h3 id="lreal确定投影算子是在实空间还是在倒数空间中求值"><a class="markdownIt-Anchor" href="#lreal确定投影算子是在实空间还是在倒数空间中求值"></a> LREAL——确定投影算子是在实空间还是在倒数空间中求值</h3>
+<h3 id="LREAL——确定投影算子是在实空间还是在倒数空间中求值">LREAL——确定投影算子是在实空间还是在倒数空间中求值</h3>
 <p>LREAL = .FALSE. | Auto (or A) | On (or O) | .TRUE.</p>
 <ul>
 <li>LREAL = .FALSE.	默认值，倒数空间投影，小体系，精确</li>
 <li>LREAL=Auto      	在实空间中进行投影，全自动优化投影算子（几乎不需要用户干扰）</li>
 </ul>
-<h3 id="algo指定电子最小化算法或选择-gw-计算类型的便捷选项"><a class="markdownIt-Anchor" href="#algo指定电子最小化算法或选择-gw-计算类型的便捷选项"></a> ALGO——指定电子最小化算法或选择 GW 计算类型的便捷选项。</h3>
+<h3 id="ALGO——指定电子最小化算法或选择-GW-计算类型的便捷选项。">ALGO——指定电子最小化算法或选择 GW 计算类型的便捷选项。</h3>
 <p>ALGO = Normal | VeryFast | Fast | Conjugate | All | Damped | Subrot | Eigenval | Exact | None | Nothing | CHI | G0W0 | GW0 | GW | scGW0 | scGW | G0W0R | GW0R | GWR | scGW0R | scGWR | ACFDT | RPA | ACFDTR | RPAR | BSE | TDHF</p>
 <p>默认值: Normal</p>
-<h3 id="encut指定以-ev-为单位设置的平面波基的能量截止"><a class="markdownIt-Anchor" href="#encut指定以-ev-为单位设置的平面波基的能量截止"></a> ENCUT——指定以 eV 为单位设置的平面波基的能量截止</h3>
+<h3 id="ENCUT——指定以-eV-为单位设置的平面波基的能量截止">ENCUT——指定以 eV 为单位设置的平面波基的能量截止</h3>
 <p>ENCUT = [real]</p>
 <p>默认为POTCAR中的ENMAX，但是官方<mark>强烈建议</mark>在 INCAR 文件中始终手动指定能量截止 ENCUT，以确保计算之间的准确性相同。否则，不同计算之间的默认 ENCUT 可能会有所不同（例如，对于内聚能的计算），结果是无法比较总能量。</p>
-<h3 id="ismear能带展宽方法"><a class="markdownIt-Anchor" href="#ismear能带展宽方法"></a> ISMEAR——能带展宽方法</h3>
+<h3 id="ISMEAR——能带展宽方法">ISMEAR——能带展宽方法</h3>
 <p>ISMEAR = -15 | -14 | -5 | -4 | -3 | -2 | -1 | 0 | [integer]&gt;0</p>
 <p>默认值：1</p>
-<p>ISMEAR 决定如何为每个轨道设置部分占据数 f<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mrow></mrow><mrow><mi>n</mi><mi>k</mi></mrow></msub></mrow><annotation encoding="application/x-tex">_{nk}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.486108em;vertical-align:-0.15em;"></span><span class="mord"><span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> ,SIGMA 以电子伏特(eV)为单位确定展宽的宽度</p>
+<p>ISMEAR 决定如何为每个轨道设置部分占据数 f$_{nk}$ ,SIGMA 以电子伏特(eV)为单位确定展宽的宽度</p>
 <p>以下是来自AI的比喻解释：</p>
 <hr>
-<h4 id="ismear决定如何给电子打分"><a class="markdownIt-Anchor" href="#ismear决定如何给电子打分"></a> <strong>ISMEAR：决定如何给电子“打分”</strong></h4>
+<h4 id="ISMEAR：决定如何给电子“打分”"><strong>ISMEAR：决定如何给电子“打分”</strong></h4>
 <ul>
 <li><strong>问题</strong>：电子在能级上的分布是离散的（像楼梯台阶），但实际计算时需要用连续函数去“平滑”这些台阶。</li>
 <li><strong>ISMEAR</strong> 就是选择“平滑方式”的方法：
@@ -489,13 +492,13 @@
 </ul>
 </li>
 </ul>
-<h4 id="2-sigma展宽的宽容度"><a class="markdownIt-Anchor" href="#2-sigma展宽的宽容度"></a> <strong>2. SIGMA：展宽的“宽容度”</strong></h4>
+<h4 id="2-SIGMA：展宽的“宽容度”"><strong>2. SIGMA：展宽的“宽容度”</strong></h4>
 <ul>
 <li><strong>问题</strong>：<code>ISMEAR</code> 选择用高斯函数模糊时，<strong>SIGMA 决定模糊的程度</strong>（就像PS里“高斯模糊”的半径）</li>
 <li><strong>SIGMA 越小</strong>：模糊范围越小，越接近真实台阶（精度高，但容易震荡，收敛难）</li>
 <li><strong>SIGMA 越大</strong>：模糊范围越大，电子分布越平滑（容易收敛，但可能掩盖真实细节）</li>
 </ul>
-<h4 id="到底怎么设置一句话总结"><a class="markdownIt-Anchor" href="#到底怎么设置一句话总结"></a> <strong>到底怎么设置？一句话总结</strong></h4>
+<h4 id="到底怎么设置？一句话总结"><strong>到底怎么设置？一句话总结</strong></h4>
 <table>
 <thead>
 <tr>
@@ -530,14 +533,14 @@
 <li>保守地说，ISMEAR = 0 (Gaussian Smearing) 可以满足大部分的体系（金属，导体，半导体，分子）；</li>
 <li>如果不知道怎么取ISMEAR，直接用0是一个很保险的做法。也可以测试不同的值对计算的影响，但是新手的话，即使测试完了，也不知道根据什么去判断对结果的影响。</li>
 </ul>
-<h3 id="常见错误"><a class="markdownIt-Anchor" href="#常见错误"></a> <strong>常见错误</strong></h3>
+<h3 id="常见错误"><strong>常见错误</strong></h3>
 <ol>
 <li><strong>对绝缘体用 <code>ISMEAR=1</code></strong> → 结果完全错误！</li>
 <li><strong>SIGMA 太大（比如 0.5）</strong> → 电子分布过度平滑，能量不准。</li>
 <li><strong>对金属用 <code>ISMEAR=0</code></strong> → SCF 难收敛，疯狂报错！</li>
 </ol>
 <hr>
-<h3 id="举个具体例子"><a class="markdownIt-Anchor" href="#举个具体例子"></a> <strong>举个具体例子</strong></h3>
+<h3 id="举个具体例子"><strong>举个具体例子</strong></h3>
 <p>假设你计算 <strong>硅（半导体）</strong>：</p>
 <ul>
 <li>
@@ -550,13 +553,13 @@
 </li>
 </ul>
 <hr>
-<h3 id="终极口诀"><a class="markdownIt-Anchor" href="#终极口诀"></a> <strong>终极口诀</strong></h3>
+<h3 id="终极口诀"><strong>终极口诀</strong></h3>
 <ul>
 <li><strong>绝缘体/半导体</strong> → <code>ISMEAR=0</code> + 小 SIGMA（0.05~0.1）</li>
 <li><strong>金属</strong> → <code>ISMEAR=1</code> + 稍大 SIGMA（0.1~0.2）</li>
 <li><strong>画能带/DOS</strong> → <code>ISMEAR=-5</code>（别动 SIGMA）</li>
 </ul>
-<h2 id="ibrion确定在计算过程中晶体结构如何变化如何调整原子位置来寻找能量最低点"><a class="markdownIt-Anchor" href="#ibrion确定在计算过程中晶体结构如何变化如何调整原子位置来寻找能量最低点"></a> IBRION——确定在计算过程中晶体结构如何变化（如何调整原子位置来寻找能量最低点）</h2>
+<h2 id="IBRION——确定在计算过程中晶体结构如何变化（如何调整原子位置来寻找能量最低点）">IBRION——确定在计算过程中晶体结构如何变化（如何调整原子位置来寻找能量最低点）</h2>
 <p>Default: IBRION	= -1	for NSW=−1 or 0</p>
 <p>​				    = 0	else</p>
 <ul>
@@ -584,10 +587,10 @@
 </ul>
 </li>
 </ul>
-<h2 id="nsw描述离子步长的最大数量"><a class="markdownIt-Anchor" href="#nsw描述离子步长的最大数量"></a> NSW——描述离子步长的最大数量</h2>
+<h2 id="NSW——描述离子步长的最大数量">NSW——描述离子步长的最大数量</h2>
 <p>NSW = [integer]</p>
 <p>Default: <strong>NSW</strong> = 0</p>
-<h2 id="potim设置分子动力学中的时间步长或离子弛豫中的步长宽度"><a class="markdownIt-Anchor" href="#potim设置分子动力学中的时间步长或离子弛豫中的步长宽度"></a> POTIM——设置分子动力学中的时间步长或离子弛豫中的步长宽度</h2>
+<h2 id="POTIM——设置分子动力学中的时间步长或离子弛豫中的步长宽度">POTIM——设置分子动力学中的时间步长或离子弛豫中的步长宽度</h2>
 <p>IBRION确定了在计算过程中晶体结构如何变化，如何寻找最低点（“山谷”），POTIM就是“每次移动的距离”</p>
 <ul>
 <li>如果IBRION  = 0，则必须设置POTIM
@@ -607,41 +610,41 @@
 </li>
 </ul>
 <p><strong>POTIM 太大</strong> → 跨步太大，可能跳过最低点（震荡不收敛）<strong>POTIM 太小</strong> → 移动太慢，优化耗时</p>
-<h2 id="ncore确定在单个轨道上工作的计算核心数量"><a class="markdownIt-Anchor" href="#ncore确定在单个轨道上工作的计算核心数量"></a> NCORE——确定在单个轨道上工作的计算核心数量</h2>
+<h2 id="NCORE——确定在单个轨道上工作的计算核心数量">NCORE——确定在单个轨道上工作的计算核心数量</h2>
 <p>默认值：NCORE = 1</p>
 <p>NCORE的设置可以优化计算资源，降低内存用量（但有可能降低计算速度），如果体系非常小那就可以不用设置，直接并行即可</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">mpirun -n <span class="hljs-string">&#x27;core numbers&#x27;</span> vasp<br></code></pre></td></tr></table></figure>
-<h2 id="nfree根据-ibrionnfree-指定离子收敛运行历史中记住的步数或冻结声子计算中的离子位移数"><a class="markdownIt-Anchor" href="#nfree根据-ibrionnfree-指定离子收敛运行历史中记住的步数或冻结声子计算中的离子位移数"></a> NFREE——根据 IBRION，NFREE 指定离子收敛运行历史中记住的步数，或冻结声子计算中的离子位移数</h2>
-<h2 id="ldipol开启对势能和力的修正"><a class="markdownIt-Anchor" href="#ldipol开启对势能和力的修正"></a> LDIPOL——开启对势能和力的修正</h2>
+<h2 id="NFREE——根据-IBRION，NFREE-指定离子收敛运行历史中记住的步数，或冻结声子计算中的离子位移数">NFREE——根据 IBRION，NFREE 指定离子收敛运行历史中记住的步数，或冻结声子计算中的离子位移数</h2>
+<h2 id="LDIPOL——开启对势能和力的修正">LDIPOL——开启对势能和力的修正</h2>
 <p>LDIPOL 开启对势能和力的修正。可应用于具有净偶极矩的带电分子和平板</p>
 <p>LDIPOL = .TRUE. | .FALSE.</p>
 <p>默认值：LDIPOL = .FALSE.</p>
 <p>偶极子的存在与周期性边界条件相结合，会导致总能量随超胞大小的收敛速度缓慢。此外，有限尺寸误差会影响势能和力。通过在 INCAR 文件中设置 LDIPOL=.TRUE. 可以抵消这种影响。对于 LDIPOL=.TRUE.，会添加一个线性校正，对于带电的晶胞，会添加一个二次静电势到局部势中，以校正由周期性边界条件引入的误差。激活此标签时，<mark>必须指定标签 IDIPOL，也可以选择指定标签 DIPOL</mark></p>
 <p>这种模式的最大优点是力中的主导误差得到了修正，并且可以针对非对称平板评估功函数。缺点是向电子基态的收敛可能会<mark>显著减慢</mark>，也就是说，可能需要更多的电子迭代来获得所需的精度</p>
-<h2 id="idipol开启对特定方向或所有方向的总能量的单极偶极和四极校正"><a class="markdownIt-Anchor" href="#idipol开启对特定方向或所有方向的总能量的单极偶极和四极校正"></a> IDIPOL——开启对特定方向或所有方向的总能量的单极/偶极和四极校正</h2>
+<h2 id="IDIPOL——开启对特定方向或所有方向的总能量的单极-偶极和四极校正">IDIPOL——开启对特定方向或所有方向的总能量的单极/偶极和四极校正</h2>
 <p>IDIPOL = 1 | 2 | 3 | 4</p>
 <p>IDIPOL = 1-3，仅分别沿第一、第二或第三晶格矢量方向计算偶极矩，<strong>此标志应用于平板计算，表面法线为设置 IDIPOL 的方向，并可选择使用 DIPOL 标签指定平板的质心</strong></p>
 <p>IDIPOL = 4，将计算所有方向上的全偶极矩，<strong>对孤立分子进行计算时使用此标志</strong></p>
-<h2 id="ispin控制自旋极化"><a class="markdownIt-Anchor" href="#ispin控制自旋极化"></a> ISPIN——控制自旋极化</h2>
+<h2 id="ISPIN——控制自旋极化">ISPIN——控制自旋极化</h2>
 <p>ISPIN = 1 | 2</p>
 <p>默认：ISPIN = 1，执行非自旋极化计算</p>
 <p>ISPIN = 2，执行自旋极化计算（共线）</p>
 <p>对于非共线计算，忽略 ISPIN。在 VASP 6.5.0 中，如果 ISPIN = 2 且 MAGMOM 与 LNONCOLLINEAR=.TRUE. <mark>结合使用</mark>，计算将以错误消息退出</p>
-<h2 id="nelm最大电子步收敛"><a class="markdownIt-Anchor" href="#nelm最大电子步收敛"></a> NELM——最大电子步收敛</h2>
+<h2 id="NELM——最大电子步收敛">NELM——最大电子步收敛</h2>
 <p>默认值等于60</p>
-<h2 id="lwave决定在运行结束时波函数是否写入-wavecar-文件"><a class="markdownIt-Anchor" href="#lwave决定在运行结束时波函数是否写入-wavecar-文件"></a> LWAVE——决定在运行结束时波函数是否写入 WAVECAR 文件</h2>
+<h2 id="LWAVE——决定在运行结束时波函数是否写入-WAVECAR-文件">LWAVE——决定在运行结束时波函数是否写入 WAVECAR 文件</h2>
 <p>LWAVE = [logical]<br>
 默认值：LWAVE = .NOT. LH5 | .TRUE.</p>
 <p>一般情况不开，文件巨大、、、</p>
 <p><img src="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/image-20250422173131346.png" srcset="/img/loading.gif" lazyload alt="巨大的WAVECAR"></p>
-<h2 id="lcharg决定是否写入电荷密度chgcar-chg"><a class="markdownIt-Anchor" href="#lcharg决定是否写入电荷密度chgcar-chg"></a> lCHARG——决定是否写入电荷密度(CHGCAR &amp; CHG)</h2>
+<h2 id="lCHARG——决定是否写入电荷密度-CHGCAR-CHG">lCHARG——决定是否写入电荷密度(CHGCAR &amp; CHG)</h2>
 <p>LCHARG = .NOT.LH5 | .TRUE.<br>
 默认值：LCHARG = .NOT. LH5</p>
-<h2 id="addgrid决定是否使用额外的辅助网格来评估增强电荷"><a class="markdownIt-Anchor" href="#addgrid决定是否使用额外的辅助网格来评估增强电荷"></a> ADDGRID——决定是否使用额外的辅助网格来评估增强电荷</h2>
+<h2 id="ADDGRID——决定是否使用额外的辅助网格来评估增强电荷">ADDGRID——决定是否使用额外的辅助网格来评估增强电荷</h2>
 <p>ADDGRID = .TRUE. | .FALSE.<br>
 默认值：ADDGRID = .FALSE.</p>
 <p><mark>因此，我们建议进行细致的测试，以验证 ADDGRID 是否按预期工作；请不要默认在所有计算中使用此标签！</mark></p>
-<h2 id="laspath控制局域非球面性修正的参数"><a class="markdownIt-Anchor" href="#laspath控制局域非球面性修正的参数"></a> LASPATH——控制局域非球面性修正的参数</h2>
+<h2 id="LASPATH——控制局域非球面性修正的参数">LASPATH——控制局域非球面性修正的参数</h2>
 <p>看不懂思密达、、、</p>
 <p>LASPH = .TRUE. | .FALSE.</p>
 <p>默认值：LASPH = .FALSE.</p>
@@ -654,9 +657,9 @@
 </ul>
 </li>
 </ul>
-<h2 id="lvhar确定局部势能v_ionicv_hartree是否写入locpot文件"><a class="markdownIt-Anchor" href="#lvhar确定局部势能v_ionicv_hartree是否写入locpot文件"></a> LVHAR——确定局部势能<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mrow><mi>i</mi><mi>o</mi><mi>n</mi><mi>i</mi><mi>c</mi></mrow></msub></mrow><annotation encoding="application/x-tex">V_{ionic}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight">n</span><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight">c</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>®+<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>V</mi><mrow><mi>h</mi><mi>a</mi><mi>r</mi><mi>t</mi><mi>r</mi><mi>e</mi><mi>e</mi></mrow></msub></mrow><annotation encoding="application/x-tex">V_{hartree}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">h</span><span class="mord mathnormal mtight">a</span><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span><span class="mord mathnormal mtight">t</span><span class="mord mathnormal mtight" style="margin-right:0.02778em;">r</span><span class="mord mathnormal mtight">e</span><span class="mord mathnormal mtight">e</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>是否写入LOCPOT文件</h2>
+<h2 id="LVHAR——确定局部势能-V-ionic-®-V-hartree-是否写入LOCPOT文件">LVHAR——确定局部势能$V_{ionic}$®+$V_{hartree}$是否写入LOCPOT文件</h2>
 <p>默认值：LVHAR = .FALSE.</p>
-<h2 id="lorbit选择一种投影到局部量子数lm上的方法并写入-procarproout-文件"><a class="markdownIt-Anchor" href="#lorbit选择一种投影到局部量子数lm上的方法并写入-procarproout-文件"></a> LORBIT——选择一种投影到局部量子数(lm)上的方法，并写入 PROCAR/PROOUT 文件</h2>
+<h2 id="LORBIT——选择一种投影到局部量子数-lm-上的方法，并写入-PROCAR-PROOUT-文件">LORBIT——选择一种投影到局部量子数(lm)上的方法，并写入 PROCAR/PROOUT 文件</h2>
 <ul>
 <li><strong>作用</strong>：决定是否计算并输出原子轨道的投影波函数（投影到球谐函数或特定轨道），以及如何输出局域态密度（LDOS）。</li>
 <li><strong>输出文件</strong>：主要影响<code>PROCAR</code>和<code>DOSCAR</code>文件的内容（若<code>LORBIT</code>≥10还会生成<code>LOCPOT</code>等文件）</li>
@@ -695,7 +698,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="lasph控制赝势计算中是否考虑非球面贡献"><a class="markdownIt-Anchor" href="#lasph控制赝势计算中是否考虑非球面贡献"></a> LASPH——控制赝势计算中是否考虑非球面贡献</h2>
+<h2 id="LASPH——控制赝势计算中是否考虑非球面贡献">LASPH——控制赝势计算中是否考虑非球面贡献</h2>
 <p>主要影响**交换关联势（XC Potential）<strong>和</strong>电荷密度（Charge Density）**的计算精度</p>
 <p>默认值：LASPH = .FALSE.</p>
 <p><strong>作用</strong>：决定是否在计算中考虑电子密度和势场的<strong>非球对称部分</strong>（即角动量 <code>l &gt; 0</code> 的贡献）。</p>
@@ -703,7 +706,7 @@
 <li>若<code>LASPH = .TRUE.</code>，VASP会计算电子密度和势场的高阶角动量分量（如 <code>d, f</code> 轨道），提升精度。</li>
 <li>若<code>LASPH = .FALSE.</code>（默认值），仅考虑球对称部分（<code>l = 0</code>），计算更快但可能损失部分精度</li>
 </ul>
-<h2 id="mdalgo指定分子动力学模拟算法"><a class="markdownIt-Anchor" href="#mdalgo指定分子动力学模拟算法"></a> MDALGO——指定分子动力学模拟算法</h2>
+<h2 id="MDALGO——指定分子动力学模拟算法">MDALGO——指定分子动力学模拟算法</h2>
 <p><strong>（当 IBRION = 0 且 VASP 使用-Dtbdyn 编译时才启用）</strong></p>
 <p>MDALGO = 0 | 1 | 2 | 3 | 4 | 5 | 11 | 21 | 13</p>
 <table>
@@ -760,7 +763,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="smass在从头算分子动力学运行期间控制速度"><a class="markdownIt-Anchor" href="#smass在从头算分子动力学运行期间控制速度"></a> SMASS——在从头算分子动力学运行期间控制速度。</h2>
+<h2 id="SMASS——在从头算分子动力学运行期间控制速度。">SMASS——在从头算分子动力学运行期间控制速度。</h2>
 <p>SMASS = -3 | -2 | -1 | [real] ≥ 0</p>
 <p>Default: <strong>SMASS</strong> = -3</p>
 <p>对于SMASS = -3，模拟了一个微正则系综（NVE系综）</p>
@@ -769,7 +772,7 @@
 </blockquote>
 <p>对于 SMASS = -2，初始速度保持恒定。这使得能够计算一组不同线性相关位置（例如冻结声子或具有不同键长的二聚体）的能量。</p>
 <p>注意：如果 SMASS = -2，实际采取的步数为 POTIM×（从 POSCAR 文件读取的速度）。为避免歧义，请将 POTIM 设置为 1</p>
-<h2 id="ivdw参数控制范德华修正"><a class="markdownIt-Anchor" href="#ivdw参数控制范德华修正"></a> IVDW参数——控制范德华修正</h2>
+<h2 id="IVDW参数——控制范德华修正">IVDW参数——控制范德华修正</h2>
 <p>DFT中，标准的交换关联泛函（如PBE、LDA）无法准确描述范德华力，因此需要通过额外的修正方法来处理</p>
 <p>默认不启用范德华修正</p>
 <ul>

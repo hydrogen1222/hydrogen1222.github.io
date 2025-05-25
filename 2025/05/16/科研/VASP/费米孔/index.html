@@ -27,7 +27,7 @@
 <meta property="og:description" content="费米孔 Coulomb孔 由于Coulomb孔的存在，电子之间存在动态相关，如何描述原子分子体系中电子之间的动态相关是量子化学的主要任务 玻色子的波函数是对称的，没有反对称性的要求因此可以靠得很近 Hartree-Fock方程与自洽场计算 HF方程 HF方程是量子化学中计算多电子体系近似波函数和能量的基本方法，通过“平均场”近似把复杂的多电子问题拆解成单电子问题。 多电子波函数用单电子轨道（分子轨">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-05-16T13:57:18.706Z">
-<meta property="article:modified_time" content="2025-05-17T12:32:06.215Z">
+<meta property="article:modified_time" content="2025-05-22T03:11:32.885Z">
 <meta property="article:author" content="Storm Talia">
 <meta property="article:tag" content="百宝箱，宝藏，仓库，博客">
 <meta name="twitter:card" content="summary_large_image">
@@ -247,7 +247,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          962 字
+          1.8k 字
         
       </span>
     
@@ -258,7 +258,7 @@
         
         
         
-          9 分钟
+          15 分钟
         
       </span>
     
@@ -424,6 +424,112 @@ $$</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">[Gauss基函数]<br>   ↓ 基组展开<br>[Hartree-Fock方程] → 单行列式近似<br>   ↓ 电子相关修正<br>[组态相互作用(CI)] → 用二次量子化算符组合激发组态<br>   ↓ 更高精度<br>[耦合簇(CC)、多参考方法]<br></code></pre></td></tr></table></figure>
 <h2 id="理论计算中的各种方法">理论计算中的各种方法</h2>
 <p>简单总结了一下Sob老师的博文，个人的总结仅供参考，详细信息请阅读原文：<a target="_blank" rel="noopener" href="http://sobereva.com/680">http://sobereva.com/680</a></p>
+<h3 id="任务类型">任务类型</h3>
+<ul>
+<li>优化极小点</li>
+<li>优化过渡态</li>
+<li>产生反应路径</li>
+<li>振动分析</li>
+<li>分子动力学</li>
+<li>构象/构型搜索</li>
+<li>波函数分析</li>
+</ul>
+<h3 id="计算方法">计算方法</h3>
+<table>
+<thead>
+<tr>
+<th>计算方法</th>
+<th><strong>VASP</strong></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>分子力场</td>
+<td>计算耗时极低</td>
+<td>无法描述化学反应</td>
+</tr>
+<tr>
+<td>机器学习势</td>
+<td>通过机器学习的思想构造依赖于原子坐标的分子描述符与能量之间的抽象关系</td>
+<td></td>
+</tr>
+<tr>
+<td>密度泛函理论（QM）</td>
+<td>性价比非常高</td>
+<td>耗时高于分子力场N个数量级</td>
+</tr>
+<tr>
+<td>Hartree-Fock（QM）</td>
+<td></td>
+<td>完全过时</td>
+</tr>
+<tr>
+<td>后Hatree-Fock类（QM）</td>
+<td>额外把动态相关在一定程度上考虑了进来</td>
+<td>耗时高了很多</td>
+</tr>
+<tr>
+<td>MCSCF如CASSCF（QM）</td>
+<td>弥补HF缺乏对静态相关的考虑</td>
+<td>几乎没有或很少考虑动态相关</td>
+</tr>
+<tr>
+<td>多参考方法如CASPT2、NEVPT2、MRCI（QM）</td>
+<td>在MCSCF基础上进一步把动态相关考虑进来，精度整体很好，普适性很强</td>
+<td>昂贵</td>
+</tr>
+<tr>
+<td>半经验类方法如AM1、PM3、PM6（QM）</td>
+<td>对HF的简化以巨幅降低耗时，耗时只是HF的微小零头</td>
+<td>精度低，只能用于有限的元素</td>
+</tr>
+<tr>
+<td>GFN-xTB（QM）</td>
+<td>相当于纳入了一定DFT思想的半经验级别的方法，整体精度和可靠性&gt;=主流的半经验方法</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>凡是基于量子理论思想提出的，在实际数值求解的过程中一般都要涉及分子轨道，绝大多数计算程序中都是把分子轨道展开成<strong>基函数的线性组合</strong>来描述的</p>
+<p>最常见的基函数一类是<strong>原子中心基函数</strong>（如Gaussian等大多数量子化学程序以及CP2K等部分第一性原理程序用的高斯型基函数），其中心一般位于原子核，还有一类常见的基函数是<strong>平面波基函数</strong>，是大多数计算周期性体系为主的第一性原理程序用的，它的分布覆盖整个被计算的晶胞</p>
+<p>基组（basis set）是<strong>对于原子中心基函数而言的</strong>，例如6-31G*、def2-TZVP、cc-pVDZ等都是很常见的基组，它定义了实际计算时对各种元素原子具体用多少、什么参数的基函数。做HF、DFT、后HF、MCSCF、多参考等方法计算时都需要告诉计算程序用什么基组，基组质量越好，也就是越接近于所谓的完备基组极限，这些方法自身的精度发挥得就越充分，但代价就是耗时越高。一个好方法配一个烂基组，以及一个烂方法配一个好基组，结果都不理想，必须好方法配好基组才能得到较准确结果。</p>
+<pre><code class=" mermaid">graph TD
+    A[基函数] --&gt;|组合成| B[基组]
+    B --&gt;|用于展开| C[分子轨道]
+    D[泛函] --&gt;|计算| E[电子相互作用能]
+    C --&gt;|输入| F[量子化学计算]
+    E --&gt;|输入| F
+    F --&gt;|输出| G[能量与性质]
+
+    %% 注释说明
+    subgraph 理论方法层
+        A
+        D
+    end
+    subgraph 实际计算层
+        B
+        C
+        E
+    end
+    subgraph 结果层
+        G
+    end
+
+    %% 样式优化
+    style A fill:#f9f,stroke:#333
+    style B fill:#bbf,stroke:#333
+    style D fill:#f96,stroke:#333
+    style C fill:#9f9,stroke:#333
+    style E fill:#6bf,stroke:#333
+    style F fill:#ccc,stroke:#333,stroke-width:2px
+    style G fill:#ff9,stroke:#333
+</code></pre>
 
                 
               </div>

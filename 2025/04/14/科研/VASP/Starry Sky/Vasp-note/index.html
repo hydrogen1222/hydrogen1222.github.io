@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://hydrogen1222.xyz/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/image-20250422173131346.png">
 <meta property="article:published_time" content="2025-04-14T08:40:00.000Z">
-<meta property="article:modified_time" content="2025-05-14T07:49:44.808Z">
+<meta property="article:modified_time" content="2025-05-19T09:18:51.226Z">
 <meta property="article:author" content="Storm Talia">
 <meta property="article:tag" content="化学">
 <meta property="article:tag" content="科研">
@@ -250,7 +250,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.2k 字
+          4.8k 字
         
       </span>
     
@@ -261,7 +261,7 @@
         
         
         
-          36 分钟
+          41 分钟
         
       </span>
     
@@ -705,6 +705,84 @@ $$</p>
 <ul>
 <li>若<code>LASPH = .TRUE.</code>，VASP会计算电子密度和势场的高阶角动量分量（如 <code>d, f</code> 轨道），提升精度。</li>
 <li>若<code>LASPH = .FALSE.</code>（默认值），仅考虑球对称部分（<code>l = 0</code>），计算更快但可能损失部分精度</li>
+</ul>
+<h2 id="MDALGO——指定分子动力学模拟算法">MDALGO——指定分子动力学模拟算法</h2>
+<p><strong>（当 IBRION = 0 且 VASP 使用-Dtbdyn 编译时才启用）</strong></p>
+<p>MDALGO = 0 | 1 | 2 | 3 | 4 | 5 | 11 | 21 | 13</p>
+<table>
+<thead>
+<tr>
+<th>MDALGO 取值</th>
+<th>恒温器 / 模拟方式</th>
+<th>适用系综</th>
+<th>设置要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>标准分子动力学</td>
+<td>NVE</td>
+<td>设置 IBRION=0、TEBEG、POTIM、NSW；MDALGO=0；SMASS=-3</td>
+</tr>
+<tr>
+<td>1</td>
+<td>安徒生恒温器</td>
+<td>NVT</td>
+<td>设置 IBRION=0、TEBEG、POTIM、NSW；MDALGO=1；选择合适的 ANDERSEN_PROB</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Nose-Hoover 恒温器</td>
+<td>NVT</td>
+<td>设置 IBRION=0、TEBEG、POTIM、NSW；MDALGO=2；选择合适的 SMASS</td>
+</tr>
+<tr>
+<td>3</td>
+<td>朗之万恒温器</td>
+<td>NVT、NpT</td>
+<td>NVT 模拟：设置 IBRION=0、TEBEG、POTIM、NSW；ISIF=2；MDALGO=3；在 POSCAR 文件通过 LANGEVIN_GAMMA-tag 指定摩擦系数 NpT 模拟：设置 IBRION=0、TEBEG、POTIM、NSW；ISIF=3；MDALGO=3；在 POSCAR 文件通过 LANGEVIN_GAMMA-tag 指定摩擦系数；通过 LANGEVIN_GAMMA_L-tag 指定晶格自由度摩擦系数；通过 PMASS-tag 设置晶格自由度质量；可通过 PSTRESS-tag 定义外部压力</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Nose Hoover chains 恒温器</td>
+<td>NVT</td>
+<td>设置 IBRION=0、TEBEG、POTIM、NSW；ISIF=2；MDALGO=4；选择 NHC_NCHAINS 和 NHC_PERIOD</td>
+</tr>
+<tr>
+<td>5</td>
+<td>CSVR 恒温器</td>
+<td>NVT</td>
+<td>设置 IBRION=0、TEBEG、POTIM、NSW；ISIF=2；MDALGO=5；选择 CSVR_PERIOD</td>
+</tr>
+<tr>
+<td>13</td>
+<td>多个安徒生恒温器</td>
+<td>-</td>
+<td>在 POSCAR 文件按顺序定义子系统原子位置；设置 NSUBSYS 定义每个子系统的最后一个原子；设置 TSUBSYS 定义每个子系统的模拟温度；设置 PSUBSYS 定义每个子系统原子的碰撞概率（0≤PSUBSYS≤1）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="SMASS——在从头算分子动力学运行期间控制速度。">SMASS——在从头算分子动力学运行期间控制速度。</h2>
+<p>SMASS = -3 | -2 | -1 | [real] ≥ 0</p>
+<p>Default: <strong>SMASS</strong> = -3</p>
+<p>对于SMASS = -3，模拟了一个微正则系综（NVE系综）</p>
+<blockquote>
+<p><strong>Tip:</strong> To calculate an <a target="_blank" rel="noopener" href="https://www.vasp.at/wiki/index.php/NVE_ensemble">NVE ensemble</a> we instead recommend to use <code>MDALGO = 1</code> and <code>ANDERSEN_PROB = 0.0</code></p>
+</blockquote>
+<p>对于 SMASS = -2，初始速度保持恒定。这使得能够计算一组不同线性相关位置（例如冻结声子或具有不同键长的二聚体）的能量。</p>
+<p>注意：如果 SMASS = -2，实际采取的步数为 POTIM×（从 POSCAR 文件读取的速度）。为避免歧义，请将 POTIM 设置为 1</p>
+<h2 id="IVDW参数——控制范德华修正">IVDW参数——控制范德华修正</h2>
+<p>DFT中，标准的交换关联泛函（如PBE、LDA）无法准确描述范德华力，因此需要通过额外的修正方法来处理</p>
+<p>默认不启用范德华修正</p>
+<ul>
+<li><strong>IVDW = 0</strong>：不启用范德华修正（默认值）。</li>
+<li><strong>IVDW = 1</strong>：启用<strong>DFT-D2</strong>方法（Grimme的DFT-D2修正）。</li>
+<li><strong>IVDW = 10</strong>：启用<strong>DFT-D3</strong>方法（Grimme的DFT-D3修正，不带Becke-Johnson阻尼）。</li>
+<li><strong>IVDW = 11</strong>：启用<strong>DFT-D3</strong>方法（带Becke-Johnson阻尼，即DFT-D3(BJ)）。</li>
+<li><strong>IVDW = 12</strong>：启用<strong>DFT-D4</strong>方法（Grimme的DFT-D4修正）。</li>
+<li><strong>IVDW = 20</strong>：启用**Tkatchenko-Scheffler (TS)**方法。</li>
+<li><strong>IVDW = 21</strong>：启用**Tkatchenko-Scheffler with self-consistent screening (TS-SCS)**方法。</li>
 </ul>
 
                 

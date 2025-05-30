@@ -19,12 +19,12 @@
   <meta name="author" content="Storm Talia">
   <meta name="keywords" content="百宝箱，宝藏，仓库，博客">
   
-    <meta name="description" content="如题，记录一下在计算时遇到的各种报错 2025.05.14 12345678910111213141516 -----------------------------------------------------------------------------|">
+    <meta name="description" content="如题，记录一下在计算时遇到的各种报错  2025.05.14 12345678910111213141516 -----------------------------------------------------------------------------|">
 <meta property="og:type" content="article">
 <meta property="og:title" content="VASP中的各种报错">
 <meta property="og:url" content="https://hydrogen1222.xyz/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/VASP%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8D%E6%8A%A5%E9%94%99/index.html">
 <meta property="og:site_name" content="Stormy&#39;s Storehouse">
-<meta property="og:description" content="如题，记录一下在计算时遇到的各种报错 2025.05.14 12345678910111213141516 -----------------------------------------------------------------------------|">
+<meta property="og:description" content="如题，记录一下在计算时遇到的各种报错  2025.05.14 12345678910111213141516 -----------------------------------------------------------------------------|">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-04-14T08:40:00.000Z">
 <meta property="article:modified_time" content="2025-05-14T08:09:22.405Z">
@@ -311,7 +311,7 @@
               <div class="markdown-body">
                 
                 <p>如题，记录一下在计算时遇到的各种报错</p>
-<h2 id="2025-05-14">2025.05.14</h2>
+<h2 id="20250514"><a class="markdownIt-Anchor" href="#20250514"></a> 2025.05.14</h2>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs bash"> -----------------------------------------------------------------------------<br>|                                                                             |<br>|     EEEEEEE  RRRRRR   RRRRRR   OOOOOOO  RRRRRR      <span class="hljs-comment">###     ###     ###     |</span><br>|     E        R     R  R     R  O     O  R     R     <span class="hljs-comment">###     ###     ###     |</span><br>|     E        R     R  R     R  O     O  R     R     <span class="hljs-comment">###     ###     ###     |</span><br>|     EEEEE    RRRRRR   RRRRRR   O     O  RRRRRR       <span class="hljs-comment">#       #       #      |</span><br>|     E        R   R    R   R    O     O  R   R                               |<br>|     E        R    R   R    R   O     O  R    R      <span class="hljs-comment">###     ###     ###     |</span><br>|     EEEEEEE  R     R  R     R  OOOOOOO  R     R     <span class="hljs-comment">###     ###     ###     |</span><br>|                                                                             |<br>|     ERROR FEXCF: supplied exchange-correlation table                        |<br>|      is too small, maximal index : 7355                                     |<br>|                                                                             |<br>|       ----&gt;  I REFUSE TO CONTINUE WITH THIS SICK JOB ... BYE!!! &lt;----       |<br>|                                                                             |<br> -----------------------------------------------------------------------------<br></code></pre></td></tr></table></figure>
 <p>删除<code>NPAR = 1</code>参数</p>
 

@@ -1,0 +1,800 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head><!-- hexo injector head_begin start --><progress id="content_progress" value="0"></progress><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Storm Talia">
+  <meta name="keywords" content="百宝箱，宝藏，仓库，博客">
+  
+    <meta name="description" content="本文其实没啥新的内容，只是对上两节的一个总结分析 在表面弛豫前（slab模型优化计算前） 12345678910111213SYSTEM &#x3D; p(1x1)Cu(111)1.0        2.5701000690         0.0000000000         0.0000000000       -1.2850500345         2.2257719501         0">
+<meta property="og:type" content="article">
+<meta property="og:title" content="以p(1x1)Cu(111)为例分析表面弛豫的结果">
+<meta property="og:url" content="https://hydrogen1222.xyz/2025/04/27/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E4%BB%A5p(1x1)Cu(111)%E4%B8%BA%E4%BE%8B%E5%88%86%E6%9E%90%E8%A1%A8%E9%9D%A2%E5%BC%9B%E8%B1%AB%E7%9A%84%E7%BB%93%E6%9E%9C/index.html">
+<meta property="og:site_name" content="Stormy&#39;s Storehouse">
+<meta property="og:description" content="本文其实没啥新的内容，只是对上两节的一个总结分析 在表面弛豫前（slab模型优化计算前） 12345678910111213SYSTEM &#x3D; p(1x1)Cu(111)1.0        2.5701000690         0.0000000000         0.0000000000       -1.2850500345         2.2257719501         0">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hydrogen1222.xyz/2025/04/27/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E4%BB%A5p(1x1)Cu(111)%E4%B8%BA%E4%BE%8B%E5%88%86%E6%9E%90%E8%A1%A8%E9%9D%A2%E5%BC%9B%E8%B1%AB%E7%9A%84%E7%BB%93%E6%9E%9C/image-20250428174029792.png">
+<meta property="article:published_time" content="2025-04-27T13:21:00.000Z">
+<meta property="article:modified_time" content="2025-04-28T09:40:44.882Z">
+<meta property="article:author" content="Storm Talia">
+<meta property="article:tag" content="化学">
+<meta property="article:tag" content="科研">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://hydrogen1222.xyz/2025/04/27/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E4%BB%A5p(1x1)Cu(111)%E4%B8%BA%E4%BE%8B%E5%88%86%E6%9E%90%E8%A1%A8%E9%9D%A2%E5%BC%9B%E8%B1%AB%E7%9A%84%E7%BB%93%E6%9E%9C/image-20250428174029792.png">
+  
+  
+  
+  <title>以p(1x1)Cu(111)为例分析表面弛豫的结果 - Stormy&#39;s Storehouse</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.7.0/style.min.css">
+<link rel="stylesheet" href="https://c.webfontfree.com/c.js?f=MillerDailyOne-Roman.css">
+<link rel="stylesheet" href="/css/custom-font.css">
+<link rel="stylesheet" href="/custom/ReadingProgress/ReadingProgress.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"hydrogen1222.xyz","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"crmxTFEYDC5Ychjb9VCep2O0-MdYXbMMI","app_key":"cABySSX0egS4x2xdJoXoZ0nb","server_url":null,"path":"window.location.pathname","ignore_local":true},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Storm Talia</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="以p(1x1)Cu(111)为例分析表面弛豫的结果"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-04-27 21:21" pubdate>
+          2025年4月27日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          14 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">以p(1x1)Cu(111)为例分析表面弛豫的结果</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>本文其实没啥新的内容，只是对上两节的一个总结分析</p>
+<p>在表面弛豫前（slab模型优化计算前）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs POSCAR">SYSTEM = p(1x1)Cu(111)<br>1.0<br>        2.5701000690         0.0000000000         0.0000000000<br>       -1.2850500345         2.2257719501         0.0000000000<br>        0.0000000000         0.0000000000        21.2954006195<br>   Cu<br>    4<br>Selective Dynamics<br>Direct<br>     0.000000000         0.000000000         0.000000000 F F F<br>     0.666670000         0.333330000         0.098540000 F F F<br>     0.333330000         0.666670000         0.197080000 T T T<br>     0.000000000         0.000000000         0.295620000 T T T<br></code></pre></td></tr></table></figure>
+<p>优化计算后</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs CONTCAT">SYSTEM = p(1x1)Cu(111)<br>1.0<br>        2.5701000690         0.0000000000         0.0000000000<br>       -1.2850500345         2.2257719501         0.0000000000<br>        0.0000000000         0.0000000000        21.2954006195<br>   Cu<br>    4<br>Selective Dynamics<br>Direct<br>     0.000000000         0.000000000         0.000000000 F F F<br>     0.666670000         0.333330000         0.098540000 F F F<br>     0.333330000         0.666670000         0.197080000 T T T<br>     0.000000000         0.000000000         0.295620000 T T T<br>[ctan@baifq-hpc141 primitive-slab-opt-1]$ cat CONTCAR<br>CONTCAR\(1\1\1)<br>   1.00000000000000<br>     2.5701000690000000    0.0000000000000000    0.0000000000000000<br>    -1.2850500345000000    2.2257719501000000    0.0000000000000000<br>     0.0000000000000000    0.0000000000000000   21.2954006195000005<br>  Cu/0e71e558f37<br>               4<br>Selective dynamics<br>Direct<br>  0.0000000000000000  0.0000000000000000  0.0000000000000000   F   F   F<br>  0.6666700000000034  0.3333299999999966  0.0985399999999998   F   F   F<br>  0.3333311322281505  0.6666688677718494  0.1972481653092927   T   T   T<br> -0.0000004145140272  0.0000004145140272  0.2951613337135311   T   T   T<br><br>  0.00000000E+00  0.00000000E+00  0.00000000E+00<br>  0.00000000E+00  0.00000000E+00  0.00000000E+00<br>  0.00000000E+00  0.00000000E+00  0.00000000E+00<br>  0.00000000E+00  0.00000000E+00  0.00000000E+00<br></code></pre></td></tr></table></figure>
+<h2 id="工作站离线状态下numpy-on-python2地安装">工作站离线状态下numpy on python2地安装</h2>
+<p>这两个文件中的坐标都是分数坐标，不太利于分析位置变化，需要将分数坐标转化为笛卡尔坐标，使用大师兄的脚本来进行转换，</p>
+<p>用的是<code>python2</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#!/usr/bin/env python</span><br><span class="hljs-comment"># -*- coding: utf-8 -*-</span><br><span class="hljs-comment">#Convert direc coordiation to cartesian Writen By Qiang and Xu Nan</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">The right input way to run this script is : </span><br><span class="hljs-string">      </span><br><span class="hljs-string">python dire2cart.py CONTCAR 3 </span><br><span class="hljs-string"></span><br><span class="hljs-string">CONTCAR will be converted from Direct to Cartesian and 3 layers will be fixed.  </span><br><span class="hljs-string"></span><br><span class="hljs-string">If you do not want to fix layers and keep the same as before, run command:</span><br><span class="hljs-string">    </span><br><span class="hljs-string">python dire2cat.py CONTCAR    </span><br><span class="hljs-string"></span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><br><span class="hljs-keyword">import</span> sys<br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np <br><br><span class="hljs-built_in">print</span> <span class="hljs-string">&#x27;Please read the head part of this script and get more information!&#x27;</span><br><span class="hljs-built_in">print</span> <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">###################################</span><br><span class="hljs-string">#                                 #</span><br><span class="hljs-string">#for VASP 5.2 or higher versions  #</span><br><span class="hljs-string">#                                 #</span><br><span class="hljs-string">###################################</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><br><span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(sys.argv) &lt;= <span class="hljs-number">1</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;\n&#x27;</span> + <span class="hljs-string">&#x27; Warning! &#x27;</span> * <span class="hljs-number">3</span> + <span class="hljs-string">&#x27;\n&#x27;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;You did not select the inputfile to be converted. \n By defalut, we are going to convert your CONTCAR.\n&#x27;</span>)<br>    <br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> os.path.isfile(<span class="hljs-string">&quot;POSCAR&quot;</span>) <span class="hljs-keyword">and</span> <span class="hljs-keyword">not</span> os.path.isfile(<span class="hljs-string">&quot;CONTCAR&quot;</span>):<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Error:&quot;</span> * <span class="hljs-number">3</span> + <span class="hljs-string">&quot;\n Can not find neither POSCAR nor CONTCAR!!\n&quot;</span>)<br>        exit()<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">if</span> os.path.isfile(<span class="hljs-string">&quot;CONTCAR&quot;</span>):<br>            script = sys.argv[<span class="hljs-number">0</span>]<br>            file_to_be_converted = <span class="hljs-string">&quot;CONTCAR&quot;</span><br>            <span class="hljs-built_in">print</span> <span class="hljs-string">&quot;\n Convertion starts........\n&quot;</span><br>    <br>        <span class="hljs-keyword">else</span>:<br>            script = sys.argv[<span class="hljs-number">0</span>]<br>            file_to_be_converted = <span class="hljs-string">&quot;POSCAR&quot;</span><br>            <span class="hljs-built_in">print</span> <span class="hljs-string">&quot;\n There is no CONTCAR in your directory. \n \n POSCAR Convertion starts........\n&quot;</span><br>            <br><span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(sys.argv) == <span class="hljs-number">2</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\n%s Convertion starts......&quot;</span> %sys.argv[<span class="hljs-number">1</span>]) <br>    script, file_to_be_converted = sys.argv[:<span class="hljs-number">2</span>]<br><span class="hljs-keyword">else</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\n%s Convertion starts......\n&quot;</span> %sys.argv[<span class="hljs-number">1</span>]) <br>    script, file_to_be_converted, fixedlayer = sys.argv[:<span class="hljs-number">3</span>]<br>    fixedlayer = <span class="hljs-built_in">int</span>(fixedlayer)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_infor</span>():<br>    f = <span class="hljs-built_in">open</span>(file_to_be_converted, <span class="hljs-string">&#x27;r&#x27;</span>)<br>    lines = f.readlines()<br>    f.close()<br>    num_atoms = <span class="hljs-built_in">sum</span>([<span class="hljs-built_in">int</span>(x) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> lines[<span class="hljs-number">6</span>].split()])<br>    <span class="hljs-keyword">if</span> lines[<span class="hljs-number">7</span>][<span class="hljs-number">0</span>]  == <span class="hljs-string">&#x27;S&#x27;</span> <span class="hljs-keyword">or</span> lines[<span class="hljs-number">7</span>][<span class="hljs-number">0</span>]  == <span class="hljs-string">&#x27;s&#x27;</span>:  <span class="hljs-comment"># # With Selected T T T, coordination starts from line 9</span><br>        start_num = <span class="hljs-number">9</span><br>        <span class="hljs-keyword">if</span> lines[<span class="hljs-number">8</span>][<span class="hljs-number">0</span>]  == <span class="hljs-string">&#x27;D&#x27;</span> <span class="hljs-keyword">or</span> lines[<span class="hljs-number">8</span>][<span class="hljs-number">0</span>]  == <span class="hljs-string">&#x27;d&#x27;</span>:<br>            is_direct = <span class="hljs-literal">True</span> <br>        <span class="hljs-keyword">else</span>:<br>            is_direct = <span class="hljs-literal">False</span><br>    <span class="hljs-keyword">else</span>: <br>        start_num = <span class="hljs-number">8</span><br>        <span class="hljs-built_in">print</span> <span class="hljs-string">&#x27;----------------------------------------------------&#x27;</span><br>        <span class="hljs-built_in">print</span> <span class="hljs-string">&#x27;Pay Attetion! There is no TTT in  %s   &#x27;</span> %(file_to_be_converted)<br>        <span class="hljs-built_in">print</span> <span class="hljs-string">&#x27;----------------------------------------------------&#x27;</span><br>        <span class="hljs-keyword">if</span>  lines[<span class="hljs-number">7</span>][<span class="hljs-number">0</span>]  == <span class="hljs-string">&#x27;D&#x27;</span> <span class="hljs-keyword">or</span> lines[<span class="hljs-number">7</span>][<span class="hljs-number">0</span>]  == <span class="hljs-string">&#x27;d&#x27;</span>:<br>            is_direct = <span class="hljs-literal">True</span> <br>        <span class="hljs-keyword">else</span>:<br>            is_direct = <span class="hljs-literal">False</span><br>    a = []<br>    b = []<br>    c = []<br>    <span class="hljs-keyword">if</span> is_direct:         <br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> np.arange(<span class="hljs-number">2</span>,<span class="hljs-number">5</span>):<br>            line = [<span class="hljs-built_in">float</span>(i) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> lines[i].strip().split()]<br>            a.append(line[<span class="hljs-number">0</span>])<br>            b.append(line[<span class="hljs-number">1</span>])<br>            c.append(line[<span class="hljs-number">2</span>])<br>        vector = np.array([a,b,c])<br>    <span class="hljs-keyword">else</span>: <br>        vector = np.array([[<span class="hljs-number">1</span>, <span class="hljs-number">0</span> , <span class="hljs-number">0</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>]])<br>    <span class="hljs-keyword">return</span> vector, lines, start_num, num_atoms, is_direct<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">determinelayers</span>(<span class="hljs-params">z_cartesian</span>):<br>    threshold = <span class="hljs-number">0.5</span>  <br>    seq = <span class="hljs-built_in">sorted</span>(z_cartesian)<br>    <span class="hljs-built_in">min</span> = seq[<span class="hljs-number">0</span>]<br>    layerscount = &#123;&#125;<br>    sets = [<span class="hljs-built_in">min</span>]<br>    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(seq)):<br>        <span class="hljs-keyword">if</span> <span class="hljs-built_in">abs</span>(seq[j]-<span class="hljs-built_in">min</span>) &gt;= threshold:<br>            <span class="hljs-built_in">min</span> = seq[j]<br>            sets.append(<span class="hljs-built_in">min</span>)<br><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>,<span class="hljs-built_in">len</span>(sets)+<span class="hljs-number">1</span>):<br>        layerscount[i] = []            <br>        <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(z_cartesian)):   <br>            <span class="hljs-keyword">if</span> <span class="hljs-built_in">abs</span>(z_cartesian[k]-sets[i-<span class="hljs-number">1</span>]) &lt;= threshold:<br>                layerscount[i].append(k)<br><br>    <span class="hljs-keyword">return</span> layerscount<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">convert</span>():<br>    x_cartesian = []<br>    y_cartesian = []<br>    z_cartesian = []<br>    tf = []<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(start_num, num_atoms + start_num):<br>        line_data =  [<span class="hljs-built_in">float</span>(ele) <span class="hljs-keyword">for</span> ele <span class="hljs-keyword">in</span> lines[i].split()[<span class="hljs-number">0</span>:<span class="hljs-number">3</span>]]<br>        line_data = np.array([line_data])<br>        x, y, z = [<span class="hljs-built_in">sum</span>(k) <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> line_data * vector ]     <br>        x_cartesian.append(x)<br>        y_cartesian.append(y)<br>        z_cartesian.append(z)<br>         <br>        <span class="hljs-keyword">if</span> start_num == <span class="hljs-number">9</span> : <span class="hljs-comment"># if  T T T exist, the start_num will be 9        </span><br>            tf.append((lines[i].split()[<span class="hljs-number">3</span>:]))<br>        <span class="hljs-keyword">else</span>:<br>            tf.append(<span class="hljs-string">&#x27; &#x27;</span>)   <span class="hljs-comment"># if there is no T T T, use space instead. </span><br><br>    layerscount =determinelayers(z_cartesian)<br>    <br>    file_out = <span class="hljs-built_in">open</span>(file_to_be_converted+<span class="hljs-string">&#x27;_C&#x27;</span>, <span class="hljs-string">&#x27;w&#x27;</span>)<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>,<span class="hljs-number">7</span>):<br>        file_out.write(lines[i].rstrip() + <span class="hljs-string">&#x27;\n&#x27;</span>)  <span class="hljs-comment"># first 7 lines are kept the same </span><br>    <br>    <span class="hljs-built_in">print</span> <span class="hljs-string">&#x27;\n Find %s layers!&#x27;</span> * <span class="hljs-number">3</span> %(<span class="hljs-built_in">len</span>(layerscount), <span class="hljs-built_in">len</span>(layerscount), <span class="hljs-built_in">len</span>(layerscount))<br>    <br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(sys.argv) &gt;= <span class="hljs-number">3</span>:  <span class="hljs-comment"># This means that the nuber for fixing layers is given by the user.</span><br>        file_out.write(<span class="hljs-string">&#x27;Selective\n&#x27;</span>)  <br>        file_out.write(<span class="hljs-string">&#x27;Cartesian&#x27;</span> + <span class="hljs-string">&#x27;\n&#x27;</span>) <br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>,<span class="hljs-built_in">len</span>(layerscount)+<span class="hljs-number">1</span>):<br>            <span class="hljs-keyword">if</span> i &lt;= fixedlayer: <br>                <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> layerscount[i]:<br>                    tf[j] = [<span class="hljs-string">&#x27;F&#x27;</span>,<span class="hljs-string">&#x27;F&#x27;</span>,<span class="hljs-string">&#x27;F&#x27;</span>]<br>            <span class="hljs-keyword">else</span>:<br>                <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> layerscount[i]:<br>                    tf[k] = [<span class="hljs-string">&#x27;T&#x27;</span>,<span class="hljs-string">&#x27;T&#x27;</span>,<span class="hljs-string">&#x27;T&#x27;</span>]                    <br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">if</span> start_num == <span class="hljs-number">9</span>:  <span class="hljs-comment"># 9 means there are T T T or F F F in the file</span><br>            file_out.write(<span class="hljs-string">&#x27;Selective\n&#x27;</span>)<br>            file_out.write(<span class="hljs-string">&#x27;Cartesian&#x27;</span> + <span class="hljs-string">&#x27;\n&#x27;</span>)        <br>        <span class="hljs-keyword">else</span>:<br>            file_out.write(<span class="hljs-string">&#x27;Cartesian&#x27;</span> + <span class="hljs-string">&#x27;\n&#x27;</span>) <br>    <br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>,<span class="hljs-built_in">len</span>(x_cartesian)):<br>        file_out.write(<span class="hljs-string">&quot;\t%+-3.10f   %+-3.10f   %+-3.10f  %s\n&quot;</span> %(x_cartesian[i], y_cartesian[i], z_cartesian[i], <span class="hljs-string">&#x27; &#x27;</span>.join(tf[i])))<br>        <br>    file_out.close()<br>    <br>vector, lines, start_num, num_atoms, is_direct = get_infor()<br><br><span class="hljs-keyword">if</span> is_direct : <br>    <span class="hljs-built_in">print</span> <span class="hljs-string">&quot;\n%s has Direct Coordinates, Contersion starts.... &quot;</span>  %(file_to_be_converted)<br>    convert()<br><span class="hljs-keyword">else</span>:<br>    <span class="hljs-built_in">print</span> <span class="hljs-string">&quot;\n%s has Cartesian Coordinates Already! We are going to fix layers only.&quot;</span>  %(file_to_be_converted)<br>    convert()<br>    <br><span class="hljs-built_in">print</span> <span class="hljs-string">&#x27;-----------------------------------------------------\n&#x27;</span><br><span class="hljs-built_in">print</span> <span class="hljs-string">&#x27;\n %s with Cartesian Coordiates is named as  %s_C\n&#x27;</span> %(file_to_be_converted, file_to_be_converted)<br><span class="hljs-built_in">print</span> <span class="hljs-string">&#x27;-----------------------------------------------------\n&#x27;</span><br><br></code></pre></td></tr></table></figure>
+<p>脚本会调用到<code>numpy</code>库，然而集群上并没有连接互联网，所以没有办法通过<code>pip2 install numpy</code>来安装，只能手动上传<code>.whl</code>文件或者源码编译等。</p>
+<p>进入<code>python2</code>环境，输入<code>import pip;print(pip.pep425tags.get_supported())</code>来查看支持的<code>.whl</code>文件版本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python">[ctan@baifq-hpc141 primitive-slab-opt-<span class="hljs-number">1</span>]$ python2<br>Python <span class="hljs-number">2.7</span><span class="hljs-number">.18</span> (default, Oct <span class="hljs-number">23</span> <span class="hljs-number">2023</span>, <span class="hljs-number">20</span>:01:03)<br>[GCC <span class="hljs-number">8.5</span><span class="hljs-number">.0</span> <span class="hljs-number">20210514</span> (Red Hat <span class="hljs-number">8.5</span><span class="hljs-number">.0</span>-<span class="hljs-number">18</span>)] on linux2<br><span class="hljs-type">Type</span> <span class="hljs-string">&quot;help&quot;</span>, <span class="hljs-string">&quot;copyright&quot;</span>, <span class="hljs-string">&quot;credits&quot;</span> <span class="hljs-keyword">or</span> <span class="hljs-string">&quot;license&quot;</span> <span class="hljs-keyword">for</span> more information.<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> pip;<span class="hljs-built_in">print</span>(pip.pep425tags.get_supported())<br>[(<span class="hljs-string">&#x27;cp27&#x27;</span>, <span class="hljs-string">&#x27;cp27mu&#x27;</span>, <span class="hljs-string">&#x27;manylinux1_x86_64&#x27;</span>), (<span class="hljs-string">&#x27;cp27&#x27;</span>, <span class="hljs-string">&#x27;cp27mu&#x27;</span>, <span class="hljs-string">&#x27;linux_x86_64&#x27;</span>), (<span class="hljs-string">&#x27;cp27&#x27;</span>, <span class="hljs-string">&#x27;none&#x27;</span>, <span class="hljs-string">&#x27;manylinux1_x86_64&#x27;</span>), (<span class="hljs-string">&#x27;cp27&#x27;</span>, <span class="hljs-string">&#x27;none&#x27;</span>, <span class="hljs-string">&#x27;linux_x86_64&#x27;</span>), (<span class="hljs-string">&#x27;py2&#x27;</span>, <span class="hljs-string">&#x27;none&#x27;</span>, <span class="hljs-string">&#x27;manylinux1_x86_64&#x27;</span>), (<span class="hljs-string">&#x27;py2&#x27;</span>, <span class="hljs-string">&#x27;none&#x27;</span>, <span class="hljs-string">&#x27;linux_x86_64&#x27;</span>), (<span class="hljs-string">&#x27;cp27&#x27;</span>, <span class="hljs-string">&#x27;none&#x27;</span>, <span class="hljs-string">&#x27;any&#x27;</span>), (<span class="hljs-string">&#x27;cp2&#x27;</span>, <span class="hljs-string">&#x27;none&#x27;</span>, <span class="hljs-string">&#x27;any&#x27;</span>), (<span class="hljs-string">&#x27;py27&#x27;</span>, <span class="hljs-string">&#x27;none&#x27;</span>, <span class="hljs-string">&#x27;any&#x27;</span>), (<span class="hljs-string">&#x27;py2&#x27;</span>, <span class="hljs-string">&#x27;none&#x27;</span>, <span class="hljs-string">&#x27;any&#x27;</span>), (<span class="hljs-string">&#x27;py26&#x27;</span>, <span class="hljs-string">&#x27;none&#x27;</span>, <span class="hljs-string">&#x27;any&#x27;</span>), (<span class="hljs-string">&#x27;py25&#x27;</span>, <span class="hljs-string">&#x27;none&#x27;</span>, <span class="hljs-string">&#x27;any&#x27;</span>), (<span class="hljs-string">&#x27;py24&#x27;</span>, <span class="hljs-string">&#x27;none&#x27;</span>, <span class="hljs-string">&#x27;any&#x27;</span>), (<span class="hljs-string">&#x27;py23&#x27;</span>, <span class="hljs-string">&#x27;none&#x27;</span>, <span class="hljs-string">&#x27;any&#x27;</span>), (<span class="hljs-string">&#x27;py22&#x27;</span>, <span class="hljs-string">&#x27;none&#x27;</span>, <span class="hljs-string">&#x27;any&#x27;</span>), (<span class="hljs-string">&#x27;py21&#x27;</span>, <span class="hljs-string">&#x27;none&#x27;</span>, <span class="hljs-string">&#x27;any&#x27;</span>), (<span class="hljs-string">&#x27;py20&#x27;</span>, <span class="hljs-string">&#x27;none&#x27;</span>, <span class="hljs-string">&#x27;any&#x27;</span>)]<br></code></pre></td></tr></table></figure>
+<p>这里下载的是<code>numpy-1.16.5-cp27-cp27mu-manylinux1_x86_64.whl</code>（不可下载过高版本的<code>numpy</code>，它支持<code>python2</code>的最后一个版本似乎是<code>1.16.6</code>）</p>
+<p>然后安装，由于我不在<code>sudoer</code>中，没有<code>root</code>权限，所以需要手动指定安装目录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip2 install --prefix=~/python2/numpy_installation numpy-1.16.5-cp27-cp27mu-manylinux1_x86_64.whl<br></code></pre></td></tr></table></figure>
+<p>然后添加环境变量，注意<code>numpy</code>库在<code>/lib64/python2.7/site-packages</code>目录中的</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">export</span> PYTHONPATH=/home/ctan/python2/numpy_installation/lib64/python2.7/site-packages:<span class="hljs-variable">$PYTHONPATH</span><br></code></pre></td></tr></table></figure>
+<p>ok啦，以上是题外话，安装完<code>numpy</code>之后就可以运行脚本了，将<code>POSCAR</code>和<code>CONTCAR</code>的坐标从分数坐标转换为笛卡尔坐标</p>
+<p><code>POSCAR</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash">[ctan@baifq-hpc141 primitive-slab-opt-1]$ <span class="hljs-built_in">cat</span> POSCAR_C<br>CONTCAR\(1\1\1)<br>1.0<br>        2.5701000690         0.0000000000         0.0000000000<br>       -1.2850500345         2.2257719501         0.0000000000<br>        0.0000000000         0.0000000000        21.2954006195<br>   Cu<br>    4<br>Selective<br>Cartesian<br>        +0.0000000000   +0.0000000000   +0.0000000000  F F F<br>        +1.2850628850   +0.7419165641   +2.0984487770  F F F<br>        -0.0000128505   +1.4838553860   +4.1968975541  T T T<br>        +0.0000000000   +0.0000000000   +6.2953463311  T T T<br></code></pre></td></tr></table></figure>
+<p><code>CONTCAR_C</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash">[ctan@baifq-hpc141 primitive-slab-opt-1]$ <span class="hljs-built_in">cat</span> CONTCAR_C<br>CONTCAR\(1\1\1)<br>   1.00000000000000<br>     2.5701000690000000    0.0000000000000000    0.0000000000000000<br>    -1.2850500345000000    2.2257719501000000    0.0000000000000000<br>     0.0000000000000000    0.0000000000000000   21.2954006195000005<br>  Cu/0e71e558f37<br>               4<br>Selective<br>Cartesian<br>        +0.0000000000   +0.0000000000   +0.0000000000  F F F<br>        +1.2850628850   +0.7419165641   +2.0984487770  F F F<br>        -0.0000084856   +1.4838528659   +4.2004787017  T T T<br>        -0.0000015980   +0.0000009226   +6.2855788488  T T T<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>Alright, I’m back. 突然想起昨天球磨的样品今天结束了，连忙赶回实验室取出来装进样品管里等待封管。</p>
+<p>By the way，我真是和鱼一样，记忆只有七秒、、、😅。师兄教的球磨罐和球珠的洗涤方法忘记下来了，今天不出意外地给忘了😂。汲取教训，每次出实验室后都更加努力地总结和复盘，仔细回想每一个实验细节</p>
+</blockquote>
+<h2 id="优化前后对比">优化前后对比</h2>
+<p>Alright，扯远了，分析一下顶层和亚顶层优化前后地结构变化吧：</p>
+<ul>
+<li><code>POSCAR</code>: (+6.2953463311) - (+4.1968975541) = 2.0984487769999998</li>
+<li><code>CONTCAR</code>: (+6.2855788488) - (+4.2004787017) = 2.0851001471000004</li>
+</ul>
+<p>前后变化了：(2.0851001471000004-2.0984487769999998)/2.0984487769999998 = -0.006361189296735172</p>
+<p>可以看到，表层原子向体相收缩</p>
+<p>能量变化</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">[ctan@baifq-hpc141 primitive-slab-opt-1]$ grep <span class="hljs-string">&#x27;  without&#x27;</span> OUTCAR<br>  energy  without entropy=      -13.96941183  energy(sigma-&gt;0) =      -13.97673168<br>  energy  without entropy=      -13.96945528  energy(sigma-&gt;0) =      -13.97676958<br>  energy  without entropy=      -13.97006413  energy(sigma-&gt;0) =      -13.97726241<br>  energy  without entropy=      -13.97020643  energy(sigma-&gt;0) =      -13.97735554<br>  energy  without entropy=      -13.97017969  energy(sigma-&gt;0) =      -13.97735013<br></code></pre></td></tr></table></figure>
+<p>能量从<code>-13.97673168</code>变化为<code>-13.97735013</code>，降低了<code>0.000618449999999271 eV</code>，即弛豫过程是放热，刚切开的表面不稳定，表层原子向体相收缩后，体系能量降低，变得更稳定</p>
+<p>小Tips：可以使用python环境便捷地进行基本运算</p>
+<p><img src="/2025/04/27/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E4%BB%A5p(1x1)Cu(111)%E4%B8%BA%E4%BE%8B%E5%88%86%E6%9E%90%E8%A1%A8%E9%9D%A2%E5%BC%9B%E8%B1%AB%E7%9A%84%E7%BB%93%E6%9E%9C/image-20250428174029792.png" srcset="/img/loading.gif" lazyload alt="python环境下进行基本运算"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/" class="category-chain-item">从零开始的科研之旅</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/VASP/" class="category-chain-item">VASP</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%8C%96%E5%AD%A6/" class="print-no-link">#化学</a>
+      
+        <a href="/tags/%E7%A7%91%E7%A0%94/" class="print-no-link">#科研</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>以p(1x1)Cu(111)为例分析表面弛豫的结果</div>
+      <div>https://hydrogen1222.xyz/2025/04/27/科研/VASP/Starry Sky/以p(1x1)Cu(111)为例分析表面弛豫的结果/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Storm Talia</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年4月27日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/04/29/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/POTCAR%E8%B5%9D%E5%8A%BF%E7%9A%84%E9%80%89%E5%8F%96/" title="POTCAR赝势的选取">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">POTCAR赝势的选取</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/04/27/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Cu(111)%E6%99%B6%E9%9D%A2%E7%9A%84%E4%BC%98%E5%8C%96%E8%AE%A1%E7%AE%97/" title="p(1x1)Cu(111)的优化计算">
+                        <span class="hidden-mobile">p(1x1)Cu(111)的优化计算</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://registry.npmmirror.com/@waline/client/2.15.8/files/dist/waline.css')
+      Fluid.utils.createScript('https://registry.npmmirror.com/@waline/client/2.15.8/files/dist/waline.js', function() {
+        var options = Object.assign(
+          {"serverURL":"heiheihei.life","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"reaction":true,"locale":{"placeholder":"欢迎常来看看"}},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Storm</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Talia</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/custom/RunTime/RunTime.js"></script> </div> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/custom/ReadingProgress/ReadingProgress.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  <canvas
+    class="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script type="text/javascript" src="/custom/fireworks/anime.min.js"></script> 
+<script type="text/javascript" src="/custom/fireworks/fireworks.js"></script>
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

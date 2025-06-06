@@ -1,0 +1,941 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head><!-- hexo injector head_begin start --><progress id="content_progress" value="0"></progress><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Storm Talia">
+  <meta name="keywords" content="百宝箱，宝藏，仓库，博客">
+  
+    <meta name="description" content="f 使用VASP计算离子电导率，似乎比较麻烦  一个能量较低、结构合理的起始三维构型是进行MD模拟的第一步  分子动力学模拟的基本步骤  确定起始构型 选用适当的力场和模拟软件 构建体系和能量最小化 平衡过程 数据采集过程 结果分析  根据系统的传播方式，分子模拟方法可以分为分子动力学MD和蒙特卡洛MC两类方法  分子动力学通过数值积分求解牛顿运动方程，生成系统轨迹，可研究结构、动力学和热力学性质">
+<meta property="og:type" content="article">
+<meta property="og:title" content="表面能的计算">
+<meta property="og:url" content="https://hydrogen1222.xyz/2025/05/01/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E7%A6%BB%E5%AD%90%E7%94%B5%E5%AF%BC%E7%8E%87%E7%9A%84%E8%AE%A1%E7%AE%97/index.html">
+<meta property="og:site_name" content="Stormy&#39;s Storehouse">
+<meta property="og:description" content="f 使用VASP计算离子电导率，似乎比较麻烦  一个能量较低、结构合理的起始三维构型是进行MD模拟的第一步  分子动力学模拟的基本步骤  确定起始构型 选用适当的力场和模拟软件 构建体系和能量最小化 平衡过程 数据采集过程 结果分析  根据系统的传播方式，分子模拟方法可以分为分子动力学MD和蒙特卡洛MC两类方法  分子动力学通过数值积分求解牛顿运动方程，生成系统轨迹，可研究结构、动力学和热力学性质">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hydrogen1222.xyz/2025/05/01/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E7%A6%BB%E5%AD%90%E7%94%B5%E5%AF%BC%E7%8E%87%E7%9A%84%E8%AE%A1%E7%AE%97/image-20250521165107751.png">
+<meta property="article:published_time" content="2025-05-01T08:51:00.000Z">
+<meta property="article:modified_time" content="2025-05-22T02:05:16.931Z">
+<meta property="article:author" content="Storm Talia">
+<meta property="article:tag" content="化学">
+<meta property="article:tag" content="科研">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://hydrogen1222.xyz/2025/05/01/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E7%A6%BB%E5%AD%90%E7%94%B5%E5%AF%BC%E7%8E%87%E7%9A%84%E8%AE%A1%E7%AE%97/image-20250521165107751.png">
+  
+  
+  
+  <title>表面能的计算 - Stormy&#39;s Storehouse</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.7.0/style.min.css">
+<link rel="stylesheet" href="https://c.webfontfree.com/c.js?f=MillerDailyOne-Roman.css">
+<link rel="stylesheet" href="/css/custom-font.css">
+<link rel="stylesheet" href="/custom/ReadingProgress/ReadingProgress.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"hydrogen1222.xyz","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"crmxTFEYDC5Ychjb9VCep2O0-MdYXbMMI","app_key":"cABySSX0egS4x2xdJoXoZ0nb","server_url":null,"path":"window.location.pathname","ignore_local":true},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Storm Talia</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="表面能的计算"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-05-01 16:51" pubdate>
+          2025年5月1日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          21 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">表面能的计算</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>f</p>
+<p>使用<code>VASP</code>计算离子电导率，似乎比较麻烦</p>
+<blockquote>
+<p>一个能量较低、结构合理的起始三维构型是进行MD模拟的第一步</p>
+</blockquote>
+<p>分子动力学模拟的基本步骤</p>
+<ul>
+<li>确定起始构型</li>
+<li>选用适当的力场和模拟软件</li>
+<li>构建体系和能量最小化</li>
+<li>平衡过程</li>
+<li>数据采集过程</li>
+<li>结果分析</li>
+</ul>
+<p>根据系统的传播方式，分子模拟方法可以分为<strong>分子动力学MD</strong>和<strong>蒙特卡洛MC</strong>两类方法</p>
+<ul>
+<li>分子动力学通过数值积分求解牛顿运动方程，生成系统轨迹，可研究结构、动力学和热力学性质。</li>
+<li>蒙特卡洛方法基于概率规则生成新构型，侧重采样平衡态结构和热力学性质，不涉及时间动力学。</li>
+</ul>
+<p>力场是一组描述分子中原子间相互作用的<strong>势能函数</strong>和<strong>参数</strong>的集合，用于计算系统的总能量和原子受力，从而驱动分子动力学（MD）模拟或蒙特卡罗（MC）采样：</p>
+<ul>
+<li>将量子力学描述的分子相互作用简化为经典力学模型，降低计算成本。</li>
+<li>通过参数化的势能函数，预测分子的结构、动力学和热力学性质（如键长、自由能、扩散系数等）。</li>
+</ul>
+<p>固定电荷力场：固定原子电荷，不考虑环境引起的电子云变形（极化），计算效率高</p>
+<ul>
+<li>生物分子力场
+<ul>
+<li>AMBER
+<ul>
+<li>广泛用于蛋白质、核酸模拟，参数优化针对溶液环境，如 ff14SB、ff19SB</li>
+</ul>
+</li>
+<li>CHARMM
+<ul>
+<li>广泛用于蛋白质、核酸模拟，参数优化针对溶液环境，如 ff14SB、ff19SB</li>
+</ul>
+</li>
+<li>GROMOS
+<ul>
+<li>用于膜蛋白和聚合物，参数简洁，计算速度快</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>小分子力场
+<ul>
+<li>GAFF
+<ul>
+<li>可参数化多种有机小分子，支持自定义分子</li>
+</ul>
+</li>
+<li>UFF
+<ul>
+<li>覆盖周期表多数元素，适合无机材料和有机分子</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>极化力场：显示考虑原子极化率（电子云随电场变化），通过附加自由度（如 Drude 振子、诱导偶极）模拟极化效应，精度更高但计算成本显著增加</p>
+<ul>
+<li><strong>AMOEBA</strong>：基于原子极化率和多极矩，适用于极性体系（如水、蛋白质 - 配体相互作用）。</li>
+<li><strong>Drude 模型</strong>：每个原子附加虚拟振子模拟极化，如 CHARMM-Drude 力场。</li>
+<li><strong>Polarizable AMBER (PAMBS)</strong>：在 AMBER 框架中引入极化参数。</li>
+</ul>
+<p>粗粒化力场（Coarse-Grained Force Fields）：将多个原子简化为单个 “珠子”（如蛋白质的每个残基、脂质的疏水尾），降低计算复杂度，适用于大尺度系统（如细胞膜、聚合物）</p>
+<ul>
+<li><strong>Martini</strong>：广泛用于膜蛋白、病毒颗粒和软物质，4:1 粗粒化（4 个原子→1 个珠子）。</li>
+<li><strong>MARTINI 3.0</strong>：支持多尺度模拟，兼容全原子模型。</li>
+</ul>
+<p>使用<code>pymatgen</code>提取数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">分析AIMD结果，计算MSD 和 conductivity</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">from</span> pymatgen.core.trajectory <span class="hljs-keyword">import</span> Trajectory<br><span class="hljs-keyword">from</span> pymatgen.io.vasp.outputs <span class="hljs-keyword">import</span> Xdatcar<br><span class="hljs-keyword">from</span> pymatgen.core <span class="hljs-keyword">import</span> Structure<br><span class="hljs-keyword">from</span> pymatgen.analysis.diffusion.analyzer <span class="hljs-keyword">import</span> DiffusionAnalyzer<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> pickle<br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><br><span class="hljs-comment"># 这一步是读取 XDATCAR，得到一系列结构信息</span><br>traj = Trajectory.from_file(<span class="hljs-string">&#x27;XDATCAR&#x27;</span>)<br><br><span class="hljs-comment"># 这一步是实例化 DiffusionAnalyzer 的类</span><br><span class="hljs-comment"># 并用 from_structures 方法初始化这个类； 900 是温度，2 是POTIM 的值，1是间隔步数</span><br><span class="hljs-comment"># 间隔步数（step_skip）不太容易理解，但是根据官方教程:</span><br><span class="hljs-comment"># dt = timesteps * self.time_step * self.step_skip</span><br><br>diff = DiffusionAnalyzer.from_structures(traj,<span class="hljs-string">&#x27;Li&#x27;</span>,<span class="hljs-number">900</span>,<span class="hljs-number">2</span>,<span class="hljs-number">1</span>)<br><br><span class="hljs-comment"># 可以用内置的 plot_msd 方法画出 MSD 图像</span><br><span class="hljs-comment"># 有些终端不能显示图像，这时候可以调用 export_msdt() 方法，得到数据后再自己作图</span><br>ax = diff.export_msdt(<span class="hljs-string">&quot;msd.dat&quot;</span>)<br><span class="hljs-comment">#plt.show()</span><br><br><span class="hljs-comment"># 接下来直接得到 离子迁移率， 单位是 mS/cm</span><br>C = diff.conductivity<br><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;result.dat&#x27;</span>,<span class="hljs-string">&#x27;w&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>    f.write(<span class="hljs-string">&#x27;# AIMD result for Li-ion\n&#x27;</span>)<br>    f.write(<span class="hljs-string">&#x27;temp\tconductivity\n&#x27;</span>)<br>    f.write(<span class="hljs-string">&#x27;%d\t%.2f\n&#x27;</span> %(<span class="hljs-number">900</span>,C))<br></code></pre></td></tr></table></figure>
+<p>画图</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><br><span class="hljs-comment"># 读取数据</span><br>data = np.loadtxt(<span class="hljs-string">&#x27;msd.txt&#x27;</span>, comments=<span class="hljs-string">&#x27;#&#x27;</span>)  <span class="hljs-comment"># 假设你的文件名为 msd.txt</span><br><br><span class="hljs-comment"># 提取时间步长和 MSD 数据</span><br>time = data[:, <span class="hljs-number">0</span>]  <span class="hljs-comment"># 第一列是时间步长</span><br>msd = data[:, <span class="hljs-number">1</span>]   <span class="hljs-comment"># 第二列是总的 MSD</span><br><br><span class="hljs-comment"># 绘制 MSD 曲线</span><br>plt.figure(figsize=(<span class="hljs-number">10</span>, <span class="hljs-number">6</span>))<br>plt.plot(time, msd, label=<span class="hljs-string">&#x27;MSD&#x27;</span>, color=<span class="hljs-string">&#x27;blue&#x27;</span>, linewidth=<span class="hljs-number">2</span>)<br>plt.xlabel(<span class="hljs-string">&#x27;Time (fs)&#x27;</span>, fontsize=<span class="hljs-number">14</span>)<br>plt.ylabel(<span class="hljs-string">&#x27;Mean Square Displacement (Å²)&#x27;</span>, fontsize=<span class="hljs-number">14</span>)<br>plt.title(<span class="hljs-string">&#x27;MSD vs Time&#x27;</span>, fontsize=<span class="hljs-number">16</span>)<br>plt.legend(fontsize=<span class="hljs-number">12</span>)<br>plt.grid(<span class="hljs-literal">True</span>)<br>plt.show()<br></code></pre></td></tr></table></figure>
+<ol>
+<li>System preparation</li>
+<li>Minimization/Relaxation</li>
+<li>Equilibration</li>
+<li>Production</li>
+</ol>
+<blockquote>
+<p>系统准备可以说是模拟中最关键的阶段，但在许多情况下却得到了最少的关注；如果你的系统准备有缺陷，这些缺陷可能会证明是致命的。最坏的可能结果是，准备好的系统并非你想要的（例如，它包含不正确的分子或质子化状态），但在化学上却是有效的，并且可以被你的力场很好地描述，因此没有错误地通过了剩余的步骤——实际上，这是系统准备问题中常见的后果。如果系统在随后的平衡步骤中行为良好，不应假设系统已正确准备；这里应该格外小心。</p>
+</blockquote>
+<p>生产流程如下：</p>
+<p><img src="/2025/05/01/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E7%A6%BB%E5%AD%90%E7%94%B5%E5%AF%BC%E7%8E%87%E7%9A%84%E8%AE%A1%E7%AE%97/image-20250521165107751.png" srcset="/img/loading.gif" lazyload alt="生产流程图"></p>
+<p>为什么需要有恒温器？</p>
+<p>分子动力学模拟用于观察和获取某个研究系统的有趣性质。在很多情况下，为了模拟实验室条件下进行的实验，希望从正则（恒温）配分函数中进行抽样。一般来说，如果系统在模拟过程中必须保持温度不变，将采用某种温控算法。</p>
+<p>分子动力学模拟的温度通常使用根据等分配定理定义的动能来测量：<br>
+$$<br>
+\frac{3}{2}Nk_BT = &lt;\sum_{i=1}^{N}\frac{1}{2}m_iv_i^2&gt;<br>
+$$<br>
+带角标的括号表示温度是一个时间平均值。如果我们使用等分配定理来计算分子动力学模拟单时间点的温度快照，而不是时间平均，这个量称为瞬时温度。瞬时温度不一定等于目标温度；实际上，在正则配分函数中，瞬时温度应该围绕目标温度波动。</p>
+<p>温控算法通过改变本质上微观可逆的牛顿运动方程来工作。因此，<strong>如果希望计算扩散系数等动力学性质，则最好不使用温控器</strong>；相反，在系统达到所需温度后，应关闭温控器。然而，<a target="_blank" rel="noopener" href="https://pubs.acs.org/doi/10.1021/ct400109a">虽然所有温控器都会给出非物理动力学，但有些研究发现它们对特定动力学性质的计算影响很小，并且它们在生产模拟中也常被使用</a>。</p>
+<h2 id="一些恒温器">一些恒温器</h2>
+<ul>
+<li>Gaussian
+<ul>
+<li>使用了高斯最小约束原理来确定维持瞬时温度所需的最小扰动力。这种温控器不采样正则分布；相反，它采样的是等速（恒动能）配分函数。但是，等速配分函数采样与正则配分函数相同的配置相空间，因此，使用任一配分函数都可以等效地获得位置依赖（结构）平衡性质。然而，速度依赖（动力学）性质在两个配分函数之间不会等效。这种温控器仅适用于某些高级应用。</li>
+</ul>
+</li>
+<li>Simple Velocity Rescaling
+<ul>
+<li>实施起来最容易的温控器之一,也是最不物理的温控器之一。这种温控器依赖于重新标粒子的动量，使模拟的瞬时温度恰好与目标温度相匹配，不建议使用</li>
+</ul>
+</li>
+<li>Berendsen
+<ul>
+<li>既不采样正则分布也不采样等速分布，它的使用可能导致模拟伪象，不建议使用</li>
+</ul>
+</li>
+<li>Bussi-Donadio-Parrinello (Canonical Sampling  Velocity Rescaling)
+<ul>
+<li>正确采样了正则配分函数，也被称为“V-rescale”热浴方法，非常常用的热浴方法</li>
+</ul>
+</li>
+<li>Andersen
+<ul>
+<li>只能用于采样结构性质，因为动力学性质可能会受到突然碰撞的很大影响，不建议使用</li>
+</ul>
+</li>
+<li>Langevin
+<ul>
+<li>不了解</li>
+</ul>
+</li>
+<li>Noés-Hoover
+<ul>
+<li>不了解</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>压浴类型</th>
+<th>原理</th>
+<th>特点</th>
+<th>适用性</th>
+<th>局限性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Simple volume rescaling</td>
+<td>每次修改系统体积使瞬时压强等于目标压强</td>
+<td>操作简单直接</td>
+<td>仅可用于模拟初始阶段，帮助系统初步接近目标压强</td>
+<td>不能采样正确配分函数，不能用于生产采样；不平滑地接近目标压强，可能导致系统出现不真实的物理问题</td>
+</tr>
+<tr>
+<td>Berendsen</td>
+<td>将系统耦合到弱相互作用的压力浴，通过缩放因子定期缩放体积</td>
+<td>比简单体积缩放更真实地接近目标压强，产生更真实的压力波动</td>
+<td>对于平衡开始阶段可能有用</td>
+<td>采样配分函数定义不佳，不能保证是 NPT 或 NPH，不应用于生产采样</td>
+</tr>
+<tr>
+<td>Andersen</td>
+<td>在运动方程中增加额外自由度，将系统耦合到假想压力浴（类似各向同性活塞作用）</td>
+<td>采样正确的配分函数</td>
+<td>适用于对配分函数采样要求高的场景</td>
+<td>是各向同性的，不能对系统的一部分施加各向异性压力</td>
+</tr>
+<tr>
+<td>Parrinello - Rahman</td>
+<td>对 Andersen 压缩计的扩展，支持模拟盒大小和形状的各向异性缩放</td>
+<td>具有 Andersen 压缩计的性质，增加了各向异性支持，适用于固体模拟（可模拟晶体格子中相变形状变化）等</td>
+<td>在固体模拟等领域应用优势明显</td>
+<td>并非所有模拟器都已实现该压缩计，限制了用户选择</td>
+</tr>
+<tr>
+<td>Martyna - Tuckerman - Tobias - Klein (MTTK)</td>
+<td>引入替代运动方程，正确采样较小系统配分函数</td>
+<td>通常被视为对 Parrinello - Rahman 的改进，适用于小系统</td>
+<td>为小系统的模拟提供了更准确的配分函数采样方法</td>
+<td>未提及明显独特的局限性（与其他扩展自由度压缩计类似，受模拟器实现情况等限制）</td>
+</tr>
+</tbody>
+</table>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/" class="category-chain-item">从零开始的科研之旅</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/VASP/" class="category-chain-item">VASP</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%8C%96%E5%AD%A6/" class="print-no-link">#化学</a>
+      
+        <a href="/tags/%E7%A7%91%E7%A0%94/" class="print-no-link">#科研</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>表面能的计算</div>
+      <div>https://hydrogen1222.xyz/2025/05/01/科研/VASP/Starry Sky/离子电导率的计算/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Storm Talia</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年5月1日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/05/03/%E6%9D%82%E8%B0%88/%E5%BF%AB%E4%B9%90%E6%97%A0%E7%BD%AA%E6%AD%8C%E8%AF%8D%E8%B5%8F%E6%9E%90/" title="快乐无罪">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">快乐无罪</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/04/29/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E6%88%AA%E6%96%AD%E8%83%BDENCUT%E7%9A%84%E9%80%89%E5%8F%96/" title="截断能ENCUT的选取">
+                        <span class="hidden-mobile">截断能ENCUT的选取</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://registry.npmmirror.com/@waline/client/2.15.8/files/dist/waline.css')
+      Fluid.utils.createScript('https://registry.npmmirror.com/@waline/client/2.15.8/files/dist/waline.js', function() {
+        var options = Object.assign(
+          {"serverURL":"heiheihei.life","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"reaction":true,"locale":{"placeholder":"欢迎常来看看"}},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Storm</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Talia</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/custom/RunTime/RunTime.js"></script> </div> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/custom/ReadingProgress/ReadingProgress.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  <canvas
+    class="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script type="text/javascript" src="/custom/fireworks/anime.min.js"></script> 
+<script type="text/javascript" src="/custom/fireworks/fireworks.js"></script>
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

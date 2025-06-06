@@ -1,0 +1,850 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head><!-- hexo injector head_begin start --><progress id="content_progress" value="0"></progress><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Storm Talia">
+  <meta name="keywords" content="百宝箱，宝藏，仓库，博客">
+  
+    <meta name="description" content="关于表面能 根据VASP官方手册Hands on Session III，表面能的定义如下，大师兄的文章也提到了这个定义( Nanoscale, 2017, 9, 13089–13094) $$ \sigma&#x3D;\sigma^{unrelax}+E^{relax}&#x3D;\dfrac{1}{2}(E_{surf}-N_{atoms}\cdot E_{bulk})+E^{relax} $$ $$ \gamm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="表面能的计算">
+<meta property="og:url" content="https://hydrogen1222.xyz/2025/04/29/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E8%A1%A8%E9%9D%A2%E8%83%BD%E7%9A%84%E8%AE%A1%E7%AE%97/index.html">
+<meta property="og:site_name" content="Stormy&#39;s Storehouse">
+<meta property="og:description" content="关于表面能 根据VASP官方手册Hands on Session III，表面能的定义如下，大师兄的文章也提到了这个定义( Nanoscale, 2017, 9, 13089–13094) $$ \sigma&#x3D;\sigma^{unrelax}+E^{relax}&#x3D;\dfrac{1}{2}(E_{surf}-N_{atoms}\cdot E_{bulk})+E^{relax} $$ $$ \gamm">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hydrogen1222.xyz/2025/04/29/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E8%A1%A8%E9%9D%A2%E8%83%BD%E7%9A%84%E8%AE%A1%E7%AE%97/%E5%90%91%E9%87%8F%E5%A4%96%E7%A7%AF.jpg">
+<meta property="article:published_time" content="2025-04-29T13:40:00.000Z">
+<meta property="article:modified_time" content="2025-04-29T13:39:45.564Z">
+<meta property="article:author" content="Storm Talia">
+<meta property="article:tag" content="化学">
+<meta property="article:tag" content="科研">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://hydrogen1222.xyz/2025/04/29/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E8%A1%A8%E9%9D%A2%E8%83%BD%E7%9A%84%E8%AE%A1%E7%AE%97/%E5%90%91%E9%87%8F%E5%A4%96%E7%A7%AF.jpg">
+  
+  
+  
+  <title>表面能的计算 - Stormy&#39;s Storehouse</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.7.0/style.min.css">
+<link rel="stylesheet" href="https://c.webfontfree.com/c.js?f=MillerDailyOne-Roman.css">
+<link rel="stylesheet" href="/css/custom-font.css">
+<link rel="stylesheet" href="/custom/ReadingProgress/ReadingProgress.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"hydrogen1222.xyz","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"crmxTFEYDC5Ychjb9VCep2O0-MdYXbMMI","app_key":"cABySSX0egS4x2xdJoXoZ0nb","server_url":null,"path":"window.location.pathname","ignore_local":true},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Storm Talia</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="表面能的计算"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-04-29 21:40" pubdate>
+          2025年4月29日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          13 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">表面能的计算</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="关于表面能">关于表面能</h2>
+<p>根据VASP官方手册<code>Hands on Session III</code>，表面能的定义如下，大师兄的文章也提到了这个定义( <a target="_blank" rel="noopener" href="https://pubs.rsc.org/en/content/articlelanding/2017/nr/c7nr03889e">Nanoscale, 2017, 9, 13089–13094</a>)<br>
+$$<br>
+\sigma=\sigma^{unrelax}+E^{relax}=\dfrac{1}{2}(E_{surf}-N_{atoms}\cdot E_{bulk})+E^{relax}<br>
+$$</p>
+<p>$$<br>
+\gamma_s=\dfrac{1}{2A}(E_{surf}^{unrelax}-N\cdot E_{bulk})+\dfrac{1}{A}(E_{surf}^{relax}-E_{surf}^{unrelax})<br>
+$$</p>
+<p>其中，弛豫能量被定义为：<br>
+$$<br>
+E^{relax}=E_{surf}^{relax}-E_{surf}^{unrelax}<br>
+$$</p>
+<ul>
+<li>手册的公式和大师兄文章中公式的区别在于表面积A，表面能应当除以表面积，所以后者更合理一些</li>
+<li>$E_{bulk}$为体相中单个原子的能量，所以$N\cdot E_{bulk}$为这个体相的能量，即为<code>OUTCAR</code>直接读出的能量</li>
+</ul>
+<h2 id="关于表面积A的计算">关于表面积A的计算</h2>
+<p>这部分有些难理解，涉及到一点<code>高等数学</code>和<code>线性代数</code>🤕</p>
+<p><strong>表面积可通过晶格基矢量的叉积确定</strong>，在POSCAR或CONTCAR文件中，晶格基矢量通常以三行的形式定义</p>
+<p>对于面积的计算，可设一组不共线的基矢量为$\mathbf{a_1}=(a_{11},a_{12},0),\mathbf{a_2}=(a_{21},a_{22},0)$</p>
+<p>下面这张图应该挺形象</p>
+<p><img src="/2025/04/29/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E8%A1%A8%E9%9D%A2%E8%83%BD%E7%9A%84%E8%AE%A1%E7%AE%97/%E5%90%91%E9%87%8F%E5%A4%96%E7%A7%AF.jpg" srcset="/img/loading.gif" lazyload alt="https://zhuanlan.zhihu.com/p/359975221"></p>
+<p>$\vec{a}\times \vec{b}=(0,0,a_{11}\times a_{22}-a_{12}\times a_{21})$</p>
+<p>面积为外积模乘以缩放银子<br>
+$$<br>
+实际面积=s^2\cdot |a_{11}a_{22}-a_{12}a_{21}|<br>
+$$<br>
+PS：对于三维的体积<br>
+$$<br>
+体积=s^3\cdot |\mathbf{a_1}\cdot (\mathbf{a_2\times a_3})|<br>
+$$</p>
+<h2 id="p-1x1-Cu-111-的表面能">p(1x1)Cu(111)的表面能</h2>
+<p>前面已经算得差不多了</p>
+<p>slab模型的能量信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">[ctan@baifq-hpc141 primitive-slab-opt-1]$ grep <span class="hljs-string">&#x27;  without&#x27;</span> OUTCAR<br>  energy  without entropy=      -13.96941183  energy(sigma-&gt;0) =      -13.97673168<br>  energy  without entropy=      -13.96945528  energy(sigma-&gt;0) =      -13.97676958<br>  energy  without entropy=      -13.97006413  energy(sigma-&gt;0) =      -13.97726241<br>  energy  without entropy=      -13.97020643  energy(sigma-&gt;0) =      -13.97735554<br>  energy  without entropy=      -13.97017969  energy(sigma-&gt;0) =      -13.97735013<br></code></pre></td></tr></table></figure>
+<p>slab模型优化后的结构信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs CONTCAR">CONTCAR\(1\1\1)<br>   1.00000000000000<br>     2.5701000690000000    0.0000000000000000    0.0000000000000000<br>    -1.2850500345000000    2.2257719501000000    0.0000000000000000<br>     0.0000000000000000    0.0000000000000000   21.2954006195000005<br>  Cu/0e71e558f37<br>               4<br>Selective dynamics<br>Direct<br>  0.0000000000000000  0.0000000000000000  0.0000000000000000   F   F   F<br>  0.6666700000000034  0.3333299999999966  0.0985399999999998   F   F   F<br>  0.3333311322281505  0.6666688677718494  0.1972481653092927   T   T   T<br> -0.0000004145140272  0.0000004145140272  0.2951613337135311   T   T   T<br><br>  0.00000000E+00  0.00000000E+00  0.00000000E+00<br>  0.00000000E+00  0.00000000E+00  0.00000000E+00<br>  0.00000000E+00  0.00000000E+00  0.00000000E+00<br>  0.00000000E+00  0.00000000E+00  0.00000000E+00<br></code></pre></td></tr></table></figure>
+<p>bulk模型的能量信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">[ctan@baifq-hpc141 primitive-slab-opt-1]$ grep <span class="hljs-string">&#x27;  without&#x27;</span> ../bulk-calc/OUTCAR<br>  energy  without entropy=      -14.90258332  energy(sigma-&gt;0) =      -14.90537746<br>  energy  without entropy=      -14.90568039  energy(sigma-&gt;0) =      -14.90844732<br>  energy  without entropy=      -14.90859467  energy(sigma-&gt;0) =      -14.91129762<br></code></pre></td></tr></table></figure>
+<ul>
+<li>$A=2.570100069<em>2.2257719501-0.0000000000000000</em>(-1.2850500345)=5.720456642530275$ Å$^2$</li>
+<li>$E_{surf}^{unrelax}=-13.9767$ eV</li>
+<li>$E_{bulk}\cdot N=-14.9112$ eV</li>
+<li>$E_{surface}^{relax}=-13.9773$ eV</li>
+</ul>
+<p>所以表面能$\gamma_s$ = 0.08158 eV/Å$^2$ ,又1 eV/Å$^2$=16.0218 J/m$^2$，所以表面能$\gamma_s=$ 1.3070 J/m$^2$</p>
+<h2 id="c-1x1-Cu-111-的表面能">c(1x1)Cu(111)的表面能</h2>
+<p>之前大师兄提到过，对于面心立方最密堆积的形式，slab模型的建立可以使用原胞也可以使用单胞，那么接下来看看用单胞计算表面能吧</p>
+<p>c(1x1)Cu(111)优化计算的能量信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash">[ctan@baifq-hpc141 conventional-slab-opt]$ grep <span class="hljs-string">&#x27;  without&#x27;</span> OUTCAR<br>  energy  without entropy=      -55.94972046  energy(sigma-&gt;0) =      -55.94434499<br>  energy  without entropy=      -55.94997517  energy(sigma-&gt;0) =      -55.94458201<br>  energy  without entropy=      -55.95396000  energy(sigma-&gt;0) =      -55.94820485<br>  energy  without entropy=      -55.95519341  energy(sigma-&gt;0) =      -55.94928561<br>  energy  without entropy=      -55.95554732  energy(sigma-&gt;0) =      -55.94959634<br>  energy  without entropy=      -55.95713778  energy(sigma-&gt;0) =      -55.95095507<br>  energy  without entropy=      -55.95788514  energy(sigma-&gt;0) =      -55.95158140<br>  energy  without entropy=      -55.95893404  energy(sigma-&gt;0) =      -55.95242747<br>  energy  without entropy=      -55.95963672  energy(sigma-&gt;0) =      -55.95296199<br>  energy  without entropy=      -55.96031694  energy(sigma-&gt;0) =      -55.95340564<br>  energy  without entropy=      -55.96050719  energy(sigma-&gt;0) =      -55.95349958<br>  energy  without entropy=      -55.96053048  energy(sigma-&gt;0) =      -55.95316488<br>  energy  without entropy=      -55.96067995  energy(sigma-&gt;0) =      -55.95346716<br>  energy  without entropy=      -55.96069855  energy(sigma-&gt;0) =      -55.95356576<br>  energy  without entropy=      -55.96051601  energy(sigma-&gt;0) =      -55.95360396<br>  energy  without entropy=      -55.96050802  energy(sigma-&gt;0) =      -55.95361124<br>  energy  without entropy=      -55.96041586  energy(sigma-&gt;0) =      -55.95360050<br>  energy  without entropy=      -55.96018279  energy(sigma-&gt;0) =      -55.95347398<br></code></pre></td></tr></table></figure>
+<p>结构信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs bash">[ctan@baifq-hpc141 conventional-slab-opt]$ <span class="hljs-built_in">cat</span> CONTCAR<br>CONTCAR\(1\1\1)<br>   1.00000000000000<br>     5.1402001381000000    0.0000000000000000    0.0000000000000000<br>    -2.5701000690000000    4.4515439000999999    0.0000000000000000<br>     0.0000000000000000    0.0000000000000000   21.2954006195000005<br>  Cu/0e71e558f37<br>              16<br>Direct<br>  0.0000006270807907 -0.0000006270807907  0.0011656342599333<br>  0.6666672048402060  0.3333327951597896  0.0988195745854847<br>  0.3333327951597896  0.6666672048402060  0.1968004254145135<br> -0.0000006270807907  0.0000006270807907  0.2944543657400676<br>  0.0000006270807907  0.4999993729192098  0.0011656342599333<br>  0.6666672048402060  0.8333327951597940  0.0988195745854847<br>  0.3333327951597896  0.1666672048402087  0.1968004254145135<br> -0.0000006270807907  0.5000006270807924  0.2944543657400676<br>  0.5000006270807924  0.4999993729192098  0.0011656342599333<br>  0.1666672048402087  0.8333327951597940  0.0988195745854847<br>  0.8333327951597940  0.1666672048402087  0.1968004254145135<br>  0.4999993729192098  0.5000006270807924  0.2944543657400676<br>  0.5000006270807924 -0.0000006270807907  0.0011656342599333<br>  0.1666672048402087  0.3333327951597896  0.0988195745854847<br>  0.8333327951597940  0.6666672048402060  0.1968004254145135<br>  0.4999993729192098  0.0000006270807907  0.2944543657400676<br><br>  0.00000000E+00  0.00000000E+00  0.00000000E+00<br>  0.00000000E+00  0.00000000E+00  0.00000000E+00<br>  0.00000000E+00  0.00000000E+00  0.00000000E+00<br>  0.00000000E+00  0.00000000E+00  0.00000000E+00<br>  0.00000000E+00  0.00000000E+00  0.00000000E+00<br>  0.00000000E+00  0.00000000E+00  0.00000000E+00<br>  0.00000000E+00  0.00000000E+00  0.00000000E+00<br>  0.00000000E+00  0.00000000E+00  0.00000000E+00<br>  0.00000000E+00  0.00000000E+00  0.00000000E+00<br>  0.00000000E+00  0.00000000E+00  0.00000000E+00<br>  0.00000000E+00  0.00000000E+00  0.00000000E+00<br>  0.00000000E+00  0.00000000E+00  0.00000000E+00<br>  0.00000000E+00  0.00000000E+00  0.00000000E+00<br>  0.00000000E+00  0.00000000E+00  0.00000000E+00<br>  0.00000000E+00  0.00000000E+00  0.00000000E+00<br>  0.00000000E+00  0.00000000E+00  0.00000000E+00<br></code></pre></td></tr></table></figure>
+<p>Cu(111)的体相能量：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">[ctan@baifq-hpc141 conventional-slab-opt]$ grep <span class="hljs-string">&#x27;  without&#x27;</span> ../bulk-calc/OUTCAR<br>  energy  without entropy=      -14.90258332  energy(sigma-&gt;0) =      -14.90537746<br>  energy  without entropy=      -14.90568039  energy(sigma-&gt;0) =      -14.90844732<br>  energy  without entropy=      -14.90859467  energy(sigma-&gt;0) =      -14.91129762<br></code></pre></td></tr></table></figure>
+<ul>
+<li>表面积A=$5.1402001381000000*4.4515439000999999=22.8818$ Å$^2$</li>
+<li>$E_{surf}^{unrelax}$ = -55.9443 eV</li>
+<li>$N \cdot E_{bulk}$ = -59.6452 eV
+<ul>
+<li><strong>N指的是slab模型中的原子个数而非bulk中的原子个数</strong></li>
+</ul>
+</li>
+<li>$E_{surf}^{relax}$ = -55.9535 eV</li>
+</ul>
+<p>计算得表面能$\gamma_s$=0.08047 eV/Å$^2$ = 1.2892 J/m$^2$</p>
+<p>这与p(1x1)Cu(111)计算所得的表面能有一定的差距，目前现阶段我还无法解决这个问题🤔😵‍💫</p>
+<h2 id="p-1x1-Ni-100-的表面能">p(1x1)Ni(100)的表面能</h2>
+<p>这个例子来自于vasp官方的手册<code>Hands on Session III</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs INCAR">general:<br>SYSTEM = clean Ni(100) surface<br>ISTART = 0 ; ICHARG=2<br>ENCUT = 270<br>ISMEAR = 2 ; SIGMA = 0.2<br>spin:<br>ISPIN=2<br>MAGMOM = 5*1<br>dynamic:<br>IBRION = 1<br>NSW = 100<br>POTIM = 0.2<br></code></pre></td></tr></table></figure>
+<p>有个疑惑的点是手册中的<code>INCAR</code>没有加上偶极矫正，我在自己算的时候加上了偶极矫正</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs INCAR">System = Nickel-slab-opt<br>ISMEAR = 1<br>ISTART = 0<br>ICHARG = 2<br>SIGMA = 0.05<br>ENCUT = 360<br>ALGO = Normal<br>ISPIN = 2<br>MAGMOM = 5*1<br>NSW = 200<br>NELM = 200<br>EDIFF = 1E-6<br>EDIFFG = -0.01<br>IDIPOL = 3<br>LDIPOL = .TRUE.<br>LWAVE = .FALSE.<br>LCHARG = .FALSE.<br>IBRION = 1<br>POTIM = 0.05<br></code></pre></td></tr></table></figure>
+<p>体相能量信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">[ctan@baifq-hpc141 primitive-opt]$ grep <span class="hljs-string">&#x27;  without&#x27;</span> ../bulk/OUTCAR<br>  energy  without entropy=      -21.88865316  energy(sigma-&gt;0) =      -21.88759144<br>  energy  without entropy=      -21.88930785  energy(sigma-&gt;0) =      -21.88825056<br>  energy  without entropy=      -21.89056178  energy(sigma-&gt;0) =      -21.88952707<br></code></pre></td></tr></table></figure>
+<p>弛豫与未弛豫的slab模型的能量信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">[ctan@baifq-hpc141 primitive-opt]$ grep <span class="hljs-string">&#x27;  without&#x27;</span> OUTCAR<br>  energy  without entropy=      -25.97155386  energy(sigma-&gt;0) =      -25.97291371<br>  energy  without entropy=      -25.97233802  energy(sigma-&gt;0) =      -25.97366730<br>  energy  without entropy=      -25.97412653  energy(sigma-&gt;0) =      -25.97534340<br>  energy  without entropy=      -25.97511519  energy(sigma-&gt;0) =      -25.97602399<br>  energy  without entropy=      -25.97516432  energy(sigma-&gt;0) =      -25.97619350<br>  energy  without entropy=      -25.97516747  energy(sigma-&gt;0) =      -25.97619463<br>  energy  without entropy=      -25.97517140  energy(sigma-&gt;0) =      -25.97620156<br></code></pre></td></tr></table></figure>
+<p>优化后的结构：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs CONTCAR">CONTCAR\(1\0\0)<br>   1.00000000000000<br>     2.4846000671000001    0.0000000000000000    0.0000000000000000<br>    -1.2423000336000001    2.1517267763999999    0.0000000000000000<br>     0.0000000000000000    0.0000000000000000   18.7047996521000002<br>  Ni_pv/368cd815<br>               5<br>Direct<br>  0.6666685456044492  0.3333314543955508  0.0005454007373249<br>  0.0000003831810720 -0.0000003831810720  0.1078816295897802<br>  0.3333305745814666  0.6666694254185335  0.2169200598414882<br>  0.6666681017676376  0.3333318982323624  0.3259932620996842<br>  0.0000023948653782 -0.0000023948653782  0.4332496477317282<br><br>  0.00000000E+00  0.00000000E+00  0.00000000E+00<br>  0.00000000E+00  0.00000000E+00  0.00000000E+00<br>  0.00000000E+00  0.00000000E+00  0.00000000E+00<br>  0.00000000E+00  0.00000000E+00  0.00000000E+00<br>  0.00000000E+00  0.00000000E+00  0.00000000E+00<br></code></pre></td></tr></table></figure>
+<ul>
+<li>表面积A=2.4846000671000001*2.1517267763999999=5.346180493024307 eV</li>
+<li>$E_{surf}^{unrelax}$ = -25.97291371 eV</li>
+<li>$E_{surf}^{relax}$ = -25.97620156 eV</li>
+<li>$N \cdot E_{bulk}$ = -21.88952707 eV</li>
+</ul>
+<p>表面能 $\gamma_s$ = 0.1293 eV/Å$^2$ = 2.0715 J/m$^2$</p>
+<h2 id="小结">小结</h2>
+<ul>
+<li>本节主要是联系表面能的计算</li>
+<li>Ni(100)表面能的计算选用的赝势为Ni_sv赝势</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/" class="category-chain-item">从零开始的科研之旅</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/VASP/" class="category-chain-item">VASP</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%8C%96%E5%AD%A6/" class="print-no-link">#化学</a>
+      
+        <a href="/tags/%E7%A7%91%E7%A0%94/" class="print-no-link">#科研</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>表面能的计算</div>
+      <div>https://hydrogen1222.xyz/2025/04/29/科研/VASP/Starry Sky/表面能的计算/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Storm Talia</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年4月29日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/04/29/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E6%88%AA%E6%96%AD%E8%83%BDENCUT%E7%9A%84%E9%80%89%E5%8F%96/" title="截断能ENCUT的选取">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">截断能ENCUT的选取</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/04/29/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/POTCAR%E8%B5%9D%E5%8A%BF%E7%9A%84%E9%80%89%E5%8F%96/" title="POTCAR赝势的选取">
+                        <span class="hidden-mobile">POTCAR赝势的选取</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://registry.npmmirror.com/@waline/client/2.15.8/files/dist/waline.css')
+      Fluid.utils.createScript('https://registry.npmmirror.com/@waline/client/2.15.8/files/dist/waline.js', function() {
+        var options = Object.assign(
+          {"serverURL":"heiheihei.life","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"reaction":true,"locale":{"placeholder":"欢迎常来看看"}},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Storm</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Talia</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/custom/RunTime/RunTime.js"></script> </div> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/custom/ReadingProgress/ReadingProgress.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  <canvas
+    class="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script type="text/javascript" src="/custom/fireworks/anime.min.js"></script> 
+<script type="text/javascript" src="/custom/fireworks/fireworks.js"></script>
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

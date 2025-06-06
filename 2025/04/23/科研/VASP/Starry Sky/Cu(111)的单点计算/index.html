@@ -1,0 +1,835 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head><!-- hexo injector head_begin start --><progress id="content_progress" value="0"></progress><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Storm Talia">
+  <meta name="keywords" content="百宝箱，宝藏，仓库，博客">
+  
+    <meta name="description" content="首先对Cu单胞进行结构优化（bulk计算），然后使用优化的结构进行切割，再进行计算（由于晶胞已经优化过，所以本次计算其实是单点计算）。大师兄提到：  Cu(111) slab 模型（POSCAR）的制作流程（复习一下）。**注意：**前面我们用的是Conventional cell，下面用的是Primitive Cell。 一般来说用Conventional cell， FCC的金属可以用Prim">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cu(111) slab模型的单点计算">
+<meta property="og:url" content="https://hydrogen1222.xyz/2025/04/23/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Cu(111)%E7%9A%84%E5%8D%95%E7%82%B9%E8%AE%A1%E7%AE%97/index.html">
+<meta property="og:site_name" content="Stormy&#39;s Storehouse">
+<meta property="og:description" content="首先对Cu单胞进行结构优化（bulk计算），然后使用优化的结构进行切割，再进行计算（由于晶胞已经优化过，所以本次计算其实是单点计算）。大师兄提到：  Cu(111) slab 模型（POSCAR）的制作流程（复习一下）。**注意：**前面我们用的是Conventional cell，下面用的是Primitive Cell。 一般来说用Conventional cell， FCC的金属可以用Prim">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hydrogen1222.xyz/2025/04/23/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Cu(111)%E7%9A%84%E5%8D%95%E7%82%B9%E8%AE%A1%E7%AE%97/Indices_miller_plan_exemple_cube.png">
+<meta property="og:image" content="https://hydrogen1222.xyz/2025/04/23/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Cu(111)%E7%9A%84%E5%8D%95%E7%82%B9%E8%AE%A1%E7%AE%97/1.png">
+<meta property="og:image" content="https://hydrogen1222.xyz/2025/04/23/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Cu(111)%E7%9A%84%E5%8D%95%E7%82%B9%E8%AE%A1%E7%AE%97/image-20250426174733986.png">
+<meta property="og:image" content="https://hydrogen1222.xyz/2025/04/23/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Cu(111)%E7%9A%84%E5%8D%95%E7%82%B9%E8%AE%A1%E7%AE%97/image-20250423111821857.png">
+<meta property="og:image" content="https://hydrogen1222.xyz/2025/04/23/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Cu(111)%E7%9A%84%E5%8D%95%E7%82%B9%E8%AE%A1%E7%AE%97/image-20250423110528280.png">
+<meta property="og:image" content="https://hydrogen1222.xyz/2025/04/23/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Cu(111)%E7%9A%84%E5%8D%95%E7%82%B9%E8%AE%A1%E7%AE%97/image-20250426191515563.png">
+<meta property="og:image" content="https://hydrogen1222.xyz/2025/04/23/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Cu(111)%E7%9A%84%E5%8D%95%E7%82%B9%E8%AE%A1%E7%AE%97/image-20250426191902480.png">
+<meta property="article:published_time" content="2025-04-23T02:48:00.000Z">
+<meta property="article:modified_time" content="2025-04-27T13:14:10.532Z">
+<meta property="article:author" content="Storm Talia">
+<meta property="article:tag" content="化学">
+<meta property="article:tag" content="科研">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://hydrogen1222.xyz/2025/04/23/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Cu(111)%E7%9A%84%E5%8D%95%E7%82%B9%E8%AE%A1%E7%AE%97/Indices_miller_plan_exemple_cube.png">
+  
+  
+  
+  <title>Cu(111) slab模型的单点计算 - Stormy&#39;s Storehouse</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.7.0/style.min.css">
+<link rel="stylesheet" href="https://c.webfontfree.com/c.js?f=MillerDailyOne-Roman.css">
+<link rel="stylesheet" href="/css/custom-font.css">
+<link rel="stylesheet" href="/custom/ReadingProgress/ReadingProgress.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"hydrogen1222.xyz","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"crmxTFEYDC5Ychjb9VCep2O0-MdYXbMMI","app_key":"cABySSX0egS4x2xdJoXoZ0nb","server_url":null,"path":"window.location.pathname","ignore_local":true},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Storm Talia</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Cu(111) slab模型的单点计算"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-04-23 10:48" pubdate>
+          2025年4月23日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          18 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Cu(111) slab模型的单点计算</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>首先对Cu单胞进行结构优化（bulk计算），然后使用优化的结构进行切割，再进行计算（由于晶胞已经优化过，所以本次计算其实是单点计算）。大师兄提到：</p>
+<blockquote>
+<p>Cu(111) slab 模型（POSCAR）的制作流程（复习一下）。**注意：**前面我们用的是Conventional cell，下面用的是Primitive Cell。 一般来说用<code>Conventional cell</code>， FCC的金属可以用<code>Primitive Cell</code> 但对于其他体系，通过<code>Primitive Cell</code>切出来表面模型有问题</p>
+</blockquote>
+<p>我准备两种都验证一下。</p>
+<h2 id="使用Conventional-Cell建立slab模型">使用Conventional Cell建立slab模型</h2>
+<h3 id="切割结构">切割结构</h3>
+<p>将bulk计算完毕的CONTCAR文件用Vesta打开，再转换为<code>.cif</code>文件使用Materials Studio打开</p>
+<ul>
+<li>Step1：Build-Surface-Cleave Surface</li>
+</ul>
+<p><code>Angstrom</code>是单位<code>埃</code>，需要切割的晶面是(111)，相应的平面方程为$x+y+z-1=0$，使用点到直线的距离公式即可求出晶面间距离，，即厚度<code>thickness</code></p>
+<p>PS：之前<code>111</code>晶面是啥都给整忘了，算个点到直线的距离也能算错，真该抽自己两巴掌回去恶补<code>高等数学</code>😭</p>
+<p>以下是来自维基百科的关于米勒指数以及<code>111</code>晶面的介绍，很形象了</p>
+<p><img src="/2025/04/23/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Cu(111)%E7%9A%84%E5%8D%95%E7%82%B9%E8%AE%A1%E7%AE%97/Indices_miller_plan_exemple_cube.png" srcset="/img/loading.gif" lazyload alt="米勒指数以及111晶面"></p>
+<p><img src="/2025/04/23/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Cu(111)%E7%9A%84%E5%8D%95%E7%82%B9%E8%AE%A1%E7%AE%97/1.png" srcset="/img/loading.gif" lazyload alt="GeoGebra计算器"></p>
+<p>平面ABC为：$x+y+z-1=0$，点D为(1,1,0)</p>
+<p>算一下厚度：<br>
+$$<br>
+d=\dfrac{|Ax_0+By_0+Cz_0|}{\sqrt{A^2+B^2+C^2}}=\dfrac{1}{\sqrt{3}}a\approx \dfrac{1}{\sqrt{3}}\times 3.63468 \approx 2.0984<br>
+$$<br>
+<img src="/2025/04/23/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Cu(111)%E7%9A%84%E5%8D%95%E7%82%B9%E8%AE%A1%E7%AE%97/image-20250426174733986.png" srcset="/img/loading.gif" lazyload alt="Cleave Surface in Materials Studio"></p>
+<p>在切割晶面时，<code>thickness</code>设置为4.0 ($4.0 = 1.0 \times 4$)，即四倍的晶胞参数、四层原子，按一下<code>TAB</code>，软件软件会自动计算四层原子的真是厚度（单位：Angstrom埃），大约是$8.394 \approx 4\times 2.0984$，这与我们手动计算的晶面间距离2.0984的四倍相符</p>
+<ul>
+<li>Step2：添加真空层，Build-Crystal-Build vacuum slab-Vacuum orientation：C</li>
+</ul>
+<p><img src="/2025/04/23/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Cu(111)%E7%9A%84%E5%8D%95%E7%82%B9%E8%AE%A1%E7%AE%97/image-20250423111821857.png" srcset="/img/loading.gif" lazyload alt="添加真空层"></p>
+<ul>
+<li>Step3：右键-lattice parameters</li>
+</ul>
+<p><img src="/2025/04/23/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Cu(111)%E7%9A%84%E5%8D%95%E7%82%B9%E8%AE%A1%E7%AE%97/image-20250423110528280.png" srcset="/img/loading.gif" lazyload alt="设置Z轴方向为真空层"></p>
+<p>导出为<code>.cif</code>，vesta打开转换为<code>POSCAR</code>,</p>
+<p><code>INCAR</code>如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs INCAR">System = Cu-conventional-slab<br>ISMEAR = 1<br>SIGMA = 0.1<br>ALGO = Fast<br>ENCUT = 450 # the system is too huge to adopt huge ENCUT<br>EDIFF = 1E-5<br>LDIPOL = .TRUE.<br>IDIPOL = 3<br>NWRITE = 0<br>LWAVE = .FALSE.<br>LCHARG = .FALSE.<br>NCORE = 20<br></code></pre></td></tr></table></figure>
+<p>Slab模型虽然是代表表面，但是实际上在z方向是固体-真空-固体-真空-…的交替。如果我们建立的Slab模型在z方向是非对称的，模型就会产生一个沿z方向的偶极。偶极会产生静电势，静电势接着会影响模型的镜像（周期性边界条件）。最后算出来的模型的总能量和力与真实情况是不相符的。因此我们需要方法去矫正这种虚假的静电影响。</p>
+<p>一种常用的方法就是偶极矫正，在真空部分加入一个超窄的但是方向相反的偶极。这样一来，固体模型产生的偶极和真空中的偶极就会相互抵消。模型和其镜像之间的静电势影响就会抵消</p>
+<p>微调<code>KPOINTS</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs KPOINTS">K-POINTS<br> 0<br>Gamma<br>  13 13 1<br>  0 0 0<br></code></pre></td></tr></table></figure>
+<h3 id="计算结果">计算结果</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">[ctan@baifq-hpc141 Cu-conventional-slab]$ grep <span class="hljs-string">&#x27;  without&#x27;</span> OUTCAR<br>  energy  without entropy=      -55.91176854  energy(sigma-&gt;0) =      -55.91397643<br></code></pre></td></tr></table></figure>
+<p>PS：最近学迷糊了，关于<code>收敛</code>脑海中有一个极其不正且的理解</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs bash">[ctan@baifq-hpc141 bulk-calc]$ grep accuracy OUTCAR<br> reached required accuracy - stopping structural energy minimisation<br>[ctan@baifq-hpc141 bulk-calc]$ <span class="hljs-built_in">cat</span> OSZICAR<br>       N       E                     dE             d eps       ncg     rms          rms(c)<br>DAV:   1     0.103476848532E+03    0.10348E+03   -0.27847E+04  6720   0.246E+03<br>DAV:   2    -0.180387697818E+02   -0.12152E+03   -0.12091E+03  7280   0.155E+02<br>DAV:   3    -0.185227503579E+02   -0.48398E+00   -0.48396E+00 10160   0.132E+01<br>DAV:   4    -0.185240376489E+02   -0.12873E-02   -0.12873E-02  8200   0.464E-01<br>DAV:   5    -0.185240414620E+02   -0.38131E-05   -0.38134E-05 10480   0.143E-02    0.154E+01<br>DAV:   6    -0.164394189736E+02    0.20846E+01   -0.72731E+01  6800   0.881E+01    0.783E+00<br>DAV:   7    -0.149577606472E+02    0.14817E+01   -0.11165E+01  6720   0.344E+01    0.111E+00<br>DAV:   8    -0.149148685722E+02    0.42892E-01   -0.18431E-02  7280   0.139E+00    0.620E-01<br>DAV:   9    -0.149081819010E+02    0.66867E-02   -0.51836E-02  8440   0.220E+00    0.636E-02<br>DAV:  10    -0.149081753161E+02    0.65849E-05   -0.22202E-04  9000   0.149E-01    0.115E-02<br>DAV:  11    -0.149081715196E+02    0.37964E-05   -0.16862E-06  8520   0.968E-03    0.844E-04<br>DAV:  12    -0.149081716052E+02   -0.85577E-07   -0.88627E-08  4640   0.248E-03<br>   1 F= -.14908172E+02 E0= -.14905377E+02  d E =-.149082E+02<br>       N       E                     dE             d eps       ncg     rms          rms(c)<br>DAV:   1    -0.149363274123E+02   -0.28156E-01   -0.51946E-01  6720   0.830E+00    0.131E+00<br>DAV:   2    -0.149199449776E+02    0.16382E-01   -0.41291E-01  6720   0.646E+00    0.538E-01<br>DAV:   3    -0.149119014518E+02    0.80435E-02   -0.68998E-02  6720   0.271E+00    0.192E-01<br>DAV:   4    -0.149112107699E+02    0.69068E-03   -0.11896E-03  9800   0.216E-01    0.117E-02<br>DAV:   5    -0.149112123403E+02   -0.15704E-05   -0.80430E-06  7320   0.267E-02    0.594E-03<br>DAV:   6    -0.149112142891E+02   -0.19488E-05   -0.13229E-06  4760   0.997E-03    0.128E-04<br>DAV:   7    -0.149112142406E+02    0.48522E-07   -0.22610E-08  3560   0.101E-03<br>   2 F= -.14911214E+02 E0= -.14908447E+02  d E =-.304264E-02<br>       N       E                     dE             d eps       ncg     rms          rms(c)<br>DAV:   1    -0.150389301673E+02   -0.12772E+00   -0.26022E+00  6720   0.187E+01    0.290E+00<br>DAV:   2    -0.149566578541E+02    0.82272E-01   -0.20265E+00  6720   0.143E+01    0.119E+00<br>DAV:   3    -0.149175257623E+02    0.39132E-01   -0.34317E-01  6720   0.604E+00    0.437E-01<br>DAV:   4    -0.149140056079E+02    0.35202E-02   -0.72028E-03 10080   0.565E-01    0.378E-02<br>DAV:   5    -0.149139977907E+02    0.78172E-05   -0.11528E-04  7840   0.108E-01    0.134E-02<br>DAV:   6    -0.149140005388E+02   -0.27480E-05   -0.66656E-06  7680   0.220E-02    0.371E-04<br>DAV:   7    -0.149140005655E+02   -0.26792E-07   -0.64306E-08  3960   0.196E-03<br>   3 F= -.14914001E+02 E0= -.14911298E+02  d E =-.582896E-02<br></code></pre></td></tr></table></figure>
+<p>这是上一节里的关于bulk计算（结构优化）的部分内容，可以看到，<code> reached required accuracy - stopping structural energy minimisation</code>——离子步已经收敛，在之后的<code>OSZICAR</code>里，电子步迭代最多7步，并未超过设置的最大电子步数目。因此对于bulk计算，<mark>电子步和离子步都收敛</mark></p>
+<p>而对于slab模型的单点计算，我也傻傻的这么做😢</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs bash">[ctan@baifq-hpc141 conventional-slab-static]$ grep accuracy OUTCAR<br>[ctan@baifq-hpc141 conventional-slab-static]$ <span class="hljs-built_in">cat</span> OSZICAR<br>       N       E                     dE             d eps       ncg     rms          rms(c)<br>DAV:   1     0.178654188479E+04    0.17865E+04   -0.88940E+04 10388   0.264E+03<br>DAV:   2     0.200572973408E+03   -0.15860E+04   -0.15355E+04 10388   0.519E+02<br>DAV:   3    -0.535557174826E+02   -0.25413E+03   -0.23428E+03 10438   0.249E+02<br>DAV:   4    -0.683234131101E+02   -0.14768E+02   -0.14274E+02 11572   0.815E+01<br>DAV:   5    -0.687193157556E+02   -0.39590E+00   -0.39405E+00 12400   0.117E+01    0.292E+01<br>RMM:   6    -0.611494529970E+02    0.75699E+01   -0.15131E+02 11054   0.104E+02    0.161E+01<br>RMM:   7    -0.558685188476E+02    0.52809E+01   -0.32335E+01 10772   0.530E+01    0.226E+00<br>RMM:   8    -0.559296519539E+02   -0.61133E-01   -0.22789E+00 11552   0.614E+00    0.111E+00<br>RMM:   9    -0.559488617332E+02   -0.19210E-01   -0.37622E-01 11539   0.361E+00    0.509E-01<br>RMM:  10    -0.559454147061E+02    0.34470E-02   -0.13294E-01 12844   0.193E+00    0.214E-01<br>RMM:  11    -0.559437301097E+02    0.16846E-02   -0.22655E-02 12875   0.691E-01    0.208E-01<br>RMM:  12    -0.559413428432E+02    0.23873E-02   -0.55145E-03 11960   0.354E-01    0.586E-02<br>RMM:  13    -0.559414638149E+02   -0.12097E-03   -0.17465E-03 13023   0.187E-01    0.323E-02<br>RMM:  14    -0.559411451635E+02    0.31865E-03   -0.83089E-04 11756   0.134E-01    0.373E-02<br>RMM:  15    -0.559412390394E+02   -0.93876E-04   -0.47990E-04 11372   0.168E-01    0.284E-02<br>RMM:  16    -0.559414153722E+02   -0.17633E-03   -0.21175E-04 11475   0.107E-01    0.129E-02<br>RMM:  17    -0.559414836424E+02   -0.68270E-04   -0.10022E-04 11751   0.526E-02    0.889E-03<br>RMM:  18    -0.559415856898E+02   -0.10205E-03   -0.51724E-05 11898   0.366E-02    0.682E-03<br>RMM:  19    -0.559416259149E+02   -0.40225E-04   -0.26297E-05 11504   0.350E-02    0.861E-03<br>RMM:  20    -0.559416406670E+02   -0.14752E-04   -0.10748E-05 11263   0.208E-02    0.367E-03<br>RMM:  21    -0.559416498741E+02   -0.92071E-05   -0.47420E-06  8911   0.102E-02    0.119E-03<br>RMM:  22    -0.559416543655E+02   -0.44914E-05   -0.22030E-06  7155   0.977E-03    0.193E-03<br>RMM:  23    -0.559416573370E+02   -0.29715E-05   -0.14726E-06  6702   0.894E-03    0.135E-03<br>RMM:  24    -0.559416575122E+02   -0.17515E-06   -0.44209E-07  6318   0.507E-03<br>   1 F= -.55941658E+02 E0= -.55944345E+02  d E =0.806296E-02<br></code></pre></td></tr></table></figure>
+<p>不管怎么修改<code>ALGO</code>、<code>ENCUT</code>等参数，<code>grep accuracy OUTCAR</code>始终不返回<code> reached required accuracy - stopping structural energy minimisation</code>，后来我才意识到，这是<mark>单点计算</mark>，<code>NSW = 0</code>，并不会进行离子步迭代呀，所以我们只需关注电子步收敛即可，很明显电子步收敛，<code>OUTCAR</code>里的信息也可说明</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">[ctan@baifq-hpc141 conventional-slab-static]$ grep abort OUTCAR<br>------------------------ aborting loop because EDIFF is reached ----------------------------------------<br></code></pre></td></tr></table></figure>
+<p><strong>This is definitely a stupid, stupid and stupid mistake</strong>😭</p>
+<p>就写到这，吃饭去了，待会还要回实验室</p>
+<h2 id="使用Primitive-Cell">使用Primitive Cell</h2>
+<p>使用<code>bulk计算</code>且收敛的<code>CONTCAR</code>进行slab模型的建立，操作还是类似的</p>
+<p>值得注意的是，需要先<mark>find symmetry</mark>，然后才能转换为<code>primitive cell</code></p>
+<p><img src="/2025/04/23/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Cu(111)%E7%9A%84%E5%8D%95%E7%82%B9%E8%AE%A1%E7%AE%97/image-20250426191515563.png" srcset="/img/loading.gif" lazyload alt="降低对称性之前"></p>
+<p><img src="/2025/04/23/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Cu(111)%E7%9A%84%E5%8D%95%E7%82%B9%E8%AE%A1%E7%AE%97/image-20250426191902480.png" srcset="/img/loading.gif" lazyload alt="find symmetry"></p>
+<p>然后<code>impose symmetry</code>，接着再转换为<code>primitive cell</code>，然后建立slab模型</p>
+<p><code>POSCAR</code>会有些不同</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs POSCAR">CONTCAR\(1\1\1)<br>1.0<br>        2.5701000690         0.0000000000         0.0000000000<br>       -1.2850500345         2.2257719501         0.0000000000<br>        0.0000000000         0.0000000000        21.2954006195<br>   Cu<br>    4<br>Direct<br>     0.000000000         0.000000000         0.000000000<br>     0.666670000         0.333330000         0.098540000<br>     0.333330000         0.666670000         0.197080000<br>     0.000000000         0.000000000         0.295620000<br></code></pre></td></tr></table></figure>
+<p>计算后的能量也有所不同：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs vasp">(base) storm@DESKTOP-HE4FQ8Q:~/my-learn/ex42/Cu-primitive-slab$ grep &#x27;  without&#x27; OUTCAR<br>  energy  without entropy=      -13.97087892  energy(sigma-&gt;0) =      -13.97120814<br></code></pre></td></tr></table></figure>
+<p>值得一提的是，在白老师的计算集群上运行时报错了(<code>vasp.6.4.2</code>)</p>
+<p>如果截断能<code>ENCUT</code>过小可能报错<code>Error EDDDAV: Call to ZHEGV failed. Returncode = 7 1 8</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><code class="hljs bash">[ctan@baifq-hpc141 Cu-primmitive-slab]$ <span class="hljs-built_in">ls</span><br>INCAR  KPOINTS  POSCAR  POTCAR<br>[ctan@baifq-hpc141 Cu-primmitive-slab]$ clear<br>[ctan@baifq-hpc141 Cu-primmitive-slab]$ sbatch vasp<br>Submitted batch job 4321<br>[ctan@baifq-hpc141 Cu-primmitive-slab]$ <span class="hljs-built_in">tail</span> -f OUTCAR<br>--------------------------------------- Ionic step        1  -------------------------------------------<br><br><br><br><br>--------------------------------------- Iteration      1(   1)  ---------------------------------------<br><br><br>    POTLOK:  cpu <span class="hljs-keyword">time</span>      0.0215: real <span class="hljs-keyword">time</span>      0.0258<br>    SETDIJ:  cpu <span class="hljs-keyword">time</span>      0.0109: real <span class="hljs-keyword">time</span>      0.0118<br>     EDDAV:  cpu <span class="hljs-keyword">time</span>      0.7451: real <span class="hljs-keyword">time</span>      0.7613<br>       DOS:  cpu <span class="hljs-keyword">time</span>      0.0052: real <span class="hljs-keyword">time</span>      0.0060<br>    --------------------------------------------<br>      LOOP:  cpu <span class="hljs-keyword">time</span>      0.7826: real <span class="hljs-keyword">time</span>      0.8050<br><br> eigenvalue-minimisations  :  2548<br> total energy-change (2. order) : 0.3445715E+03  (-0.1837296E+04)<br> number of electron      44.0000000 magnetization<br> augmentation part       44.0000000 magnetization<br><br> DIPCOR: dipole corrections <span class="hljs-keyword">for</span> dipol<br> direction  3 min pos   155,<br> dipolmoment           0.000000      0.000000      0.000026 electrons x Angstroem<br> Tr[quadrupol]       -31.061780<br><br> energy correction <span class="hljs-keyword">for</span> charged system         0.000000 eV<br> dipol+quadrupol energy correction           -0.000000 eV<br> added-field ion interaction          0.001451 eV  (added to PSCEN)<br><br><br> Free energy of the ion-electron system (eV)<br>  ---------------------------------------------------<br>  alpha Z        PSCENC =        96.14159556<br>  Ewald energy   TEWEN  =     16384.30326894<br>  -Hartree energ DENC   =    -21746.47963692<br>  -exchange      EXHF   =         0.00000000<br>  -V(xc)+E(xc)   XCENC  =       182.01436818<br>  PAW double counting   =      4912.82663951    -5336.19386850<br>  entropy T*S    EENTRO =         0.00034874<br>  eigenvalues    EBANDS =       288.07434016<br>  atomic energy  EATOM  =      5563.88447798<br>  Solvation  Ediel_sol  =         0.00000000<br>  ---------------------------------------------------<br>  free energy    TOTEN  =       344.57153365 eV<br><br>  energy without entropy =      344.57118491  energy(sigma-&gt;0) =      344.57141740<br><br><br>--------------------------------------------------------------------------------------------------------<br><br><br><br><br>--------------------------------------- Iteration      1(   2)  ---------------------------------------<br><br><br> -----------------------------------------------------------------------------<br>|                                                                             |<br>|     EEEEEEE  RRRRRR   RRRRRR   OOOOOOO  RRRRRR      <span class="hljs-comment">###     ###     ###     |</span><br>|     E        R     R  R     R  O     O  R     R     <span class="hljs-comment">###     ###     ###     |</span><br>|     E        R     R  R     R  O     O  R     R     <span class="hljs-comment">###     ###     ###     |</span><br>|     EEEEE    RRRRRR   RRRRRR   O     O  RRRRRR       <span class="hljs-comment">#       #       #      |</span><br>|     E        R   R    R   R    O     O  R   R                               |<br>|     E        R    R   R    R   O     O  R    R      <span class="hljs-comment">###     ###     ###     |</span><br>|     EEEEEEE  R     R  R     R  OOOOOOO  R     R     <span class="hljs-comment">###     ###     ###     |</span><br>|                                                                             |<br>|     Error EDDDAV: Call to ZHEGV failed. Returncode = 7 1 8                  |<br>|                                                                             |<br>|       ----&gt;  I REFUSE TO CONTINUE WITH THIS SICK JOB ... BYE!!! &lt;----       |<br>|                                                                             |<br> -----------------------------------------------------------------------------<br></code></pre></td></tr></table></figure>
+<h3 id="小结">小结</h3>
+<ul>
+<li>此计算是在bulk计算的基础上(<strong>最优结构</strong>)进行的单点计算，计算时<strong>不能进行离子弛豫，不能进行离子步迭代</strong>，默认<code>NSW=0</code></li>
+<li>不进行离子弛豫，那么自然不能设置离子步收敛条件，不能设置<code>EDIFFG</code></li>
+<li>如果不报错运行但结果不收敛可试着增大电子步数<code>NSW</code>以及截断能<code>ENCUT</code></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/" class="category-chain-item">从零开始的科研之旅</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/VASP/" class="category-chain-item">VASP</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%8C%96%E5%AD%A6/" class="print-no-link">#化学</a>
+      
+        <a href="/tags/%E7%A7%91%E7%A0%94/" class="print-no-link">#科研</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Cu(111) slab模型的单点计算</div>
+      <div>https://hydrogen1222.xyz/2025/04/23/科研/VASP/Starry Sky/Cu(111)的单点计算/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Storm Talia</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年4月23日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/04/27/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Cu(111)%E6%99%B6%E9%9D%A2%E7%9A%84%E4%BC%98%E5%8C%96%E8%AE%A1%E7%AE%97/" title="p(1x1)Cu(111)的优化计算">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">p(1x1)Cu(111)的优化计算</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/04/23/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Cu%E5%8D%95%E8%83%9E%E7%9A%84bulk%E8%AE%A1%E7%AE%97/" title="Cu单胞的bulk计算">
+                        <span class="hidden-mobile">Cu单胞的bulk计算</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://registry.npmmirror.com/@waline/client/2.15.8/files/dist/waline.css')
+      Fluid.utils.createScript('https://registry.npmmirror.com/@waline/client/2.15.8/files/dist/waline.js', function() {
+        var options = Object.assign(
+          {"serverURL":"heiheihei.life","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"reaction":true,"locale":{"placeholder":"欢迎常来看看"}},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Storm</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Talia</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/custom/RunTime/RunTime.js"></script> </div> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/custom/ReadingProgress/ReadingProgress.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  <canvas
+    class="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script type="text/javascript" src="/custom/fireworks/anime.min.js"></script> 
+<script type="text/javascript" src="/custom/fireworks/fireworks.js"></script>
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

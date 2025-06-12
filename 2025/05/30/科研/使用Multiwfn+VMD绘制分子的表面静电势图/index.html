@@ -1,0 +1,804 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head><!-- hexo injector head_begin start --><progress id="content_progress" value="0"></progress><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Storm Talia">
+  <meta name="keywords" content="百宝箱，宝藏，仓库，博客">
+  
+    <meta name="description" content="Multiwfn版本：3.8(dev)，Last update: 2025-May-5 VMD版本：1.9.3  VMD版本请尽可能使用1.9.3而不要使用bug较多的1.9.4 本文参考了Sob老师的博文  目标分子的结构优化 本次的目标分子为二茂铁分子  首先建立二茂铁分子的模型，并且手动设置全重叠的D5d点群，这样可以极大的减少优化用时，关键词如下： 1#p tpssh&#x2F;def2tzvp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Multiwfn+VMD绘制分子的表面静电势图(ESP)">
+<meta property="og:url" content="https://hydrogen1222.xyz/2025/05/30/%E7%A7%91%E7%A0%94/%E4%BD%BF%E7%94%A8Multiwfn+VMD%E7%BB%98%E5%88%B6%E5%88%86%E5%AD%90%E7%9A%84%E8%A1%A8%E9%9D%A2%E9%9D%99%E7%94%B5%E5%8A%BF%E5%9B%BE/index.html">
+<meta property="og:site_name" content="Stormy&#39;s Storehouse">
+<meta property="og:description" content="Multiwfn版本：3.8(dev)，Last update: 2025-May-5 VMD版本：1.9.3  VMD版本请尽可能使用1.9.3而不要使用bug较多的1.9.4 本文参考了Sob老师的博文  目标分子的结构优化 本次的目标分子为二茂铁分子  首先建立二茂铁分子的模型，并且手动设置全重叠的D5d点群，这样可以极大的减少优化用时，关键词如下： 1#p tpssh&#x2F;def2tzvp">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hydrogen1222.xyz/2025/05/30/%E7%A7%91%E7%A0%94/%E4%BD%BF%E7%94%A8Multiwfn+VMD%E7%BB%98%E5%88%B6%E5%88%86%E5%AD%90%E7%9A%84%E8%A1%A8%E9%9D%A2%E9%9D%99%E7%94%B5%E5%8A%BF%E5%9B%BE/1.png">
+<meta property="og:image" content="https://hydrogen1222.xyz/2025/05/30/%E7%A7%91%E7%A0%94/%E4%BD%BF%E7%94%A8Multiwfn+VMD%E7%BB%98%E5%88%B6%E5%88%86%E5%AD%90%E7%9A%84%E8%A1%A8%E9%9D%A2%E9%9D%99%E7%94%B5%E5%8A%BF%E5%9B%BE/image-20250530202918054.png">
+<meta property="og:image" content="https://hydrogen1222.xyz/2025/05/30/%E7%A7%91%E7%A0%94/%E4%BD%BF%E7%94%A8Multiwfn+VMD%E7%BB%98%E5%88%B6%E5%88%86%E5%AD%90%E7%9A%84%E8%A1%A8%E9%9D%A2%E9%9D%99%E7%94%B5%E5%8A%BF%E5%9B%BE/image-20250530203615609.png">
+<meta property="og:image" content="https://hydrogen1222.xyz/2025/05/30/%E7%A7%91%E7%A0%94/%E4%BD%BF%E7%94%A8Multiwfn+VMD%E7%BB%98%E5%88%B6%E5%88%86%E5%AD%90%E7%9A%84%E8%A1%A8%E9%9D%A2%E9%9D%99%E7%94%B5%E5%8A%BF%E5%9B%BE/image-20250530203724559.png">
+<meta property="og:image" content="https://hydrogen1222.xyz/2025/05/30/%E7%A7%91%E7%A0%94/%E4%BD%BF%E7%94%A8Multiwfn+VMD%E7%BB%98%E5%88%B6%E5%88%86%E5%AD%90%E7%9A%84%E8%A1%A8%E9%9D%A2%E9%9D%99%E7%94%B5%E5%8A%BF%E5%9B%BE/image-20250530205133881.png">
+<meta property="og:image" content="https://hydrogen1222.xyz/2025/05/30/%E7%A7%91%E7%A0%94/%E4%BD%BF%E7%94%A8Multiwfn+VMD%E7%BB%98%E5%88%B6%E5%88%86%E5%AD%90%E7%9A%84%E8%A1%A8%E9%9D%A2%E9%9D%99%E7%94%B5%E5%8A%BF%E5%9B%BE/Ferocene.jpg">
+<meta property="article:published_time" content="2025-05-30T12:12:02.000Z">
+<meta property="article:modified_time" content="2025-05-30T13:04:11.497Z">
+<meta property="article:author" content="Storm Talia">
+<meta property="article:tag" content="化学">
+<meta property="article:tag" content="科研">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://hydrogen1222.xyz/2025/05/30/%E7%A7%91%E7%A0%94/%E4%BD%BF%E7%94%A8Multiwfn+VMD%E7%BB%98%E5%88%B6%E5%88%86%E5%AD%90%E7%9A%84%E8%A1%A8%E9%9D%A2%E9%9D%99%E7%94%B5%E5%8A%BF%E5%9B%BE/1.png">
+  
+  
+  
+  <title>使用Multiwfn+VMD绘制分子的表面静电势图(ESP) - Stormy&#39;s Storehouse</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.7.0/style.min.css">
+<link rel="stylesheet" href="https://c.webfontfree.com/c.js?f=MillerDailyOne-Roman.css">
+<link rel="stylesheet" href="/css/custom-font.css">
+<link rel="stylesheet" href="/custom/ReadingProgress/ReadingProgress.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"hydrogen1222.xyz","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"crmxTFEYDC5Ychjb9VCep2O0-MdYXbMMI","app_key":"cABySSX0egS4x2xdJoXoZ0nb","server_url":null,"path":"window.location.pathname","ignore_local":true},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Storm Talia</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="使用Multiwfn+VMD绘制分子的表面静电势图(ESP)"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-05-30 20:12" pubdate>
+          2025年5月30日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          16 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">使用Multiwfn+VMD绘制分子的表面静电势图(ESP)</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <ul>
+<li>Multiwfn版本：3.8(dev)，Last update: 2025-May-5</li>
+<li>VMD版本：1.9.3</li>
+</ul>
+<p><strong>VMD版本请尽可能使用1.9.3而不要使用bug较多的1.9.4</strong></p>
+<p>本文参考了<a target="_blank" rel="noopener" href="http://sobereva.com/443">Sob老师的博文</a></p>
+<h2 id="目标分子的结构优化"><a class="markdownIt-Anchor" href="#目标分子的结构优化"></a> 目标分子的结构优化</h2>
+<p>本次的目标分子为二茂铁分子</p>
+<p><img src="/2025/05/30/%E7%A7%91%E7%A0%94/%E4%BD%BF%E7%94%A8Multiwfn+VMD%E7%BB%98%E5%88%B6%E5%88%86%E5%AD%90%E7%9A%84%E8%A1%A8%E9%9D%A2%E9%9D%99%E7%94%B5%E5%8A%BF%E5%9B%BE/1.png" srcset="/img/loading.gif" lazyload alt="优化完成的二茂铁分子"></p>
+<p>首先建立二茂铁分子的模型，并且手动设置全重叠的D5d点群，<strong>这样可以极大的减少优化用时</strong>，关键词如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">p tpssh/def2tzvp opt freq</span><br></code></pre></td></tr></table></figure>
+<p>体系是过渡金属配合物，因此选择tpssh泛函，由于初猜结构比较合适，算得还是挺快的</p>
+<figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs tap">                                   -- CHARLES MCCARRY IN &quot;THE GREAT SOUTHWEST&quot;<br>Job cpu time:      <span class="hljs-number"> 0 </span>days <span class="hljs-number"> 1 </span>hours<span class="hljs-number"> 57 </span>minutes 15.2 seconds.<br>Elapsed time:      <span class="hljs-number"> 0 </span>days <span class="hljs-number"> 0 </span>hours <span class="hljs-number"> 5 </span>minutes 58.7 seconds.<br>File lengths (MBytes):  RWF=   <span class="hljs-number"> 147 </span>Int=     <span class="hljs-number"> 0 </span>D2E=     <span class="hljs-number"> 0 </span>Chk=    <span class="hljs-number"> 16 </span>Scr=      1<br>Normal termination of Gaussian<span class="hljs-number"> 16 </span>at Wed May<span class="hljs-number"> 28 </span>21:43:45 2025.<br></code></pre></td></tr></table></figure>
+<p>如下图，优化完成，没有虚频</p>
+<p><img src="/2025/05/30/%E7%A7%91%E7%A0%94/%E4%BD%BF%E7%94%A8Multiwfn+VMD%E7%BB%98%E5%88%B6%E5%88%86%E5%AD%90%E7%9A%84%E8%A1%A8%E9%9D%A2%E9%9D%99%E7%94%B5%E5%8A%BF%E5%9B%BE/image-20250530202918054.png" srcset="/img/loading.gif" lazyload alt="频率正常，无虚频"></p>
+<h2 id="绘图前的准备工作"><a class="markdownIt-Anchor" href="#绘图前的准备工作"></a> 绘图前的准备工作</h2>
+<p>如Sob老师所说，绘图之前用户要做的事包括：</p>
+<ol>
+<li>把examples\drawESP目录下的.txt和.bat文件拷到Multiwfn可执行文件所在目录</li>
+<li>把.bat文件里的VMD路径改成实际路径</li>
+<li>把examples\drawESP目录下的.vmd拷到VMD路径下</li>
+<li>在vmd.rc里加入上述proc语句</li>
+</ol>
+<h2 id="画图"><a class="markdownIt-Anchor" href="#画图"></a> 画图</h2>
+<p>有两种风格的分子表面静电势图(ESP)，分别是<strong>表面顶点着色方式</strong>和<strong>电子密度等值面着色方式</strong>的ESP图，我个人更喜欢后者，以后者为例画图吧。</p>
+<p>首先运行<code>ESPiso.bat</code>产生电子密度和静电势的cube文件：</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br><span class="line">432</span><br><span class="line">433</span><br><span class="line">434</span><br><span class="line">435</span><br><span class="line">436</span><br><span class="line">437</span><br><span class="line">438</span><br><span class="line">439</span><br><span class="line">440</span><br><span class="line">441</span><br><span class="line">442</span><br><span class="line">443</span><br><span class="line">444</span><br><span class="line">445</span><br><span class="line">446</span><br><span class="line">447</span><br><span class="line">448</span><br><span class="line">449</span><br><span class="line">450</span><br><span class="line">451</span><br></pre></td><td class="code"><pre><code class="hljs gams">PS C:\Multiwfn_3<span class="hljs-number">.8</span>_dev_bin_Win64&gt; ls<br><br>    Directory: C:\Multiwfn_3<span class="hljs-number">.8</span>_dev_bin_Win64<br><br>Mode                 LastWriteTime         Length Name<br>----                 -------------         ------ ----<br>d----           <span class="hljs-number">2025</span>/<span class="hljs-number">5</span>/<span class="hljs-number">15</span>    <span class="hljs-number">12</span>:<span class="hljs-number">20</span>                examples<br>-a---           <span class="hljs-number">2025</span>/<span class="hljs-number">5</span>/<span class="hljs-number">23</span>     <span class="hljs-number">9</span>:<span class="hljs-number">20</span>        <span class="hljs-number">8114156</span> <span class="hljs-number">1.</span>fch<br>-a---           <span class="hljs-number">2024</span>/<span class="hljs-number">9</span>/<span class="hljs-number">21</span>    <span class="hljs-number">17</span>:<span class="hljs-number">46</span>           <span class="hljs-number">3057</span> 使用Multiwfn发表文章必须在正文里进行引用（包括代算）.txt<br>-a---           <span class="hljs-number">2025</span>/<span class="hljs-number">5</span>/<span class="hljs-number">28</span>    <span class="hljs-number">17</span>:<span class="hljs-number">51</span>            <span class="hljs-number">105</span> ESPext.bat<br>-a---           <span class="hljs-number">2018</span>/<span class="hljs-number">10</span>/<span class="hljs-number">7</span>     <span class="hljs-number">5</span>:<span class="hljs-number">24</span>             <span class="hljs-number">32</span> ESPext.txt<br>-a---           <span class="hljs-number">2025</span>/<span class="hljs-number">5</span>/<span class="hljs-number">28</span>    <span class="hljs-number">17</span>:<span class="hljs-number">51</span>            <span class="hljs-number">460</span> ESPiso.bat<br>-a---          <span class="hljs-number">2021</span>/<span class="hljs-number">11</span>/<span class="hljs-number">18</span>    <span class="hljs-number">10</span>:<span class="hljs-number">43</span>             <span class="hljs-number">26</span> ESPiso.txt<br>-a---           <span class="hljs-number">2025</span>/<span class="hljs-number">5</span>/<span class="hljs-number">28</span>    <span class="hljs-number">17</span>:<span class="hljs-number">51</span>            <span class="hljs-number">344</span> ESPpt.bat<br>-a---           <span class="hljs-number">2018</span>/<span class="hljs-number">9</span>/<span class="hljs-number">30</span>    <span class="hljs-number">13</span>:<span class="hljs-number">53</span>             <span class="hljs-number">29</span> ESPpt.txt<br>-a---            <span class="hljs-number">2025</span>/<span class="hljs-number">2</span>/<span class="hljs-number">9</span>     <span class="hljs-number">9</span>:<span class="hljs-number">28</span>         <span class="hljs-number">200205</span> How to cite Multiwfn.pdf<br>-a---            <span class="hljs-number">2023</span>/<span class="hljs-number">3</span>/<span class="hljs-number">2</span>     <span class="hljs-number">2</span>:<span class="hljs-number">26</span>        <span class="hljs-number">2047000</span> libiomp5md.dll<br>-a---           <span class="hljs-number">2024</span>/<span class="hljs-number">8</span>/<span class="hljs-number">27</span>    <span class="hljs-number">20</span>:<span class="hljs-number">00</span>           <span class="hljs-number">1254</span> LICENSE.txt<br>-a---           <span class="hljs-number">2025</span>/<span class="hljs-number">4</span>/<span class="hljs-number">13</span>     <span class="hljs-number">9</span>:<span class="hljs-number">17</span>         <span class="hljs-number">416416</span> Multiwfn quick start.pdf<br>-a---            <span class="hljs-number">2025</span>/<span class="hljs-number">5</span>/<span class="hljs-number">5</span>     <span class="hljs-number">2</span>:<span class="hljs-number">50</span>       <span class="hljs-number">35666432</span> Multiwfn.exe<br>-a---           <span class="hljs-number">2025</span>/<span class="hljs-number">5</span>/<span class="hljs-number">16</span>     <span class="hljs-number">1</span>:<span class="hljs-number">26</span>          <span class="hljs-number">20490</span> settings.ini<br><br>PS C:\Multiwfn_3<span class="hljs-number">.8</span>_dev_bin_Win64&gt; .\ESPiso.bat<br><br>C:\Multiwfn_3<span class="hljs-number">.8</span>_dev_bin_Win64&gt;Multiwfn <span class="hljs-number">1.</span>fch -ESPrhoiso <span class="hljs-number">0.001</span>  <span class="hljs-number">0</span>&lt;ESPiso.txt<br> Multiwfn -- A Multifunctional Wavefunction Analyzer<br> Version <span class="hljs-number">3.8</span>(dev), update date: <span class="hljs-number">2025</span>-May<span class="hljs-number">-5</span><br> Developer: Tian Lu (Beijing Kein Research Center <span class="hljs-keyword">for</span> Natural Sciences)<br> Multiwfn official website: http:<span class="hljs-comment">//sobereva.com/multiwfn</span><br> Multiwfn English forum: http:<span class="hljs-comment">//sobereva.com/wfnbbs</span><br> Multiwfn Chinese forum: http:<span class="hljs-comment">//bbs.keinsci.com/wfn</span><br> ( Number of parallel threads:   <span class="hljs-number">4</span>  Current date: <span class="hljs-number">2025</span><span class="hljs-number">-05</span><span class="hljs-number">-30</span>  Time: <span class="hljs-number">20</span>:<span class="hljs-number">33</span>:<span class="hljs-number">12</span> )<br><br> Both following papers ***MUST BE CITED IN MAIN TEXT*** <span class="hljs-keyword">if</span> Multiwfn is used:<br>  Tian Lu, Feiwu Chen, J. Comput. Chem., <span class="hljs-number">33</span>, <span class="hljs-number">580</span> (<span class="hljs-number">2012</span>) DOI: <span class="hljs-number">10.1002</span>/jcc<span class="hljs-number">.22885</span><br>  Tian Lu, J. Chem. Phys., <span class="hljs-number">161</span>, <span class="hljs-number">082503</span> (<span class="hljs-number">2024</span>) DOI: <span class="hljs-number">10.1063</span>/<span class="hljs-number">5.0216272</span><br> See <span class="hljs-string">&quot;How to cite Multiwfn.pdf&quot;</span> in Multiwfn <span class="hljs-keyword">binary</span> package <span class="hljs-keyword">for</span> more information<br><br> Please wait...<br> Loading various information of the wavefunction<br> The highest angular moment basis functions is F<br> Loading basis <span class="hljs-keyword">set</span> definition...<br> Loading <span class="hljs-comment">orbitals...</span><br> Converting <span class="hljs-comment">basis function information to GTF information...</span><br> Back <span class="hljs-comment">converting basis function information from Cartesian to spherical type...</span><br> Generating <span class="hljs-comment">density matrix based on SCF orbitals...</span><br> Generating <span class="hljs-comment">overlap matrix...</span><br><br> Total/Alpha/Beta <span class="hljs-comment">electrons:     98.0000     49.0000     49.0000</span><br> Net <span class="hljs-comment">charge:     0.00000      Expected multiplicity:    1</span><br> Atoms:     23,  Basis <span class="hljs-comment">functions:    427,  GTFs:    708</span><br> Total <span class="hljs-comment">energy:   -1651.955643142885 Hartree,   Virial ratio:  2.00246837</span><br> This <span class="hljs-comment">is a restricted single-determinant wavefunction</span><br> Orbitals <span class="hljs-comment">from 1 to    49 are occupied</span><br> Title <span class="hljs-comment">line of this file: Generated by autoGau.</span><br><br> Loaded <span class="hljs-comment">1.fch successfully!</span><br><br> Formula: H12 <span class="hljs-comment">C10 Fe1      Total atoms:      23</span><br> Molecule <span class="hljs-comment">weight:       188.04779 Da</span><br> Point <span class="hljs-comment">group: C1</span><br><br> <span class="hljs-string">&quot;q&quot;</span>: Exit <span class="hljs-comment">program gracefully</span>          <span class="hljs-comment">&quot;r&quot;</span><span class="hljs-comment">: Load a new file</span><br>                    ************ Main <span class="hljs-comment">function menu ************</span><br> 0 Show <span class="hljs-comment">molecular structure and view orbitals</span><br> 1 Output <span class="hljs-comment">all properties at a point       2 Topology analysis</span><br> 3 Output <span class="hljs-comment">and plot specific property in a line</span><br> 4 Output <span class="hljs-comment">and plot specific property in a plane</span><br> 5 Output <span class="hljs-comment">and plot specific property within a spatial region (calc. grid data)</span><br> 6 Check <span class="hljs-comment">&amp; modify wavefunction</span><br> 7 Population <span class="hljs-comment">analysis and calculation of atomic charges</span><br> 8 Orbital <span class="hljs-comment">composition analysis           9 Bond order analysis</span><br> 10 Plot <span class="hljs-comment">total DOS, PDOS, OPDOS, local DOS, COHP and photoelectron spectrum</span><br> 11 Plot <span class="hljs-comment">IR</span>/Raman/<span class="hljs-comment">UV-Vis</span>/ECD/<span class="hljs-comment">VCD</span>/ROA/<span class="hljs-comment">NMR spectrum</span><br> 12 Quantitative <span class="hljs-comment">analysis of molecular surface</span><br> 13 Process <span class="hljs-comment">grid data (No grid data is presented currently)</span><br> 14 Adaptive <span class="hljs-comment">natural density partitioning (AdNDP) analysis</span><br> 15 Fuzzy <span class="hljs-comment">atomic space analysis</span><br> 16 Charge <span class="hljs-comment">decomposition analysis (CDA) and plot orbital interaction diagram</span><br> 17 Basin <span class="hljs-comment">analysis                       18 Electron excitation analysis</span><br> 19 Orbital <span class="hljs-comment">localization analysis        20 Visual study of weak interaction</span><br> 21 Energy <span class="hljs-comment">decomposition analysis        22 Conceptual DFT (CDFT) analysis</span><br> 23 ETS-NOCV <span class="hljs-comment">analysis                    24 (Hyper)polarizability analysis</span><br> 25 Electron <span class="hljs-comment">delocalization and aromaticity analyses</span><br> 26 Structure <span class="hljs-comment">and geometry related analyses</span><br> 100 Other <span class="hljs-comment">functions (Part 1)            200 Other functions (Part 2)</span><br> 300 Other <span class="hljs-comment">functions (Part 3)</span><br> -10 Return <span class="hljs-comment">to main menu</span><br> -2 Obtain <span class="hljs-comment">deformation property</span><br> -1 Obtain <span class="hljs-comment">promolecule property</span><br> 0 <span class="hljs-keyword">Set</span> <span class="hljs-comment">custom operation</span><br>             ----------- Available <span class="hljs-comment">real space functions -----------</span><br> 1 Electron <span class="hljs-comment">density (rho)     2 Gradient norm of rho     3 Laplacian of rho</span><br> 4 Value <span class="hljs-comment">of orbital wavefunction         44 Orbital probability density</span><br> 5 Electron <span class="hljs-comment">spin density</span><br> 6 Hamiltonian <span class="hljs-comment">kinetic energy density K(r)</span><br> 7 Lagrangian <span class="hljs-comment">kinetic energy density G(r)</span><br> 8 Electrostatic <span class="hljs-comment">potential from nuclear charges</span><br> 9 Electron <span class="hljs-comment">localization function (ELF)</span><br> 10 Localized <span class="hljs-comment">orbital locator (LOL)</span><br> 11 Local <span class="hljs-comment">information entropy</span><br> 12 Total <span class="hljs-comment">electrostatic potential (ESP)</span><br> 13 Reduced <span class="hljs-comment">density gradient (RDG)       14 RDG with promolecular approximation</span><br> 15 Sign(lambda2)*rho      <span class="hljs-comment">16 Sign(lambda2)*rho with promolecular approximation</span><br> 17 Correlation <span class="hljs-comment">hole for alpha, ref. point:   0.00000   0.00000   0.00000</span><br> 18 Average <span class="hljs-comment">local ionization energy (ALIE)</span><br> 19 Source <span class="hljs-comment">function, mode: 1, ref. point:   0.00000   0.00000   0.00000</span><br> 20 Electron <span class="hljs-comment">delocal. range func. EDR(r</span>;d)  <span class="hljs-number">21</span> Orbital overlap dist. func. D(r)<br> <span class="hljs-number">22</span> Delta-g (promolecular approximation)    <span class="hljs-number">23</span> Delta-g (Hirshfeld partition)<br> <span class="hljs-number">24</span> Interaction region indicator (IRI)    <span class="hljs-number">25</span> van der Waals potential (probe=C )<br> <span class="hljs-number">100</span> User-defined function (iuserfunc=   <span class="hljs-number">-1</span>), see Section <span class="hljs-number">2.7</span> of manual<br><br> Please select a method to <span class="hljs-keyword">set</span> up <span class="hljs-comment">grid</span><br> -10 <span class="hljs-keyword">Set</span> <span class="hljs-comment">extension distance of grid range for mode 1</span>~<span class="hljs-comment">4, current:  6.000 Bohr</span><br> 1 Low <span class="hljs-comment">quality grid,    covering whole system, about 125000 points in total</span><br> 2 Medium <span class="hljs-comment">quality grid, covering whole system, about 512000 points in total</span><br> 3 High <span class="hljs-comment">quality grid,   covering whole system, about 1728000 points in total</span><br> 4 Input <span class="hljs-comment">the number of points or grid spacing in X,Y,Z, covering whole system</span><br> 5 Input <span class="hljs-comment">original point, grid spacings, and the number of points</span><br> 6 Input <span class="hljs-comment">center coordinate, number of points and extension distance</span><br> 7 The <span class="hljs-comment">same as 6, but input two atoms, the midpoint will be defined as center</span><br> 8 Use <span class="hljs-comment">grid setting of another cube file</span><br> 10 <span class="hljs-keyword">Set</span> <span class="hljs-comment">box of grid data visually using a GUI window</span><br> 11 Select <span class="hljs-comment">a set of atoms, set extension distance around them and grid spacing</span><br> 100 Load <span class="hljs-comment">a set of points from external file</span><br> Coordinate <span class="hljs-comment">of origin in X,Y,Z is     -12.142516  -10.564851  -10.153107 Bohr</span><br> Coordinate <span class="hljs-comment">of end point in X,Y,Z is   11.971265   10.285411   10.334542 Bohr</span><br> Grid <span class="hljs-comment">spacing in X,Y,Z is    0.181307    0.181307    0.181307 Bohr</span><br> Number <span class="hljs-comment">of points in X,Y,Z is  134  116  114   Total:     1772016</span><br> Note: Virtual <span class="hljs-comment">orbitals higher than LUMO+9 have been temporarily discarded for saving computational time</span><br><br> Note: All <span class="hljs-comment">exponential functions exp(x) with x&lt; -40.000 will be ignored</span><br> Unique <span class="hljs-comment">GTFs have been constructed. Number of unique GTFs:     708</span><br> Progress: [##################################################]   100.0 %     \<br> Calculation <span class="hljs-comment">of grid data took up wall clock time         4 s</span><br> Note: Previous <span class="hljs-comment">orbital information has been restored</span><br><br> Electric <span class="hljs-comment">dipole moment estimated by integrating electron density</span><br> X <span class="hljs-comment">component:          0.281807 a.u.      0.716283 Debye</span><br> Y <span class="hljs-comment">component:         -0.255113 a.u.     -0.648432 Debye</span><br> Z <span class="hljs-comment">component:          0.140547 a.u.      0.357235 Debye</span><br> Total <span class="hljs-comment">magnitude:      0.405279 a.u.      1.030117 Debye</span><br><br> The <span class="hljs-comment">minimum is  0.60334894E-17 at -12.14252 -10.56485  10.33454 Bohr</span><br> The <span class="hljs-comment">maximum is  0.95394143E+03 at   0.00503   0.13224   0.00006 Bohr</span><br> Summing <span class="hljs-comment">up all value and multiply differential element:</span><br>   100.725159050150<br> Summing <span class="hljs-comment">up positive value and multiply differential element:</span><br>   100.725159050150<br> Summing <span class="hljs-comment">up negative value and multiply differential element:</span><br>  0.000000000000000E+000<br><br>                   ---------- Post-processing <span class="hljs-comment">menu ----------</span><br> -1 Show <span class="hljs-comment">isosurface graph</span><br> 0 Return <span class="hljs-comment">to main menu</span><br> 1 Save <span class="hljs-comment">graph of isosurface to file in current folder</span><br> 2 Export <span class="hljs-comment">data to a Gaussian-type cube file in current folder</span><br> 3 Export <span class="hljs-comment">data to output.txt in current folder</span><br> 4 <span class="hljs-keyword">Set</span> <span class="hljs-comment">the value of isosurface to be shown, current:   0.05000</span><br> 5 Multiply <span class="hljs-comment">all grid data by a factor</span><br> 6 Divide <span class="hljs-comment">all grid data by a factor</span><br> 7 Add <span class="hljs-comment">a value to all grid data</span><br> 8 Substract <span class="hljs-comment">a value from all grid data</span><br> 9 Multiply <span class="hljs-comment">all grid data by Hirshfeld weights of a fragment (can be used to only make isosurface around interested fragment visible)</span><br> Exporting <span class="hljs-comment">cube file, please wait...</span><br> Done! Grid <span class="hljs-comment">data has been exported to density.cub in current folder</span><br> Hint: If <span class="hljs-comment">you want to add input file name as prefix of the outputted cube file, you can set</span> <span class="hljs-comment">&quot;iaddprefix&quot;</span> <span class="hljs-comment">in settings.ini to 1</span><br><br>                   ---------- Post-processing <span class="hljs-comment">menu ----------</span><br> -1 Show <span class="hljs-comment">isosurface graph</span><br> 0 Return <span class="hljs-comment">to main menu</span><br> 1 Save <span class="hljs-comment">graph of isosurface to file in current folder</span><br> 2 Export <span class="hljs-comment">data to a Gaussian-type cube file in current folder</span><br> 3 Export <span class="hljs-comment">data to output.txt in current folder</span><br> 4 <span class="hljs-keyword">Set</span> <span class="hljs-comment">the value of isosurface to be shown, current:   0.05000</span><br> 5 Multiply <span class="hljs-comment">all grid data by a factor</span><br> 6 Divide <span class="hljs-comment">all grid data by a factor</span><br> 7 Add <span class="hljs-comment">a value to all grid data</span><br> 8 Substract <span class="hljs-comment">a value from all grid data</span><br> 9 Multiply <span class="hljs-comment">all grid data by Hirshfeld weights of a fragment (can be used to only make isosurface around interested fragment visible)</span><br><br> Note: A <span class="hljs-comment">set of grid data is presented in memory</span><br> <span class="hljs-string">&quot;q&quot;</span>: Exit <span class="hljs-comment">program gracefully</span>          <span class="hljs-comment">&quot;r&quot;</span><span class="hljs-comment">: Load a new file</span><br>                    ************ Main <span class="hljs-comment">function menu ************</span><br> 0 Show <span class="hljs-comment">molecular structure and view orbitals</span><br> 1 Output <span class="hljs-comment">all properties at a point       2 Topology analysis</span><br> 3 Output <span class="hljs-comment">and plot specific property in a line</span><br> 4 Output <span class="hljs-comment">and plot specific property in a plane</span><br> 5 Output <span class="hljs-comment">and plot specific property within a spatial region (calc. grid data)</span><br> 6 Check <span class="hljs-comment">&amp; modify wavefunction</span><br> 7 Population <span class="hljs-comment">analysis and calculation of atomic charges</span><br> 8 Orbital <span class="hljs-comment">composition analysis           9 Bond order analysis</span><br> 10 Plot <span class="hljs-comment">total DOS, PDOS, OPDOS, local DOS, COHP and photoelectron spectrum</span><br> 11 Plot <span class="hljs-comment">IR</span>/Raman/<span class="hljs-comment">UV-Vis</span>/ECD/<span class="hljs-comment">VCD</span>/ROA/<span class="hljs-comment">NMR spectrum</span><br> 12 Quantitative <span class="hljs-comment">analysis of molecular surface</span><br> 13 Process <span class="hljs-comment">grid data</span><br> 14 Adaptive <span class="hljs-comment">natural density partitioning (AdNDP) analysis</span><br> 15 Fuzzy <span class="hljs-comment">atomic space analysis</span><br> 16 Charge <span class="hljs-comment">decomposition analysis (CDA) and plot orbital interaction diagram</span><br> 17 Basin <span class="hljs-comment">analysis                       18 Electron excitation analysis</span><br> 19 Orbital <span class="hljs-comment">localization analysis        20 Visual study of weak interaction</span><br> 21 Energy <span class="hljs-comment">decomposition analysis        22 Conceptual DFT (CDFT) analysis</span><br> 23 ETS-NOCV <span class="hljs-comment">analysis                    24 (Hyper)polarizability analysis</span><br> 25 Electron <span class="hljs-comment">delocalization and aromaticity analyses</span><br> 26 Structure <span class="hljs-comment">and geometry related analyses</span><br> 100 Other <span class="hljs-comment">functions (Part 1)            200 Other functions (Part 2)</span><br> 300 Other <span class="hljs-comment">functions (Part 3)</span><br> -10 Return <span class="hljs-comment">to main menu</span><br> -2 Obtain <span class="hljs-comment">deformation property</span><br> -1 Obtain <span class="hljs-comment">promolecule property</span><br> 0 <span class="hljs-keyword">Set</span> <span class="hljs-comment">custom operation</span><br>             ----------- Available <span class="hljs-comment">real space functions -----------</span><br> 1 Electron <span class="hljs-comment">density (rho)     2 Gradient norm of rho     3 Laplacian of rho</span><br> 4 Value <span class="hljs-comment">of orbital wavefunction         44 Orbital probability density</span><br> 5 Electron <span class="hljs-comment">spin density</span><br> 6 Hamiltonian <span class="hljs-comment">kinetic energy density K(r)</span><br> 7 Lagrangian <span class="hljs-comment">kinetic energy density G(r)</span><br> 8 Electrostatic <span class="hljs-comment">potential from nuclear charges</span><br> 9 Electron <span class="hljs-comment">localization function (ELF)</span><br> 10 Localized <span class="hljs-comment">orbital locator (LOL)</span><br> 11 Local <span class="hljs-comment">information entropy</span><br> 12 Total <span class="hljs-comment">electrostatic potential (ESP)</span><br> 13 Reduced <span class="hljs-comment">density gradient (RDG)       14 RDG with promolecular approximation</span><br> 15 Sign(lambda2)*rho      <span class="hljs-comment">16 Sign(lambda2)*rho with promolecular approximation</span><br> 17 Correlation <span class="hljs-comment">hole for alpha, ref. point:   0.00000   0.00000   0.00000</span><br> 18 Average <span class="hljs-comment">local ionization energy (ALIE)</span><br> 19 Source <span class="hljs-comment">function, mode: 1, ref. point:   0.00000   0.00000   0.00000</span><br> 20 Electron <span class="hljs-comment">delocal. range func. EDR(r</span>;d)  <span class="hljs-number">21</span> Orbital overlap dist. func. D(r)<br> <span class="hljs-number">22</span> Delta-g (promolecular approximation)    <span class="hljs-number">23</span> Delta-g (Hirshfeld partition)<br> <span class="hljs-number">24</span> Interaction region indicator (IRI)    <span class="hljs-number">25</span> van der Waals potential (probe=C )<br> <span class="hljs-number">100</span> User-defined function (iuserfunc=   <span class="hljs-number">-1</span>), see Section <span class="hljs-number">2.7</span> of manual<br><br> Please select a method to <span class="hljs-keyword">set</span> up <span class="hljs-comment">grid</span><br> -10 <span class="hljs-keyword">Set</span> <span class="hljs-comment">extension distance of grid range for mode 1</span>~<span class="hljs-comment">4, current:  6.000 Bohr</span><br> 1 Low <span class="hljs-comment">quality grid,    covering whole system, about 125000 points in total</span><br> 2 Medium <span class="hljs-comment">quality grid, covering whole system, about 512000 points in total</span><br> 3 High <span class="hljs-comment">quality grid,   covering whole system, about 1728000 points in total</span><br> 4 Input <span class="hljs-comment">the number of points or grid spacing in X,Y,Z, covering whole system</span><br> 5 Input <span class="hljs-comment">original point, grid spacings, and the number of points</span><br> 6 Input <span class="hljs-comment">center coordinate, number of points and extension distance</span><br> 7 The <span class="hljs-comment">same as 6, but input two atoms, the midpoint will be defined as center</span><br> 8 Use <span class="hljs-comment">grid setting of another cube file</span><br> 10 <span class="hljs-keyword">Set</span> <span class="hljs-comment">box of grid data visually using a GUI window</span><br> 11 Select <span class="hljs-comment">a set of atoms, set extension distance around them and grid spacing</span><br> 100 Load <span class="hljs-comment">a set of points from external file</span><br> Coordinate <span class="hljs-comment">of origin in X,Y,Z is     -12.142516  -10.564851  -10.153107 Bohr</span><br> Coordinate <span class="hljs-comment">of end point in X,Y,Z is   11.789958   10.321672   10.298280 Bohr</span><br> Grid <span class="hljs-comment">spacing in X,Y,Z is    0.435136    0.435136    0.435136 Bohr</span><br> Number <span class="hljs-comment">of points in X,Y,Z is   56   49   48   Total:      131712</span><br> Note: Virtual <span class="hljs-comment">orbitals higher than LUMO+9 have been temporarily discarded for saving computational time</span><br><br> Unique <span class="hljs-comment">GTFs have been constructed. Number of unique GTFs:     708</span><br> Note: ESP <span class="hljs-comment">will be calculated only for the grids around isosurface of electron density of   0.001000 a.u.</span><br> Detecting <span class="hljs-comment">the grids for calculating ESP...</span><br> Number <span class="hljs-comment">of grids to calculate ESP:       10900</span><br><br> Initializing <span class="hljs-comment">LIBRETA library (fast version) for ESP evaluation ...</span><br> LIBRETA <span class="hljs-comment">library has been successfully initialized!</span><br><br> NOTE: The <span class="hljs-comment">ESP evaluation code based on LIBRETA library is being used. Please cite Multiwfn original papers (J. Comput. Chem., 33, 580-592 (2012) and J. Chem. Phys., 161, 082503 (2024)) and the paper describing the efficient ESP evaluation algorithm adopted by Multiwfn (Phys. Chem. Chem. Phys., 23, 20323 (2021))</span><br> Progress: [##################################################]   100.0 %     \<br> Setting <span class="hljs-comment">ESP of the grids neighbouring to boundary grids...</span><br> Calculation <span class="hljs-comment">of grid data took up wall clock time        13 s</span><br> Note: Previous <span class="hljs-comment">orbital information has been restored</span><br><br> The <span class="hljs-comment">minimum is -0.32612104E-01 at  -0.39385  -0.99186   4.64151 Bohr</span><br> The <span class="hljs-comment">maximum is  0.52214027E-01 at   2.21697  -2.29727  -5.36661 Bohr</span><br> Summing <span class="hljs-comment">up all value and multiply differential element:</span><br>   3.07509251072690<br> Summing <span class="hljs-comment">up positive value and multiply differential element:</span><br>   8.67387639395045<br> Summing <span class="hljs-comment">up negative value and multiply differential element:</span><br>  -5.59878388322356<br><br>                   ---------- Post-processing <span class="hljs-comment">menu ----------</span><br> -1 Show <span class="hljs-comment">isosurface graph</span><br> 0 Return <span class="hljs-comment">to main menu</span><br> 1 Save <span class="hljs-comment">graph of isosurface to file in current folder</span><br> 2 Export <span class="hljs-comment">data to a Gaussian-type cube file in current folder</span><br> 3 Export <span class="hljs-comment">data to output.txt in current folder</span><br> 4 <span class="hljs-keyword">Set</span> <span class="hljs-comment">the value of isosurface to be shown, current:   0.05000</span><br> 5 Multiply <span class="hljs-comment">all grid data by a factor</span><br> 6 Divide <span class="hljs-comment">all grid data by a factor</span><br> 7 Add <span class="hljs-comment">a value to all grid data</span><br> 8 Substract <span class="hljs-comment">a value from all grid data</span><br> 9 Multiply <span class="hljs-comment">all grid data by Hirshfeld weights of a fragment (can be used to only make isosurface around interested fragment visible)</span><br> Exporting <span class="hljs-comment">cube file, please wait...</span><br> Done! Grid <span class="hljs-comment">data has been exported to totesp.cub in current folder</span><br> Hint: If <span class="hljs-comment">you want to add input file name as prefix of the outputted cube file, you can set</span> <span class="hljs-comment">&quot;iaddprefix&quot;</span> <span class="hljs-comment">in settings.ini to 1</span><br><br>                   ---------- Post-processing <span class="hljs-comment">menu ----------</span><br> -1 Show <span class="hljs-comment">isosurface graph</span><br> 0 Return <span class="hljs-comment">to main menu</span><br> 1 Save <span class="hljs-comment">graph of isosurface to file in current folder</span><br> 2 Export <span class="hljs-comment">data to a Gaussian-type cube file in current folder</span><br> 3 Export <span class="hljs-comment">data to output.txt in current folder</span><br> 4 <span class="hljs-keyword">Set</span> <span class="hljs-comment">the value of isosurface to be shown, current:   0.05000</span><br> 5 Multiply <span class="hljs-comment">all grid data by a factor</span><br> 6 Divide <span class="hljs-comment">all grid data by a factor</span><br> 7 Add <span class="hljs-comment">a value to all grid data</span><br> 8 Substract <span class="hljs-comment">a value from all grid data</span><br> 9 Multiply <span class="hljs-comment">all grid data by Hirshfeld weights of a fragment (can be used to only make isosurface around interested fragment visible)</span><br>forrtl: severe <span class="hljs-comment">(24): end-of-file during read, unit -4, file CONIN$</span><br>Image              <span class="hljs-comment">PC                Routine            Line        Source</span><br>Multiwfn.exe       <span class="hljs-comment">00007FF60135CEB4  Unknown               Unknown  Unknown</span><br>Multiwfn.exe       <span class="hljs-comment">00007FF600F5B65C  Unknown               Unknown  Unknown</span><br>Multiwfn.exe       <span class="hljs-comment">00007FF60127BDD6  Unknown               Unknown  Unknown</span><br>Multiwfn.exe       <span class="hljs-comment">00007FF601CCFB7B  Unknown               Unknown  Unknown</span><br>Multiwfn.exe       <span class="hljs-comment">00007FF601FE53F0  Unknown               Unknown  Unknown</span><br>KERNEL32.DLL       <span class="hljs-comment">00007FF9259B7374  Unknown               Unknown  Unknown</span><br>ntdll.dll          <span class="hljs-comment">00007FF92667CC91  Unknown               Unknown  Unknown</span><br><br>C:\Multiwfn_3.8_dev_bin_Win64&gt;move /Y density.cub density1.cub<br>移动了         <span class="hljs-number">1</span> 个文件。<br><br>C:\Multiwfn_3<span class="hljs-number">.8</span>_dev_bin_Win64&gt;move /<span class="hljs-comment">Y totesp.cub ESP1.cub</span><br>移动了         1 个文件。<br><br>C:\Multiwfn_3.8_dev_bin_Win64&gt;Multiwfn <span class="hljs-comment">2.fch -ESPrhoiso 0.001  0&lt;ESPiso.txt</span><br> Error: Unable <span class="hljs-comment">to find the input file you specified in argument</span><br><br> Multiwfn <span class="hljs-comment">-- A Multifunctional Wavefunction Analyzer</span><br> Version <span class="hljs-comment">3.8(dev), update date: 2025-May-5</span><br> Developer: Tian <span class="hljs-comment">Lu (Beijing Kein Research Center for Natural Sciences)</span><br> Multiwfn <span class="hljs-comment">official website: http:</span>//<span class="hljs-comment">sobereva.com</span>/multiwfn<br> Multiwfn English forum: http:<span class="hljs-comment">//sobereva.com/wfnbbs</span><br> Multiwfn Chinese forum: http:<span class="hljs-comment">//bbs.keinsci.com/wfn</span><br> ( Number of parallel threads:   <span class="hljs-number">4</span>  Current date: <span class="hljs-number">2025</span><span class="hljs-number">-05</span><span class="hljs-number">-30</span>  Time: <span class="hljs-number">20</span>:<span class="hljs-number">33</span>:<span class="hljs-number">30</span> )<br><br> Both following papers ***MUST BE CITED IN MAIN TEXT*** <span class="hljs-keyword">if</span> Multiwfn is used:<br>  Tian Lu, Feiwu Chen, J. Comput. Chem., <span class="hljs-number">33</span>, <span class="hljs-number">580</span> (<span class="hljs-number">2012</span>) DOI: <span class="hljs-number">10.1002</span>/<span class="hljs-comment">jcc.22885</span><br>  Tian <span class="hljs-comment">Lu, J. Chem. Phys., 161, 082503 (2024) DOI: 10.1063</span>/<span class="hljs-number">5.0216272</span><br> See <span class="hljs-comment">&quot;How to cite Multiwfn.pdf&quot;</span> in Multiwfn <span class="hljs-keyword">binary</span> package <span class="hljs-keyword">for</span> more information<br><br> Now input <span class="hljs-keyword">file</span> path, <span class="hljs-keyword">for</span> example, E:\Planetarian\Yumemi_Hoshino.mwfn<br> (.wfn/<span class="hljs-comment">wfn</span>/wfx/<span class="hljs-comment">fch</span>/molden/<span class="hljs-comment">pdb</span>/xyz/<span class="hljs-comment">mol2</span>/cif/<span class="hljs-comment">cub... see Section 2.5 of manual)</span><br> Hint: Pressing <span class="hljs-comment">ENTER button directly can select a file in a GUI window. To reload the past file, inputting</span> <span class="hljs-comment">&quot;o&quot;</span><span class="hljs-comment">. Input such as ?miku.fch can open the miku.fch in the same folder as the past file</span><br><span class="hljs-string">&quot;5&quot;</span> cannot <span class="hljs-comment">be found, input again</span><br><span class="hljs-string">&quot;1&quot;</span> cannot <span class="hljs-comment">be found, input again</span><br><span class="hljs-string">&quot;3&quot;</span> cannot <span class="hljs-comment">be found, input again</span><br><span class="hljs-string">&quot;2&quot;</span> cannot <span class="hljs-comment">be found, input again</span><br><span class="hljs-string">&quot;0&quot;</span> cannot <span class="hljs-comment">be found, input again</span><br><span class="hljs-string">&quot;5&quot;</span> cannot <span class="hljs-comment">be found, input again</span><br><span class="hljs-string">&quot;12&quot;</span> cannot <span class="hljs-comment">be found, input again</span><br><span class="hljs-string">&quot;1&quot;</span> cannot <span class="hljs-comment">be found, input again</span><br><span class="hljs-string">&quot;2&quot;</span> cannot <span class="hljs-comment">be found, input again</span><br>forrtl: severe <span class="hljs-comment">(24): end-of-file during read, unit -4, file CONIN$</span><br>Image              <span class="hljs-comment">PC                Routine            Line        Source</span><br>Multiwfn.exe       <span class="hljs-comment">00007FF601370B01  Unknown               Unknown  Unknown</span><br>Multiwfn.exe       <span class="hljs-comment">00007FF60127CBB3  Unknown               Unknown  Unknown</span><br>Multiwfn.exe       <span class="hljs-comment">00007FF601CCFB7B  Unknown               Unknown  Unknown</span><br>Multiwfn.exe       <span class="hljs-comment">00007FF601FE53F0  Unknown               Unknown  Unknown</span><br>KERNEL32.DLL       <span class="hljs-comment">00007FF9259B7374  Unknown               Unknown  Unknown</span><br>ntdll.dll          <span class="hljs-comment">00007FF92667CC91  Unknown               Unknown  Unknown</span><br><br>C:\Multiwfn_3.8_dev_bin_Win64&gt;move /Y density.cub density2.cub<br>系统找不到指定的文件。<br><br>C:\Multiwfn_3<span class="hljs-number">.8</span>_dev_bin_Win64&gt;move /<span class="hljs-comment">Y totesp.cub ESP2.cub</span><br>系统找不到指定的文件。<br><br>C:\Multiwfn_3.8_dev_bin_Win64&gt;Multiwfn <span class="hljs-comment">3.fch -ESPrhoiso 0.001  0&lt;ESPiso.txt</span><br> Error: Unable <span class="hljs-comment">to find the input file you specified in argument</span><br><br> Multiwfn <span class="hljs-comment">-- A Multifunctional Wavefunction Analyzer</span><br> Version <span class="hljs-comment">3.8(dev), update date: 2025-May-5</span><br> Developer: Tian <span class="hljs-comment">Lu (Beijing Kein Research Center for Natural Sciences)</span><br> Multiwfn <span class="hljs-comment">official website: http:</span>//<span class="hljs-comment">sobereva.com</span>/multiwfn<br> Multiwfn English forum: http:<span class="hljs-comment">//sobereva.com/wfnbbs</span><br> Multiwfn Chinese forum: http:<span class="hljs-comment">//bbs.keinsci.com/wfn</span><br> ( Number of parallel threads:   <span class="hljs-number">4</span>  Current date: <span class="hljs-number">2025</span><span class="hljs-number">-05</span><span class="hljs-number">-30</span>  Time: <span class="hljs-number">20</span>:<span class="hljs-number">33</span>:<span class="hljs-number">30</span> )<br><br> Both following papers ***MUST BE CITED IN MAIN TEXT*** <span class="hljs-keyword">if</span> Multiwfn is used:<br>  Tian Lu, Feiwu Chen, J. Comput. Chem., <span class="hljs-number">33</span>, <span class="hljs-number">580</span> (<span class="hljs-number">2012</span>) DOI: <span class="hljs-number">10.1002</span>/<span class="hljs-comment">jcc.22885</span><br>  Tian <span class="hljs-comment">Lu, J. Chem. Phys., 161, 082503 (2024) DOI: 10.1063</span>/<span class="hljs-number">5.0216272</span><br> See <span class="hljs-comment">&quot;How to cite Multiwfn.pdf&quot;</span> in Multiwfn <span class="hljs-keyword">binary</span> package <span class="hljs-keyword">for</span> more information<br><br> Now input <span class="hljs-keyword">file</span> path, <span class="hljs-keyword">for</span> example, E:\Planetarian\Yumemi_Hoshino.mwfn<br> (.wfn/<span class="hljs-comment">wfn</span>/wfx/<span class="hljs-comment">fch</span>/molden/<span class="hljs-comment">pdb</span>/xyz/<span class="hljs-comment">mol2</span>/cif/<span class="hljs-comment">cub... see Section 2.5 of manual)</span><br> Hint: Pressing <span class="hljs-comment">ENTER button directly can select a file in a GUI window. To reload the past file, inputting</span> <span class="hljs-comment">&quot;o&quot;</span><span class="hljs-comment">. Input such as ?miku.fch can open the miku.fch in the same folder as the past file</span><br><span class="hljs-string">&quot;5&quot;</span> cannot <span class="hljs-comment">be found, input again</span><br><span class="hljs-string">&quot;1&quot;</span> cannot <span class="hljs-comment">be found, input again</span><br><span class="hljs-string">&quot;3&quot;</span> cannot <span class="hljs-comment">be found, input again</span><br><span class="hljs-string">&quot;2&quot;</span> cannot <span class="hljs-comment">be found, input again</span><br><span class="hljs-string">&quot;0&quot;</span> cannot <span class="hljs-comment">be found, input again</span><br><span class="hljs-string">&quot;5&quot;</span> cannot <span class="hljs-comment">be found, input again</span><br><span class="hljs-string">&quot;12&quot;</span> cannot <span class="hljs-comment">be found, input again</span><br><span class="hljs-string">&quot;1&quot;</span> cannot <span class="hljs-comment">be found, input again</span><br><span class="hljs-string">&quot;2&quot;</span> cannot <span class="hljs-comment">be found, input again</span><br>forrtl: severe <span class="hljs-comment">(24): end-of-file during read, unit -4, file CONIN$</span><br>Image              <span class="hljs-comment">PC                Routine            Line        Source</span><br>Multiwfn.exe       <span class="hljs-comment">00007FF601370B01  Unknown               Unknown  Unknown</span><br>Multiwfn.exe       <span class="hljs-comment">00007FF60127CBB3  Unknown               Unknown  Unknown</span><br>Multiwfn.exe       <span class="hljs-comment">00007FF601CCFB7B  Unknown               Unknown  Unknown</span><br>Multiwfn.exe       <span class="hljs-comment">00007FF601FE53F0  Unknown               Unknown  Unknown</span><br>KERNEL32.DLL       <span class="hljs-comment">00007FF9259B7374  Unknown               Unknown  Unknown</span><br>ntdll.dll          <span class="hljs-comment">00007FF92667CC91  Unknown               Unknown  Unknown</span><br><br>C:\Multiwfn_3.8_dev_bin_Win64&gt;move /Y density.cub density3.cub<br>系统找不到指定的文件。<br><br>C:\Multiwfn_3<span class="hljs-number">.8</span>_dev_bin_Win64&gt;move /<span class="hljs-comment">Y totesp.cub ESP3.cub</span><br>系统找不到指定的文件。<br><br>C:\Multiwfn_3.8_dev_bin_Win64&gt;Multiwfn <span class="hljs-comment">4.fch -ESPrhoiso 0.001  0&lt;ESPiso.txt</span><br> Error: Unable <span class="hljs-comment">to find the input file you specified in argument</span><br><br> Multiwfn <span class="hljs-comment">-- A Multifunctional Wavefunction Analyzer</span><br> Version <span class="hljs-comment">3.8(dev), update date: 2025-May-5</span><br> Developer: Tian <span class="hljs-comment">Lu (Beijing Kein Research Center for Natural Sciences)</span><br> Multiwfn <span class="hljs-comment">official website: http:</span>//<span class="hljs-comment">sobereva.com</span>/multiwfn<br> Multiwfn English forum: http:<span class="hljs-comment">//sobereva.com/wfnbbs</span><br> Multiwfn Chinese forum: http:<span class="hljs-comment">//bbs.keinsci.com/wfn</span><br> ( Number of parallel threads:   <span class="hljs-number">4</span>  Current date: <span class="hljs-number">2025</span><span class="hljs-number">-05</span><span class="hljs-number">-30</span>  Time: <span class="hljs-number">20</span>:<span class="hljs-number">33</span>:<span class="hljs-number">30</span> )<br><br> Both following papers ***MUST BE CITED IN MAIN TEXT*** <span class="hljs-keyword">if</span> Multiwfn is used:<br>  Tian Lu, Feiwu Chen, J. Comput. Chem., <span class="hljs-number">33</span>, <span class="hljs-number">580</span> (<span class="hljs-number">2012</span>) DOI: <span class="hljs-number">10.1002</span>/<span class="hljs-comment">jcc.22885</span><br>  Tian <span class="hljs-comment">Lu, J. Chem. Phys., 161, 082503 (2024) DOI: 10.1063</span>/<span class="hljs-number">5.0216272</span><br> See <span class="hljs-comment">&quot;How to cite Multiwfn.pdf&quot;</span> in Multiwfn <span class="hljs-keyword">binary</span> package <span class="hljs-keyword">for</span> more information<br><br> Now input <span class="hljs-keyword">file</span> path, <span class="hljs-keyword">for</span> example, E:\Planetarian\Yumemi_Hoshino.mwfn<br> (.wfn/<span class="hljs-comment">wfn</span>/wfx/<span class="hljs-comment">fch</span>/molden/<span class="hljs-comment">pdb</span>/xyz/<span class="hljs-comment">mol2</span>/cif/<span class="hljs-comment">cub... see Section 2.5 of manual)</span><br> Hint: Pressing <span class="hljs-comment">ENTER button directly can select a file in a GUI window. To reload the past file, inputting</span> <span class="hljs-comment">&quot;o&quot;</span><span class="hljs-comment">. Input such as ?miku.fch can open the miku.fch in the same folder as the past file</span><br><span class="hljs-string">&quot;5&quot;</span> cannot <span class="hljs-comment">be found, input again</span><br><span class="hljs-string">&quot;1&quot;</span> cannot <span class="hljs-comment">be found, input again</span><br><span class="hljs-string">&quot;3&quot;</span> cannot <span class="hljs-comment">be found, input again</span><br><span class="hljs-string">&quot;2&quot;</span> cannot <span class="hljs-comment">be found, input again</span><br><span class="hljs-string">&quot;0&quot;</span> cannot <span class="hljs-comment">be found, input again</span><br><span class="hljs-string">&quot;5&quot;</span> cannot <span class="hljs-comment">be found, input again</span><br><span class="hljs-string">&quot;12&quot;</span> cannot <span class="hljs-comment">be found, input again</span><br><span class="hljs-string">&quot;1&quot;</span> cannot <span class="hljs-comment">be found, input again</span><br><span class="hljs-string">&quot;2&quot;</span> cannot <span class="hljs-comment">be found, input again</span><br>forrtl: severe <span class="hljs-comment">(24): end-of-file during read, unit -4, file CONIN$</span><br>Image              <span class="hljs-comment">PC                Routine            Line        Source</span><br>Multiwfn.exe       <span class="hljs-comment">00007FF601370B01  Unknown               Unknown  Unknown</span><br>Multiwfn.exe       <span class="hljs-comment">00007FF60127CBB3  Unknown               Unknown  Unknown</span><br>Multiwfn.exe       <span class="hljs-comment">00007FF601CCFB7B  Unknown               Unknown  Unknown</span><br>Multiwfn.exe       <span class="hljs-comment">00007FF601FE53F0  Unknown               Unknown  Unknown</span><br>KERNEL32.DLL       <span class="hljs-comment">00007FF9259B7374  Unknown               Unknown  Unknown</span><br>ntdll.dll          <span class="hljs-comment">00007FF92667CC91  Unknown               Unknown  Unknown</span><br><br>C:\Multiwfn_3.8_dev_bin_Win64&gt;move /Y density.cub density4.cub<br>系统找不到指定的文件。<br><br>C:\Multiwfn_3<span class="hljs-number">.8</span>_dev_bin_Win64&gt;move /<span class="hljs-comment">Y totesp.cub ESP4.cub</span><br>系统找不到指定的文件。<br><br>C:\Multiwfn_3.8_dev_bin_Win64&gt;move /Y *.cub <span class="hljs-comment">&quot;C:\VMD&quot;</span><br>C:\Multiwfn_3<span class="hljs-number">.8</span>_dev_bin_Win64\density1.cub<br>C:\Multiwfn_3<span class="hljs-number">.8</span>_dev_bin_Win64\ESP1.cub<br>移动了         <span class="hljs-number">2</span> 个文件。<br></code></pre></td></tr></table></figure>
+<p>然后打开<code>VMD</code>软件，输入<code>iso</code>即可画图</p>
+<p><img src="/2025/05/30/%E7%A7%91%E7%A0%94/%E4%BD%BF%E7%94%A8Multiwfn+VMD%E7%BB%98%E5%88%B6%E5%88%86%E5%AD%90%E7%9A%84%E8%A1%A8%E9%9D%A2%E9%9D%99%E7%94%B5%E5%8A%BF%E5%9B%BE/image-20250530203615609.png" srcset="/img/loading.gif" lazyload alt="根据电荷等值面着色的ESP图"></p>
+<p>再输入<code>ext</code>即可显示极值点</p>
+<p><img src="/2025/05/30/%E7%A7%91%E7%A0%94/%E4%BD%BF%E7%94%A8Multiwfn+VMD%E7%BB%98%E5%88%B6%E5%88%86%E5%AD%90%E7%9A%84%E8%A1%A8%E9%9D%A2%E9%9D%99%E7%94%B5%E5%8A%BF%E5%9B%BE/image-20250530203724559.png" srcset="/img/loading.gif" lazyload alt="包含极值点的ESP图"></p>
+<p>上图中的材质已被我改为<code>transparent</code>，因此能看到背面的极值点，修改方法可以通过<code>Grapgics-Materials</code>进行修改，然而答主修改时没有任何变化，于是在<code>ESPiso.vmd</code>中直接将<code>EdgyGlass</code>改成了<code>Transparent</code></p>
+<p>怎么添加刻度呢？操作如下图</p>
+<p><img src="/2025/05/30/%E7%A7%91%E7%A0%94/%E4%BD%BF%E7%94%A8Multiwfn+VMD%E7%BB%98%E5%88%B6%E5%88%86%E5%AD%90%E7%9A%84%E8%A1%A8%E9%9D%A2%E9%9D%99%E7%94%B5%E5%8A%BF%E5%9B%BE/image-20250530205133881.png" srcset="/img/loading.gif" lazyload alt="image-20250530205133881"></p>
+<p>接下来是自定义图片的导出，<code>File-Render</code>，渲染器选择<code>Tachyon</code>，开始渲染，然后在<code>VMD</code>的根目录下得到了文件<code>vmdscene.dat</code>，接下来调用渲染器进行渲染，渲染的<code>.bat</code>脚本是：</p>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bat">tachyon_WIN32.exe vmdscene.dat -aasamples <span class="hljs-number">24</span> -mediumshade -trans_vmd -res <span class="hljs-number">1024</span> <span class="hljs-number">768</span> -<span class="hljs-built_in">format</span> BMP -o vmdscene.bmp<br></code></pre></td></tr></table></figure>
+<p>其中的1024是长，768是宽，可以改成想要的分辨率</p>
+<p><img src="/2025/05/30/%E7%A7%91%E7%A0%94/%E4%BD%BF%E7%94%A8Multiwfn+VMD%E7%BB%98%E5%88%B6%E5%88%86%E5%AD%90%E7%9A%84%E8%A1%A8%E9%9D%A2%E9%9D%99%E7%94%B5%E5%8A%BF%E5%9B%BE/Ferocene.jpg" srcset="/img/loading.gif" lazyload alt="二茂铁的ESP图像"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/" class="category-chain-item">从零开始的科研之旅</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/first-stage/" class="category-chain-item">first stage</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%8C%96%E5%AD%A6/" class="print-no-link">#化学</a>
+      
+        <a href="/tags/%E7%A7%91%E7%A0%94/" class="print-no-link">#科研</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>使用Multiwfn+VMD绘制分子的表面静电势图(ESP)</div>
+      <div>https://hydrogen1222.xyz/2025/05/30/科研/使用Multiwfn+VMD绘制分子的表面静电势图/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Storm Talia</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年5月30日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/06/06/%E7%A7%91%E7%A0%94/%E5%85%B3%E4%BA%8ERietveld%E7%B2%BE%E4%BF%AE/" title="从零开始的Rietveld精修">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">从零开始的Rietveld精修</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/05/27/%E7%A7%91%E7%A0%94/%E7%94%B5%E5%8C%96%E5%AD%A6%E9%98%BB%E6%8A%97%E8%B0%B1/" title="从零开始的电化学阻抗谱原理">
+                        <span class="hidden-mobile">从零开始的电化学阻抗谱原理</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="waline"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#waline', function() {
+      Fluid.utils.createCssLink('https://registry.npmmirror.com/@waline/client/2.15.8/files/dist/waline.css')
+      Fluid.utils.createScript('https://registry.npmmirror.com/@waline/client/2.15.8/files/dist/waline.js', function() {
+        var options = Object.assign(
+          {"serverURL":"heiheihei.life","path":"window.location.pathname","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo"],"dark":"html[data-user-color-scheme=\"dark\"]","wordLimit":0,"pageSize":10,"reaction":true,"locale":{"placeholder":"欢迎常来看看"}},
+          {
+            el: '#waline',
+            path: window.location.pathname
+          }
+        )
+        Waline.init(options);
+        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
+          var imgSelector = '#waline .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Storm</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Talia</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/custom/RunTime/RunTime.js"></script> </div> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/custom/ReadingProgress/ReadingProgress.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  <canvas
+    class="fireworks"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 32767"
+></canvas>
+<script type="text/javascript" src="/custom/fireworks/anime.min.js"></script> 
+<script type="text/javascript" src="/custom/fireworks/fireworks.js"></script>
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

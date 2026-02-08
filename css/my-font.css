@@ -1,0 +1,12 @@
+/* 引入落霞文楷字体 */
+@import url('https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css');
+
+/* 强制覆盖字体设置 */
+/* 这里的顺序很重要：Times New Roman (英文) -> 落霞文楷 (中文) -> 系统默认 */
+body, 
+#article-container, 
+h1, h2, h3, h4, h5, h6,
+.code-block, 
+#footer {
+    font-family: "Times New Roman", "LXGW WenKai Screen", sans-serif !important;
+}

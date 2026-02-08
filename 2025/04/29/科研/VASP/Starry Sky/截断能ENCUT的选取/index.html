@@ -1,0 +1,175 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>截断能ENCUT的选取 | Hexo</title><meta name="author" content="John Doe"><meta name="copyright" content="John Doe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="ENCUT是用来指定平面波基组能量截止值的参数  以上是wiki对ENCUT的描述，POTCAR文件中已经包含了元素的ENMAX和ENMIN，这也是互联网上对ENCUT的选择方案对通常是1.3倍的ENMAX 侯柱峰老师提供了另外一种方法并指出通过该方法选择的ENCUT通常能满足1.3倍ENMAX，供参考使用 截断能指定了用于波函数展开的平面波基组的截断能量，此能量越大则用来描述波函数的平面波基组">
+<meta property="og:type" content="article">
+<meta property="og:title" content="截断能ENCUT的选取">
+<meta property="og:url" content="http://example.com/2025/04/29/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E6%88%AA%E6%96%AD%E8%83%BDENCUT%E7%9A%84%E9%80%89%E5%8F%96/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="ENCUT是用来指定平面波基组能量截止值的参数  以上是wiki对ENCUT的描述，POTCAR文件中已经包含了元素的ENMAX和ENMIN，这也是互联网上对ENCUT的选择方案对通常是1.3倍的ENMAX 侯柱峰老师提供了另外一种方法并指出通过该方法选择的ENCUT通常能满足1.3倍ENMAX，供参考使用 截断能指定了用于波函数展开的平面波基组的截断能量，此能量越大则用来描述波函数的平面波基组">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-04-29T13:40:00.000Z">
+<meta property="article:modified_time" content="2025-08-31T03:24:30.241Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="化学">
+<meta property="article:tag" content="科研">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "截断能ENCUT的选取",
+  "url": "http://example.com/2025/04/29/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E6%88%AA%E6%96%AD%E8%83%BDENCUT%E7%9A%84%E9%80%89%E5%8F%96/",
+  "image": "http://example.com/img/butterfly-icon.png",
+  "datePublished": "2025-04-29T13:40:00.000Z",
+  "dateModified": "2025-08-31T03:24:30.241Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "John Doe",
+      "url": "http://example.com"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2025/04/29/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E6%88%AA%E6%96%AD%E8%83%BDENCUT%E7%9A%84%E9%80%89%E5%8F%96/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '截断能ENCUT的选取',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.1.1"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Hexo</span></a><a class="nav-page-title" href="/"><span class="site-name">截断能ENCUT的选取</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">截断能ENCUT的选取</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-04-29T13:40:00.000Z" title="Created 2025-04-29 21:40:00">2025-04-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-08-31T03:24:30.241Z" title="Updated 2025-08-31 11:24:30">2025-08-31</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/">从零开始的科研之旅</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/VASP/">VASP</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><blockquote>
+<p><code>ENCUT</code>是用来指定平面波基组能量截止值的参数</p>
+</blockquote>
+<p>以上是wiki对<code>ENCUT</code>的描述，<code>POTCAR</code>文件中已经包含了元素的<code>ENMAX</code>和<code>ENMIN</code>，这也是互联网上对<code>ENCUT</code>的选择方案对通常是1.3倍的<code>ENMAX</code></p>
+<p>侯柱峰老师提供了另外一种方法并指出通过该方法选择的<code>ENCUT</code>通常能满足1.3倍<code>ENMAX</code>，供参考使用</p>
+<p>截断能指定了用于波函数展开的平面波基组的截断能量，此能量越大则用来描述波函数的平面波基组越多，精度越高，但计算也越耗时。</p>
+<p>可以通过计算测试来选择合适的<code>ENCUT</code>。</p>
+<p>以下是用于测试的脚本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"><span class="built_in">rm</span> WAVECAR</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> 150 200 250 300 350 400</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line"><span class="built_in">cat</span> &gt; INCAR &lt;&lt;!</span><br><span class="line">SYSTEM = Si-Diamond</span><br><span class="line">ENCUT = <span class="variable">$i</span></span><br><span class="line">ISTART = 0 ; ICHARG = 2</span><br><span class="line">ISMEAR = -5</span><br><span class="line">PREC = Accurate</span><br><span class="line">!</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;ENCUT = <span class="variable">$i</span> eV&quot;</span> ; <span class="keyword">time</span> vasp</span><br><span class="line">E=`grep <span class="string">&quot;TOTEN&quot;</span> OUTCAR | <span class="built_in">tail</span> -1 | awk <span class="string">&#x27;&#123;printf &quot;%12.6f \n&quot;, $5 &#125;&#x27;</span>`</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$i</span> <span class="variable">$E</span> &gt;&gt;comment</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<p>计算后会得到<code>comment</code>文件，它列出了在不同<code>ENCUT</code>下计算得到的总能量</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">150 -11.900655</span><br><span class="line">200 -11.938864</span><br><span class="line">250 -11.944599</span><br><span class="line">300 -11.945248</span><br><span class="line">350 -11.945503</span><br><span class="line">400 -11.945622</span><br></pre></td></tr></table></figure>
+<p><mark>总能量变化在0.001 eV即可</mark>，因此在这个例子中<code>ENCUT</code>可以选择250</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://example.com">John Doe</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://example.com/2025/04/29/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E6%88%AA%E6%96%AD%E8%83%BDENCUT%E7%9A%84%E9%80%89%E5%8F%96/">http://example.com/2025/04/29/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E6%88%AA%E6%96%AD%E8%83%BDENCUT%E7%9A%84%E9%80%89%E5%8F%96/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%8C%96%E5%AD%A6/">化学</a><a class="post-meta__tags" href="/tags/%E7%A7%91%E7%A0%94/">科研</a></div><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/05/03/%E6%9D%82%E8%B0%88/%E5%BF%AB%E4%B9%90%E6%97%A0%E7%BD%AA%E6%AD%8C%E8%AF%8D%E8%B5%8F%E6%9E%90/" title="快乐无罪"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">快乐无罪</div></div><div class="info-2"><div class="info-item-1">¶歌词 123456789101112131415161718192021222324252627282930313233343536373839404142[00:00.43]快乐无罪 - 许美静[00:01.62]词：许常德/陈佳明[00:03.13]曲：陈建宁/陈政卿[00:19.82]你要我快乐[00:23.76]我非常快乐[00:27.22]在不想太多的时候[00:34.32]吻你是烟火 吻后是寂寞[00:41.32]爱是我犯的差错[00:49.38]我要你什么 我贪你什么[00:56.73]在你想消失的时候[01:04.12]想你是黑洞 它没有尽头[01:10.72]就算流星也该坠落[01:17.55]快乐有泪 怎会有泪[01:21.23]我哭到心碎[01:25.52]不解幸福会被永恒连累[01:29.16]不解刹那是你要的美[01:32.60]快乐有罪 怎会有罪[01:36.29]我怎么拒绝[01:40.55]也许到最后你我都反悔[01:44.21]留下空荡的城市黑夜[01:47.60]让我撒野[02:22.36]我要你什么 我贪你什么[02:29.56]在你想消失...</div></div></div></a><a class="pagination-related" href="/2025/04/29/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E8%A1%A8%E9%9D%A2%E8%83%BD%E7%9A%84%E8%AE%A1%E7%AE%97/" title="表面能的计算"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">表面能的计算</div></div><div class="info-2"><div class="info-item-1">¶关于表面能 根据VASP官方手册Hands on Session III，表面能的定义如下，大师兄的文章也提到了这个定义( Nanoscale, 2017, 9, 13089–13094)                    #mjx-dd4829d8{         display:contents;         mjx-assistive-mml {           user-select: text !important;           clip: auto !important;           color: rgba(0,0,0,0);         }          mjx-container[jax="SVG"] {   direction: ltr; }  mjx-container[jax="SVG"] > svg {   overflow: visible;   min-height: 1px;   min-width: 1px; }  mjx-container[jax="SVG"] > svg a {   fill: blue...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/07/18/%E7%A7%91%E7%A0%94/first%20stage/%E5%85%B3%E4%BA%8E%E7%94%B5%E6%B1%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="关于电池的一些基础知识"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-18</div><div class="info-item-2">关于电池的一些基础知识</div></div><div class="info-2"><div class="info-item-1">为什么方形电池设计为带正电的？，作为一个小白的无意间看到了这么一个问题，仔细学习了一下，参考许多资料。 动力电池的电芯封装模式：  硬壳  圆柱：技术成熟成本较低、稳定耐用、单体一致性好，但能量密度的上升空间小、对电池管理系统的要求高  铝壳 钢壳   方形：强度高、内阻小、寿命长、空间利用率高，应用最广，但厂商需求不一样，规格多且难统一  铝壳 钢壳     软包：能量密度极高、重量轻，但成本高，需要额外防护防止电池受损和热失控，更容易因为膨胀产生内应力、膨胀力，导致电池内部的结构都会发生改变  铝塑膜 钢塑膜    标题中的方形电池应该指的是铝壳封装的方形电池，其中的电芯通常与正极相连，出于以下五个方面考虑  容易形成Al-Li合金。Al的立方晶格的八面体空隙大小与                   #mjx-904aeb88{         display:contents;         mjx-assistive-mml {           user-select: text !important;           clip: auto !importan...</div></div></div></a><a class="pagination-related" href="/2025/08/23/%E9%87%8F%E5%AD%90%E5%8C%96%E5%AD%A6/%E5%90%84%E7%A7%8D%E7%90%86%E8%AE%BA%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95/" title="各种理论计算方法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-23</div><div class="info-item-2">各种理论计算方法</div></div><div class="info-2"><div class="info-item-1">费米孔 Coulomb孔 由于Coulomb孔的存在，电子之间存在动态相关，如何描述原子分子体系中电子之间的动态相关是量子化学的主要任务 玻色子的波函数是对称的，没有反对称性的要求因此可以靠得很近 ¶Hartree-Fock方程与自洽场计算 ¶HF方程 HF方程是量子化学中计算多电子体系近似波函数和能量的基本方法，通过“平均场”近似把复杂的多电子问题拆解成单电子问题。 多电子波函数用单电子轨道（分子轨道）的Slater行列式表示                    #mjx-c59552d8{         display:contents;         mjx-assistive-mml {           user-select: text !important;           clip: auto !important;           color: rgba(0,0,0,0);         }          mjx-container[jax="SVG"] {   direction: ltr; }  mjx-container[jax="S...</div></div></div></a><a class="pagination-related" href="/2025/03/20/%E7%A7%91%E7%A0%94/first%20stage/20250319night/" title="一种掺杂硫银锗矿电解质的合成"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-20</div><div class="info-item-2">一种掺杂硫银锗矿电解质的合成</div></div><div class="info-2"><div class="info-item-1">19日晚第一次进实验室，师姐带我合成一种固态电解质，参考文献有Angew. Chem. Int. Ed. 2019, 58, 8681 –8686等。由于电池是锂电池，需要隔绝                   #mjx-db8d3258{         display:contents;         mjx-assistive-mml {           user-select: text !important;           clip: auto !important;           color: rgba(0,0,0,0);         }          mjx-container[jax="SVG"] {   direction: ltr; }  mjx-container[jax="SVG"] > svg {   overflow: visible;   min-height: 1px;   min-width: 1px; }  mjx-container[jax="SVG"] > svg a {   fill: blue;   stro...</div></div></div></a><a class="pagination-related" href="/2025/07/20/%E5%9B%BA%E4%BD%93%E5%8C%96%E5%AD%A6/" title="关于固体化学"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-20</div><div class="info-item-2">关于固体化学</div></div><div class="info-2"><div class="info-item-1">从固体材料的化学组成来区，主要有无机、有机和金属三大类材料。固体物质可以按照其中原子排列的有序成都分类为晶态固体和非晶态固体，后者类似于液体，只在及个原子间距的短程范围内具有源自有序的状态，比如玻璃和许多聚合物可以看作是过冷的液体，它们中间的原子排列是没有一定的格子的。 金属键和金属晶体 ¶金属的自由电子模型 20世纪初，Drude和Lorentz提出了自由电子论。金属都是电离能第、颠覆性小的元素，这些元素容易失去外层价电子，形成正离子，正离子按照紧密堆积的方式形成晶体，价电子在整个金属晶体中自由运动，为所有原子所共有。自由电子处于类似于理想气体的状态，可以看作是自由电子气 在金属表面存在着一种把自由电子限制在金属范围内的是能查，但是在金属内部，势能是相对均匀的，好像自由电子是在一个均匀的正电场中运动着，势能相对为0. 当沿着与电流在金属晶体中运动方向垂直的方向上再施加一个外磁场时，电子将受到Lorentz力而偏向某一侧，这便是霍尔效应。大多数金属的霍尔系数小于零，即载流子是电子。然而有一些金属如Zn，Cd，Pb等，其霍尔系数大于零，载流子密度月底，霍尔系数值越高，但是由霍尔效应...</div></div></div></a><a class="pagination-related" href="/2025/05/12/%E7%A7%91%E7%A0%94/VASP/2025-04-21-2025%E5%B9%B44%E6%9C%88Intel%E5%B9%B3%E5%8F%B0VASP.6.4.3%E7%9A%84%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/" title="2025年5月Intel平台VASP.6.4.3的编译安装"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-12</div><div class="info-item-2">2025年5月Intel平台VASP.6.4.3的编译安装</div></div><div class="info-2"><div class="info-item-1">2025年5月Intel平台VASP.6.4.3的编译安装  ¶WSL的安装 选择Arch Linux，个人比较熟悉，仅供学习使用不作为稳定的生产力环境，配置如下，两颗E5 2676 v3  打开powershell或者终端，输入wsl --install archlinux以自动安装，这一步需要使用代理(MAGIC)，主机上使用Clash-Verge进行代理（运气好也能连上），终端中输入： 12set http_proxy=http://127.0.0.1:7897 #自己使用的端口是7897，http代理set https_proxy=http://127.0.0.1:7897 #自己使用的端口是7897，https代理 如果没有条件使用代理，也可以手动安装，参考Arch Wiki，https://wiki.archlinuxcn.org/wiki/在_WSL_上安装_Arch_Linux，手动下载`.wsl`镜像，然后安装 笔者计算机C盘性能太差，于是想要将wsl2迁移到另一个分区 安装成功 12345678910111213141516171819202122[root@...</div></div></div></a><a class="pagination-related" href="/2025/03/20/%E7%A7%91%E7%A0%94/first%20stage/%E9%A9%AC%E5%BC%97%E7%82%89%E7%9A%84%E4%BD%BF%E7%94%A8/" title="烧炉子~"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-20</div><div class="info-item-2">烧炉子~</div></div><div class="info-2"><div class="info-item-1">本贴为记录贴，师兄师姐教了我3+次如何设置炉子的程序，然鹅我还是易忘于是就有了本帖😢 程序似乎都是通用的吧，马弗炉、管式炉、电炉……啥时候遇到不一样的了再更新本贴吧  第一步：设置当前温度C1（即待机的PV数值） 第二步：调节最高温度C2 第三步：设置T1，T1=(C2-C1)/升温速率 第四步：设置升温后的保温温度C3 第五步：设置保温时间T2(单位min) 第六步：保持(显示-121) 第七步：长按RUN，启动程序  </div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">John Doe</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">89</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">15</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/08/%E5%91%A8%E6%97%A5%E9%97%B2%E7%9D%80%E5%BF%83%E8%A1%80%E6%9D%A5%E6%BD%AE%EF%BC%8C%E7%9C%8B%E7%9C%8B%E8%BF%9C%E5%A4%84%E7%9A%84Gentoo/" title="Untitled">Untitled</a><time datetime="2026-02-08T06:48:06.538Z" title="Created 2026-02-08 14:48:06">2026-02-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/08/%E7%A7%91%E7%A0%94/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" title="Untitled">Untitled</a><time datetime="2026-02-08T06:48:06.130Z" title="Created 2026-02-08 14:48:06">2026-02-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/08/%E7%A7%91%E7%A0%94/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E6%9C%80%E7%BB%8F%E5%85%B8%E7%9A%84%E7%A8%8B%E5%BA%8F/" title="Untitled">Untitled</a><time datetime="2026-02-08T06:48:06.118Z" title="Created 2026-02-08 14:48:06">2026-02-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/08/%E7%A7%91%E7%A0%94/first%20stage/ATAT%E6%97%A0%E5%BA%8F%E6%8E%BA%E6%9D%82/" title="Untitled">Untitled</a><time datetime="2026-02-08T06:48:05.478Z" title="Created 2026-02-08 14:48:05">2026-02-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/08/hello-world/" title="Hello World">Hello World</a><time datetime="2026-02-08T05:39:06.897Z" title="Created 2026-02-08 13:39:06">2026-02-08</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By John Doe</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

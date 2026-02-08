@@ -1,0 +1,541 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>能带的计算以及origin绘制能带图 | Hexo</title><meta name="author" content="John Doe"><meta name="copyright" content="John Doe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="终于也是把文献整理得差不多了，博客也翻新了一下，继续分享一些之前的计算。 我的计算体系是Argyrodite硫化物固态电解质体系，计算以                   #mjx-30b717e8{         display:contents;         mjx-assistive-mml {           user-select: text !important;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="能带的计算以及origin绘制能带图">
+<meta property="og:url" content="http://example.com/2025/08/31/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/HSE06%E6%9D%82%E5%8C%96%E6%B3%9B%E5%87%BD%E8%AE%A1%E7%AE%97%E8%83%BD%E5%B8%A6%E4%BB%A5%E5%8F%8Aorigin%E4%BD%9C%E5%9B%BE/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="终于也是把文献整理得差不多了，博客也翻新了一下，继续分享一些之前的计算。 我的计算体系是Argyrodite硫化物固态电解质体系，计算以                   #mjx-30b717e8{         display:contents;         mjx-assistive-mml {           user-select: text !important;">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-08-31T09:40:00.000Z">
+<meta property="article:modified_time" content="2025-08-31T13:30:25.435Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="化学">
+<meta property="article:tag" content="科研">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "能带的计算以及origin绘制能带图",
+  "url": "http://example.com/2025/08/31/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/HSE06%E6%9D%82%E5%8C%96%E6%B3%9B%E5%87%BD%E8%AE%A1%E7%AE%97%E8%83%BD%E5%B8%A6%E4%BB%A5%E5%8F%8Aorigin%E4%BD%9C%E5%9B%BE/",
+  "image": "http://example.com/img/butterfly-icon.png",
+  "datePublished": "2025-08-31T09:40:00.000Z",
+  "dateModified": "2025-08-31T13:30:25.435Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "John Doe",
+      "url": "http://example.com"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2025/08/31/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/HSE06%E6%9D%82%E5%8C%96%E6%B3%9B%E5%87%BD%E8%AE%A1%E7%AE%97%E8%83%BD%E5%B8%A6%E4%BB%A5%E5%8F%8Aorigin%E4%BD%9C%E5%9B%BE/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '能带的计算以及origin绘制能带图',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.1.1"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Hexo</span></a><a class="nav-page-title" href="/"><span class="site-name">能带的计算以及origin绘制能带图</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">能带的计算以及origin绘制能带图</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-08-31T09:40:00.000Z" title="Created 2025-08-31 17:40:00">2025-08-31</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-08-31T13:30:25.435Z" title="Updated 2025-08-31 21:30:25">2025-08-31</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/">从零开始的科研之旅</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/VASP/">VASP</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>终于也是把文献整理得差不多了，博客也翻新了一下，继续分享一些之前的计算。</p>
+<p>我的计算体系是Argyrodite硫化物固态电解质体系，计算以
+    <span id="mjx-30b717e8">
+      <style>
+      #mjx-30b717e8{
+        display:contents;
+        mjx-assistive-mml {
+          user-select: text !important;
+          clip: auto !important;
+          color: rgba(0,0,0,0);
+        }
+        
+mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+  min-height: 1px;
+  min-width: 1px;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display="block"] {
+  width: 100% !important;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][display="true"][width="full"] {
+  display: flex;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line], svg[data-table] > g > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame], svg[data-table] > g > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed, svg[data-table] > g > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted, svg[data-table] > g > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > g > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
+  stroke-width: 3;
+}
+
+g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+.MathJax g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+      }
+      </style>
+      <mjx-container class="MathJax" jax="SVG" style="position: relative;"><svg style="vertical-align: -0.375ex;" xmlns="http://www.w3.org/2000/svg" width="9.079ex" height="1.97ex" role="img" focusable="false" viewBox="0 -705 4013.1 870.6" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="4C" d="M128 622Q121 629 117 631T101 634T58 637H25V683H36Q48 680 182 680Q324 680 348 683H360V637H333Q273 637 258 635T233 622L232 342V129Q232 57 237 52Q243 47 313 47Q384 47 410 53Q470 70 498 110T536 221Q536 226 537 238T540 261T542 272T562 273H582V268Q580 265 568 137T554 5V0H25V46H58Q100 47 109 49T128 61V622Z"></path></g><g data-mml-node="msub" transform="translate(625,0)"><g data-mml-node="mi"><path data-c="69" d="M69 609Q69 637 87 653T131 669Q154 667 171 652T188 609Q188 579 171 564T129 549Q104 549 87 564T69 609ZM247 0Q232 3 143 3Q132 3 106 3T56 1L34 0H26V46H42Q70 46 91 49Q100 53 102 60T104 102V205V293Q104 345 102 359T88 378Q74 385 41 385H30V408Q30 431 32 431L42 432Q52 433 70 434T106 436Q123 437 142 438T171 441T182 442H185V62Q190 52 197 50T232 46H255V0H247Z"></path></g><g data-mml-node="mn" transform="translate(311,-150) scale(0.707)"><path data-c="36" d="M42 313Q42 476 123 571T303 666Q372 666 402 630T432 550Q432 525 418 510T379 495Q356 495 341 509T326 548Q326 592 373 601Q351 623 311 626Q240 626 194 566Q147 500 147 364L148 360Q153 366 156 373Q197 433 263 433H267Q313 433 348 414Q372 400 396 374T435 317Q456 268 456 210V192Q456 169 451 149Q440 90 387 34T253 -22Q225 -22 199 -14T143 16T92 75T56 172T42 313ZM257 397Q227 397 205 380T171 335T154 278T148 216Q148 133 160 97T198 39Q222 21 251 21Q302 21 329 59Q342 77 347 104T352 209Q352 289 347 316T329 361Q302 397 257 397Z"></path></g></g><g data-mml-node="mi" transform="translate(1339.6,0)"><path data-c="50" d="M130 622Q123 629 119 631T103 634T60 637H27V683H214Q237 683 276 683T331 684Q419 684 471 671T567 616Q624 563 624 489Q624 421 573 372T451 307Q429 302 328 301H234V181Q234 62 237 58Q245 47 304 46H337V0H326Q305 3 182 3Q47 3 38 0H27V46H60Q102 47 111 49T130 61V622ZM507 488Q507 514 506 528T500 564T483 597T450 620T397 635Q385 637 307 637H286Q237 637 234 628Q231 624 231 483V342H302H339Q390 342 423 349T481 382Q507 411 507 488Z"></path></g><g data-mml-node="msub" transform="translate(2020.6,0)"><g data-mml-node="mi"><path data-c="53" d="M55 507Q55 590 112 647T243 704H257Q342 704 405 641L426 672Q431 679 436 687T446 700L449 704Q450 704 453 704T459 705H463Q466 705 472 699V462L466 456H448Q437 456 435 459T430 479Q413 605 329 646Q292 662 254 662Q201 662 168 626T135 542Q135 508 152 480T200 435Q210 431 286 412T370 389Q427 367 463 314T500 191Q500 110 448 45T301 -21Q245 -21 201 -4T140 27L122 41Q118 36 107 21T87 -7T78 -21Q76 -22 68 -22H64Q61 -22 55 -16V101Q55 220 56 222Q58 227 76 227H89Q95 221 95 214Q95 182 105 151T139 90T205 42T305 24Q352 24 386 62T420 155Q420 198 398 233T340 281Q284 295 266 300Q261 301 239 306T206 314T174 325T141 343T112 367T85 402Q55 451 55 507Z"></path></g><g data-mml-node="mn" transform="translate(589,-150) scale(0.707)"><path data-c="35" d="M164 157Q164 133 148 117T109 101H102Q148 22 224 22Q294 22 326 82Q345 115 345 210Q345 313 318 349Q292 382 260 382H254Q176 382 136 314Q132 307 129 306T114 304Q97 304 95 310Q93 314 93 485V614Q93 664 98 664Q100 666 102 666Q103 666 123 658T178 642T253 634Q324 634 389 662Q397 666 402 666Q410 666 410 648V635Q328 538 205 538Q174 538 149 544L139 546V374Q158 388 169 396T205 412T256 420Q337 420 393 355T449 201Q449 109 385 44T229 -22Q148 -22 99 32T50 154Q50 178 61 192T84 210T107 214Q132 214 148 197T164 157Z"></path></g></g><g data-mml-node="mi" transform="translate(3013.1,0)"><path data-c="43" d="M56 342Q56 428 89 500T174 615T283 681T391 705Q394 705 400 705T408 704Q499 704 569 636L582 624L612 663Q639 700 643 704Q644 704 647 704T653 705H657Q660 705 666 699V419L660 413H626Q620 419 619 430Q610 512 571 572T476 651Q457 658 426 658Q322 658 252 588Q173 509 173 342Q173 221 211 151Q232 111 263 84T328 45T384 29T428 24Q517 24 571 93T626 244Q626 251 632 257H660L666 251V236Q661 133 590 56T403 -21Q262 -21 159 83T56 342Z"></path></g><g data-mml-node="mi" transform="translate(3735.1,0)"><path data-c="6C" d="M42 46H56Q95 46 103 60V68Q103 77 103 91T103 124T104 167T104 217T104 272T104 329Q104 366 104 407T104 482T104 542T103 586T103 603Q100 622 89 628T44 637H26V660Q26 683 28 683L38 684Q48 685 67 686T104 688Q121 689 141 690T171 693T182 694H185V379Q185 62 186 60Q190 52 198 49Q219 46 247 46H263V0H255L232 1Q209 2 183 2T145 3T107 3T57 1L34 0H26V46H42Z"></path></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi mathvariant="normal">L</mi><msub><mi mathvariant="normal">i</mi><mn>6</mn></msub><mi mathvariant="normal">P</mi><msub><mi mathvariant="normal">S</mi><mn>5</mn></msub><mi mathvariant="normal">C</mi><mi mathvariant="normal">l</mi></math></mjx-assistive-mml></mjx-container>
+    </span>
+  为例吧。能带计算最好是使用primitive cell，即原胞。这是惯用晶胞或者超胞计算得到的能带是折叠的，固体物理的相关书籍中有提到，（当然计算成本也是不同的），参考公社论坛上的两篇讨论帖子：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://bbs.keinsci.com/thread-11373-1-1.html">http://bbs.keinsci.com/thread-11373-1-1.html</a></li>
+<li><a target="_blank" rel="noopener" href="http://bbs.keinsci.com/thread-19361-1-1.html">http://bbs.keinsci.com/thread-19361-1-1.html</a></li>
+</ul>
+<h1>原胞的变胞优化</h1>
+<p>计算使用我稍微熟一点的VASP来，首先从Materials Project网站下载晶体结构文件，下载primitive cell，如果已经有了conventional cell的cif文件，也可以使用vaspkit的602功能生成<code>PRIMCELL.vasp</code>原胞文件。</p>
+<p>然后进行原胞的变胞优化，除了POSCAR的剩下三个输入文件可以使用vaspkit方便地生成，使用101功能，选择lattice relaxation进行变胞优化，102功能生成自洽计算的K点，选择Gamma撒点方案，0.03间隙，原胞计算量比较小，间隙填小一点也无妨。</p>
+<p>笔者在Intel 5218R的集群上进行计算，分配了40个物理核心，计算时在<code>INCAR</code>中设置<code>KPAR=2</code>和<code>NCORE=20</code>来最大化效率，一般而言<code>NPAR</code>参数不需要设置，<code>KPAR</code>和<code>NCORE</code>的参数设置众说纷纭，我参考的公社某一篇帖子里的经验，前者设置为2，后者设置为物理核心数的一般，当然这是对于CPU版本的VASP而言的。</p>
+<p>原胞的变胞优化用时很短：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> reached required accuracy - stopping structural energy minimisation</span><br><span class="line">[ctan@baifq-hpc141 primitive_cell-opt]$ <span class="built_in">tail</span> OUTCAR</span><br><span class="line">                            User <span class="keyword">time</span> (sec):       88.516</span><br><span class="line">                          System <span class="keyword">time</span> (sec):        3.010</span><br><span class="line">                         Elapsed <span class="keyword">time</span> (sec):       94.030</span><br><span class="line"></span><br><span class="line">                   Maximum memory used (kb):      238296.</span><br><span class="line">                   Average memory used (kb):          N/A</span><br><span class="line"></span><br><span class="line">                          Minor page faults:        36126</span><br><span class="line">                          Major page faults:          669</span><br><span class="line">                 Voluntary context switches:         1271</span><br></pre></td></tr></table></figure>
+<p>在确认收敛并确认结构正常后进行能带的计算</p>
+<h1>PBE泛函计算能带</h1>
+<blockquote>
+<p>能带计算的KPOINTS与普通计算的KPOINTS不一样，通常需要第一布里渊区内的一条或几条高对称点路径来计算能带性质</p>
+</blockquote>
+<p>VASP的计算中PBE泛函是被使用最广泛的，需要修改K点和输入文件。参考vaspkit官网的教程：<a target="_blank" rel="noopener" href="http://vaspkit.cn/index.php/27.html">http://vaspkit.cn/index.php/27.html</a></p>
+<p>PBE能带的计算<mark>可以<mark>分两步进行。</p>
+<p>首先进行自洽计算，此时也即（最常用的）静态计算，将变胞优化的<code>CONTCAR</code>更名为<code>POSCAR</code>，使用<code>vaspkit</code>的101功能，选择Static-Calculation，k点选择可以不变。</p>
+<p>接着进行能带计算，需要使用vaspkit的303功能生成高对称K点，将生成的<code>KPATH.in</code>文件更名为<code>KPOINTS</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(base) [storm@X16 temp]$ <span class="built_in">ls</span></span><br><span class="line">HIGH_SYMMETRY_POINTS  INCAR  KPATH.<span class="keyword">in</span>  KPOINTS  POSCAR  POTCAR  PRIMCELL.vasp  SYMMETRY  vmd-1.9.3</span><br></pre></td></tr></table></figure>
+<p>可以看到，303功能也生成了原胞结构，当然前面我们已经提到过。</p>
+<p>在进行能带计算的目录中，将上一步自洽计算的<code>CHGCAR</code>文件拷贝过来并在<code>INCAR</code>中设置电荷密度<mark>不更新<mark>，即<code>ICHARG=11</code>，这是必须的，为了加速计算，建议读取上一步的<code>WAVECAR</code>文件，虽然<code>ISTART</code>设置为1或者2程序都可以读取<code>WAVECAR</code>，但是为了保持整个计算任务中（第一步和第二步）的平面波基组一致，建议使用<code>ISTART=2</code>。</p>
+<p>此种方法计算能带分两步的原因是使用高密度 k 点网格进行计算时耗时较长，因此用不耗时的普通静态计算多次迭代得到的<code>CHGCAR</code>和<code>WAVECAR</code>来加速高密度k点网格的计算。</p>
+<p>其实对于我的小体系，直接使用高密度k点网格进行静态计算也是完全可接受的，并且SCF 和能带完全自洽，会更精确一些，用时并不长：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[ctan@baifq-hpc141 primitive_cell-band_PBE]$ <span class="built_in">ls</span></span><br><span class="line">4736.<span class="built_in">log</span>  CONTCAR   HIGH_SYMMETRY_POINTS  KPOINTS  PCDAT   PRIMCELL.vasp  slurm-4736.out  vasp.out     WAVECAR</span><br><span class="line">CHG       DOSCAR    INCAR                 OSZICAR  POSCAR  PROCAR         SYMMETRY        vaspout.h5   XDATCAR</span><br><span class="line">CHGCAR    EIGENVAL  KPATH.<span class="keyword">in</span>              OUTCAR   POTCAR  REPORT         vasp.err        vasprun.xml</span><br><span class="line">[ctan@baifq-hpc141 primitive_cell-band_PBE]$ <span class="built_in">tail</span> OUTCAR</span><br><span class="line">                            User <span class="keyword">time</span> (sec):      216.131</span><br><span class="line">                          System <span class="keyword">time</span> (sec):        4.733</span><br><span class="line">                         Elapsed <span class="keyword">time</span> (sec):      223.789</span><br><span class="line"></span><br><span class="line">                   Maximum memory used (kb):      427044.</span><br><span class="line">                   Average memory used (kb):          N/A</span><br><span class="line"></span><br><span class="line">                          Minor page faults:        28812</span><br><span class="line">                          Major page faults:          666</span><br><span class="line">                 Voluntary context switches:         1232</span><br></pre></td></tr></table></figure>
+<h1>HSE06杂化泛函计算能带</h1>
+<p>PBE最常被诟病的方面即能带计算，它常常低估带隙。By the way，Materials Project上的能带数据刚好能和我用PBE算出来的能带数据对上，明显小于HSE06泛函计算的数据，估计是使用PBE算的。</p>
+<p>HSE (Heyd–Scuseria–Ernzerhof)杂化泛函在2003年首次被提出（HSE03），在2006年HSE06被提出，它能更加精确地计算能带。使用HSE06杂化泛函做计算是<mark>十分昂贵<mark>的，用时是PBE泛函的<mark>数十倍不止<mark>。</p>
+<p>受vasp算法所限制，使用HSE06杂化泛函计算能带时<mark>只能使用自洽计算（此时为静态计算），不能进行非自洽计算<mark>。中文互联网上有一些教程是错误的，PBE可以自洽+非自洽两步，也可以自洽一步，但是HSE06杂化泛函只能一步自洽。<mark>不过可以在能带计算之前也先做一下静态计算（自洽计算），然后将产生的<code>WAVECAR</code>文件用于能带计算以加速<mark>。</p>
+<p>使用<code>vaspkit</code>的251功能生成所需要的<code>KPOINTS</code>文件，这是一个“混合”的文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"> ------------&gt;&gt;</span><br><span class="line">251</span><br><span class="line"> --&gt;&gt; (01) Reading Input Parameters From INCAR File.</span><br><span class="line"> ======================== K-Mesh Scheme ==========================</span><br><span class="line"> 1) Monkhorst-Pack Scheme</span><br><span class="line"> 2) Gamma Scheme</span><br><span class="line"></span><br><span class="line"> 0)   Quit</span><br><span class="line"> 9)   Back</span><br><span class="line"> -------------&gt;&gt;</span><br><span class="line">2</span><br><span class="line"> +---------------------------- Tip ------------------------------+</span><br><span class="line"> Input the K-spacing value <span class="keyword">for</span> SCF Calculation:</span><br><span class="line"> (Typical Value: 0.03-0.04 is Generally Precise Enough)</span><br><span class="line"> ------------&gt;&gt;</span><br><span class="line">0.03</span><br><span class="line"> Input the K-spacing value <span class="keyword">for</span> Band Calculation:</span><br><span class="line"> (Typical Value: 0.03-0.04 <span class="keyword">for</span> DFT and 0.04-0.06 <span class="keyword">for</span> hybrid DFT)</span><br><span class="line"> ------------&gt;&gt;</span><br><span class="line">0.03</span><br><span class="line"> +---------------------------------------------------------------+</span><br><span class="line"> --&gt;&gt; (02) Reading K-Path From KPATH.<span class="keyword">in</span> File.</span><br><span class="line"> +-------------------------- Summary ----------------------------+</span><br><span class="line"> K-Mesh <span class="keyword">for</span> SCF Calculation:    3    3    3</span><br><span class="line"> The Number of K-Points along K-Path No.1:  14</span><br><span class="line"> The Number of K-Points along K-Path No.2:   6</span><br><span class="line"> The Number of K-Points along K-Path No.3:  18</span><br><span class="line"> The Number of K-Points along K-Path No.4:  17</span><br><span class="line"> The Number of K-Points along K-Path No.5:   7</span><br><span class="line"> The Number of K-Points along K-Path No.6:   7</span><br><span class="line"> +---------------------------------------------------------------+</span><br><span class="line"> --&gt;&gt; (03) Written KPOINTS File.</span><br></pre></td></tr></table></figure>
+<p>首先需要生成自洽（静态）计算所需要的k点网格，然后生成能带计算的高密度k点网格。<code>INCAR</code>文件可以沿用普通静态计算的然后改一下泛函，也可以使用101功能生成HSE06 Calculation的<code>INCAR</code>。</p>
+<p>HSE06杂化泛函极为昂贵，大概在第五个电子步时，用时超过8h仍未计算完，遂放弃。之前注册某家超算平台时送了一点机时，开通了GPU版本的vasp计算，发现快了不少：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">General timing and accounting informations <span class="keyword">for</span> this job:</span><br><span class="line">========================================================</span><br><span class="line"> </span><br><span class="line">                 Total CPU <span class="keyword">time</span> used (sec):    22600.775</span><br><span class="line">                           User <span class="keyword">time</span> (sec):    10925.947</span><br><span class="line">                         System <span class="keyword">time</span> (sec):    11674.828</span><br><span class="line">                        Elapsed <span class="keyword">time</span> (sec):     7781.069</span><br><span class="line"> </span><br><span class="line">                  Maximum memory used (kb):     6086716.</span><br><span class="line">                  Average memory used (kb):          N/A</span><br><span class="line"> </span><br><span class="line">                         Minor page faults:      6831986</span><br><span class="line">                         Major page faults:          282</span><br><span class="line">                Voluntary context switches:     53436870</span><br><span class="line"></span><br><span class="line">PROFILE, used timers:     405</span><br><span class="line">=============================</span><br></pre></td></tr></table></figure>
+<h1>数据后处理与Origin绘图</h1>
+<p>能带计算结束后，将目录拷贝到可以使用vaspkit的机器上。</p>
+<p>对于PBE计算的能带，使用211功能处理数据，得到带隙、CBM、VBM、Fermi Energy等信息：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"> ------------&gt;&gt;</span><br><span class="line">21</span><br><span class="line"> ============================ Band Options =======================</span><br><span class="line"> 211) Band-Structure</span><br><span class="line"> 212) Projected Band-Structure of Only-One-Selected Atom</span><br><span class="line"> 213) Projected Band-Structure of Each Element</span><br><span class="line"> 214) Projected Band-Structure of Selected Atoms</span><br><span class="line"> 215) Projected Band-Structure by Element-Weights</span><br><span class="line"> 216) The Sum of Projected Band for Selected Atoms and Orbitals</span><br><span class="line"></span><br><span class="line"> 0)   Quit</span><br><span class="line"> 9)   Back</span><br><span class="line"> ------------&gt;&gt;</span><br><span class="line">211</span><br><span class="line"> --&gt;&gt; (01) Reading Input Parameters From INCAR File.</span><br><span class="line"> +---------------------------------------------------------------+</span><br><span class="line"> |       &gt;&gt;&gt; The Fermi Energy will be set to zero eV &lt;&lt;&lt;         |</span><br><span class="line"> +---------------------------------------------------------------+</span><br><span class="line"> --&gt;&gt; (02) Reading Fermi-Energy from DOSCAR File.</span><br><span class="line"> --&gt;&gt; (03) Reading Energy-Levels From EIGENVAL File.</span><br><span class="line"> --&gt;&gt; (04) Reading K-Path From KPOINTS File.</span><br><span class="line"> --&gt;&gt; (05) Written KLABELS File.</span><br><span class="line"> +---------------------------- Tip ------------------------------+</span><br><span class="line"> |If You Want to Get Fine Band Structrue by Interpolating Method.|</span><br><span class="line"> | You CAN set GET_INTERPOLATED_DATA = .TRUE. in ~/.vaspkit file.|</span><br><span class="line"> +---------------------------------------------------------------+</span><br><span class="line"> --&gt;&gt; (06) Written BAND.dat File.</span><br><span class="line"> --&gt;&gt; (07) Written REFORMATTED_BAND.dat File.</span><br><span class="line"> --&gt;&gt; (08) Written KLINES.dat File.</span><br><span class="line"> --&gt;&gt; (09) Written BAND_GAP File.</span><br></pre></td></tr></table></figure>
+<p>对于HSE06计算的能带，使用252功能处理数据，得到带隙、CBM、VBM、Fermi Energy等信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"> ------------&gt;&gt;</span><br><span class="line">252</span><br><span class="line"></span><br><span class="line"> --&gt;&gt; (01) Reading Input Parameters From INCAR File.</span><br><span class="line"> +---------------------------------------------------------------+</span><br><span class="line"> |       &gt;&gt;&gt; The Fermi Energy will be <span class="built_in">set</span> to zero eV &lt;&lt;&lt;         |</span><br><span class="line"> +---------------------------------------------------------------+</span><br><span class="line"> --&gt;&gt; (02) Reading Fermi-Level From FERMI_ENERGY.<span class="keyword">in</span> File.</span><br><span class="line"> --&gt;&gt; (03) Reading Energy-Levels From EIGENVAL File.</span><br><span class="line"> --&gt;&gt; (04) Reading KPT-Params <span class="keyword">in</span> the First Line of KPOINTS File.</span><br><span class="line"> --&gt;&gt; (05) Reading K-Path From KPATH.<span class="keyword">in</span> File.</span><br><span class="line"> --&gt;&gt; (06) Written KLABELS File.</span><br><span class="line"> +---------------------------- Tip ------------------------------+</span><br><span class="line"> |If You Want to Get Fine Band Structrue by Interpolating Method.|</span><br><span class="line"> | You CAN <span class="built_in">set</span> GET_INTERPOLATED_DATA = .TRUE. <span class="keyword">in</span> ~/.vaspkit file.|</span><br><span class="line"> +---------------------------------------------------------------+</span><br><span class="line"> --&gt;&gt; (07) Written BAND.dat File.</span><br><span class="line"> --&gt;&gt; (08) Written REFORMATTED_BAND.dat File.</span><br><span class="line"> --&gt;&gt; (09) Written KLINES.dat File.</span><br><span class="line"> --&gt;&gt; (10) Written BAND_GAP File.</span><br></pre></td></tr></table></figure>
+<p>绘图时我习惯把价带顶归零，即纵坐标为
+    <span id="mjx-d85a5f18">
+      <style>
+      #mjx-d85a5f18{
+        display:contents;
+        mjx-assistive-mml {
+          user-select: text !important;
+          clip: auto !important;
+          color: rgba(0,0,0,0);
+        }
+        
+mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+  min-height: 1px;
+  min-width: 1px;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display="block"] {
+  width: 100% !important;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][display="true"][width="full"] {
+  display: flex;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line], svg[data-table] > g > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame], svg[data-table] > g > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed, svg[data-table] > g > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted, svg[data-table] > g > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > g > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
+  stroke-width: 3;
+}
+
+g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+.MathJax g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+      }
+      </style>
+      <mjx-container class="MathJax" jax="SVG" style="position: relative;"><svg style="vertical-align: -0.375ex;" xmlns="http://www.w3.org/2000/svg" width="9.834ex" height="1.913ex" role="img" focusable="false" viewBox="0 -680 4346.8 845.6" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="45" d="M128 619Q121 626 117 628T101 631T58 634H25V680H597V676Q599 670 611 560T625 444V440H585V444Q584 447 582 465Q578 500 570 526T553 571T528 601T498 619T457 629T411 633T353 634Q266 634 251 633T233 622Q233 622 233 621Q232 619 232 497V376H286Q359 378 377 385Q413 401 416 469Q416 471 416 473V493H456V213H416V233Q415 268 408 288T383 317T349 328T297 330Q290 330 286 330H232V196V114Q232 57 237 52Q243 47 289 47H340H391Q428 47 452 50T505 62T552 92T584 146Q594 172 599 200T607 247T612 270V273H652V270Q651 267 632 137T610 3V0H25V46H58Q100 47 109 49T128 61V619Z"></path></g><g data-mml-node="mo" transform="translate(903.2,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="msub" transform="translate(1903.4,0)"><g data-mml-node="mi"><path data-c="45" d="M128 619Q121 626 117 628T101 631T58 634H25V680H597V676Q599 670 611 560T625 444V440H585V444Q584 447 582 465Q578 500 570 526T553 571T528 601T498 619T457 629T411 633T353 634Q266 634 251 633T233 622Q233 622 233 621Q232 619 232 497V376H286Q359 378 377 385Q413 401 416 469Q416 471 416 473V493H456V213H416V233Q415 268 408 288T383 317T349 328T297 330Q290 330 286 330H232V196V114Q232 57 237 52Q243 47 289 47H340H391Q428 47 452 50T505 62T552 92T584 146Q594 172 599 200T607 247T612 270V273H652V270Q651 267 632 137T610 3V0H25V46H58Q100 47 109 49T128 61V619Z"></path></g><g data-mml-node="TeXAtom" transform="translate(714,-150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="56" d="M114 620Q113 621 110 624T107 627T103 630T98 632T91 634T80 635T67 636T48 637H19V683H28Q46 680 152 680Q273 680 294 683H305V637H284Q223 634 223 620Q223 618 313 372T404 126L490 358Q575 588 575 597Q575 616 554 626T508 637H503V683H512Q527 680 627 680Q718 680 724 683H730V637H723Q648 637 627 596Q627 595 515 291T401 -14Q396 -22 382 -22H374H367Q353 -22 348 -14Q346 -12 231 303Q114 617 114 620Z"></path></g><g data-mml-node="mi" transform="translate(750,0)"><path data-c="42" d="M131 622Q124 629 120 631T104 634T61 637H28V683H229H267H346Q423 683 459 678T531 651Q574 627 599 590T624 512Q624 461 583 419T476 360L466 357Q539 348 595 302T651 187Q651 119 600 67T469 3Q456 1 242 0H28V46H61Q103 47 112 49T131 61V622ZM511 513Q511 560 485 594T416 636Q415 636 403 636T371 636T333 637Q266 637 251 636T232 628Q229 624 229 499V374H312L396 375L406 377Q410 378 417 380T442 393T474 417T499 456T511 513ZM537 188Q537 239 509 282T430 336L329 337H229V200V116Q229 57 234 52Q240 47 334 47H383Q425 47 443 53Q486 67 511 104T537 188Z"></path></g><g data-mml-node="mi" transform="translate(1458,0)"><path data-c="4D" d="M132 622Q125 629 121 631T105 634T62 637H29V683H135Q221 683 232 682T249 675Q250 674 354 398L458 124L562 398Q666 674 668 675Q671 681 683 682T781 683H887V637H854Q814 636 803 634T785 622V61Q791 51 802 49T854 46H887V0H876Q855 3 736 3Q605 3 596 0H585V46H618Q660 47 669 49T688 61V347Q688 424 688 461T688 546T688 613L687 632Q454 14 450 7Q446 1 430 1T410 7Q409 9 292 316L176 624V606Q175 588 175 543T175 463T175 356L176 86Q187 50 261 46H278V0H269Q254 3 154 3Q52 3 37 0H29V46H46Q78 48 98 56T122 69T132 86V622Z"></path></g></g></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi mathvariant="normal">E</mi><mo>−</mo><msub><mi mathvariant="normal">E</mi><mrow data-mjx-texclass="ORD"><mi mathvariant="normal">V</mi><mi mathvariant="normal">B</mi><mi mathvariant="normal">M</mi></mrow></msub></math></mjx-assistive-mml></mjx-container>
+    </span>
+  ，操作如下。</p>
+<p>把<code>FERMI_ENERGY</code>文件就拷贝一份，改名为<code>FERMI_ENERGY.in</code>。将文件<code>FERMI_ENERGY.in</code>中的费米能级数据改为价带顶数据，然后再重新运行252功能，此时得到的<code>REFORMATTED_BAND.dat</code>文件中的数据是归零的。</p>
+<p>接下来就是origin绘图了</p>
+<p>将<code>REFORMATTED_BAND.dat</code>文件拖入工作表内，确认只有一个X轴，剩下全是Y轴。新建一个sheet。打开<code>KLABELS</code>文本文件，手动复制数据，如下图</p>
+<img src="/2025/08/31/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/HSE06%E6%9D%82%E5%8C%96%E6%B3%9B%E5%87%BD%E8%AE%A1%E7%AE%97%E8%83%BD%E5%B8%A6%E4%BB%A5%E5%8F%8Aorigin%E4%BD%9C%E5%9B%BE/image-20250831190815582-1756638505174-1-1756639170329-5.png" class="" title="sheet2">
+<img src="/2025/08/31/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/HSE06%E6%9D%82%E5%8C%96%E6%B3%9B%E5%87%BD%E8%AE%A1%E7%AE%97%E8%83%BD%E5%B8%A6%E4%BB%A5%E5%8F%8Aorigin%E4%BD%9C%E5%9B%BE/image-20250831190851837-1756639170329-6.png" class="" title="sheet1">
+<p>接着选中sheet1表格中的所有数据，绘制折线图：</p>
+<img src="/2025/08/31/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/HSE06%E6%9D%82%E5%8C%96%E6%B3%9B%E5%87%BD%E8%AE%A1%E7%AE%97%E8%83%BD%E5%B8%A6%E4%BB%A5%E5%8F%8Aorigin%E4%BD%9C%E5%9B%BE/image-20250831190947071-1756639170329-7.png" class="" title="很丑、、、">
+<p>设置一下横坐标，改成高对称点的样子，看图：</p>
+<img src="/2025/08/31/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/HSE06%E6%9D%82%E5%8C%96%E6%B3%9B%E5%87%BD%E8%AE%A1%E7%AE%97%E8%83%BD%E5%B8%A6%E4%BB%A5%E5%8F%8Aorigin%E4%BD%9C%E5%9B%BE/image-20250831191457282-1756639170329-8.png" class="" title="sheet2第二列">
+<img src="/2025/08/31/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/HSE06%E6%9D%82%E5%8C%96%E6%B3%9B%E5%87%BD%E8%AE%A1%E7%AE%97%E8%83%BD%E5%B8%A6%E4%BB%A5%E5%8F%8Aorigin%E4%BD%9C%E5%9B%BE/image-20250831191522192-1756639170329-9.png" class="" title="sheet2第一列">
+<p>这样横坐标就被设置好了：</p>
+<img src="/2025/08/31/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/HSE06%E6%9D%82%E5%8C%96%E6%B3%9B%E5%87%BD%E8%AE%A1%E7%AE%97%E8%83%BD%E5%B8%A6%E4%BB%A5%E5%8F%8Aorigin%E4%BD%9C%E5%9B%BE/image-20250831191755306-1756639170329-10.png" class="" title="还是很丑">
+<p>接下来就是美化了，放一张最后画好的图吧：</p>
+<img src="/2025/08/31/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/HSE06%E6%9D%82%E5%8C%96%E6%B3%9B%E5%87%BD%E8%AE%A1%E7%AE%97%E8%83%BD%E5%B8%A6%E4%BB%A5%E5%8F%8Aorigin%E4%BD%9C%E5%9B%BE/%E5%9B%BE%E7%89%871-1756639170329-4.png" class="" title="Li6PS5Cl能带图"></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://example.com">John Doe</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://example.com/2025/08/31/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/HSE06%E6%9D%82%E5%8C%96%E6%B3%9B%E5%87%BD%E8%AE%A1%E7%AE%97%E8%83%BD%E5%B8%A6%E4%BB%A5%E5%8F%8Aorigin%E4%BD%9C%E5%9B%BE/">http://example.com/2025/08/31/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/HSE06%E6%9D%82%E5%8C%96%E6%B3%9B%E5%87%BD%E8%AE%A1%E7%AE%97%E8%83%BD%E5%B8%A6%E4%BB%A5%E5%8F%8Aorigin%E4%BD%9C%E5%9B%BE/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%8C%96%E5%AD%A6/">化学</a><a class="post-meta__tags" href="/tags/%E7%A7%91%E7%A0%94/">科研</a></div><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/09/01/%E7%A7%91%E7%A0%94/first%20stage/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E9%94%82%E7%94%B5%E6%B1%A0%E5%9F%BA%E7%A1%80%E7%A7%91%E5%AD%A6/%E7%94%B5%E6%B1%A0%E7%95%8C%E9%9D%A2%E9%97%AE%E9%A2%98/" title="第二弹——能量密度的估算"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">第二弹——能量密度的估算</div></div><div class="info-2"><div class="info-item-1">SEI膜的结构 锂离子电池工作电位范围为2～4.3V。其中，石墨类负极工作电位范围在0～1.0V（vs.Li+/Li），正极工作电位范围一般在2.5～ 4.3V（vs.Li+/Li）。而目前商用电解液不发生氧化还原反应的电化学窗口一般为1.2～3.7V（vs.Li+/Li）。因此，在负极侧，当负极点位 &lt;1.2 V时会生成SEI固态电解质中间相，类似的在正极侧会生成CEI结构。 从机理来看，当负极的Fermi能级高于电解质的LUMO时，电子容易从Fermi能级转移到LUMO轨道，即发生氧化还原反应形成SEI界面  如果电极材料的充放电电位范围较窄，例如负极的嵌锂电位高于1.2V（ vs.Li+/Li ） ， 正极的脱锂电位低于 3.5V（vs.Li+/Li），则正负极表面可以不发生电解质的氧化还原反应，不会形成SEI膜。 SEI界相的厚度可能需要&gt;2 nm以防止电子隧穿效应，&lt;50 nm来确保离子能够顺利传输。它的结构如下图所示：  SEI膜的成分和结构通常认为是靠近电极材料的为无机物层，对于锂离子电池，主要包含                   #mjx-b...</div></div></div></a><a class="pagination-related" href="/2025/08/23/%E9%87%8F%E5%AD%90%E5%8C%96%E5%AD%A6/%E5%90%84%E7%A7%8D%E7%90%86%E8%AE%BA%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95/" title="各种理论计算方法"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">各种理论计算方法</div></div><div class="info-2"><div class="info-item-1">费米孔 Coulomb孔 由于Coulomb孔的存在，电子之间存在动态相关，如何描述原子分子体系中电子之间的动态相关是量子化学的主要任务 玻色子的波函数是对称的，没有反对称性的要求因此可以靠得很近 ¶Hartree-Fock方程与自洽场计算 ¶HF方程 HF方程是量子化学中计算多电子体系近似波函数和能量的基本方法，通过“平均场”近似把复杂的多电子问题拆解成单电子问题。 多电子波函数用单电子轨道（分子轨道）的Slater行列式表示                    #mjx-c59552d8{         display:contents;         mjx-assistive-mml {           user-select: text !important;           clip: auto !important;           color: rgba(0,0,0,0);         }          mjx-container[jax="SVG"] {   direction: ltr; }  mjx-container[jax="S...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/05/18/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E4%BD%BF%E7%94%A8Multiwfn%E5%8A%A0%E8%BD%BDELFCAR%E7%BB%98%E5%88%B6%E7%AD%89%E5%80%BC%E9%9D%A2%E5%9B%BE/" title="使用Multiwfn加载ELFCAR文件绘制等值面图"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-18</div><div class="info-item-2">使用Multiwfn加载ELFCAR文件绘制等值面图</div></div><div class="info-2"><div class="info-item-1">本文仅为学习记录，并非教程 Multiwfn是一个波函数分析程序，功能非常强大，也能绘制ELF等值面图，它支持多种类型的输入文件，既有量子化学计算程序的输出文件，又有第一性原理计算程序的输出文件  以下是Multiwfn加载ELFCAR绘制等值面图的过程  step1：用ELFCAR绘图其实是基于格点数据文件的绘图，需要修改根目录下的配置文件settings.ini，将参数iuserfunc改为-1或者-3 step2：加载ELFCAR文件 step3：4 Output and plot specific property in a plane step4：100 User-defined function (iuserfunc= step5：5 Shaded relief map with projection step6：1: XY plane step7：1a  如果将Multiwfn的根目录添加到PATH环境变量以方便调用，那么画出来的图可能会遇到如下如题  如果直接在根目录下双击.exe文件运行的话就能正常绘图  </div></div></div></a><a class="pagination-related" href="/2025/04/27/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Cu(111)%E6%99%B6%E9%9D%A2%E7%9A%84%E4%BC%98%E5%8C%96%E8%AE%A1%E7%AE%97/" title="p(1x1)Cu(111)的优化计算"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-27</div><div class="info-item-2">p(1x1)Cu(111)的优化计算</div></div><div class="info-2"><div class="info-item-1">¶POSCAR的修改 与单点计算不同，优化计算可能涉及到离子步迭代、晶格常数的改变。但Cu(111)晶面的优化计算并不只是在INCAR里添加参数IBRION，优化计算确实允许原子弛豫，但在slab模型中，只允许表面的两层原子允许弛豫，而下面的那些原子则直接固定住  这样做的物理意义在于：在真实的环境下，催化剂体相看做是不变的，只有表面的原子参与催化反应  前面在乙醇分子的振动频率分析里面已经学过了，添加以下选择性动力学标记Slective Dynamics即可 PS：看分数坐标即可知道哪些是表层哪些是体相 12345678910111213CONTCAR\(1\1\1)1.0        2.5701000690         0.0000000000         0.0000000000       -1.2850500345         2.2257719501         0.0000000000        0.0000000000         0.0000000000        21.2954006195   Cu    4Selective ...</div></div></div></a><a class="pagination-related" href="/2025/09/01/%E7%A7%91%E7%A0%94/first%20stage/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E9%94%82%E7%94%B5%E6%B1%A0%E5%9F%BA%E7%A1%80%E7%A7%91%E5%AD%A6/%E7%94%B5%E6%B1%A0%E7%95%8C%E9%9D%A2%E9%97%AE%E9%A2%98/" title="第二弹——能量密度的估算"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-01</div><div class="info-item-2">第二弹——能量密度的估算</div></div><div class="info-2"><div class="info-item-1">SEI膜的结构 锂离子电池工作电位范围为2～4.3V。其中，石墨类负极工作电位范围在0～1.0V（vs.Li+/Li），正极工作电位范围一般在2.5～ 4.3V（vs.Li+/Li）。而目前商用电解液不发生氧化还原反应的电化学窗口一般为1.2～3.7V（vs.Li+/Li）。因此，在负极侧，当负极点位 &lt;1.2 V时会生成SEI固态电解质中间相，类似的在正极侧会生成CEI结构。 从机理来看，当负极的Fermi能级高于电解质的LUMO时，电子容易从Fermi能级转移到LUMO轨道，即发生氧化还原反应形成SEI界面  如果电极材料的充放电电位范围较窄，例如负极的嵌锂电位高于1.2V（ vs.Li+/Li ） ， 正极的脱锂电位低于 3.5V（vs.Li+/Li），则正负极表面可以不发生电解质的氧化还原反应，不会形成SEI膜。 SEI界相的厚度可能需要&gt;2 nm以防止电子隧穿效应，&lt;50 nm来确保离子能够顺利传输。它的结构如下图所示：  SEI膜的成分和结构通常认为是靠近电极材料的为无机物层，对于锂离子电池，主要包含                   #mjx-b...</div></div></div></a><a class="pagination-related" href="/2025/06/06/%E7%A7%91%E7%A0%94/first%20stage/%E5%85%B3%E4%BA%8ERietveld%E7%B2%BE%E4%BF%AE/" title="从零开始的Rietveld精修"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-06</div><div class="info-item-2">从零开始的Rietveld精修</div></div><div class="info-2"><div class="info-item-1">we we                    #mjx-23c83cf8{         display:contents;         mjx-assistive-mml {           user-select: text !important;           clip: auto !important;           color: rgba(0,0,0,0);         }          mjx-container[jax="SVG"] {   direction: ltr; }  mjx-container[jax="SVG"] > svg {   overflow: visible;   min-height: 1px;   min-width: 1px; }  mjx-container[jax="SVG"] > svg a {   fill: blue;   stroke: blue; }  mjx-assistive-mml {   position: absolute !important;   top: 0px;   le...</div></div></div></a><a class="pagination-related" href="/2025/07/20/%E5%9B%BA%E4%BD%93%E5%8C%96%E5%AD%A6/" title="关于固体化学"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-20</div><div class="info-item-2">关于固体化学</div></div><div class="info-2"><div class="info-item-1">从固体材料的化学组成来区，主要有无机、有机和金属三大类材料。固体物质可以按照其中原子排列的有序成都分类为晶态固体和非晶态固体，后者类似于液体，只在及个原子间距的短程范围内具有源自有序的状态，比如玻璃和许多聚合物可以看作是过冷的液体，它们中间的原子排列是没有一定的格子的。 金属键和金属晶体 ¶金属的自由电子模型 20世纪初，Drude和Lorentz提出了自由电子论。金属都是电离能第、颠覆性小的元素，这些元素容易失去外层价电子，形成正离子，正离子按照紧密堆积的方式形成晶体，价电子在整个金属晶体中自由运动，为所有原子所共有。自由电子处于类似于理想气体的状态，可以看作是自由电子气 在金属表面存在着一种把自由电子限制在金属范围内的是能查，但是在金属内部，势能是相对均匀的，好像自由电子是在一个均匀的正电场中运动着，势能相对为0. 当沿着与电流在金属晶体中运动方向垂直的方向上再施加一个外磁场时，电子将受到Lorentz力而偏向某一侧，这便是霍尔效应。大多数金属的霍尔系数小于零，即载流子是电子。然而有一些金属如Zn，Cd，Pb等，其霍尔系数大于零，载流子密度月底，霍尔系数值越高，但是由霍尔效应...</div></div></div></a><a class="pagination-related" href="/2025/04/19/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E4%B9%99%E9%86%87%E5%88%86%E5%AD%90/" title="乙醇分子的气相优化和振动频率计算"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-19</div><div class="info-item-2">乙醇分子的气相优化和振动频率计算</div></div><div class="info-2"><div class="info-item-1">¶乙醇分子的结构优化 ¶INCAR 1234567SYSTEM = ethanolISMEAR = 0 #Gaussian ismear, for insulatorSIGMA = 0.01NSW = 200IBRION = 2 #OptimizarionPOTIM = 0.01 #a little conservative step ¶KPOINTS 12345K-POINTS0Gamma1 1 10 0 0 ¶POSCAR 1234567891011121314151617Title1.0        4.8082499504         0.0000000000         0.0000000000        0.0000000000         4.8082499504         0.0000000000        0.0000000000         0.0000000000         4.8082499504    O    C    H    1    2    6Direct     0.747990456         0...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">John Doe</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">89</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">15</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">原胞的变胞优化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">PBE泛函计算能带</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">HSE06杂化泛函计算能带</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">数据后处理与Origin绘图</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/08/%E5%91%A8%E6%97%A5%E9%97%B2%E7%9D%80%E5%BF%83%E8%A1%80%E6%9D%A5%E6%BD%AE%EF%BC%8C%E7%9C%8B%E7%9C%8B%E8%BF%9C%E5%A4%84%E7%9A%84Gentoo/" title="Untitled">Untitled</a><time datetime="2026-02-08T06:48:06.538Z" title="Created 2026-02-08 14:48:06">2026-02-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/08/%E7%A7%91%E7%A0%94/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" title="Untitled">Untitled</a><time datetime="2026-02-08T06:48:06.130Z" title="Created 2026-02-08 14:48:06">2026-02-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/08/%E7%A7%91%E7%A0%94/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E6%9C%80%E7%BB%8F%E5%85%B8%E7%9A%84%E7%A8%8B%E5%BA%8F/" title="Untitled">Untitled</a><time datetime="2026-02-08T06:48:06.118Z" title="Created 2026-02-08 14:48:06">2026-02-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/08/%E7%A7%91%E7%A0%94/first%20stage/ATAT%E6%97%A0%E5%BA%8F%E6%8E%BA%E6%9D%82/" title="Untitled">Untitled</a><time datetime="2026-02-08T06:48:05.478Z" title="Created 2026-02-08 14:48:05">2026-02-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/08/hello-world/" title="Hello World">Hello World</a><time datetime="2026-02-08T05:39:06.897Z" title="Created 2026-02-08 13:39:06">2026-02-08</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By John Doe</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

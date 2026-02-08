@@ -1,0 +1,2075 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>VASP学习笔记 | Hexo</title><meta name="author" content="John Doe"><meta name="copyright" content="John Doe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="记录一下维也纳第一性原理计算软件包（VASP）的学习过程，有点乱、、、 计算一个体系会出现两种优化过程  电子结构的优化  迭代求解薛定谔方程来获得体系能量极小值的一个过程   几何结构的优化  在电子结构优化的结果上，获取原子的受力情况，然后根据受力情况，调节原子的位置，再进行电子结构优化，获取新的受力情况，然后再调节原子位置，一直重复这样的过程，直至找到体系势能面上一个极小值的过程    OS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VASP学习笔记">
+<meta property="og:url" content="http://example.com/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="记录一下维也纳第一性原理计算软件包（VASP）的学习过程，有点乱、、、 计算一个体系会出现两种优化过程  电子结构的优化  迭代求解薛定谔方程来获得体系能量极小值的一个过程   几何结构的优化  在电子结构优化的结果上，获取原子的受力情况，然后根据受力情况，调节原子的位置，再进行电子结构优化，获取新的受力情况，然后再调节原子位置，一直重复这样的过程，直至找到体系势能面上一个极小值的过程    OS">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-04-14T08:40:00.000Z">
+<meta property="article:modified_time" content="2025-08-31T12:27:08.416Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="化学">
+<meta property="article:tag" content="科研">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "VASP学习笔记",
+  "url": "http://example.com/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/",
+  "image": "http://example.com/img/butterfly-icon.png",
+  "datePublished": "2025-04-14T08:40:00.000Z",
+  "dateModified": "2025-08-31T12:27:08.416Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "John Doe",
+      "url": "http://example.com"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'VASP学习笔记',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.1.1"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Hexo</span></a><a class="nav-page-title" href="/"><span class="site-name">VASP学习笔记</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">VASP学习笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-04-14T08:40:00.000Z" title="Created 2025-04-14 16:40:00">2025-04-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-08-31T12:27:08.416Z" title="Updated 2025-08-31 20:27:08">2025-08-31</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/">从零开始的科研之旅</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/VASP/">VASP</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>记录一下维也纳第一性原理计算软件包（VASP）的学习过程，有点乱、、、</p>
+<p>计算一个体系会出现两种优化过程</p>
+<ul>
+<li>电子结构的优化
+<ul>
+<li>迭代求解薛定谔方程来获得体系能量极小值的一个过程</li>
+</ul>
+</li>
+<li>几何结构的优化
+<ul>
+<li>在电子结构优化的结果上，获取原子的受力情况，然后根据受力情况，调节原子的位置，再进行电子结构优化，获取新的受力情况，然后再调节原子位置，一直重复这样的过程，直至找到体系势能面上一个极小值的过程</li>
+</ul>
+</li>
+</ul>
+<p><code>OSICAR</code>用于记录优化过程的信息</p>
+<p>在<code>INCAR</code>中设置<code>ALGO</code>参数可以指定算法</p>
+<p><code>ZVAL</code>是<code>POTCAR</code>中对应元素的价电子</p>
+<p>查看K点的个数：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep irreducible OUTCAR</span><br></pre></td></tr></table></figure>
+<p>固体物理中，费米能级对应的是最高电子占据轨道的能量，也就是<code>HOMO</code></p>
+<p>以下情况需要考虑自旋极化</p>
+<ul>
+<li>单原子的计算</li>
+<li>O
+    <span id="mjx-d47f05e8">
+      <style>
+      #mjx-d47f05e8{
+        display:contents;
+        mjx-assistive-mml {
+          user-select: text !important;
+          clip: auto !important;
+          color: rgba(0,0,0,0);
+        }
+        
+mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+  min-height: 1px;
+  min-width: 1px;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display="block"] {
+  width: 100% !important;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][display="true"][width="full"] {
+  display: flex;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line], svg[data-table] > g > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame], svg[data-table] > g > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed, svg[data-table] > g > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted, svg[data-table] > g > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > g > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
+  stroke-width: 3;
+}
+
+g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+.MathJax g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+      }
+      </style>
+      <mjx-container class="MathJax" jax="SVG" style="position: relative;"><svg style="vertical-align: -0.339ex;" xmlns="http://www.w3.org/2000/svg" width="0.988ex" height="1.065ex" role="img" focusable="false" viewBox="0 -320.9 436.6 470.9" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"></g><g data-mml-node="mn" transform="translate(33,-150) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi></mi><mn>2</mn></msub></math></mjx-assistive-mml></mjx-container>
+    </span>
+   分子(基态为三重态)</li>
+<li>自由基相关的计算</li>
+<li>含Fe,Co, Ni 的体系</li>
+<li>要计算的体系具有磁性：顺磁，铁磁，反铁磁等，要打开自旋极化。</li>
+<li>当关注体系的电子性质时，且自己不知道加或者不加的时候，建议加上</li>
+</ul>
+<p>EDIFF 控制电子步（自洽）的收敛标准，在O原子的计算中，由于我们不需要优化，直接进行静态计算，完全由EDIFF控制计算的收敛情况</p>
+<p>EDIFFG控制离子步的收敛标准</p>
+<ul>
+<li>对于优化，我们可以使用力作为收敛标准，此时EDIFFG为负值。一般来说取值在-0.01到-0.05之间(-0.01对于力收敛来说已经是一个很严格的要求了)。</li>
+</ul>
+<ul>
+<li>当然，对于较大的体系，我们也可以使用能量作为标准：此时，EDIFFG 为正值，一般取值范围在0.0001-0.001即可。</li>
+</ul>
+<p>单点计算、静态计算、自洽计算：几何结构计算前后不发生变化</p>
+<p><code>IRBION</code>优化分子结构</p>
+<p>一般来说，优化结构的时候有3个选择：</p>
+<ul>
+<li>IBRION=3：你的初始结构很差的时候；</li>
+<li>IBRION=2：共轭梯度算法，很可靠的一个选择，一般来说用它基本没什么问题。</li>
+<li>IBRION=1：用于小范围内稳定结构的搜索。</li>
+</ul>
+<p><code>CONTCAR</code>包含优化完之后的信息</p>
+<p>频率计算的作用</p>
+<ul>
+<li>确定结构是否稳定;</li>
+<li>看振动方式和大小，用来和实验对比，棋博士最新的文章就是一个非常好的例子;</li>
+<li>反应热，反应能垒，吸附能等的零点能矫正;</li>
+<li>确认过渡态(有一个振动的虚频)</li>
+<li>热力学中计算<code>entropy</code>，用于计算化学势，微观动力学中的指前因子和反应能垒。</li>
+</ul>
+<p>频率分析的关键参数</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">IBRION = 5 <span class="comment">#之前设置的2</span></span><br><span class="line">NFREE = 2 <span class="comment">#新加入的参数</span></span><br><span class="line">POTIM = 0.02 <span class="comment">#减小了数值</span></span><br></pre></td></tr></table></figure>
+<p><strong>怎么确定POSCAR中的原子？</strong>——比如乙醇中的羟基氢是POSCAR中的哪一个呢？？？</p>
+<p>晶胞&amp;&amp;原胞</p>
+<p>7种晶系与14种布拉维点阵：简单三六菱，单斜底，四方体</p>
+<p><code>NWRITE</code>用来控制输出文件的详细程度</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NWRITE = 0 <span class="comment"># 最小输出</span></span><br><span class="line">NWRITE = 1 <span class="comment">#中等</span></span><br><span class="line">NWRITE = 2 <span class="comment">#详细输出</span></span><br></pre></td></tr></table></figure>
+<p><code>ISTART</code>用来初始化波函数</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ISTART = 1 <span class="comment">#读取WAVECAR续算</span></span><br><span class="line">ISTART = 0 <span class="comment">#从零开始算</span></span><br></pre></td></tr></table></figure>
+<p>单纯从数据库中获取的结构，只能作为一个合理的初始值，与计算所得到的理论结构还有一定的差距，因此我们需要对该结构进行优化才可以获取稳定的晶格参数信息。有两个方法可以实现：</p>
+<ul>
+<li>1 Birch-Murnaghan状态方程拟合</li>
+<li>2 VASP计算中通过调节ISIF参数直接优化Bulk</li>
+</ul>
+<p>Birch-Murnaghan方程</p>
+
+    <span id="mjx-692d7548">
+      <style>
+      #mjx-692d7548{
+        display:contents;
+        mjx-assistive-mml {
+          user-select: text !important;
+          clip: auto !important;
+          color: rgba(0,0,0,0);
+        }
+        
+mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+  min-height: 1px;
+  min-width: 1px;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display="block"] {
+  width: 100% !important;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][display="true"][width="full"] {
+  display: flex;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line], svg[data-table] > g > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame], svg[data-table] > g > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed, svg[data-table] > g > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted, svg[data-table] > g > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > g > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
+  stroke-width: 3;
+}
+
+g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+.MathJax g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+      }
+      </style>
+      <mjx-container class="MathJax" jax="SVG" display="true" style="position: relative;"><svg style="vertical-align: -1.602ex;" xmlns="http://www.w3.org/2000/svg" width="62.862ex" height="4.676ex" role="img" focusable="false" viewBox="0 -1359 27784.9 2067" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D438" d="M492 213Q472 213 472 226Q472 230 477 250T482 285Q482 316 461 323T364 330H312Q311 328 277 192T243 52Q243 48 254 48T334 46Q428 46 458 48T518 61Q567 77 599 117T670 248Q680 270 683 272Q690 274 698 274Q718 274 718 261Q613 7 608 2Q605 0 322 0H133Q31 0 31 11Q31 13 34 25Q38 41 42 43T65 46Q92 46 125 49Q139 52 144 61Q146 66 215 342T285 622Q285 629 281 629Q273 632 228 634H197Q191 640 191 642T193 659Q197 676 203 680H757Q764 676 764 669Q764 664 751 557T737 447Q735 440 717 440H705Q698 445 698 453L701 476Q704 500 704 528Q704 558 697 578T678 609T643 625T596 632T532 634H485Q397 633 392 631Q388 629 386 622Q385 619 355 499T324 377Q347 376 372 376H398Q464 376 489 391T534 472Q538 488 540 490T557 493Q562 493 565 493T570 492T572 491T574 487T577 483L544 351Q511 218 508 216Q505 213 492 213Z"></path></g><g data-mml-node="mo" transform="translate(764,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(1153,0)"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mo" transform="translate(1682,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="mo" transform="translate(2348.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="msub" transform="translate(3404.6,0)"><g data-mml-node="mi"><path data-c="1D438" d="M492 213Q472 213 472 226Q472 230 477 250T482 285Q482 316 461 323T364 330H312Q311 328 277 192T243 52Q243 48 254 48T334 46Q428 46 458 48T518 61Q567 77 599 117T670 248Q680 270 683 272Q690 274 698 274Q718 274 718 261Q613 7 608 2Q605 0 322 0H133Q31 0 31 11Q31 13 34 25Q38 41 42 43T65 46Q92 46 125 49Q139 52 144 61Q146 66 215 342T285 622Q285 629 281 629Q273 632 228 634H197Q191 640 191 642T193 659Q197 676 203 680H757Q764 676 764 669Q764 664 751 557T737 447Q735 440 717 440H705Q698 445 698 453L701 476Q704 500 704 528Q704 558 697 578T678 609T643 625T596 632T532 634H485Q397 633 392 631Q388 629 386 622Q385 619 355 499T324 377Q347 376 372 376H398Q464 376 489 391T534 472Q538 488 540 490T557 493Q562 493 565 493T570 492T572 491T574 487T577 483L544 351Q511 218 508 216Q505 213 492 213Z"></path></g><g data-mml-node="mn" transform="translate(771,-150) scale(0.707)"><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path></g></g><g data-mml-node="mo" transform="translate(4801.3,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="mstyle" transform="translate(5801.6,0)"><g data-mml-node="mfrac"><g data-mml-node="mrow" transform="translate(220,676)"><g data-mml-node="mn"><path data-c="39" d="M352 287Q304 211 232 211Q154 211 104 270T44 396Q42 412 42 436V444Q42 537 111 606Q171 666 243 666Q245 666 249 666T257 665H261Q273 665 286 663T323 651T370 619T413 560Q456 472 456 334Q456 194 396 97Q361 41 312 10T208 -22Q147 -22 108 7T68 93T121 149Q143 149 158 135T173 96Q173 78 164 65T148 49T135 44L131 43Q131 41 138 37T164 27T206 22H212Q272 22 313 86Q352 142 352 280V287ZM244 248Q292 248 321 297T351 430Q351 508 343 542Q341 552 337 562T323 588T293 615T246 625Q208 625 181 598Q160 576 154 546T147 441Q147 358 152 329T172 282Q197 248 244 248Z"></path></g><g data-mml-node="msub" transform="translate(500,0)"><g data-mml-node="mi"><path data-c="1D449" d="M52 648Q52 670 65 683H76Q118 680 181 680Q299 680 320 683H330Q336 677 336 674T334 656Q329 641 325 637H304Q282 635 274 635Q245 630 242 620Q242 618 271 369T301 118L374 235Q447 352 520 471T595 594Q599 601 599 609Q599 633 555 637Q537 637 537 648Q537 649 539 661Q542 675 545 679T558 683Q560 683 570 683T604 682T668 681Q737 681 755 683H762Q769 676 769 672Q769 655 760 640Q757 637 743 637Q730 636 719 635T698 630T682 623T670 615T660 608T652 599T645 592L452 282Q272 -9 266 -16Q263 -18 259 -21L241 -22H234Q216 -22 216 -15Q213 -9 177 305Q139 623 138 626Q133 637 76 637H59Q52 642 52 648Z"></path></g><g data-mml-node="mn" transform="translate(616,-150) scale(0.707)"><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path></g></g><g data-mml-node="msub" transform="translate(1519.6,0)"><g data-mml-node="mi"><path data-c="1D435" d="M231 637Q204 637 199 638T194 649Q194 676 205 682Q206 683 335 683Q594 683 608 681Q671 671 713 636T756 544Q756 480 698 429T565 360L555 357Q619 348 660 311T702 219Q702 146 630 78T453 1Q446 0 242 0Q42 0 39 2Q35 5 35 10Q35 17 37 24Q42 43 47 45Q51 46 62 46H68Q95 46 128 49Q142 52 147 61Q150 65 219 339T288 628Q288 635 231 637ZM649 544Q649 574 634 600T585 634Q578 636 493 637Q473 637 451 637T416 636H403Q388 635 384 626Q382 622 352 506Q352 503 351 500L320 374H401Q482 374 494 376Q554 386 601 434T649 544ZM595 229Q595 273 572 302T512 336Q506 337 429 337Q311 337 310 336Q310 334 293 263T258 122L240 52Q240 48 252 48T333 46Q422 46 429 47Q491 54 543 105T595 229Z"></path></g><g data-mml-node="mn" transform="translate(792,-150) scale(0.707)"><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path></g></g></g><g data-mml-node="mn" transform="translate(1077.6,-686)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path><path data-c="36" d="M42 313Q42 476 123 571T303 666Q372 666 402 630T432 550Q432 525 418 510T379 495Q356 495 341 509T326 548Q326 592 373 601Q351 623 311 626Q240 626 194 566Q147 500 147 364L148 360Q153 366 156 373Q197 433 263 433H267Q313 433 348 414Q372 400 396 374T435 317Q456 268 456 210V192Q456 169 451 149Q440 90 387 34T253 -22Q225 -22 199 -14T143 16T92 75T56 172T42 313ZM257 397Q227 397 205 380T171 335T154 278T148 216Q148 133 160 97T198 39Q222 21 251 21Q302 21 329 59Q342 77 347 104T352 209Q352 289 347 316T329 361Q302 397 257 397Z" transform="translate(500,0)"></path></g><rect width="2915.1" height="60" x="120" y="220"></rect></g></g><g data-mml-node="mo" transform="translate(8956.7,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mo" transform="translate(9345.7,0)"><path data-c="5B" d="M118 -250V750H255V710H158V-210H255V-250H118Z"></path></g><g data-mml-node="mo" transform="translate(9623.7,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mfrac" transform="translate(10012.7,0)"><g data-mml-node="msub" transform="translate(220,676)"><g data-mml-node="mi"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mn" transform="translate(562,-150) scale(0.707)"><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path></g></g><g data-mml-node="mi" transform="translate(438.3,-686)"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><rect width="1165.6" height="60" x="120" y="220"></rect></g><g data-mml-node="msup" transform="translate(11418.2,0)"><g data-mml-node="mo"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="mn" transform="translate(422,413) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g><g data-mml-node="mo" transform="translate(12466,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mn" transform="translate(13466.2,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="msup" transform="translate(13966.2,0)"><g data-mml-node="mo"><path data-c="5D" d="M22 710V750H159V-250H22V-210H119V710H22Z"></path></g><g data-mml-node="mn" transform="translate(311,413) scale(0.707)"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path></g></g><g data-mml-node="msubsup" transform="translate(14680.8,0)"><g data-mml-node="mi"><path data-c="1D435" d="M231 637Q204 637 199 638T194 649Q194 676 205 682Q206 683 335 683Q594 683 608 681Q671 671 713 636T756 544Q756 480 698 429T565 360L555 357Q619 348 660 311T702 219Q702 146 630 78T453 1Q446 0 242 0Q42 0 39 2Q35 5 35 10Q35 17 37 24Q42 43 47 45Q51 46 62 46H68Q95 46 128 49Q142 52 147 61Q150 65 219 339T288 628Q288 635 231 637ZM649 544Q649 574 634 600T585 634Q578 636 493 637Q473 637 451 637T416 636H403Q388 635 384 626Q382 622 352 506Q352 503 351 500L320 374H401Q482 374 494 376Q554 386 601 434T649 544ZM595 229Q595 273 572 302T512 336Q506 337 429 337Q311 337 310 336Q310 334 293 263T258 122L240 52Q240 48 252 48T333 46Q422 46 429 47Q491 54 543 105T595 229Z"></path></g><g data-mml-node="TeXAtom" transform="translate(792,413) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="msup"><g data-mml-node="mi"></g><g data-mml-node="mo" transform="translate(33,363) scale(0.707)"><path data-c="2032" d="M79 43Q73 43 52 49T30 61Q30 68 85 293T146 528Q161 560 198 560Q218 560 240 545T262 501Q262 496 260 486Q259 479 173 263T84 45T79 43Z"></path></g></g></g><g data-mml-node="mn" transform="translate(792,-247) scale(0.707)"><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path></g></g><g data-mml-node="mo" transform="translate(16098.5,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="mo" transform="translate(17098.8,0)"><path data-c="5B" d="M118 -250V750H255V710H158V-210H255V-250H118Z"></path></g><g data-mml-node="mo" transform="translate(17376.8,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mstyle" transform="translate(17765.8,0)"><g data-mml-node="mfrac"><g data-mml-node="msub" transform="translate(220,676)"><g data-mml-node="mi"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mn" transform="translate(562,-150) scale(0.707)"><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path></g></g><g data-mml-node="mi" transform="translate(438.3,-686)"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><rect width="1165.6" height="60" x="120" y="220"></rect></g></g><g data-mml-node="mo" transform="translate(19171.3,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="mo" transform="translate(19782.5,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mn" transform="translate(20782.8,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="msup" transform="translate(21282.8,0)"><g data-mml-node="mo"><path data-c="5D" d="M22 710V750H159V-250H22V-210H119V710H22Z"></path></g><g data-mml-node="mn" transform="translate(311,413) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g><g data-mml-node="mo" transform="translate(21997.3,0)"><path data-c="5B" d="M118 -250V750H255V710H158V-210H255V-250H118Z"></path></g><g data-mml-node="mn" transform="translate(22275.3,0)"><path data-c="36" d="M42 313Q42 476 123 571T303 666Q372 666 402 630T432 550Q432 525 418 510T379 495Q356 495 341 509T326 548Q326 592 373 601Q351 623 311 626Q240 626 194 566Q147 500 147 364L148 360Q153 366 156 373Q197 433 263 433H267Q313 433 348 414Q372 400 396 374T435 317Q456 268 456 210V192Q456 169 451 149Q440 90 387 34T253 -22Q225 -22 199 -14T143 16T92 75T56 172T42 313ZM257 397Q227 397 205 380T171 335T154 278T148 216Q148 133 160 97T198 39Q222 21 251 21Q302 21 329 59Q342 77 347 104T352 209Q352 289 347 316T329 361Q302 397 257 397Z"></path></g><g data-mml-node="mo" transform="translate(22997.5,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mn" transform="translate(23997.8,0)"><path data-c="34" d="M462 0Q444 3 333 3Q217 3 199 0H190V46H221Q241 46 248 46T265 48T279 53T286 61Q287 63 287 115V165H28V211L179 442Q332 674 334 675Q336 677 355 677H373L379 671V211H471V165H379V114Q379 73 379 66T385 54Q393 47 442 46H471V0H462ZM293 211V545L74 212L183 211H293Z"></path></g><g data-mml-node="mo" transform="translate(24497.8,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mfrac" transform="translate(24886.8,0)"><g data-mml-node="msub" transform="translate(220,676)"><g data-mml-node="mi"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mn" transform="translate(562,-150) scale(0.707)"><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path></g></g><g data-mml-node="mi" transform="translate(438.3,-686)"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><rect width="1165.6" height="60" x="120" y="220"></rect></g><g data-mml-node="msup" transform="translate(26292.3,0)"><g data-mml-node="mo"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="mn" transform="translate(422,413) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g><g data-mml-node="mo" transform="translate(27117.9,0)"><path data-c="5D" d="M22 710V750H159V-250H22V-210H119V710H22Z"></path></g><g data-mml-node="mo" transform="translate(27395.9,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></svg><mjx-assistive-mml unselectable="on" display="block"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mi>E</mi><mo stretchy="false">(</mo><mi>a</mi><mo stretchy="false">)</mo><mo>=</mo><msub><mi>E</mi><mn>0</mn></msub><mo>+</mo><mstyle displaystyle="true" scriptlevel="0"><mfrac><mrow><mn>9</mn><msub><mi>V</mi><mn>0</mn></msub><msub><mi>B</mi><mn>0</mn></msub></mrow><mn>16</mn></mfrac></mstyle><mo stretchy="false">(</mo><mo stretchy="false">[</mo><mo stretchy="false">(</mo><mfrac><msub><mi>a</mi><mn>0</mn></msub><mi>a</mi></mfrac><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo>−</mo><mn>1</mn><msup><mo stretchy="false">]</mo><mn>3</mn></msup><msubsup><mi>B</mi><mn>0</mn><mrow data-mjx-texclass="ORD"><msup><mi></mi><mo data-mjx-alternate="1">′</mo></msup></mrow></msubsup><mo>+</mo><mo stretchy="false">[</mo><mo stretchy="false">(</mo><mstyle displaystyle="true" scriptlevel="0"><mfrac><msub><mi>a</mi><mn>0</mn></msub><mi>a</mi></mfrac></mstyle><mo stretchy="false">)</mo><mo>−</mo><mn>1</mn><msup><mo stretchy="false">]</mo><mn>2</mn></msup><mo stretchy="false">[</mo><mn>6</mn><mo>−</mo><mn>4</mn><mo stretchy="false">(</mo><mfrac><msub><mi>a</mi><mn>0</mn></msub><mi>a</mi></mfrac><msup><mo stretchy="false">)</mo><mn>2</mn></msup><mo stretchy="false">]</mo><mo stretchy="false">)</mo></math></mjx-assistive-mml></mjx-container>
+    </span>
+  
+    <span id="mjx-08e1dea">
+      <style>
+      #mjx-08e1dea{
+        display:contents;
+        mjx-assistive-mml {
+          user-select: text !important;
+          clip: auto !important;
+          color: rgba(0,0,0,0);
+        }
+        
+mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+  min-height: 1px;
+  min-width: 1px;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display="block"] {
+  width: 100% !important;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][display="true"][width="full"] {
+  display: flex;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line], svg[data-table] > g > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame], svg[data-table] > g > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed, svg[data-table] > g > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted, svg[data-table] > g > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > g > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
+  stroke-width: 3;
+}
+
+g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+.MathJax g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+      }
+      </style>
+      <mjx-container class="MathJax" jax="SVG" display="true" style="position: relative;"><svg style="vertical-align: -2.544ex;" xmlns="http://www.w3.org/2000/svg" width="31.989ex" height="6.191ex" role="img" focusable="false" viewBox="0 -1612.3 14139 2736.6" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mstyle" transform="translate(389,0)"><g data-mml-node="mfrac"><g data-mml-node="msub" transform="translate(220,676)"><g data-mml-node="mi"><path data-c="1D449" d="M52 648Q52 670 65 683H76Q118 680 181 680Q299 680 320 683H330Q336 677 336 674T334 656Q329 641 325 637H304Q282 635 274 635Q245 630 242 620Q242 618 271 369T301 118L374 235Q447 352 520 471T595 594Q599 601 599 609Q599 633 555 637Q537 637 537 648Q537 649 539 661Q542 675 545 679T558 683Q560 683 570 683T604 682T668 681Q737 681 755 683H762Q769 676 769 672Q769 655 760 640Q757 637 743 637Q730 636 719 635T698 630T682 623T670 615T660 608T652 599T645 592L452 282Q272 -9 266 -16Q263 -18 259 -21L241 -22H234Q216 -22 216 -15Q213 -9 177 305Q139 623 138 626Q133 637 76 637H59Q52 642 52 648Z"></path></g><g data-mml-node="mn" transform="translate(616,-150) scale(0.707)"><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path></g></g><g data-mml-node="mi" transform="translate(345.3,-686)"><path data-c="1D449" d="M52 648Q52 670 65 683H76Q118 680 181 680Q299 680 320 683H330Q336 677 336 674T334 656Q329 641 325 637H304Q282 635 274 635Q245 630 242 620Q242 618 271 369T301 118L374 235Q447 352 520 471T595 594Q599 601 599 609Q599 633 555 637Q537 637 537 648Q537 649 539 661Q542 675 545 679T558 683Q560 683 570 683T604 682T668 681Q737 681 755 683H762Q769 676 769 672Q769 655 760 640Q757 637 743 637Q730 636 719 635T698 630T682 623T670 615T660 608T652 599T645 592L452 282Q272 -9 266 -16Q263 -18 259 -21L241 -22H234Q216 -22 216 -15Q213 -9 177 305Q139 623 138 626Q133 637 76 637H59Q52 642 52 648Z"></path></g><rect width="1219.6" height="60" x="120" y="220"></rect></g></g><g data-mml-node="msup" transform="translate(1848.6,0)"><g data-mml-node="mo"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="TeXAtom" transform="translate(422,413) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mfrac"><g data-mml-node="mn" transform="translate(220,394) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="mn" transform="translate(220,-345) scale(0.707)"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path></g><rect width="553.6" height="60" x="120" y="220"></rect></g></g></g><g data-mml-node="mo" transform="translate(3159.5,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mo" transform="translate(4215.2,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mstyle" transform="translate(4604.2,0)"><g data-mml-node="mfrac"><g data-mml-node="msubsup" transform="translate(1005.6,772.9)"><g data-mml-node="mi"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mn" transform="translate(562,369.2) scale(0.707)"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path></g><g data-mml-node="mn" transform="translate(562,-297.3) scale(0.707)"><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path></g></g><g data-mml-node="msubsup" transform="translate(220,-799.4)"><g data-mml-node="mi"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mn" transform="translate(562,369.2) scale(0.707)"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path></g><g data-mml-node="TeXAtom" transform="translate(562,-317.1) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mi" transform="translate(529,0)"><path data-c="1D450" d="M34 159Q34 268 120 355T306 442Q362 442 394 418T427 355Q427 326 408 306T360 285Q341 285 330 295T319 325T330 359T352 380T366 386H367Q367 388 361 392T340 400T306 404Q276 404 249 390Q228 381 206 359Q162 315 142 235T121 119Q121 73 147 50Q169 26 205 26H209Q321 26 394 111Q403 121 406 121Q410 121 419 112T429 98T420 83T391 55T346 25T282 0T202 -11Q127 -11 81 37T34 159Z"></path></g><g data-mml-node="mi" transform="translate(962,0)"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g><g data-mml-node="mi" transform="translate(1323,0)"><path data-c="1D462" d="M21 287Q21 295 30 318T55 370T99 420T158 442Q204 442 227 417T250 358Q250 340 216 246T182 105Q182 62 196 45T238 27T291 44T328 78L339 95Q341 99 377 247Q407 367 413 387T427 416Q444 431 463 431Q480 431 488 421T496 402L420 84Q419 79 419 68Q419 43 426 35T447 26Q469 29 482 57T512 145Q514 153 532 153Q551 153 551 144Q550 139 549 130T540 98T523 55T498 17T462 -8Q454 -10 438 -10Q372 -10 347 46Q345 45 336 36T318 21T296 6T267 -6T233 -11Q189 -11 155 7Q103 38 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(1895,0)"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mi" transform="translate(2424,0)"><path data-c="1D459" d="M117 59Q117 26 142 26Q179 26 205 131Q211 151 215 152Q217 153 225 153H229Q238 153 241 153T246 151T248 144Q247 138 245 128T234 90T214 43T183 6T137 -11Q101 -11 70 11T38 85Q38 97 39 102L104 360Q167 615 167 623Q167 626 166 628T162 632T157 634T149 635T141 636T132 637T122 637Q112 637 109 637T101 638T95 641T94 647Q94 649 96 661Q101 680 107 682T179 688Q194 689 213 690T243 693T254 694Q266 694 266 686Q266 675 193 386T118 83Q118 81 118 75T117 65V59Z"></path></g></g></g><rect width="2736.7" height="60" x="120" y="220"></rect></g></g><g data-mml-node="msup" transform="translate(7581,0)"><g data-mml-node="mo"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="TeXAtom" transform="translate(422,413) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mfrac"><g data-mml-node="mn" transform="translate(220,394) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="mn" transform="translate(220,-345) scale(0.707)"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path></g><rect width="553.6" height="60" x="120" y="220"></rect></g></g></g><g data-mml-node="mo" transform="translate(8891.9,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mo" transform="translate(9947.7,0)"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mstyle" transform="translate(10336.7,0)"><g data-mml-node="mfrac"><g data-mml-node="msub" transform="translate(1005.6,676)"><g data-mml-node="mi"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mn" transform="translate(562,-150) scale(0.707)"><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path></g></g><g data-mml-node="msub" transform="translate(220,-686)"><g data-mml-node="mi"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="TeXAtom" transform="translate(562,-150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mi" transform="translate(529,0)"><path data-c="1D450" d="M34 159Q34 268 120 355T306 442Q362 442 394 418T427 355Q427 326 408 306T360 285Q341 285 330 295T319 325T330 359T352 380T366 386H367Q367 388 361 392T340 400T306 404Q276 404 249 390Q228 381 206 359Q162 315 142 235T121 119Q121 73 147 50Q169 26 205 26H209Q321 26 394 111Q403 121 406 121Q410 121 419 112T429 98T420 83T391 55T346 25T282 0T202 -11Q127 -11 81 37T34 159Z"></path></g><g data-mml-node="mi" transform="translate(962,0)"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g><g data-mml-node="mi" transform="translate(1323,0)"><path data-c="1D462" d="M21 287Q21 295 30 318T55 370T99 420T158 442Q204 442 227 417T250 358Q250 340 216 246T182 105Q182 62 196 45T238 27T291 44T328 78L339 95Q341 99 377 247Q407 367 413 387T427 416Q444 431 463 431Q480 431 488 421T496 402L420 84Q419 79 419 68Q419 43 426 35T447 26Q469 29 482 57T512 145Q514 153 532 153Q551 153 551 144Q550 139 549 130T540 98T523 55T498 17T462 -8Q454 -10 438 -10Q372 -10 347 46Q345 45 336 36T318 21T296 6T267 -6T233 -11Q189 -11 155 7Q103 38 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(1895,0)"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mi" transform="translate(2424,0)"><path data-c="1D459" d="M117 59Q117 26 142 26Q179 26 205 131Q211 151 215 152Q217 153 225 153H229Q238 153 241 153T246 151T248 144Q247 138 245 128T234 90T214 43T183 6T137 -11Q101 -11 70 11T38 85Q38 97 39 102L104 360Q167 615 167 623Q167 626 166 628T162 632T157 634T149 635T141 636T132 637T122 637Q112 637 109 637T101 638T95 641T94 647Q94 649 96 661Q101 680 107 682T179 688Q194 689 213 690T243 693T254 694Q266 694 266 686Q266 675 193 386T118 83Q118 81 118 75T117 65V59Z"></path></g></g></g><rect width="2736.7" height="60" x="120" y="220"></rect></g></g><g data-mml-node="msup" transform="translate(13313.4,0)"><g data-mml-node="mo"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="mn" transform="translate(422,413) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g></g></g></svg><mjx-assistive-mml unselectable="on" display="block"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mo stretchy="false">(</mo><mstyle displaystyle="true" scriptlevel="0"><mfrac><msub><mi>V</mi><mn>0</mn></msub><mi>V</mi></mfrac></mstyle><msup><mo stretchy="false">)</mo><mrow data-mjx-texclass="ORD"><mfrac><mn>2</mn><mn>3</mn></mfrac></mrow></msup><mo>=</mo><mo stretchy="false">(</mo><mstyle displaystyle="true" scriptlevel="0"><mfrac><msubsup><mi>a</mi><mn>0</mn><mn>3</mn></msubsup><msubsup><mi>a</mi><mrow data-mjx-texclass="ORD"><mi>a</mi><mi>c</mi><mi>t</mi><mi>u</mi><mi>a</mi><mi>l</mi></mrow><mn>3</mn></msubsup></mfrac></mstyle><msup><mo stretchy="false">)</mo><mrow data-mjx-texclass="ORD"><mfrac><mn>2</mn><mn>3</mn></mfrac></mrow></msup><mo>=</mo><mo stretchy="false">(</mo><mstyle displaystyle="true" scriptlevel="0"><mfrac><msub><mi>a</mi><mn>0</mn></msub><msub><mi>a</mi><mrow data-mjx-texclass="ORD"><mi>a</mi><mi>c</mi><mi>t</mi><mi>u</mi><mi>a</mi><mi>l</mi></mrow></msub></mfrac></mstyle><msup><mo stretchy="false">)</mo><mn>2</mn></msup></math></mjx-assistive-mml></mjx-container>
+    </span>
+  
+    <span id="mjx-f81d5788">
+      <style>
+      #mjx-f81d5788{
+        display:contents;
+        mjx-assistive-mml {
+          user-select: text !important;
+          clip: auto !important;
+          color: rgba(0,0,0,0);
+        }
+        
+mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+  min-height: 1px;
+  min-width: 1px;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display="block"] {
+  width: 100% !important;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][display="true"][width="full"] {
+  display: flex;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line], svg[data-table] > g > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame], svg[data-table] > g > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed, svg[data-table] > g > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted, svg[data-table] > g > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > g > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
+  stroke-width: 3;
+}
+
+g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+.MathJax g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+      }
+      </style>
+      <mjx-container class="MathJax" jax="SVG" display="true" style="position: relative;"><svg style="vertical-align: -2.194ex;" xmlns="http://www.w3.org/2000/svg" width="18.302ex" height="5.231ex" role="img" focusable="false" viewBox="0 -1342 8089.6 2311.9" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g><g data-mml-node="mo" transform="translate(849.8,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mstyle" transform="translate(1905.6,0)"><g data-mml-node="mfrac"><g data-mml-node="mn" transform="translate(2842,676)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mrow" transform="translate(220,-719.9)"><g data-mml-node="mo"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="mi" transform="translate(389,0)"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mo" transform="translate(1140.2,0)"><path data-c="D7" d="M630 29Q630 9 609 9Q604 9 587 25T493 118L389 222L284 117Q178 13 175 11Q171 9 168 9Q160 9 154 15T147 29Q147 36 161 51T255 146L359 250L255 354Q174 435 161 449T147 471Q147 480 153 485T168 490Q173 490 175 489Q178 487 284 383L389 278L493 382Q570 459 587 475T609 491Q630 491 630 471Q630 464 620 453T522 355L418 250L522 145Q606 61 618 48T630 29Z"></path></g><g data-mml-node="mn" transform="translate(2140.4,0)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path><path data-c="2E" d="M78 60Q78 84 95 102T138 120Q162 120 180 104T199 61Q199 36 182 18T139 0T96 17T78 60Z" transform="translate(500,0)"></path><path data-c="38" d="M70 417T70 494T124 618T248 666Q319 666 374 624T429 515Q429 485 418 459T392 417T361 389T335 371T324 363L338 354Q352 344 366 334T382 323Q457 264 457 174Q457 95 399 37T249 -22Q159 -22 101 29T43 155Q43 263 172 335L154 348Q133 361 127 368Q70 417 70 494ZM286 386L292 390Q298 394 301 396T311 403T323 413T334 425T345 438T355 454T364 471T369 491T371 513Q371 556 342 586T275 624Q268 625 242 625Q201 625 165 599T128 534Q128 511 141 492T167 463T217 431Q224 426 228 424L286 386ZM250 21Q308 21 350 55T392 137Q392 154 387 169T375 194T353 216T330 234T301 253T274 270Q260 279 244 289T218 306L210 311Q204 311 181 294T133 239T107 157Q107 98 150 60T250 21Z" transform="translate(778,0)"></path><path data-c="36" d="M42 313Q42 476 123 571T303 666Q372 666 402 630T432 550Q432 525 418 510T379 495Q356 495 341 509T326 548Q326 592 373 601Q351 623 311 626Q240 626 194 566Q147 500 147 364L148 360Q153 366 156 373Q197 433 263 433H267Q313 433 348 414Q372 400 396 374T435 317Q456 268 456 210V192Q456 169 451 149Q440 90 387 34T253 -22Q225 -22 199 -14T143 16T92 75T56 172T42 313ZM257 397Q227 397 205 380T171 335T154 278T148 216Q148 133 160 97T198 39Q222 21 251 21Q302 21 329 59Q342 77 347 104T352 209Q352 289 347 316T329 361Q302 397 257 397Z" transform="translate(1278,0)"></path><path data-c="36" d="M42 313Q42 476 123 571T303 666Q372 666 402 630T432 550Q432 525 418 510T379 495Q356 495 341 509T326 548Q326 592 373 601Q351 623 311 626Q240 626 194 566Q147 500 147 364L148 360Q153 366 156 373Q197 433 263 433H267Q313 433 348 414Q372 400 396 374T435 317Q456 268 456 210V192Q456 169 451 149Q440 90 387 34T253 -22Q225 -22 199 -14T143 16T92 75T56 172T42 313ZM257 397Q227 397 205 380T171 335T154 278T148 216Q148 133 160 97T198 39Q222 21 251 21Q302 21 329 59Q342 77 347 104T352 209Q352 289 347 316T329 361Q302 397 257 397Z" transform="translate(1778,0)"></path><path data-c="34" d="M462 0Q444 3 333 3Q217 3 199 0H190V46H221Q241 46 248 46T265 48T279 53T286 61Q287 63 287 115V165H28V211L179 442Q332 674 334 675Q336 677 355 677H373L379 671V211H471V165H379V114Q379 73 379 66T385 54Q393 47 442 46H471V0H462ZM293 211V545L74 212L183 211H293Z" transform="translate(2278,0)"></path></g><g data-mml-node="msup" transform="translate(4918.4,0)"><g data-mml-node="mo"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g><g data-mml-node="mn" transform="translate(422,289) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g></g><rect width="5944" height="60" x="120" y="220"></rect></g></g></g></g></svg><mjx-assistive-mml unselectable="on" display="block"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mi>x</mi><mo>=</mo><mstyle displaystyle="true" scriptlevel="0"><mfrac><mn>1</mn><mrow><mo stretchy="false">(</mo><mi>a</mi><mo>×</mo><mn>2.8664</mn><msup><mo stretchy="false">)</mo><mn>2</mn></msup></mrow></mfrac></mstyle></math></mjx-assistive-mml></mjx-container>
+    </span>
+  <blockquote>
+<p>a代表缩放系数，2.8664是晶胞参数</p>
+</blockquote>
+<p>除了用B-M方程拟合来确定晶格常数之外，还可以使用直接优化法确定晶格常数：ISIF = 3 + ENCUT</p>
+<ul>
+<li><code>ISIF=2</code>（默认）：优化原子位置</li>
+<li><code>ISIF=3</code>：优化原子位置 + 晶胞形状/体积。</li>
+</ul>
+<p>单点计算误区</p>
+<ul>
+<li>单点计算（<code>NSW=0</code> 或 <code>IBRION=-1</code>）时无需设置 <code>ISIF=0</code>，因为离子已固定。</li>
+<li>错误设置 <code>ISIF=0</code> 会禁用应力计算，可能导致后续分析缺失数据。</li>
+</ul>
+<p>为何需要增大 <code>ENCUT</code>？</p>
+<ul>
+<li>Pulay Stress：
+<ul>
+<li><strong>定义</strong>：当晶胞体积变化时，平面波基组不完整导致的应力误差。</li>
+<li><strong>后果</strong>：晶格优化结果不准确。</li>
+<li>解决方法
+<ol>
+<li><strong>保持体积不变</strong>（BM 方程拟合法）</li>
+<li><strong>增大 <code>ENCUT</code></strong>（直接优化法）</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>规则
+<ul>
+<li>设置 <code>ENCUT = 1.3 * max(ENMAX)</code>（<code>ENMAX</code> 取自 <code>POTCAR</code>）</li>
+<li>示例：Fe 的 <code>ENMAX=267.882 eV</code> → <code>ENCUT=350 eV</code>（但文档设置为 <code>600 eV</code>，更保守）</li>
+</ul>
+</li>
+</ul>
+<p>DOS态密度计算需要使用更多的K点</p>
+<blockquote>
+<p>A high quality DOS requires usually very fine k-meshes.</p>
+</blockquote>
+<p><code>ISMEAR</code>的选择</p>
+<ul>
+<li>对于半导体和绝缘体体系，ISMEAR的值取绝对不能大于0， 一般用0；</li>
+<li>对所有体系，如果想获取更加精确能量的时候用-5，但这时候如果K点数目小于3，程序则会罢工；</li>
+<li>K 点少，半导体或者绝缘体，那么只能用 ISMEAR = 0；</li>
+<li>在DOS能带计算中，使用ISMEAR= -5 用于获取精确的信息。</li>
+<li>对于金属来说，ISMEAR的取值一般为&gt;=0 的数值（0,1,2）；</li>
+<li>保守地说，ISMEAR = 0 (Gaussian Smearing) 可以满足大部分的体系（金属，导体，半导体，分子）；</li>
+<li>如果不知道怎么取ISMEAR，直接用0是一个很保险的做法。也可以测试不同的值对计算的影响，但是新手的话，即使测试完了，也不知道根据什么去判断对结果的影响。</li>
+</ul>
+<p>电子数的积分区间是从负无穷到费米能级</p>
+<h2 id="各种参数的作用"><a class="header-anchor" href="#各种参数的作用">¶</a>各种参数的作用</h2>
+<h3 id="ISTART——确定是否读取-WAVECAR-文件"><a class="header-anchor" href="#ISTART——确定是否读取-WAVECAR-文件">¶</a>ISTART——确定是否读取 WAVECAR 文件</h3>
+<p>ISTART = 0 | 1 |2 |3</p>
+<p>默认值</p>
+<ul>
+<li>如果存在WAVECAR则读取: ISTART = 1</li>
+<li>强制不读取WAVECAR，从头算: ISTART = 0</li>
+</ul>
+<p>ISTART = 2，读取WAVECAR，截断能原胞不发生改变</p>
+<h3 id="ICHARG——确定-VASP-如何构造初始电荷密度"><a class="header-anchor" href="#ICHARG——确定-VASP-如何构造初始电荷密度">¶</a>ICHARG——确定 VASP 如何构造初始电荷密度</h3>
+<p>ICHARG = 0 | 1 |2 | 4 | 5</p>
+<ul>
+<li>ICHARG = 0，默认值，从初始波函数计算电荷密度</li>
+<li>ICHARG = 1，从 CHGCAR 文件中读取电荷密度，并使用原子电荷密度的线性组合从旧位置（在 CHGCAR 上）外推到新位置</li>
+<li>ICHARG = 2，默认值，以原子电荷密度的叠加为例</li>
+</ul>
+<h3 id="PREC——指定精度模式"><a class="header-anchor" href="#PREC——指定精度模式">¶</a>PREC——指定精度模式</h3>
+<p>PREC = Normal | Single | SingleN | Accurate | Low | Medium | High</p>
+<ul>
+<li>PREC = Normal，默认</li>
+<li>PREC = Single</li>
+<li>PREC = SingleN</li>
+<li>PREC = Accurate</li>
+</ul>
+<h3 id="LREAL——确定投影算子是在实空间还是在倒数空间中求值"><a class="header-anchor" href="#LREAL——确定投影算子是在实空间还是在倒数空间中求值">¶</a>LREAL——确定投影算子是在实空间还是在倒数空间中求值</h3>
+<p>LREAL = .FALSE. | Auto (or A) | On (or O) | .TRUE.</p>
+<ul>
+<li>LREAL = .FALSE.	默认值，倒数空间投影，小体系，精确</li>
+<li>LREAL=Auto      	在实空间中进行投影，全自动优化投影算子（几乎不需要用户干扰）</li>
+</ul>
+<h3 id="ALGO——指定电子最小化算法或选择-GW-计算类型的便捷选项。"><a class="header-anchor" href="#ALGO——指定电子最小化算法或选择-GW-计算类型的便捷选项。">¶</a>ALGO——指定电子最小化算法或选择 GW 计算类型的便捷选项。</h3>
+<p>ALGO = Normal | VeryFast | Fast | Conjugate | All | Damped | Subrot | Eigenval | Exact | None | Nothing | CHI | G0W0 | GW0 | GW | scGW0 | scGW | G0W0R | GW0R | GWR | scGW0R | scGWR | ACFDT | RPA | ACFDTR | RPAR | BSE | TDHF</p>
+<p>默认值: Normal</p>
+<h3 id="ENCUT——指定以-eV-为单位设置的平面波基的能量截止"><a class="header-anchor" href="#ENCUT——指定以-eV-为单位设置的平面波基的能量截止">¶</a>ENCUT——指定以 eV 为单位设置的平面波基的能量截止</h3>
+<p>ENCUT = [real]</p>
+<p>默认为POTCAR中的ENMAX，但是官方<mark>强烈建议</mark>在 INCAR 文件中始终手动指定能量截止 ENCUT，以确保计算之间的准确性相同。否则，不同计算之间的默认 ENCUT 可能会有所不同（例如，对于内聚能的计算），结果是无法比较总能量。</p>
+<h3 id="ISMEAR——能带展宽方法"><a class="header-anchor" href="#ISMEAR——能带展宽方法">¶</a>ISMEAR——能带展宽方法</h3>
+<p>ISMEAR = -15 | -14 | -5 | -4 | -3 | -2 | -1 | 0 | [integer]&gt;0</p>
+<p>默认值：1</p>
+<p>ISMEAR 决定如何为每个轨道设置部分占据数 f
+    <span id="mjx-621ba23">
+      <style>
+      #mjx-621ba23{
+        display:contents;
+        mjx-assistive-mml {
+          user-select: text !important;
+          clip: auto !important;
+          color: rgba(0,0,0,0);
+        }
+        
+mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+  min-height: 1px;
+  min-width: 1px;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display="block"] {
+  width: 100% !important;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][display="true"][width="full"] {
+  display: flex;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line], svg[data-table] > g > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame], svg[data-table] > g > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed, svg[data-table] > g > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted, svg[data-table] > g > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > g > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
+  stroke-width: 3;
+}
+
+g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+.MathJax g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+      }
+      </style>
+      <mjx-container class="MathJax" jax="SVG" style="position: relative;"><svg style="vertical-align: -0.357ex;" xmlns="http://www.w3.org/2000/svg" width="1.981ex" height="1.128ex" role="img" focusable="false" viewBox="0 -340.7 875.7 498.5" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"></g><g data-mml-node="TeXAtom" transform="translate(33,-150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(600,0)"><path data-c="1D458" d="M121 647Q121 657 125 670T137 683Q138 683 209 688T282 694Q294 694 294 686Q294 679 244 477Q194 279 194 272Q213 282 223 291Q247 309 292 354T362 415Q402 442 438 442Q468 442 485 423T503 369Q503 344 496 327T477 302T456 291T438 288Q418 288 406 299T394 328Q394 353 410 369T442 390L458 393Q446 405 434 405H430Q398 402 367 380T294 316T228 255Q230 254 243 252T267 246T293 238T320 224T342 206T359 180T365 147Q365 130 360 106T354 66Q354 26 381 26Q429 26 459 145Q461 153 479 153H483Q499 153 499 144Q499 139 496 130Q455 -11 378 -11Q333 -11 305 15T277 90Q277 108 280 121T283 145Q283 167 269 183T234 206T200 217T182 220H180Q168 178 159 139T145 81T136 44T129 20T122 7T111 -2Q98 -11 83 -11Q66 -11 57 -1T48 16Q48 26 85 176T158 471L195 616Q196 629 188 632T149 637H144Q134 637 131 637T124 640T121 647Z"></path></g></g></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi></mi><mrow data-mjx-texclass="ORD"><mi>n</mi><mi>k</mi></mrow></msub></math></mjx-assistive-mml></mjx-container>
+    </span>
+   ,SIGMA 以电子伏特(eV)为单位确定展宽的宽度</p>
+<p>以下是来自AI的比喻解释：</p>
+<hr>
+<h4 id="ISMEAR：决定如何给电子“打分”"><a class="header-anchor" href="#ISMEAR：决定如何给电子“打分”">¶</a><strong>ISMEAR：决定如何给电子“打分”</strong></h4>
+<ul>
+<li><strong>问题</strong>：电子在能级上的分布是离散的（像楼梯台阶），但实际计算时需要用连续函数去“平滑”这些台阶。</li>
+<li><strong>ISMEAR</strong> 就是选择“平滑方式”的方法：
+<ul>
+<li><strong><code>ISMEAR = -5</code></strong>：采用Blöchl修正的四面体方法，无展宽，严格按台阶处理（绝对精确，但只适用于绝缘体/半导体，速度慢）</li>
+<li><strong><code>ISMEAR = 0</code></strong>：采用高斯展宽，用高斯函数“模糊”台阶边缘（适合半导体/绝缘体，平衡精度和速度）</li>
+<li><strong><code>ISMEAR = 1</code></strong>：默认值，用更复杂的函数模糊台阶（适合金属，容忍更多模糊，计算快）</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-SIGMA：展宽的“宽容度”"><a class="header-anchor" href="#2-SIGMA：展宽的“宽容度”">¶</a><strong>2. SIGMA：展宽的“宽容度”</strong></h4>
+<ul>
+<li><strong>问题</strong>：<code>ISMEAR</code> 选择用高斯函数模糊时，<strong>SIGMA 决定模糊的程度</strong>（就像PS里“高斯模糊”的半径）</li>
+<li><strong>SIGMA 越小</strong>：模糊范围越小，越接近真实台阶（精度高，但容易震荡，收敛难）</li>
+<li><strong>SIGMA 越大</strong>：模糊范围越大，电子分布越平滑（容易收敛，但可能掩盖真实细节）</li>
+</ul>
+<h4 id="到底怎么设置？一句话总结"><a class="header-anchor" href="#到底怎么设置？一句话总结">¶</a><strong>到底怎么设置？一句话总结</strong></h4>
+<table>
+<thead>
+<tr>
+<th><strong>体系类型</strong></th>
+<th><strong>推荐 ISMEAR</strong></th>
+<th><strong>推荐 SIGMA</strong></th>
+<th><strong>注意事项</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>绝缘体/半导体</strong>（原子、分子）</td>
+<td><code>0</code>（绝对不能大于零）</td>
+<td>0.05~0.1</td>
+<td>不要用 <code>ISMEAR=1</code>，会引入误差！</td>
+</tr>
+<tr>
+<td><strong>金属</strong></td>
+<td><code>1</code></td>
+<td>0.1~0.2</td>
+<td>SIGMA 太小会导致震荡！</td>
+</tr>
+<tr>
+<td><strong>能带/DOS计算</strong></td>
+<td><code>-5</code></td>
+<td>不用设置（不展宽）</td>
+<td>仅适用于绝缘体，且需要密集 K 点！</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>保守地说，ISMEAR = 0 (Gaussian Smearing) 可以满足大部分的体系（金属，导体，半导体，分子）；</li>
+<li>如果不知道怎么取ISMEAR，直接用0是一个很保险的做法。也可以测试不同的值对计算的影响，但是新手的话，即使测试完了，也不知道根据什么去判断对结果的影响。</li>
+</ul>
+<h3 id="常见错误"><a class="header-anchor" href="#常见错误">¶</a><strong>常见错误</strong></h3>
+<ol>
+<li><strong>对绝缘体用 <code>ISMEAR=1</code></strong> → 结果完全错误！</li>
+<li><strong>SIGMA 太大（比如 0.5）</strong> → 电子分布过度平滑，能量不准。</li>
+<li><strong>对金属用 <code>ISMEAR=0</code></strong> → SCF 难收敛，疯狂报错！</li>
+</ol>
+<hr>
+<h3 id="举个具体例子"><a class="header-anchor" href="#举个具体例子">¶</a><strong>举个具体例子</strong></h3>
+<p>假设你计算 <strong>硅（半导体）</strong>：</p>
+<ul>
+<li>
+<p><strong>正确设置</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ISMEAR = 0</span><br><span class="line">SIGMA = 0.05</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>错误设置</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ISMEAR = 1   <span class="comment"># 会引入非物理的金属性！</span></span><br><span class="line">SIGMA = 0.5  <span class="comment"># 能量误差可能大到 1 eV！</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h3 id="终极口诀"><a class="header-anchor" href="#终极口诀">¶</a><strong>终极口诀</strong></h3>
+<ul>
+<li><strong>绝缘体/半导体</strong> → <code>ISMEAR=0</code> + 小 SIGMA（0.05~0.1）</li>
+<li><strong>金属</strong> → <code>ISMEAR=1</code> + 稍大 SIGMA（0.1~0.2）</li>
+<li><strong>画能带/DOS</strong> → <code>ISMEAR=-5</code>（别动 SIGMA）</li>
+</ul>
+<h2 id="IBRION——确定在计算过程中晶体结构如何变化（如何调整原子位置来寻找能量最低点）"><a class="header-anchor" href="#IBRION——确定在计算过程中晶体结构如何变化（如何调整原子位置来寻找能量最低点）">¶</a>IBRION——确定在计算过程中晶体结构如何变化（如何调整原子位置来寻找能量最低点）</h2>
+<p>Default: IBRION	= -1	for NSW=−1 or 0</p>
+<p>​				    = 0	else</p>
+<ul>
+<li>无变化，IBRION = -1 （避免在 NSW&gt;0 时将 IBRION 设置为-1，以防止相同结构被重新计算 NSW 次）</li>
+<li>分子动力学，IBRION = 0</li>
+<li>结构优化
+<ul>
+<li>准牛顿法， IRBION =1</li>
+<li>共轭梯度， IBRION =2</li>
+<li>阻尼分子动力学，IBRION = 3</li>
+</ul>
+</li>
+<li>计算声子
+<ul>
+<li>IBRION=5 无对称性的有限差分</li>
+<li>IBRION=6 具有对称性的有限差分</li>
+<li>IBRION=7 无对称性微扰理论</li>
+<li>IBRION=8 具有对称性的微扰理论</li>
+</ul>
+</li>
+<li>分析过渡态
+<ul>
+<li>IBRION = 40 内禀反应坐标计算</li>
+<li>IRBION = 44 改进的dimer方法</li>
+</ul>
+</li>
+</ul>
+<h2 id="NSW——描述离子步长的最大数量"><a class="header-anchor" href="#NSW——描述离子步长的最大数量">¶</a>NSW——描述离子步长的最大数量</h2>
+<p>NSW = [integer]</p>
+<p>Default: <strong>NSW</strong> = 0</p>
+<h2 id="POTIM——设置分子动力学中的时间步长或离子弛豫中的步长宽度"><a class="header-anchor" href="#POTIM——设置分子动力学中的时间步长或离子弛豫中的步长宽度">¶</a>POTIM——设置分子动力学中的时间步长或离子弛豫中的步长宽度</h2>
+<p>IBRION确定了在计算过程中晶体结构如何变化，如何寻找最低点（“山谷”），POTIM就是“每次移动的距离”</p>
+<ul>
+<li>如果IBRION  = 0，则必须设置POTIM
+<ul>
+<li>对于 IBRION=0，POTIM 给出了所有从头开始分子动力学运行的时间步长（以 fs 为单位），因此必须提供它，否则 VASP 在启动后立即崩溃。</li>
+</ul>
+</li>
+<li>如果IBRION = 1,2,3，默认值为0.5
+<ul>
+<li>对于 IBRION=1、2 和 3，分别对应于使用拟牛顿算法、共轭梯度算法和阻尼分子动力学的离子弛豫，POTIM 标签作为步长宽度的缩放常数。准牛顿算法对该参数的选择特别敏感</li>
+</ul>
+</li>
+<li>如果IRBION = 5,6，默认值为0.015
+<ul>
+<li>对于 IBRION=5 和 6，使用有限差分方法进行声子计算，其中 POTIM 是计算 Hessian 矩阵的每个离子位移的宽度。</li>
+</ul>
+</li>
+</ul>
+<p><strong>POTIM 太大</strong> → 跨步太大，可能跳过最低点（震荡不收敛）<strong>POTIM 太小</strong> → 移动太慢，优化耗时</p>
+<h2 id="NCORE——确定在单个轨道上工作的计算核心数量"><a class="header-anchor" href="#NCORE——确定在单个轨道上工作的计算核心数量">¶</a>NCORE——确定在单个轨道上工作的计算核心数量</h2>
+<p>默认值：NCORE = 1</p>
+<p>NCORE的设置可以优化计算资源，降低内存用量（但有可能降低计算速度），如果体系非常小那就可以不用设置，直接并行即可</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mpirun -n <span class="string">&#x27;core numbers&#x27;</span> vasp</span><br></pre></td></tr></table></figure>
+<h2 id="NFREE——根据-IBRION，NFREE-指定离子收敛运行历史中记住的步数，或冻结声子计算中的离子位移数"><a class="header-anchor" href="#NFREE——根据-IBRION，NFREE-指定离子收敛运行历史中记住的步数，或冻结声子计算中的离子位移数">¶</a>NFREE——根据 IBRION，NFREE 指定离子收敛运行历史中记住的步数，或冻结声子计算中的离子位移数</h2>
+<h2 id="LDIPOL——开启对势能和力的修正"><a class="header-anchor" href="#LDIPOL——开启对势能和力的修正">¶</a>LDIPOL——开启对势能和力的修正</h2>
+<p>LDIPOL 开启对势能和力的修正。可应用于具有净偶极矩的带电分子和平板</p>
+<p>LDIPOL = .TRUE. | .FALSE.</p>
+<p>默认值：LDIPOL = .FALSE.</p>
+<p>偶极子的存在与周期性边界条件相结合，会导致总能量随超胞大小的收敛速度缓慢。此外，有限尺寸误差会影响势能和力。通过在 INCAR 文件中设置 LDIPOL=.TRUE. 可以抵消这种影响。对于 LDIPOL=.TRUE.，会添加一个线性校正，对于带电的晶胞，会添加一个二次静电势到局部势中，以校正由周期性边界条件引入的误差。激活此标签时，<mark>必须指定标签 IDIPOL，也可以选择指定标签 DIPOL</mark></p>
+<p>这种模式的最大优点是力中的主导误差得到了修正，并且可以针对非对称平板评估功函数。缺点是向电子基态的收敛可能会<mark>显著减慢</mark>，也就是说，可能需要更多的电子迭代来获得所需的精度</p>
+<h2 id="IDIPOL——开启对特定方向或所有方向的总能量的单极-偶极和四极校正"><a class="header-anchor" href="#IDIPOL——开启对特定方向或所有方向的总能量的单极-偶极和四极校正">¶</a>IDIPOL——开启对特定方向或所有方向的总能量的单极/偶极和四极校正</h2>
+<p>IDIPOL = 1 | 2 | 3 | 4</p>
+<p>IDIPOL = 1-3，仅分别沿第一、第二或第三晶格矢量方向计算偶极矩，<strong>此标志应用于平板计算，表面法线为设置 IDIPOL 的方向，并可选择使用 DIPOL 标签指定平板的质心</strong></p>
+<p>IDIPOL = 4，将计算所有方向上的全偶极矩，<strong>对孤立分子进行计算时使用此标志</strong></p>
+<h2 id="ISPIN——控制自旋极化"><a class="header-anchor" href="#ISPIN——控制自旋极化">¶</a>ISPIN——控制自旋极化</h2>
+<p>ISPIN = 1 | 2</p>
+<p>默认：ISPIN = 1，执行非自旋极化计算</p>
+<p>ISPIN = 2，执行自旋极化计算（共线）</p>
+<p>对于非共线计算，忽略 ISPIN。在 VASP 6.5.0 中，如果 ISPIN = 2 且 MAGMOM 与 LNONCOLLINEAR=.TRUE. <mark>结合使用</mark>，计算将以错误消息退出</p>
+<h2 id="NELM——最大电子步收敛"><a class="header-anchor" href="#NELM——最大电子步收敛">¶</a>NELM——最大电子步收敛</h2>
+<p>默认值等于60</p>
+<h2 id="LWAVE——决定在运行结束时波函数是否写入-WAVECAR-文件"><a class="header-anchor" href="#LWAVE——决定在运行结束时波函数是否写入-WAVECAR-文件">¶</a>LWAVE——决定在运行结束时波函数是否写入 WAVECAR 文件</h2>
+<p>LWAVE = [logical]<br>
+默认值：LWAVE = .NOT. LH5 | .TRUE.</p>
+<p>一般情况不开，文件巨大、、、</p>
+<img src="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/image-20250422173131346.png" class="" title="巨大的WAVECAR">
+<h2 id="lCHARG——决定是否写入电荷密度-CHGCAR-CHG"><a class="header-anchor" href="#lCHARG——决定是否写入电荷密度-CHGCAR-CHG">¶</a>lCHARG——决定是否写入电荷密度(CHGCAR &amp; CHG)</h2>
+<p>LCHARG = .NOT.LH5 | .TRUE.<br>
+默认值：LCHARG = .NOT. LH5</p>
+<h2 id="ADDGRID——决定是否使用额外的辅助网格来评估增强电荷"><a class="header-anchor" href="#ADDGRID——决定是否使用额外的辅助网格来评估增强电荷">¶</a>ADDGRID——决定是否使用额外的辅助网格来评估增强电荷</h2>
+<p>ADDGRID = .TRUE. | .FALSE.<br>
+默认值：ADDGRID = .FALSE.</p>
+<p><mark>因此，我们建议进行细致的测试，以验证 ADDGRID 是否按预期工作；请不要默认在所有计算中使用此标签！</mark></p>
+<h2 id="LASPATH——控制局域非球面性修正的参数"><a class="header-anchor" href="#LASPATH——控制局域非球面性修正的参数">¶</a>LASPATH——控制局域非球面性修正的参数</h2>
+<p>看不懂思密达、、、</p>
+<p>LASPH = .TRUE. | .FALSE.</p>
+<p>默认值：LASPH = .FALSE.</p>
+<ul>
+<li>开启 <code>LASPH = .TRUE.</code>
+<ul>
+<li>在计算交换关联能时，计入原子周围电子密度的 <strong>非球面性贡献</strong>（如 d/f 轨道的非对称分布）。</li>
+<li>修正总能量、力和应力，尤其在强各向异性体系中影响显著。</li>
+<li>增加计算量（约10%-30%耗时），但对精度提升可能至关重要。</li>
+</ul>
+</li>
+</ul>
+<h2 id="LVHAR——确定局部势能V-ionic-®-V-hartree-是否写入LOCPOT文件"><a class="header-anchor" href="#LVHAR——确定局部势能V-ionic-®-V-hartree-是否写入LOCPOT文件">¶</a>LVHAR——确定局部势能
+    <span id="mjx-1defb07">
+      <style>
+      #mjx-1defb07{
+        display:contents;
+        mjx-assistive-mml {
+          user-select: text !important;
+          clip: auto !important;
+          color: rgba(0,0,0,0);
+        }
+        
+mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+  min-height: 1px;
+  min-width: 1px;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display="block"] {
+  width: 100% !important;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][display="true"][width="full"] {
+  display: flex;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line], svg[data-table] > g > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame], svg[data-table] > g > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed, svg[data-table] > g > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted, svg[data-table] > g > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > g > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
+  stroke-width: 3;
+}
+
+g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+.MathJax g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+      }
+      </style>
+      <mjx-container class="MathJax" jax="SVG" style="position: relative;"><svg style="vertical-align: -0.357ex;" xmlns="http://www.w3.org/2000/svg" width="5.039ex" height="1.902ex" role="img" focusable="false" viewBox="0 -683 2227.3 840.8" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D449" d="M52 648Q52 670 65 683H76Q118 680 181 680Q299 680 320 683H330Q336 677 336 674T334 656Q329 641 325 637H304Q282 635 274 635Q245 630 242 620Q242 618 271 369T301 118L374 235Q447 352 520 471T595 594Q599 601 599 609Q599 633 555 637Q537 637 537 648Q537 649 539 661Q542 675 545 679T558 683Q560 683 570 683T604 682T668 681Q737 681 755 683H762Q769 676 769 672Q769 655 760 640Q757 637 743 637Q730 636 719 635T698 630T682 623T670 615T660 608T652 599T645 592L452 282Q272 -9 266 -16Q263 -18 259 -21L241 -22H234Q216 -22 216 -15Q213 -9 177 305Q139 623 138 626Q133 637 76 637H59Q52 642 52 648Z"></path></g><g data-mml-node="TeXAtom" transform="translate(616,-150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(345,0)"><path data-c="1D45C" d="M201 -11Q126 -11 80 38T34 156Q34 221 64 279T146 380Q222 441 301 441Q333 441 341 440Q354 437 367 433T402 417T438 387T464 338T476 268Q476 161 390 75T201 -11ZM121 120Q121 70 147 48T206 26Q250 26 289 58T351 142Q360 163 374 216T388 308Q388 352 370 375Q346 405 306 405Q243 405 195 347Q158 303 140 230T121 120Z"></path></g><g data-mml-node="mi" transform="translate(830,0)"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(1430,0)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(1775,0)"><path data-c="1D450" d="M34 159Q34 268 120 355T306 442Q362 442 394 418T427 355Q427 326 408 306T360 285Q341 285 330 295T319 325T330 359T352 380T366 386H367Q367 388 361 392T340 400T306 404Q276 404 249 390Q228 381 206 359Q162 315 142 235T121 119Q121 73 147 50Q169 26 205 26H209Q321 26 394 111Q403 121 406 121Q410 121 419 112T429 98T420 83T391 55T346 25T282 0T202 -11Q127 -11 81 37T34 159Z"></path></g></g></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>V</mi><mrow data-mjx-texclass="ORD"><mi>i</mi><mi>o</mi><mi>n</mi><mi>i</mi><mi>c</mi></mrow></msub></math></mjx-assistive-mml></mjx-container>
+    </span>
+  ®+
+    <span id="mjx-5a447e">
+      <style>
+      #mjx-5a447e{
+        display:contents;
+        mjx-assistive-mml {
+          user-select: text !important;
+          clip: auto !important;
+          color: rgba(0,0,0,0);
+        }
+        
+mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+  min-height: 1px;
+  min-width: 1px;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display="block"] {
+  width: 100% !important;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][display="true"][width="full"] {
+  display: flex;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line], svg[data-table] > g > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame], svg[data-table] > g > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed, svg[data-table] > g > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted, svg[data-table] > g > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > g > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
+  stroke-width: 3;
+}
+
+g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+.MathJax g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+      }
+      </style>
+      <mjx-container class="MathJax" jax="SVG" style="position: relative;"><svg style="vertical-align: -0.357ex;" xmlns="http://www.w3.org/2000/svg" width="6.786ex" height="1.902ex" role="img" focusable="false" viewBox="0 -683 2999.5 840.8" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D449" d="M52 648Q52 670 65 683H76Q118 680 181 680Q299 680 320 683H330Q336 677 336 674T334 656Q329 641 325 637H304Q282 635 274 635Q245 630 242 620Q242 618 271 369T301 118L374 235Q447 352 520 471T595 594Q599 601 599 609Q599 633 555 637Q537 637 537 648Q537 649 539 661Q542 675 545 679T558 683Q560 683 570 683T604 682T668 681Q737 681 755 683H762Q769 676 769 672Q769 655 760 640Q757 637 743 637Q730 636 719 635T698 630T682 623T670 615T660 608T652 599T645 592L452 282Q272 -9 266 -16Q263 -18 259 -21L241 -22H234Q216 -22 216 -15Q213 -9 177 305Q139 623 138 626Q133 637 76 637H59Q52 642 52 648Z"></path></g><g data-mml-node="TeXAtom" transform="translate(616,-150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="210E" d="M137 683Q138 683 209 688T282 694Q294 694 294 685Q294 674 258 534Q220 386 220 383Q220 381 227 388Q288 442 357 442Q411 442 444 415T478 336Q478 285 440 178T402 50Q403 36 407 31T422 26Q450 26 474 56T513 138Q516 149 519 151T535 153Q555 153 555 145Q555 144 551 130Q535 71 500 33Q466 -10 419 -10H414Q367 -10 346 17T325 74Q325 90 361 192T398 345Q398 404 354 404H349Q266 404 205 306L198 293L164 158Q132 28 127 16Q114 -11 83 -11Q69 -11 59 -2T48 16Q48 30 121 320L195 616Q195 629 188 632T149 637H128Q122 643 122 645T124 664Q129 683 137 683Z"></path></g><g data-mml-node="mi" transform="translate(576,0)"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mi" transform="translate(1105,0)"><path data-c="1D45F" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(1556,0)"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g><g data-mml-node="mi" transform="translate(1917,0)"><path data-c="1D45F" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(2368,0)"><path data-c="1D452" d="M39 168Q39 225 58 272T107 350T174 402T244 433T307 442H310Q355 442 388 420T421 355Q421 265 310 237Q261 224 176 223Q139 223 138 221Q138 219 132 186T125 128Q125 81 146 54T209 26T302 45T394 111Q403 121 406 121Q410 121 419 112T429 98T420 82T390 55T344 24T281 -1T205 -11Q126 -11 83 42T39 168ZM373 353Q367 405 305 405Q272 405 244 391T199 357T170 316T154 280T149 261Q149 260 169 260Q282 260 327 284T373 353Z"></path></g><g data-mml-node="mi" transform="translate(2834,0)"><path data-c="1D452" d="M39 168Q39 225 58 272T107 350T174 402T244 433T307 442H310Q355 442 388 420T421 355Q421 265 310 237Q261 224 176 223Q139 223 138 221Q138 219 132 186T125 128Q125 81 146 54T209 26T302 45T394 111Q403 121 406 121Q410 121 419 112T429 98T420 82T390 55T344 24T281 -1T205 -11Q126 -11 83 42T39 168ZM373 353Q367 405 305 405Q272 405 244 391T199 357T170 316T154 280T149 261Q149 260 169 260Q282 260 327 284T373 353Z"></path></g></g></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>V</mi><mrow data-mjx-texclass="ORD"><mi>h</mi><mi>a</mi><mi>r</mi><mi>t</mi><mi>r</mi><mi>e</mi><mi>e</mi></mrow></msub></math></mjx-assistive-mml></mjx-container>
+    </span>
+  是否写入LOCPOT文件</h2>
+<p>默认值：LVHAR = .FALSE.</p>
+<h2 id="LORBIT——选择一种投影到局部量子数-lm-上的方法，并写入-PROCAR-PROOUT-文件"><a class="header-anchor" href="#LORBIT——选择一种投影到局部量子数-lm-上的方法，并写入-PROCAR-PROOUT-文件">¶</a>LORBIT——选择一种投影到局部量子数(lm)上的方法，并写入 PROCAR/PROOUT 文件</h2>
+<ul>
+<li><strong>作用</strong>：决定是否计算并输出原子轨道的投影波函数（投影到球谐函数或特定轨道），以及如何输出局域态密度（LDOS）。</li>
+<li><strong>输出文件</strong>：主要影响<code>PROCAR</code>和<code>DOSCAR</code>文件的内容（若<code>LORBIT</code>≥10还会生成<code>LOCPOT</code>等文件）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>功能说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+<td><strong>默认值</strong>，不计算轨道投影（仅输出总能带和总态密度）。</td>
+</tr>
+<tr>
+<td><strong>1</strong></td>
+<td>计算原子轨道的投影（写入<code>PROCAR</code>），但不分解到具体轨道（如s/p/d）。</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td>分解到轨道角动量（s/p/d/f）的投影，但不分磁量子数（如px/py/pz不分开）。</td>
+</tr>
+<tr>
+<td><strong>10</strong></td>
+<td>类似<code>LORBIT=1</code>，但额外输出<code>LOCPOT</code>文件（包含局域势信息）。</td>
+</tr>
+<tr>
+<td><strong>11</strong></td>
+<td>类似<code>LORBIT=2</code>，但额外输出<code>LOCPOT</code>文件。</td>
+</tr>
+<tr>
+<td><strong>12</strong></td>
+<td><strong>最常用</strong>：分解到磁量子数（如px/py/pz分开），适合详细轨道分析。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="LASPH——控制赝势计算中是否考虑非球面贡献"><a class="header-anchor" href="#LASPH——控制赝势计算中是否考虑非球面贡献">¶</a>LASPH——控制赝势计算中是否考虑非球面贡献</h2>
+<p>主要影响**交换关联势（XC Potential）<strong>和</strong>电荷密度（Charge Density）**的计算精度</p>
+<p>默认值：LASPH = .FALSE.</p>
+<p><strong>作用</strong>：决定是否在计算中考虑电子密度和势场的<strong>非球对称部分</strong>（即角动量 <code>l &gt; 0</code> 的贡献）。</p>
+<ul>
+<li>若<code>LASPH = .TRUE.</code>，VASP会计算电子密度和势场的高阶角动量分量（如 <code>d, f</code> 轨道），提升精度。</li>
+<li>若<code>LASPH = .FALSE.</code>（默认值），仅考虑球对称部分（<code>l = 0</code>），计算更快但可能损失部分精度</li>
+</ul>
+<h2 id="MDALGO——指定分子动力学模拟算法"><a class="header-anchor" href="#MDALGO——指定分子动力学模拟算法">¶</a>MDALGO——指定分子动力学模拟算法</h2>
+<p><strong>（当 IBRION = 0 且 VASP 使用-Dtbdyn 编译时才启用）</strong></p>
+<p>MDALGO = 0 | 1 | 2 | 3 | 4 | 5 | 11 | 21 | 13</p>
+<table>
+<thead>
+<tr>
+<th>MDALGO 取值</th>
+<th>恒温器 / 模拟方式</th>
+<th>适用系综</th>
+<th>设置要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>标准分子动力学</td>
+<td>NVE</td>
+<td>设置 IBRION=0、TEBEG、POTIM、NSW；MDALGO=0；SMASS=-3</td>
+</tr>
+<tr>
+<td>1</td>
+<td>安徒生恒温器</td>
+<td>NVT</td>
+<td>设置 IBRION=0、TEBEG、POTIM、NSW；MDALGO=1；选择合适的 ANDERSEN_PROB</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Nose-Hoover 恒温器</td>
+<td>NVT</td>
+<td>设置 IBRION=0、TEBEG、POTIM、NSW；MDALGO=2；选择合适的 SMASS</td>
+</tr>
+<tr>
+<td>3</td>
+<td>朗之万恒温器</td>
+<td>NVT、NpT</td>
+<td>NVT 模拟：设置 IBRION=0、TEBEG、POTIM、NSW；ISIF=2；MDALGO=3；在 POSCAR 文件通过 LANGEVIN_GAMMA-tag 指定摩擦系数 NpT 模拟：设置 IBRION=0、TEBEG、POTIM、NSW；ISIF=3；MDALGO=3；在 POSCAR 文件通过 LANGEVIN_GAMMA-tag 指定摩擦系数；通过 LANGEVIN_GAMMA_L-tag 指定晶格自由度摩擦系数；通过 PMASS-tag 设置晶格自由度质量；可通过 PSTRESS-tag 定义外部压力</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Nose Hoover chains 恒温器</td>
+<td>NVT</td>
+<td>设置 IBRION=0、TEBEG、POTIM、NSW；ISIF=2；MDALGO=4；选择 NHC_NCHAINS 和 NHC_PERIOD</td>
+</tr>
+<tr>
+<td>5</td>
+<td>CSVR 恒温器</td>
+<td>NVT</td>
+<td>设置 IBRION=0、TEBEG、POTIM、NSW；ISIF=2；MDALGO=5；选择 CSVR_PERIOD</td>
+</tr>
+<tr>
+<td>13</td>
+<td>多个安徒生恒温器</td>
+<td>-</td>
+<td>在 POSCAR 文件按顺序定义子系统原子位置；设置 NSUBSYS 定义每个子系统的最后一个原子；设置 TSUBSYS 定义每个子系统的模拟温度；设置 PSUBSYS 定义每个子系统原子的碰撞概率（0≤PSUBSYS≤1）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="SMASS——在从头算分子动力学运行期间控制速度。"><a class="header-anchor" href="#SMASS——在从头算分子动力学运行期间控制速度。">¶</a>SMASS——在从头算分子动力学运行期间控制速度。</h2>
+<p>SMASS = -3 | -2 | -1 | [real] ≥ 0</p>
+<p>Default: <strong>SMASS</strong> = -3</p>
+<p>对于SMASS = -3，模拟了一个微正则系综（NVE系综）</p>
+<blockquote>
+<p><strong>Tip:</strong> To calculate an <a target="_blank" rel="noopener" href="https://www.vasp.at/wiki/index.php/NVE_ensemble">NVE ensemble</a> we instead recommend to use <code>MDALGO = 1</code> and <code>ANDERSEN_PROB = 0.0</code></p>
+</blockquote>
+<p>对于 SMASS = -2，初始速度保持恒定。这使得能够计算一组不同线性相关位置（例如冻结声子或具有不同键长的二聚体）的能量。</p>
+<p>注意：如果 SMASS = -2，实际采取的步数为 POTIM×（从 POSCAR 文件读取的速度）。为避免歧义，请将 POTIM 设置为 1</p>
+<h2 id="IVDW参数——控制范德华修正"><a class="header-anchor" href="#IVDW参数——控制范德华修正">¶</a>IVDW参数——控制范德华修正</h2>
+<p>DFT中，标准的交换关联泛函（如PBE、LDA）无法准确描述范德华力，因此需要通过额外的修正方法来处理</p>
+<p>默认不启用范德华修正</p>
+<ul>
+<li><strong>IVDW = 0</strong>：不启用范德华修正（默认值）。</li>
+<li><strong>IVDW = 1</strong>：启用<strong>DFT-D2</strong>方法（Grimme的DFT-D2修正）。</li>
+<li><strong>IVDW = 10</strong>：启用<strong>DFT-D3</strong>方法（Grimme的DFT-D3修正，不带Becke-Johnson阻尼）。</li>
+<li><strong>IVDW = 11</strong>：启用<strong>DFT-D3</strong>方法（带Becke-Johnson阻尼，即DFT-D3(BJ)）。</li>
+<li><strong>IVDW = 12</strong>：启用<strong>DFT-D4</strong>方法（Grimme的DFT-D4修正）。</li>
+<li><strong>IVDW = 20</strong>：启用**Tkatchenko-Scheffler (TS)**方法。</li>
+<li><strong>IVDW = 21</strong>：启用**Tkatchenko-Scheffler with self-consistent screening (TS-SCS)**方法。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://example.com">John Doe</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://example.com/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/">http://example.com/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%8C%96%E5%AD%A6/">化学</a><a class="post-meta__tags" href="/tags/%E7%A7%91%E7%A0%94/">科研</a></div><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/formula/" title="一些简单的Linux命令"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">一些简单的Linux命令</div></div><div class="info-2"><div class="info-item-1">使用for循环批量创建文件夹 1for i in &#123;2..9&#125;; do cp 0.01 0.0$i -r ; done 使用sed命令不打开文件而进行替换 1sed &#x27;3s/0.01/0.02/g&#x27; ICNAR  对第三行(3)出现的所有0.01(g,全局替换)进行替换(s表示替换操作)，替换为0.02，只输出替换后的结果 sed ‘3/0.01/0.02/g’ INCAR &gt; INCAR最后什么也没有 加上-i参数可以直接进行编辑  结合for循环和sed批量命名 1234567891011[storm@cachyos-x8664 ex03]$ for i in *; do sed -i &quot;3s/0.05/$i/g&quot; $i/INCAR ; done[storm@cachyos-x8664 ex03]$ grep SIGMA */INCAR0.01/INCAR:SIGMA = 0.010.02/INCAR:SIGMA = 0.020.03/INCAR:SIGMA = 0.030.04/INCAR:SIGMA = 0...</div></div></div></a><a class="pagination-related" href="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/VASP%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8D%E6%8A%A5%E9%94%99/" title="VASP中的各种报错"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">VASP中的各种报错</div></div><div class="info-2"><div class="info-item-1">如题，记录一下在计算时遇到的各种报错 ¶2025.05.14 12345678910111213141516 -----------------------------------------------------------------------------|                                                                             ||     EEEEEEE  RRRRRR   RRRRRR   OOOOOOO  RRRRRR      ###     ###     ###     ||     E        R     R  R     R  O     O  R     R     ###     ###     ###     ||     E        R     R  R     R  O     O  R     R     ###     ###     ###     ||     EEEEE    RRRRRR   RRRRRR   O     O  RRRRRR ...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/09/04/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/AIMD%E6%A8%A1%E6%8B%9F%E5%9B%BA%E6%80%81%E7%94%B5%E8%A7%A3%E8%B4%A8%E7%A6%BB%E5%AD%90%E7%94%B5%E5%AF%BC%E7%8E%87/" title="VASP进行AIMD模拟固态电解质离子电导率的计算"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-04</div><div class="info-item-2">VASP进行AIMD模拟固态电解质离子电导率的计算</div></div><div class="info-2"><div class="info-item-1">使用VASP计算离子电导率，需要进行从头算分子动力学(AIMD)模拟，对象为                   #mjx-ab1dee3{         display:contents;         mjx-assistive-mml {           user-select: text !important;           clip: auto !important;           color: rgba(0,0,0,0);         }          mjx-container[jax="SVG"] {   direction: ltr; }  mjx-container[jax="SVG"] > svg {   overflow: visible;   min-height: 1px;   min-width: 1px; }  mjx-container[jax="SVG"] > svg a {   fill: blue;   stroke: blue; }  mjx-assistive-mml {   position: absolu...</div></div></div></a><a class="pagination-related" href="/2025/05/24/%E7%A7%91%E7%A0%94/first%20stage/2025-05-24-%E5%85%B3%E4%BA%8EX%E5%B0%84%E7%BA%BF%E7%B2%89%E6%9C%AB%E8%A1%8D%E5%B0%84/" title="从零开始的X射线原理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-24</div><div class="info-item-2">从零开始的X射线原理</div></div><div class="info-2"><div class="info-item-1">¶前言 1917 年，赫尔首次描述了简单粉末衍射仪的构造，这是在 1895 年威廉·康拉德·伦琴发现 X 射线后不久。衍射仪测量 X 射线反射的角度，从而获得其包含的结构信息。如今，这项技术的分辨率有了显著提高，它被广泛用作分析相信息和解决固态材料晶体结构的工具。X 射线衍射技术用于确定样品的组成或晶体结构。对于大分子和无机化合物等较大的晶体，它可用于确定样品中原子的结构。如果晶体尺寸太小，它可以确定样品的组成、结晶度和相纯度。 ¶什么是X射线？ X射线是一种电磁波，由内壳层电子跃迁所得：  对于原子序数为Z、仅含一个电子的类氢原子，内壳层电子跃迁所辐射的能量可由Rydberg方程计算：                    #mjx-7fe29fd{         display:contents;         mjx-assistive-mml {           user-select: text !important;           clip: auto !important;           color: rgba(0,0,0,0);        ...</div></div></div></a><a class="pagination-related" href="/2025/06/06/%E7%A7%91%E7%A0%94/first%20stage/%E5%85%B3%E4%BA%8ERietveld%E7%B2%BE%E4%BF%AE/" title="从零开始的Rietveld精修"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-06-06</div><div class="info-item-2">从零开始的Rietveld精修</div></div><div class="info-2"><div class="info-item-1">we we                    #mjx-23c83cf8{         display:contents;         mjx-assistive-mml {           user-select: text !important;           clip: auto !important;           color: rgba(0,0,0,0);         }          mjx-container[jax="SVG"] {   direction: ltr; }  mjx-container[jax="SVG"] > svg {   overflow: visible;   min-height: 1px;   min-width: 1px; }  mjx-container[jax="SVG"] > svg a {   fill: blue;   stroke: blue; }  mjx-assistive-mml {   position: absolute !important;   top: 0px;   le...</div></div></div></a><a class="pagination-related" href="/2025/07/20/%E5%9B%BA%E4%BD%93%E5%8C%96%E5%AD%A6/" title="关于固体化学"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-20</div><div class="info-item-2">关于固体化学</div></div><div class="info-2"><div class="info-item-1">从固体材料的化学组成来区，主要有无机、有机和金属三大类材料。固体物质可以按照其中原子排列的有序成都分类为晶态固体和非晶态固体，后者类似于液体，只在及个原子间距的短程范围内具有源自有序的状态，比如玻璃和许多聚合物可以看作是过冷的液体，它们中间的原子排列是没有一定的格子的。 金属键和金属晶体 ¶金属的自由电子模型 20世纪初，Drude和Lorentz提出了自由电子论。金属都是电离能第、颠覆性小的元素，这些元素容易失去外层价电子，形成正离子，正离子按照紧密堆积的方式形成晶体，价电子在整个金属晶体中自由运动，为所有原子所共有。自由电子处于类似于理想气体的状态，可以看作是自由电子气 在金属表面存在着一种把自由电子限制在金属范围内的是能查，但是在金属内部，势能是相对均匀的，好像自由电子是在一个均匀的正电场中运动着，势能相对为0. 当沿着与电流在金属晶体中运动方向垂直的方向上再施加一个外磁场时，电子将受到Lorentz力而偏向某一侧，这便是霍尔效应。大多数金属的霍尔系数小于零，即载流子是电子。然而有一些金属如Zn，Cd，Pb等，其霍尔系数大于零，载流子密度月底，霍尔系数值越高，但是由霍尔效应...</div></div></div></a><a class="pagination-related" href="/2025/05/27/%E7%A7%91%E7%A0%94/first%20stage/%E7%94%B5%E5%8C%96%E5%AD%A6%E9%98%BB%E6%8A%97%E8%B0%B1/" title="从零开始的电化学阻抗谱原理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-27</div><div class="info-item-2">从零开始的电化学阻抗谱原理</div></div><div class="info-2"><div class="info-item-1">¶什么是电化学阻抗谱？ 有一种叫做黑箱的未知特性系统。可采用一系列测量方法，通过施加输入信号并检测输出响应来探查黑箱。例如，假设将黑箱置于暗室中，然后施加特定波长的光照。若观察到响应信号（如电流），则可判定箱内物质具有光活性。输入与输出之间的关系称为“传递函数”，阻抗谱是传递函数的一种特例。 阻抗：电路中电阻、电感、电容对交流电个阻碍作用个统称。阻抗是一个复数，实部称为电阻，虚部称为电抗。电化学过程主要涉及电荷在电极和电解质界面上的传输和存储。例如，电极表面的双电层效应会形成双电层电容，电解质中的离子扩散也会导致电容行为。这些机制使电容成为电化学系统中主要的电抗元件。 相比之下，电感通常与磁场的变化相关，比如电流通过线圈时产生的磁场。然而，在常规的电化学系统中，磁场变化通常不显著，因此电感的影响非常小，通常电化学系统中考虑电阻、容抗而不考虑感抗。 电化学阻抗谱（EIS）通过施加交流电压（或电流）并测量产生的电流（或电压），能够研究电极和电化学池的电化学特性，利用等效电路进行分析，可以确定与电极电化学反应相关的重要参数，如电荷转移电阻、双电层电容和Warburg阻抗 ¶阻抗的复数表...</div></div></div></a><a class="pagination-related" href="/2025/09/01/%E7%A7%91%E7%A0%94/first%20stage/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E9%94%82%E7%94%B5%E6%B1%A0%E5%9F%BA%E7%A1%80%E7%A7%91%E5%AD%A6/%E8%83%BD%E9%87%8F%E5%AF%86%E5%BA%A6%E7%9A%84%E4%BC%B0%E7%AE%97/" title="第一弹——能量密度的估算"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-01</div><div class="info-item-2">第一弹——能量密度的估算</div></div><div class="info-2"><div class="info-item-1">   项目 3C设备 动力电池 储能     质量能量密度 /(W·h·kg⁻¹) 260~295 240~300 140~200   体积能量密度 /(W·h·L⁻¹) 650~730 500~600 320~450   循环寿命 /周 1000 1500~3000 5000~15000   倍率 3C 1~3C 0.2~0.5C   工作温度 /℃ ‑20~55 ‑30~55 ‑30~55   成本 /(元·(W·h电芯)⁻¹) 1.2~2.0 0.5~1.2 0.5~0.8   电池容量 /A·h 3~20 3.2~200 50~400   工程能力指数 (Cpk) 1.33~1.66 — —   安全性（欧洲汽车危险等级） 4 — —    上表是三种常见的不同应用场合锂离子电池的性能参数 电化学池的环境可近似为恒温、恒压且非体积功只有电功，那么反应中吉布斯自由能的改变即为电功：                    #mjx-2c06b7{         display:contents;         mjx-assistive-mml {           u...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">John Doe</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">89</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">15</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Contents</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%84%E7%A7%8D%E5%8F%82%E6%95%B0%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text">各种参数的作用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ISTART%E2%80%94%E2%80%94%E7%A1%AE%E5%AE%9A%E6%98%AF%E5%90%A6%E8%AF%BB%E5%8F%96-WAVECAR-%E6%96%87%E4%BB%B6"><span class="toc-number">1.1.</span> <span class="toc-text">ISTART——确定是否读取 WAVECAR 文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ICHARG%E2%80%94%E2%80%94%E7%A1%AE%E5%AE%9A-VASP-%E5%A6%82%E4%BD%95%E6%9E%84%E9%80%A0%E5%88%9D%E5%A7%8B%E7%94%B5%E8%8D%B7%E5%AF%86%E5%BA%A6"><span class="toc-number">1.2.</span> <span class="toc-text">ICHARG——确定 VASP 如何构造初始电荷密度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PREC%E2%80%94%E2%80%94%E6%8C%87%E5%AE%9A%E7%B2%BE%E5%BA%A6%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.3.</span> <span class="toc-text">PREC——指定精度模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LREAL%E2%80%94%E2%80%94%E7%A1%AE%E5%AE%9A%E6%8A%95%E5%BD%B1%E7%AE%97%E5%AD%90%E6%98%AF%E5%9C%A8%E5%AE%9E%E7%A9%BA%E9%97%B4%E8%BF%98%E6%98%AF%E5%9C%A8%E5%80%92%E6%95%B0%E7%A9%BA%E9%97%B4%E4%B8%AD%E6%B1%82%E5%80%BC"><span class="toc-number">1.4.</span> <span class="toc-text">LREAL——确定投影算子是在实空间还是在倒数空间中求值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ALGO%E2%80%94%E2%80%94%E6%8C%87%E5%AE%9A%E7%94%B5%E5%AD%90%E6%9C%80%E5%B0%8F%E5%8C%96%E7%AE%97%E6%B3%95%E6%88%96%E9%80%89%E6%8B%A9-GW-%E8%AE%A1%E7%AE%97%E7%B1%BB%E5%9E%8B%E7%9A%84%E4%BE%BF%E6%8D%B7%E9%80%89%E9%A1%B9%E3%80%82"><span class="toc-number">1.5.</span> <span class="toc-text">ALGO——指定电子最小化算法或选择 GW 计算类型的便捷选项。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ENCUT%E2%80%94%E2%80%94%E6%8C%87%E5%AE%9A%E4%BB%A5-eV-%E4%B8%BA%E5%8D%95%E4%BD%8D%E8%AE%BE%E7%BD%AE%E7%9A%84%E5%B9%B3%E9%9D%A2%E6%B3%A2%E5%9F%BA%E7%9A%84%E8%83%BD%E9%87%8F%E6%88%AA%E6%AD%A2"><span class="toc-number">1.6.</span> <span class="toc-text">ENCUT——指定以 eV 为单位设置的平面波基的能量截止</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ISMEAR%E2%80%94%E2%80%94%E8%83%BD%E5%B8%A6%E5%B1%95%E5%AE%BD%E6%96%B9%E6%B3%95"><span class="toc-number">1.7.</span> <span class="toc-text">ISMEAR——能带展宽方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ISMEAR%EF%BC%9A%E5%86%B3%E5%AE%9A%E5%A6%82%E4%BD%95%E7%BB%99%E7%94%B5%E5%AD%90%E2%80%9C%E6%89%93%E5%88%86%E2%80%9D"><span class="toc-number">1.7.1.</span> <span class="toc-text">ISMEAR：决定如何给电子“打分”</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-SIGMA%EF%BC%9A%E5%B1%95%E5%AE%BD%E7%9A%84%E2%80%9C%E5%AE%BD%E5%AE%B9%E5%BA%A6%E2%80%9D"><span class="toc-number">1.7.2.</span> <span class="toc-text">2. SIGMA：展宽的“宽容度”</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%B0%E5%BA%95%E6%80%8E%E4%B9%88%E8%AE%BE%E7%BD%AE%EF%BC%9F%E4%B8%80%E5%8F%A5%E8%AF%9D%E6%80%BB%E7%BB%93"><span class="toc-number">1.7.3.</span> <span class="toc-text">到底怎么设置？一句话总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF"><span class="toc-number">1.8.</span> <span class="toc-text">常见错误</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BE%E4%B8%AA%E5%85%B7%E4%BD%93%E4%BE%8B%E5%AD%90"><span class="toc-number">1.9.</span> <span class="toc-text">举个具体例子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%88%E6%9E%81%E5%8F%A3%E8%AF%80"><span class="toc-number">1.10.</span> <span class="toc-text">终极口诀</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IBRION%E2%80%94%E2%80%94%E7%A1%AE%E5%AE%9A%E5%9C%A8%E8%AE%A1%E7%AE%97%E8%BF%87%E7%A8%8B%E4%B8%AD%E6%99%B6%E4%BD%93%E7%BB%93%E6%9E%84%E5%A6%82%E4%BD%95%E5%8F%98%E5%8C%96%EF%BC%88%E5%A6%82%E4%BD%95%E8%B0%83%E6%95%B4%E5%8E%9F%E5%AD%90%E4%BD%8D%E7%BD%AE%E6%9D%A5%E5%AF%BB%E6%89%BE%E8%83%BD%E9%87%8F%E6%9C%80%E4%BD%8E%E7%82%B9%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">IBRION——确定在计算过程中晶体结构如何变化（如何调整原子位置来寻找能量最低点）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NSW%E2%80%94%E2%80%94%E6%8F%8F%E8%BF%B0%E7%A6%BB%E5%AD%90%E6%AD%A5%E9%95%BF%E7%9A%84%E6%9C%80%E5%A4%A7%E6%95%B0%E9%87%8F"><span class="toc-number">3.</span> <span class="toc-text">NSW——描述离子步长的最大数量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#POTIM%E2%80%94%E2%80%94%E8%AE%BE%E7%BD%AE%E5%88%86%E5%AD%90%E5%8A%A8%E5%8A%9B%E5%AD%A6%E4%B8%AD%E7%9A%84%E6%97%B6%E9%97%B4%E6%AD%A5%E9%95%BF%E6%88%96%E7%A6%BB%E5%AD%90%E5%BC%9B%E8%B1%AB%E4%B8%AD%E7%9A%84%E6%AD%A5%E9%95%BF%E5%AE%BD%E5%BA%A6"><span class="toc-number">4.</span> <span class="toc-text">POTIM——设置分子动力学中的时间步长或离子弛豫中的步长宽度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NCORE%E2%80%94%E2%80%94%E7%A1%AE%E5%AE%9A%E5%9C%A8%E5%8D%95%E4%B8%AA%E8%BD%A8%E9%81%93%E4%B8%8A%E5%B7%A5%E4%BD%9C%E7%9A%84%E8%AE%A1%E7%AE%97%E6%A0%B8%E5%BF%83%E6%95%B0%E9%87%8F"><span class="toc-number">5.</span> <span class="toc-text">NCORE——确定在单个轨道上工作的计算核心数量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NFREE%E2%80%94%E2%80%94%E6%A0%B9%E6%8D%AE-IBRION%EF%BC%8CNFREE-%E6%8C%87%E5%AE%9A%E7%A6%BB%E5%AD%90%E6%94%B6%E6%95%9B%E8%BF%90%E8%A1%8C%E5%8E%86%E5%8F%B2%E4%B8%AD%E8%AE%B0%E4%BD%8F%E7%9A%84%E6%AD%A5%E6%95%B0%EF%BC%8C%E6%88%96%E5%86%BB%E7%BB%93%E5%A3%B0%E5%AD%90%E8%AE%A1%E7%AE%97%E4%B8%AD%E7%9A%84%E7%A6%BB%E5%AD%90%E4%BD%8D%E7%A7%BB%E6%95%B0"><span class="toc-number">6.</span> <span class="toc-text">NFREE——根据 IBRION，NFREE 指定离子收敛运行历史中记住的步数，或冻结声子计算中的离子位移数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LDIPOL%E2%80%94%E2%80%94%E5%BC%80%E5%90%AF%E5%AF%B9%E5%8A%BF%E8%83%BD%E5%92%8C%E5%8A%9B%E7%9A%84%E4%BF%AE%E6%AD%A3"><span class="toc-number">7.</span> <span class="toc-text">LDIPOL——开启对势能和力的修正</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IDIPOL%E2%80%94%E2%80%94%E5%BC%80%E5%90%AF%E5%AF%B9%E7%89%B9%E5%AE%9A%E6%96%B9%E5%90%91%E6%88%96%E6%89%80%E6%9C%89%E6%96%B9%E5%90%91%E7%9A%84%E6%80%BB%E8%83%BD%E9%87%8F%E7%9A%84%E5%8D%95%E6%9E%81-%E5%81%B6%E6%9E%81%E5%92%8C%E5%9B%9B%E6%9E%81%E6%A0%A1%E6%AD%A3"><span class="toc-number">8.</span> <span class="toc-text">IDIPOL——开启对特定方向或所有方向的总能量的单极&#x2F;偶极和四极校正</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ISPIN%E2%80%94%E2%80%94%E6%8E%A7%E5%88%B6%E8%87%AA%E6%97%8B%E6%9E%81%E5%8C%96"><span class="toc-number">9.</span> <span class="toc-text">ISPIN——控制自旋极化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NELM%E2%80%94%E2%80%94%E6%9C%80%E5%A4%A7%E7%94%B5%E5%AD%90%E6%AD%A5%E6%94%B6%E6%95%9B"><span class="toc-number">10.</span> <span class="toc-text">NELM——最大电子步收敛</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LWAVE%E2%80%94%E2%80%94%E5%86%B3%E5%AE%9A%E5%9C%A8%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9D%9F%E6%97%B6%E6%B3%A2%E5%87%BD%E6%95%B0%E6%98%AF%E5%90%A6%E5%86%99%E5%85%A5-WAVECAR-%E6%96%87%E4%BB%B6"><span class="toc-number">11.</span> <span class="toc-text">LWAVE——决定在运行结束时波函数是否写入 WAVECAR 文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lCHARG%E2%80%94%E2%80%94%E5%86%B3%E5%AE%9A%E6%98%AF%E5%90%A6%E5%86%99%E5%85%A5%E7%94%B5%E8%8D%B7%E5%AF%86%E5%BA%A6-CHGCAR-CHG"><span class="toc-number">12.</span> <span class="toc-text">lCHARG——决定是否写入电荷密度(CHGCAR &amp; CHG)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ADDGRID%E2%80%94%E2%80%94%E5%86%B3%E5%AE%9A%E6%98%AF%E5%90%A6%E4%BD%BF%E7%94%A8%E9%A2%9D%E5%A4%96%E7%9A%84%E8%BE%85%E5%8A%A9%E7%BD%91%E6%A0%BC%E6%9D%A5%E8%AF%84%E4%BC%B0%E5%A2%9E%E5%BC%BA%E7%94%B5%E8%8D%B7"><span class="toc-number">13.</span> <span class="toc-text">ADDGRID——决定是否使用额外的辅助网格来评估增强电荷</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LASPATH%E2%80%94%E2%80%94%E6%8E%A7%E5%88%B6%E5%B1%80%E5%9F%9F%E9%9D%9E%E7%90%83%E9%9D%A2%E6%80%A7%E4%BF%AE%E6%AD%A3%E7%9A%84%E5%8F%82%E6%95%B0"><span class="toc-number">14.</span> <span class="toc-text">LASPATH——控制局域非球面性修正的参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LVHAR%E2%80%94%E2%80%94%E7%A1%AE%E5%AE%9A%E5%B1%80%E9%83%A8%E5%8A%BF%E8%83%BDV-ionic-%C2%AE-V-hartree-%E6%98%AF%E5%90%A6%E5%86%99%E5%85%A5LOCPOT%E6%96%87%E4%BB%B6"><span class="toc-number">15.</span> <span class="toc-text">LVHAR——确定局部势能
+    
+      
+      #mjx-1defb07{
+        display:contents;
+        mjx-assistive-mml {
+          user-select: text !important;
+          clip: auto !important;
+          color: rgba(0,0,0,0);
+        }
+        
+mjx-container[jax&#x3D;&quot;SVG&quot;] {
+  direction: ltr;
+}
+
+mjx-container[jax&#x3D;&quot;SVG&quot;] &gt; svg {
+  overflow: visible;
+  min-height: 1px;
+  min-width: 1px;
+}
+
+mjx-container[jax&#x3D;&quot;SVG&quot;] &gt; svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display&#x3D;&quot;block&quot;] {
+  width: 100% !important;
+}
+
+mjx-container[jax&#x3D;&quot;SVG&quot;][display&#x3D;&quot;true&quot;] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax&#x3D;&quot;SVG&quot;][display&#x3D;&quot;true&quot;][width&#x3D;&quot;full&quot;] {
+  display: flex;
+}
+
+mjx-container[jax&#x3D;&quot;SVG&quot;][justify&#x3D;&quot;left&quot;] {
+  text-align: left;
+}
+
+mjx-container[jax&#x3D;&quot;SVG&quot;][justify&#x3D;&quot;right&quot;] {
+  text-align: right;
+}
+
+g[data-mml-node&#x3D;&quot;merror&quot;] &gt; g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node&#x3D;&quot;merror&quot;] &gt; rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node&#x3D;&quot;mtable&quot;] &gt; line[data-line], svg[data-table] &gt; g &gt; line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node&#x3D;&quot;mtable&quot;] &gt; rect[data-frame], svg[data-table] &gt; g &gt; rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node&#x3D;&quot;mtable&quot;] &gt; .mjx-dashed, svg[data-table] &gt; g &gt; .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node&#x3D;&quot;mtable&quot;] &gt; .mjx-dotted, svg[data-table] &gt; g &gt; .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node&#x3D;&quot;mtable&quot;] &gt; g &gt; svg {
+  overflow: visible;
+}
+
+[jax&#x3D;&quot;SVG&quot;] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax&#x3D;&quot;SVG&quot;] mjx-tool &gt; mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool &gt; mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node&#x3D;&quot;maction&quot;][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+mjx-container[jax&#x3D;&quot;SVG&quot;] path[data-c], mjx-container[jax&#x3D;&quot;SVG&quot;] use[data-c] {
+  stroke-width: 3;
+}
+
+g[data-mml-node&#x3D;&quot;xypic&quot;] path {
+  stroke-width: inherit;
+}
+
+.MathJax g[data-mml-node&#x3D;&quot;xypic&quot;] path {
+  stroke-width: inherit;
+}
+
+      }
+      
+      Vionic
+    
+  ®+
+    
+      
+      #mjx-5a447e{
+        display:contents;
+        mjx-assistive-mml {
+          user-select: text !important;
+          clip: auto !important;
+          color: rgba(0,0,0,0);
+        }
+        
+mjx-container[jax&#x3D;&quot;SVG&quot;] {
+  direction: ltr;
+}
+
+mjx-container[jax&#x3D;&quot;SVG&quot;] &gt; svg {
+  overflow: visible;
+  min-height: 1px;
+  min-width: 1px;
+}
+
+mjx-container[jax&#x3D;&quot;SVG&quot;] &gt; svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display&#x3D;&quot;block&quot;] {
+  width: 100% !important;
+}
+
+mjx-container[jax&#x3D;&quot;SVG&quot;][display&#x3D;&quot;true&quot;] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax&#x3D;&quot;SVG&quot;][display&#x3D;&quot;true&quot;][width&#x3D;&quot;full&quot;] {
+  display: flex;
+}
+
+mjx-container[jax&#x3D;&quot;SVG&quot;][justify&#x3D;&quot;left&quot;] {
+  text-align: left;
+}
+
+mjx-container[jax&#x3D;&quot;SVG&quot;][justify&#x3D;&quot;right&quot;] {
+  text-align: right;
+}
+
+g[data-mml-node&#x3D;&quot;merror&quot;] &gt; g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node&#x3D;&quot;merror&quot;] &gt; rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node&#x3D;&quot;mtable&quot;] &gt; line[data-line], svg[data-table] &gt; g &gt; line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node&#x3D;&quot;mtable&quot;] &gt; rect[data-frame], svg[data-table] &gt; g &gt; rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node&#x3D;&quot;mtable&quot;] &gt; .mjx-dashed, svg[data-table] &gt; g &gt; .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node&#x3D;&quot;mtable&quot;] &gt; .mjx-dotted, svg[data-table] &gt; g &gt; .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node&#x3D;&quot;mtable&quot;] &gt; g &gt; svg {
+  overflow: visible;
+}
+
+[jax&#x3D;&quot;SVG&quot;] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax&#x3D;&quot;SVG&quot;] mjx-tool &gt; mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool &gt; mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node&#x3D;&quot;maction&quot;][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+mjx-container[jax&#x3D;&quot;SVG&quot;] path[data-c], mjx-container[jax&#x3D;&quot;SVG&quot;] use[data-c] {
+  stroke-width: 3;
+}
+
+g[data-mml-node&#x3D;&quot;xypic&quot;] path {
+  stroke-width: inherit;
+}
+
+.MathJax g[data-mml-node&#x3D;&quot;xypic&quot;] path {
+  stroke-width: inherit;
+}
+
+      }
+      
+      Vhartree
+    
+  是否写入LOCPOT文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LORBIT%E2%80%94%E2%80%94%E9%80%89%E6%8B%A9%E4%B8%80%E7%A7%8D%E6%8A%95%E5%BD%B1%E5%88%B0%E5%B1%80%E9%83%A8%E9%87%8F%E5%AD%90%E6%95%B0-lm-%E4%B8%8A%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%8C%E5%B9%B6%E5%86%99%E5%85%A5-PROCAR-PROOUT-%E6%96%87%E4%BB%B6"><span class="toc-number">16.</span> <span class="toc-text">LORBIT——选择一种投影到局部量子数(lm)上的方法，并写入 PROCAR&#x2F;PROOUT 文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LASPH%E2%80%94%E2%80%94%E6%8E%A7%E5%88%B6%E8%B5%9D%E5%8A%BF%E8%AE%A1%E7%AE%97%E4%B8%AD%E6%98%AF%E5%90%A6%E8%80%83%E8%99%91%E9%9D%9E%E7%90%83%E9%9D%A2%E8%B4%A1%E7%8C%AE"><span class="toc-number">17.</span> <span class="toc-text">LASPH——控制赝势计算中是否考虑非球面贡献</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MDALGO%E2%80%94%E2%80%94%E6%8C%87%E5%AE%9A%E5%88%86%E5%AD%90%E5%8A%A8%E5%8A%9B%E5%AD%A6%E6%A8%A1%E6%8B%9F%E7%AE%97%E6%B3%95"><span class="toc-number">18.</span> <span class="toc-text">MDALGO——指定分子动力学模拟算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SMASS%E2%80%94%E2%80%94%E5%9C%A8%E4%BB%8E%E5%A4%B4%E7%AE%97%E5%88%86%E5%AD%90%E5%8A%A8%E5%8A%9B%E5%AD%A6%E8%BF%90%E8%A1%8C%E6%9C%9F%E9%97%B4%E6%8E%A7%E5%88%B6%E9%80%9F%E5%BA%A6%E3%80%82"><span class="toc-number">19.</span> <span class="toc-text">SMASS——在从头算分子动力学运行期间控制速度。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IVDW%E5%8F%82%E6%95%B0%E2%80%94%E2%80%94%E6%8E%A7%E5%88%B6%E8%8C%83%E5%BE%B7%E5%8D%8E%E4%BF%AE%E6%AD%A3"><span class="toc-number">20.</span> <span class="toc-text">IVDW参数——控制范德华修正</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/08/%E5%91%A8%E6%97%A5%E9%97%B2%E7%9D%80%E5%BF%83%E8%A1%80%E6%9D%A5%E6%BD%AE%EF%BC%8C%E7%9C%8B%E7%9C%8B%E8%BF%9C%E5%A4%84%E7%9A%84Gentoo/" title="Untitled">Untitled</a><time datetime="2026-02-08T06:48:06.538Z" title="Created 2026-02-08 14:48:06">2026-02-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/08/%E7%A7%91%E7%A0%94/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" title="Untitled">Untitled</a><time datetime="2026-02-08T06:48:06.130Z" title="Created 2026-02-08 14:48:06">2026-02-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/08/%E7%A7%91%E7%A0%94/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E6%9C%80%E7%BB%8F%E5%85%B8%E7%9A%84%E7%A8%8B%E5%BA%8F/" title="Untitled">Untitled</a><time datetime="2026-02-08T06:48:06.118Z" title="Created 2026-02-08 14:48:06">2026-02-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/08/%E7%A7%91%E7%A0%94/first%20stage/ATAT%E6%97%A0%E5%BA%8F%E6%8E%BA%E6%9D%82/" title="Untitled">Untitled</a><time datetime="2026-02-08T06:48:05.478Z" title="Created 2026-02-08 14:48:05">2026-02-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/08/hello-world/" title="Hello World">Hello World</a><time datetime="2026-02-08T05:39:06.897Z" title="Created 2026-02-08 13:39:06">2026-02-08</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By John Doe</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

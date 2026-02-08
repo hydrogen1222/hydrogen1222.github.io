@@ -1,0 +1,328 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>掺杂质量计算的python脚本 | Hexo</title><meta name="author" content="John Doe"><meta name="copyright" content="John Doe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="起因是我想合成各式各样的材料，需要用到各种药品，计算起来比较麻烦，尤其是非化学计量比的化合物比如                   #mjx-6e0958a{         display:contents;         mjx-assistive-mml {           user-select: text !important;           clip: auto !imp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="掺杂质量计算的python脚本">
+<meta property="og:url" content="http://example.com/2025/05/17/%E7%A7%91%E7%A0%94/first%20stage/%E6%8E%BA%E6%9D%82%E8%B4%A8%E9%87%8F%E8%AE%A1%E7%AE%97/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="起因是我想合成各式各样的材料，需要用到各种药品，计算起来比较麻烦，尤其是非化学计量比的化合物比如                   #mjx-6e0958a{         display:contents;         mjx-assistive-mml {           user-select: text !important;           clip: auto !imp">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-05-17T12:40:00.000Z">
+<meta property="article:modified_time" content="2026-02-08T05:15:42.542Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="化学">
+<meta property="article:tag" content="科研">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "掺杂质量计算的python脚本",
+  "url": "http://example.com/2025/05/17/%E7%A7%91%E7%A0%94/first%20stage/%E6%8E%BA%E6%9D%82%E8%B4%A8%E9%87%8F%E8%AE%A1%E7%AE%97/",
+  "image": "http://example.com/img/butterfly-icon.png",
+  "datePublished": "2025-05-17T12:40:00.000Z",
+  "dateModified": "2026-02-08T05:15:42.542Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "John Doe",
+      "url": "http://example.com"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2025/05/17/%E7%A7%91%E7%A0%94/first%20stage/%E6%8E%BA%E6%9D%82%E8%B4%A8%E9%87%8F%E8%AE%A1%E7%AE%97/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '掺杂质量计算的python脚本',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.1.1"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Hexo</span></a><a class="nav-page-title" href="/"><span class="site-name">掺杂质量计算的python脚本</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">掺杂质量计算的python脚本</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-05-17T12:40:00.000Z" title="Created 2025-05-17 20:40:00">2025-05-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-02-08T05:15:42.542Z" title="Updated 2026-02-08 13:15:42">2026-02-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/">从零开始的科研之旅</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/VASP/">VASP</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>起因是我想合成各式各样的材料，需要用到各种药品，计算起来比较麻烦，尤其是非化学计量比的化合物比如
+    <span id="mjx-6e0958a">
+      <style>
+      #mjx-6e0958a{
+        display:contents;
+        mjx-assistive-mml {
+          user-select: text !important;
+          clip: auto !important;
+          color: rgba(0,0,0,0);
+        }
+        
+mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+  min-height: 1px;
+  min-width: 1px;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display="block"] {
+  width: 100% !important;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][display="true"][width="full"] {
+  display: flex;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line], svg[data-table] > g > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame], svg[data-table] > g > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed, svg[data-table] > g > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted, svg[data-table] > g > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > g > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
+  stroke-width: 3;
+}
+
+g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+.MathJax g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+      }
+      </style>
+      <mjx-container class="MathJax" jax="SVG" style="position: relative;"><svg style="vertical-align: -0.375ex;" xmlns="http://www.w3.org/2000/svg" width="16.29ex" height="1.97ex" role="img" focusable="false" viewBox="0 -705 7200 870.6" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="TeXAtom" data-mjx-texclass="ORD"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="4C" d="M128 622Q121 629 117 631T101 634T58 637H25V683H36Q48 680 182 680Q324 680 348 683H360V637H333Q273 637 258 635T233 622L232 342V129Q232 57 237 52Q243 47 313 47Q384 47 410 53Q470 70 498 110T536 221Q536 226 537 238T540 261T542 272T562 273H582V268Q580 265 568 137T554 5V0H25V46H58Q100 47 109 49T128 61V622Z"></path><path data-c="69" d="M69 609Q69 637 87 653T131 669Q154 667 171 652T188 609Q188 579 171 564T129 549Q104 549 87 564T69 609ZM247 0Q232 3 143 3Q132 3 106 3T56 1L34 0H26V46H42Q70 46 91 49Q100 53 102 60T104 102V205V293Q104 345 102 359T88 378Q74 385 41 385H30V408Q30 431 32 431L42 432Q52 433 70 434T106 436Q123 437 142 438T171 441T182 442H185V62Q190 52 197 50T232 46H255V0H247Z" transform="translate(625,0)"></path></g><g data-mml-node="TeXAtom" transform="translate(936,-150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mn"><path data-c="35" d="M164 157Q164 133 148 117T109 101H102Q148 22 224 22Q294 22 326 82Q345 115 345 210Q345 313 318 349Q292 382 260 382H254Q176 382 136 314Q132 307 129 306T114 304Q97 304 95 310Q93 314 93 485V614Q93 664 98 664Q100 666 102 666Q103 666 123 658T178 642T253 634Q324 634 389 662Q397 666 402 666Q410 666 410 648V635Q328 538 205 538Q174 538 149 544L139 546V374Q158 388 169 396T205 412T256 420Q337 420 393 355T449 201Q449 109 385 44T229 -22Q148 -22 99 32T50 154Q50 178 61 192T84 210T107 214Q132 214 148 197T164 157Z"></path><path data-c="2E" d="M78 60Q78 84 95 102T138 120Q162 120 180 104T199 61Q199 36 182 18T139 0T96 17T78 60Z" transform="translate(500,0)"></path><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z" transform="translate(778,0)"></path></g></g></g><g data-mml-node="msub" transform="translate(1889.7,0)"><g data-mml-node="mi"><path data-c="50" d="M130 622Q123 629 119 631T103 634T60 637H27V683H214Q237 683 276 683T331 684Q419 684 471 671T567 616Q624 563 624 489Q624 421 573 372T451 307Q429 302 328 301H234V181Q234 62 237 58Q245 47 304 46H337V0H326Q305 3 182 3Q47 3 38 0H27V46H60Q102 47 111 49T130 61V622ZM507 488Q507 514 506 528T500 564T483 597T450 620T397 635Q385 637 307 637H286Q237 637 234 628Q231 624 231 483V342H302H339Q390 342 423 349T481 382Q507 411 507 488Z"></path><path data-c="53" d="M55 507Q55 590 112 647T243 704H257Q342 704 405 641L426 672Q431 679 436 687T446 700L449 704Q450 704 453 704T459 705H463Q466 705 472 699V462L466 456H448Q437 456 435 459T430 479Q413 605 329 646Q292 662 254 662Q201 662 168 626T135 542Q135 508 152 480T200 435Q210 431 286 412T370 389Q427 367 463 314T500 191Q500 110 448 45T301 -21Q245 -21 201 -4T140 27L122 41Q118 36 107 21T87 -7T78 -21Q76 -22 68 -22H64Q61 -22 55 -16V101Q55 220 56 222Q58 227 76 227H89Q95 221 95 214Q95 182 105 151T139 90T205 42T305 24Q352 24 386 62T420 155Q420 198 398 233T340 281Q284 295 266 300Q261 301 239 306T206 314T174 325T141 343T112 367T85 402Q55 451 55 507Z" transform="translate(681,0)"></path></g><g data-mml-node="TeXAtom" transform="translate(1270,-150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mn"><path data-c="34" d="M462 0Q444 3 333 3Q217 3 199 0H190V46H221Q241 46 248 46T265 48T279 53T286 61Q287 63 287 115V165H28V211L179 442Q332 674 334 675Q336 677 355 677H373L379 671V211H471V165H379V114Q379 73 379 66T385 54Q393 47 442 46H471V0H462ZM293 211V545L74 212L183 211H293Z"></path><path data-c="2E" d="M78 60Q78 84 95 102T138 120Q162 120 180 104T199 61Q199 36 182 18T139 0T96 17T78 60Z" transform="translate(500,0)"></path><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z" transform="translate(778,0)"></path></g></g></g><g data-mml-node="msub" transform="translate(4113.4,0)"><g data-mml-node="mi"><path data-c="43" d="M56 342Q56 428 89 500T174 615T283 681T391 705Q394 705 400 705T408 704Q499 704 569 636L582 624L612 663Q639 700 643 704Q644 704 647 704T653 705H657Q660 705 666 699V419L660 413H626Q620 419 619 430Q610 512 571 572T476 651Q457 658 426 658Q322 658 252 588Q173 509 173 342Q173 221 211 151Q232 111 263 84T328 45T384 29T428 24Q517 24 571 93T626 244Q626 251 632 257H660L666 251V236Q661 133 590 56T403 -21Q262 -21 159 83T56 342Z"></path><path data-c="6C" d="M42 46H56Q95 46 103 60V68Q103 77 103 91T103 124T104 167T104 217T104 272T104 329Q104 366 104 407T104 482T104 542T103 586T103 603Q100 622 89 628T44 637H26V660Q26 683 28 683L38 684Q48 685 67 686T104 688Q121 689 141 690T171 693T182 694H185V379Q185 62 186 60Q190 52 198 49Q219 46 247 46H263V0H255L232 1Q209 2 183 2T145 3T107 3T57 1L34 0H26V46H42Z" transform="translate(722,0)"></path></g><g data-mml-node="TeXAtom" transform="translate(1033,-150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mn"><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path><path data-c="2E" d="M78 60Q78 84 95 102T138 120Q162 120 180 104T199 61Q199 36 182 18T139 0T96 17T78 60Z" transform="translate(500,0)"></path><path data-c="37" d="M55 458Q56 460 72 567L88 674Q88 676 108 676H128V672Q128 662 143 655T195 646T364 644H485V605L417 512Q408 500 387 472T360 435T339 403T319 367T305 330T292 284T284 230T278 162T275 80Q275 66 275 52T274 28V19Q270 2 255 -10T221 -22Q210 -22 200 -19T179 0T168 40Q168 198 265 368Q285 400 349 489L395 552H302Q128 552 119 546Q113 543 108 522T98 479L95 458V455H55V458Z" transform="translate(778,0)"></path></g></g></g><g data-mml-node="mi" transform="translate(6100,0)"><path data-c="42" d="M131 622Q124 629 120 631T104 634T61 637H28V683H229H267H346Q423 683 459 678T531 651Q574 627 599 590T624 512Q624 461 583 419T476 360L466 357Q539 348 595 302T651 187Q651 119 600 67T469 3Q456 1 242 0H28V46H61Q103 47 112 49T131 61V622ZM511 513Q511 560 485 594T416 636Q415 636 403 636T371 636T333 637Q266 637 251 636T232 628Q229 624 229 499V374H312L396 375L406 377Q410 378 417 380T442 393T474 417T499 456T511 513ZM537 188Q537 239 509 282T430 336L329 337H229V200V116Q229 57 234 52Q240 47 334 47H383Q425 47 443 53Q486 67 511 104T537 188Z"></path><path data-c="72" d="M36 46H50Q89 46 97 60V68Q97 77 97 91T98 122T98 161T98 203Q98 234 98 269T98 328L97 351Q94 370 83 376T38 385H20V408Q20 431 22 431L32 432Q42 433 60 434T96 436Q112 437 131 438T160 441T171 442H174V373Q213 441 271 441H277Q322 441 343 419T364 373Q364 352 351 337T313 322Q288 322 276 338T263 372Q263 381 265 388T270 400T273 405Q271 407 250 401Q234 393 226 386Q179 341 179 207V154Q179 141 179 127T179 101T180 81T180 66V61Q181 59 183 57T188 54T193 51T200 49T207 48T216 47T225 47T235 46T245 46H276V0H267Q249 3 140 3Q37 3 28 0H20V46H36Z" transform="translate(708,0)"></path></g></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mrow data-mjx-texclass="ORD"><msub><mi data-mjx-auto-op="false">Li</mi><mrow data-mjx-texclass="ORD"><mn>5.3</mn></mrow></msub><msub><mi data-mjx-auto-op="false">PS</mi><mrow data-mjx-texclass="ORD"><mn>4.3</mn></mrow></msub><msub><mi data-mjx-auto-op="false">Cl</mi><mrow data-mjx-texclass="ORD"><mn>0.7</mn></mrow></msub><mi data-mjx-auto-op="false">Br</mi></mrow></math></mjx-assistive-mml></mjx-container>
+    </span>
+  ，遂用AI写了一个<code>python</code>脚本，个人觉得还是比较实用，脚本文件和相对原子质量的文本文件需要在同一文件夹内</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> decimal <span class="keyword">import</span> Decimal, getcontext</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">from</span> sympy <span class="keyword">import</span> symbols, Matrix, linsolve, Rational</span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> defaultdict</span><br><span class="line"></span><br><span class="line"><span class="comment"># Improve Decimal precision</span></span><br><span class="line">getcontext().prec = <span class="number">100</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">FormulaParser</span>:</span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">parse</span>(<span class="params">formula: <span class="built_in">str</span></span>) -&gt; <span class="built_in">dict</span>:</span><br><span class="line">        elements = &#123;&#125;</span><br><span class="line">        pattern = re.<span class="built_in">compile</span>(<span class="string">r&quot;([A-Z][a-z]?)([\d.]*)?&quot;</span>)</span><br><span class="line">        idx = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> idx &lt; <span class="built_in">len</span>(formula):</span><br><span class="line">            m = pattern.<span class="keyword">match</span>(formula, idx)</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> m:</span><br><span class="line">                <span class="keyword">raise</span> ValueError(<span class="string">f&quot;Invalid formula at: <span class="subst">&#123;formula[idx:]&#125;</span>&quot;</span>)</span><br><span class="line">            elem, num = m.group(<span class="number">1</span>), m.group(<span class="number">2</span>)</span><br><span class="line">            coeff = Decimal(num) <span class="keyword">if</span> num <span class="keyword">else</span> Decimal(<span class="number">1</span>)</span><br><span class="line">            elements[elem] = elements.get(elem, Decimal(<span class="number">0</span>)) + coeff</span><br><span class="line">            idx = m.end()</span><br><span class="line">        <span class="keyword">return</span> elements</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AtomicMassReader</span>:</span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">read</span>(<span class="params">filename=<span class="string">&quot;atomic_masses.txt&quot;</span></span>) -&gt; <span class="built_in">dict</span>:</span><br><span class="line">        masses = &#123;&#125;</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">with</span> <span class="built_in">open</span>(filename, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">                <span class="keyword">for</span> line <span class="keyword">in</span> f:</span><br><span class="line">                    line = line.strip()</span><br><span class="line">                    <span class="keyword">if</span> <span class="keyword">not</span> line <span class="keyword">or</span> line.startswith(<span class="string">&#x27;#&#x27;</span>):</span><br><span class="line">                        <span class="keyword">continue</span></span><br><span class="line">                    parts = line.split()</span><br><span class="line">                    <span class="keyword">if</span> <span class="built_in">len</span>(parts) != <span class="number">2</span>:</span><br><span class="line">                        <span class="keyword">raise</span> ValueError(<span class="string">f&quot;Line format error: <span class="subst">&#123;line&#125;</span>&quot;</span>)</span><br><span class="line">                    masses[parts[<span class="number">0</span>]] = Decimal(parts[<span class="number">1</span>])</span><br><span class="line">        <span class="keyword">except</span> FileNotFoundError:</span><br><span class="line">            <span class="keyword">raise</span> FileNotFoundError(<span class="string">f&quot;File <span class="subst">&#123;filename&#125;</span> not found&quot;</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> masses:</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">&quot;Atomic masses file empty&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> masses</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">SynthesisCalculator</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, atomic_masses: <span class="built_in">dict</span></span>):</span><br><span class="line">        <span class="variable language_">self</span>.atomic_masses = atomic_masses</span><br><span class="line">        <span class="variable language_">self</span>.target = &#123;&#125;</span><br><span class="line">        <span class="variable language_">self</span>.target_mm = Decimal(<span class="number">0</span>)</span><br><span class="line">        <span class="variable language_">self</span>.reagents = []</span><br><span class="line">        <span class="variable language_">self</span>.reagent_formulas = []</span><br><span class="line">        <span class="variable language_">self</span>.molar_masses = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">input_target</span>(<span class="params">self</span>):</span><br><span class="line">        f = <span class="built_in">input</span>(<span class="string">&quot;Enter target formula: &quot;</span>).strip()</span><br><span class="line">        <span class="variable language_">self</span>.target = FormulaParser.parse(f)</span><br><span class="line">        <span class="keyword">for</span> e, c <span class="keyword">in</span> <span class="variable language_">self</span>.target.items():</span><br><span class="line">            <span class="keyword">if</span> e <span class="keyword">not</span> <span class="keyword">in</span> <span class="variable language_">self</span>.atomic_masses:</span><br><span class="line">                <span class="keyword">raise</span> ValueError(<span class="string">f&quot;Mass of element <span class="subst">&#123;e&#125;</span> not defined&quot;</span>)</span><br><span class="line">            <span class="variable language_">self</span>.target_mm += c * <span class="variable language_">self</span>.atomic_masses[e]</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Parsed: <span class="subst">&#123;self.target&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Target molar mass = <span class="subst">&#123;self.target_mm.normalize()&#125;</span> g/mol&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">input_reagents</span>(<span class="params">self</span>):</span><br><span class="line">        n = <span class="built_in">int</span>(<span class="built_in">input</span>(<span class="string">&quot;Enter number of reagents: &quot;</span>))</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">            f = <span class="built_in">input</span>(<span class="string">f&quot;Reagent <span class="subst">&#123;i+<span class="number">1</span>&#125;</span> formula: &quot;</span>).strip()</span><br><span class="line">            <span class="variable language_">self</span>.reagent_formulas.append(f)</span><br><span class="line">            parsed = FormulaParser.parse(f)</span><br><span class="line">            mm = <span class="built_in">sum</span>(parsed[e] * <span class="variable language_">self</span>.atomic_masses[e] <span class="keyword">for</span> e <span class="keyword">in</span> parsed)</span><br><span class="line">            <span class="variable language_">self</span>.reagents.append(parsed)</span><br><span class="line">            <span class="variable language_">self</span>.molar_masses.append(mm)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;f&#125;</span> molar mass = <span class="subst">&#123;mm.normalize()&#125;</span> g/mol&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">validate</span>(<span class="params">self</span>):</span><br><span class="line">        tgt = <span class="built_in">set</span>(<span class="variable language_">self</span>.target)</span><br><span class="line">        prov = <span class="built_in">set</span>().union(*(r.keys() <span class="keyword">for</span> r <span class="keyword">in</span> <span class="variable language_">self</span>.reagents))</span><br><span class="line">        miss = tgt - prov</span><br><span class="line">        extra = prov - tgt</span><br><span class="line">        <span class="keyword">if</span> miss:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;Error: Missing elements: <span class="subst">&#123;miss&#125;</span>&quot;</span>)</span><br><span class="line">            exit()</span><br><span class="line">        <span class="keyword">if</span> extra:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;Warning: Extra elements: <span class="subst">&#123;extra&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">solve_basis</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="comment"># Construct A, b corresponding to 1 mol </span></span><br><span class="line">        elems = <span class="built_in">sorted</span>(<span class="built_in">set</span>(<span class="variable language_">self</span>.target) | <span class="built_in">set</span>().union(*(r.keys() <span class="keyword">for</span> r <span class="keyword">in</span> <span class="variable language_">self</span>.reagents)))</span><br><span class="line">        A = [[r.get(e, Decimal(<span class="number">0</span>)) <span class="keyword">for</span> r <span class="keyword">in</span> <span class="variable language_">self</span>.reagents] <span class="keyword">for</span> e <span class="keyword">in</span> elems]</span><br><span class="line">        b = [<span class="variable language_">self</span>.target.get(e, Decimal(<span class="number">0</span>)) <span class="keyword">for</span> e <span class="keyword">in</span> elems]</span><br><span class="line">        <span class="comment"># Convert to rational number to avoid floating point error</span></span><br><span class="line">        A_rat = [[Rational(<span class="built_in">str</span>(val)) <span class="keyword">for</span> val <span class="keyword">in</span> row] <span class="keyword">for</span> row <span class="keyword">in</span> A]</span><br><span class="line">        b_rat = [Rational(<span class="built_in">str</span>(val)) <span class="keyword">for</span> val <span class="keyword">in</span> b]</span><br><span class="line">        <span class="built_in">vars</span> = symbols(<span class="string">f&#x27;x0:<span class="subst">&#123;<span class="built_in">len</span>(self.reagents)&#125;</span>&#x27;</span>)</span><br><span class="line">        sol = linsolve((Matrix(A_rat), Matrix(b_rat)), <span class="built_in">vars</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> sol:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;Error: No exact solution for 1 mol target.&quot;</span>)</span><br><span class="line">            exit()</span><br><span class="line">        tup = <span class="built_in">next</span>(<span class="built_in">iter</span>(sol))</span><br><span class="line">        <span class="comment"># Convert rational to decimal exact representation</span></span><br><span class="line">        base = &#123;&#125;</span><br><span class="line">        <span class="keyword">for</span> i, r <span class="keyword">in</span> <span class="built_in">enumerate</span>(tup):</span><br><span class="line">            base[<span class="built_in">vars</span>[i]] = Decimal(r.p) / Decimal(r.q)</span><br><span class="line">        <span class="keyword">return</span> base, elems</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">calculate</span>(<span class="params">self</span>):</span><br><span class="line">        t = <span class="built_in">input</span>(<span class="string">&quot;Input type (0 mass g, 1 moles): &quot;</span>).strip()</span><br><span class="line">        <span class="keyword">if</span> t <span class="keyword">not</span> <span class="keyword">in</span> [<span class="string">&#x27;0&#x27;</span>,<span class="string">&#x27;1&#x27;</span>]:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;Invalid type&quot;</span>)</span><br><span class="line">            exit()</span><br><span class="line">        v = Decimal(<span class="built_in">input</span>(<span class="string">&quot;Amount: &quot;</span>).strip())</span><br><span class="line">        n = v / <span class="variable language_">self</span>.target_mm <span class="keyword">if</span> t==<span class="string">&#x27;0&#x27;</span> <span class="keyword">else</span> v</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Target moles = <span class="subst">&#123;n.normalize()&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">        base, elems = <span class="variable language_">self</span>.solve_basis()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;\nReagent requirements:\n&quot;</span> + <span class="string">&quot;=&quot;</span>*<span class="number">40</span>)</span><br><span class="line">        total_mass = Decimal(<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">for</span> i, var <span class="keyword">in</span> <span class="built_in">enumerate</span>(<span class="built_in">sorted</span>(base.keys(), key=<span class="keyword">lambda</span> x: <span class="built_in">int</span>(<span class="built_in">str</span>(x)[<span class="number">1</span>:]))):</span><br><span class="line">            moles = base[var] * n</span><br><span class="line">            mass = moles * <span class="variable language_">self</span>.molar_masses[i]</span><br><span class="line">            total_mass += mass</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;Reagent <span class="subst">&#123;i+<span class="number">1</span>&#125;</span> (<span class="subst">&#123;self.reagent_formulas[i]&#125;</span>):&quot;</span>)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;  Moles: <span class="subst">&#123;moles.normalize():<span class="number">.10</span>f&#125;</span> mol&quot;</span>)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;  Mass:  <span class="subst">&#123;mass.normalize():<span class="number">.10</span>f&#125;</span> g\n&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Total mass = <span class="subst">&#123;total_mass.normalize():<span class="number">.10</span>f&#125;</span> g&quot;</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">#Verify element balance</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Verification:&quot;</span>)</span><br><span class="line">        <span class="keyword">for</span> e <span class="keyword">in</span> elems:</span><br><span class="line">            actual = <span class="built_in">sum</span>((base[symbols(<span class="string">f&#x27;x<span class="subst">&#123;i&#125;</span>&#x27;</span>)] * n) * r.get(e, Decimal(<span class="number">0</span>))</span><br><span class="line">                         <span class="keyword">for</span> i, r <span class="keyword">in</span> <span class="built_in">enumerate</span>(<span class="variable language_">self</span>.reagents))</span><br><span class="line">            target_amt = <span class="variable language_">self</span>.target.get(e, Decimal(<span class="number">0</span>)) * n</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;e&#125;</span>: target <span class="subst">&#123;target_amt.normalize():<span class="number">.10</span>f&#125;</span>, actual <span class="subst">&#123;actual.normalize():<span class="number">.10</span>f&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;High-Precision Compound Synthesis Calculator&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;=&quot;</span>*<span class="number">60</span>)</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        masses = AtomicMassReader.read()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;Loaded elements: <span class="subst">&#123;<span class="string">&#x27;, &#x27;</span>.join(masses.keys())&#125;</span>&quot;</span>)</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(e)</span><br><span class="line">        exit()</span><br><span class="line">    calc = SynthesisCalculator(masses)</span><br><span class="line">    calc.input_target()</span><br><span class="line">    calc.input_reagents()</span><br><span class="line">    calc.validate()</span><br><span class="line">    calc.calculate()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+<p>附一张使用截图，后面也会放到<code>Github</code>上面</p>
+<img src="/2025/05/17/%E7%A7%91%E7%A0%94/first%20stage/%E6%8E%BA%E6%9D%82%E8%B4%A8%E9%87%8F%E8%AE%A1%E7%AE%97/image-20250517203826678-1756610492748-1.png" class="" title="使用截图">
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://example.com">John Doe</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://example.com/2025/05/17/%E7%A7%91%E7%A0%94/first%20stage/%E6%8E%BA%E6%9D%82%E8%B4%A8%E9%87%8F%E8%AE%A1%E7%AE%97/">http://example.com/2025/05/17/%E7%A7%91%E7%A0%94/first%20stage/%E6%8E%BA%E6%9D%82%E8%B4%A8%E9%87%8F%E8%AE%A1%E7%AE%97/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%8C%96%E5%AD%A6/">化学</a><a class="post-meta__tags" href="/tags/%E7%A7%91%E7%A0%94/">科研</a></div><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/05/18/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E4%BD%BF%E7%94%A8Multiwfn%E5%8A%A0%E8%BD%BDELFCAR%E7%BB%98%E5%88%B6%E7%AD%89%E5%80%BC%E9%9D%A2%E5%9B%BE/" title="使用Multiwfn加载ELFCAR文件绘制等值面图"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">使用Multiwfn加载ELFCAR文件绘制等值面图</div></div><div class="info-2"><div class="info-item-1">本文仅为学习记录，并非教程 Multiwfn是一个波函数分析程序，功能非常强大，也能绘制ELF等值面图，它支持多种类型的输入文件，既有量子化学计算程序的输出文件，又有第一性原理计算程序的输出文件  以下是Multiwfn加载ELFCAR绘制等值面图的过程  step1：用ELFCAR绘图其实是基于格点数据文件的绘图，需要修改根目录下的配置文件settings.ini，将参数iuserfunc改为-1或者-3 step2：加载ELFCAR文件 step3：4 Output and plot specific property in a plane step4：100 User-defined function (iuserfunc= step5：5 Shaded relief map with projection step6：1: XY plane step7：1a  如果将Multiwfn的根目录添加到PATH环境变量以方便调用，那么画出来的图可能会遇到如下如题  如果直接在根目录下双击.exe文件运行的话就能正常绘图  </div></div></div></a><a class="pagination-related" href="/2025/05/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E5%88%9D%E5%AD%A6ELF%E7%94%B5%E5%AD%90%E5%B1%80%E5%9F%9F%E5%8C%96%E5%87%BD%E6%95%B0%E7%9A%84%E8%AE%A1%E7%AE%97%E4%B8%8E%E5%88%86%E6%9E%90/" title="初学ELF电子定域化函数的计算与分析"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">初学ELF电子定域化函数的计算与分析</div></div><div class="info-2"><div class="info-item-1">本文仅为学习记录，并非教程 这次记录文主要侧重于应用，参考了Sob老师的博文和网络上的各大教程 ¶以FCC Cu为例进行ELF计算与分析 采用FCC面心立方最密堆积的铜单胞，使用vasp计算，先进行结构优化，确认收敛后进行ELF计算 123456789101112131415161718192021222324252627282930313233343536373839Global ParametersISTART =  1            (Read existing wavefunction, if there)ISPIN  =  2            (Non-Spin polarised DFT)MAGMOM = 4*0.6# ICHARG =  11         (Non-self-consistent: GGA/LDA band structures)LREAL  = .FALSE.       (Projection operators: automatic) ENCUT  =  530        (Cut-off energy for plane...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/05/27/%E7%A7%91%E7%A0%94/first%20stage/%E7%94%B5%E5%8C%96%E5%AD%A6%E9%98%BB%E6%8A%97%E8%B0%B1/" title="从零开始的电化学阻抗谱原理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-27</div><div class="info-item-2">从零开始的电化学阻抗谱原理</div></div><div class="info-2"><div class="info-item-1">¶什么是电化学阻抗谱？ 有一种叫做黑箱的未知特性系统。可采用一系列测量方法，通过施加输入信号并检测输出响应来探查黑箱。例如，假设将黑箱置于暗室中，然后施加特定波长的光照。若观察到响应信号（如电流），则可判定箱内物质具有光活性。输入与输出之间的关系称为“传递函数”，阻抗谱是传递函数的一种特例。 阻抗：电路中电阻、电感、电容对交流电个阻碍作用个统称。阻抗是一个复数，实部称为电阻，虚部称为电抗。电化学过程主要涉及电荷在电极和电解质界面上的传输和存储。例如，电极表面的双电层效应会形成双电层电容，电解质中的离子扩散也会导致电容行为。这些机制使电容成为电化学系统中主要的电抗元件。 相比之下，电感通常与磁场的变化相关，比如电流通过线圈时产生的磁场。然而，在常规的电化学系统中，磁场变化通常不显著，因此电感的影响非常小，通常电化学系统中考虑电阻、容抗而不考虑感抗。 电化学阻抗谱（EIS）通过施加交流电压（或电流）并测量产生的电流（或电压），能够研究电极和电化学池的电化学特性，利用等效电路进行分析，可以确定与电极电化学反应相关的重要参数，如电荷转移电阻、双电层电容和Warburg阻抗 ¶阻抗的复数表...</div></div></div></a><a class="pagination-related" href="/2025/04/29/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E8%A1%A8%E9%9D%A2%E8%83%BD%E7%9A%84%E8%AE%A1%E7%AE%97/" title="表面能的计算"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-29</div><div class="info-item-2">表面能的计算</div></div><div class="info-2"><div class="info-item-1">¶关于表面能 根据VASP官方手册Hands on Session III，表面能的定义如下，大师兄的文章也提到了这个定义( Nanoscale, 2017, 9, 13089–13094)                    #mjx-dd4829d8{         display:contents;         mjx-assistive-mml {           user-select: text !important;           clip: auto !important;           color: rgba(0,0,0,0);         }          mjx-container[jax="SVG"] {   direction: ltr; }  mjx-container[jax="SVG"] > svg {   overflow: visible;   min-height: 1px;   min-width: 1px; }  mjx-container[jax="SVG"] > svg a {   fill: blue...</div></div></div></a><a class="pagination-related" href="/2025/09/04/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/AIMD%E6%A8%A1%E6%8B%9F%E5%9B%BA%E6%80%81%E7%94%B5%E8%A7%A3%E8%B4%A8%E7%A6%BB%E5%AD%90%E7%94%B5%E5%AF%BC%E7%8E%87/" title="VASP进行AIMD模拟固态电解质离子电导率的计算"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-04</div><div class="info-item-2">VASP进行AIMD模拟固态电解质离子电导率的计算</div></div><div class="info-2"><div class="info-item-1">使用VASP计算离子电导率，需要进行从头算分子动力学(AIMD)模拟，对象为                   #mjx-ab1dee3{         display:contents;         mjx-assistive-mml {           user-select: text !important;           clip: auto !important;           color: rgba(0,0,0,0);         }          mjx-container[jax="SVG"] {   direction: ltr; }  mjx-container[jax="SVG"] > svg {   overflow: visible;   min-height: 1px;   min-width: 1px; }  mjx-container[jax="SVG"] > svg a {   fill: blue;   stroke: blue; }  mjx-assistive-mml {   position: absolu...</div></div></div></a><a class="pagination-related" href="/2025/09/01/%E7%A7%91%E7%A0%94/first%20stage/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E9%94%82%E7%94%B5%E6%B1%A0%E5%9F%BA%E7%A1%80%E7%A7%91%E5%AD%A6/%E7%94%B5%E6%B1%A0%E7%95%8C%E9%9D%A2%E9%97%AE%E9%A2%98/" title="第二弹——能量密度的估算"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-01</div><div class="info-item-2">第二弹——能量密度的估算</div></div><div class="info-2"><div class="info-item-1">SEI膜的结构 锂离子电池工作电位范围为2～4.3V。其中，石墨类负极工作电位范围在0～1.0V（vs.Li+/Li），正极工作电位范围一般在2.5～ 4.3V（vs.Li+/Li）。而目前商用电解液不发生氧化还原反应的电化学窗口一般为1.2～3.7V（vs.Li+/Li）。因此，在负极侧，当负极点位 &lt;1.2 V时会生成SEI固态电解质中间相，类似的在正极侧会生成CEI结构。 从机理来看，当负极的Fermi能级高于电解质的LUMO时，电子容易从Fermi能级转移到LUMO轨道，即发生氧化还原反应形成SEI界面  如果电极材料的充放电电位范围较窄，例如负极的嵌锂电位高于1.2V（ vs.Li+/Li ） ， 正极的脱锂电位低于 3.5V（vs.Li+/Li），则正负极表面可以不发生电解质的氧化还原反应，不会形成SEI膜。 SEI界相的厚度可能需要&gt;2 nm以防止电子隧穿效应，&lt;50 nm来确保离子能够顺利传输。它的结构如下图所示：  SEI膜的成分和结构通常认为是靠近电极材料的为无机物层，对于锂离子电池，主要包含                   #mjx-b...</div></div></div></a><a class="pagination-related" href="/2025/04/29/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E6%88%AA%E6%96%AD%E8%83%BDENCUT%E7%9A%84%E9%80%89%E5%8F%96/" title="截断能ENCUT的选取"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-29</div><div class="info-item-2">截断能ENCUT的选取</div></div><div class="info-2"><div class="info-item-1"> ENCUT是用来指定平面波基组能量截止值的参数  以上是wiki对ENCUT的描述，POTCAR文件中已经包含了元素的ENMAX和ENMIN，这也是互联网上对ENCUT的选择方案对通常是1.3倍的ENMAX 侯柱峰老师提供了另外一种方法并指出通过该方法选择的ENCUT通常能满足1.3倍ENMAX，供参考使用 截断能指定了用于波函数展开的平面波基组的截断能量，此能量越大则用来描述波函数的平面波基组越多，精度越高，但计算也越耗时。 可以通过计算测试来选择合适的ENCUT。 以下是用于测试的脚本： 123456789101112131415#!/bin/shrm WAVECARfor i in 150 200 250 300 350 400docat &gt; INCAR &lt;&lt;!SYSTEM = Si-DiamondENCUT = $iISTART = 0 ; ICHARG = 2ISMEAR = -5PREC = Accurate!echo &quot;ENCUT = $i eV&quot; ; time vaspE=`grep &quot;TOTEN&quot; OU...</div></div></div></a><a class="pagination-related" href="/2025/04/27/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E4%BB%A5p(1x1)Cu(111)%E4%B8%BA%E4%BE%8B%E5%88%86%E6%9E%90%E8%A1%A8%E9%9D%A2%E5%BC%9B%E8%B1%AB%E7%9A%84%E7%BB%93%E6%9E%9C/" title="以p(1x1)Cu(111)为例分析表面弛豫的结果"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-27</div><div class="info-item-2">以p(1x1)Cu(111)为例分析表面弛豫的结果</div></div><div class="info-2"><div class="info-item-1">本文其实没啥新的内容，只是对上两节的一个总结分析 在表面弛豫前（slab模型优化计算前） 12345678910111213SYSTEM = p(1x1)Cu(111)1.0        2.5701000690         0.0000000000         0.0000000000       -1.2850500345         2.2257719501         0.0000000000        0.0000000000         0.0000000000        21.2954006195   Cu    4Selective DynamicsDirect     0.000000000         0.000000000         0.000000000 F F F     0.666670000         0.333330000         0.098540000 F F F     0.333330000         0.666670000         0.197080000 T T T    ...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">John Doe</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">89</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">15</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/08/%E5%91%A8%E6%97%A5%E9%97%B2%E7%9D%80%E5%BF%83%E8%A1%80%E6%9D%A5%E6%BD%AE%EF%BC%8C%E7%9C%8B%E7%9C%8B%E8%BF%9C%E5%A4%84%E7%9A%84Gentoo/" title="Untitled">Untitled</a><time datetime="2026-02-08T06:48:06.538Z" title="Created 2026-02-08 14:48:06">2026-02-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/08/%E7%A7%91%E7%A0%94/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" title="Untitled">Untitled</a><time datetime="2026-02-08T06:48:06.130Z" title="Created 2026-02-08 14:48:06">2026-02-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/08/%E7%A7%91%E7%A0%94/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E6%9C%80%E7%BB%8F%E5%85%B8%E7%9A%84%E7%A8%8B%E5%BA%8F/" title="Untitled">Untitled</a><time datetime="2026-02-08T06:48:06.118Z" title="Created 2026-02-08 14:48:06">2026-02-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/08/%E7%A7%91%E7%A0%94/first%20stage/ATAT%E6%97%A0%E5%BA%8F%E6%8E%BA%E6%9D%82/" title="Untitled">Untitled</a><time datetime="2026-02-08T06:48:05.478Z" title="Created 2026-02-08 14:48:05">2026-02-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/08/hello-world/" title="Hello World">Hello World</a><time datetime="2026-02-08T05:39:06.897Z" title="Created 2026-02-08 13:39:06">2026-02-08</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By John Doe</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

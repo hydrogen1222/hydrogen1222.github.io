@@ -1,0 +1,235 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Hexo</title><meta name="author" content="John Doe"><meta name="copyright" content="John Doe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/page/3/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/butterfly-icon.png">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/butterfly-icon.png"><script type="application/ld+json"></script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/page/3/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Hexo',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'home'
+}</script><meta name="generator" content="Hexo 8.1.1"></head><body><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Hexo</span></a></span><div id="menus"></div></nav><div id="site-info"><h1 id="site-title">Hexo</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts nc" id="recent-posts"><div class="recent-post-items"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/05/27/%E7%A7%91%E7%A0%94/first%20stage/%E7%94%B5%E5%8C%96%E5%AD%A6%E9%98%BB%E6%8A%97%E8%B0%B1/" title="从零开始的电化学阻抗谱原理">从零开始的电化学阻抗谱原理</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-05-27T12:13:00.000Z" title="Created 2025-05-27 20:13:00">2025-05-27</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/">从零开始的科研之旅</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/first-stage/">first stage</a></span></div><div class="content">¶什么是电化学阻抗谱？ 有一种叫做黑箱的未知特性系统。可采用一系列测量方法，通过施加输入信号并检测输出响应来探查黑箱。例如，假设将黑箱置于暗室中，然后施加特定波长的光照。若观察到响应信号（如电流），则可判定箱内物质具有光活性。输入与输出之间的关系称为“传递函数”，阻抗谱是传递函数的一种特例。 阻抗：电路中电阻、电感、电容对交流电个阻碍作用个统称。阻抗是一个复数，实部称为电阻，虚部称为电抗。电化学过程主要涉及电荷在电极和电解质界面上的传输和存储。例如，电极表面的双电层效应会形成双电层电容，电解质中的离子扩散也会导致电容行为。这些机制使电容成为电化学系统中主要的电抗元件。 相比之下，电感通常与磁场的变化相关，比如电流通过线圈时产生的磁场。然而，在常规的电化学系统中，磁场变化通常不显著，因此电感的影响非常小，通常电化学系统中考虑电阻、容抗而不考虑感抗。 电化学阻抗谱（EIS）通过施加交流电压（或电流）并测量产生的电流（或电压），能够研究电极和电化学池的电化学特性，利用等效电路进行分析，可以确定与电极电化学反应相关的重要参数，如电荷转移电阻、双电层电容和Warburg阻抗 ¶阻抗的复数表...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/05/25/%E7%A7%91%E7%A0%94/first%20stage/%E7%A7%91%E7%A0%94%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98/" title="科研中的小问题">科研中的小问题</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-05-25T08:40:40.000Z" title="Created 2025-05-25 16:40:40">2025-05-25</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/">从零开始的科研之旅</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/first-stage/">first stage</a></span></div><div class="content">实验部分 ¶球磨  球磨的原理是什么？ 球磨的作用是什么？ 200rpm合不出来，300rpm就能合出来？  ¶X-ray diffraction  X射线是什么？ X射线衍射的原理和用途是什么？ XRD谱图的横坐标和纵坐标分别是什么意义？ XRD为什么会产生峰？峰是什么意义？ 横坐标2theta角度为什么通常选择20                   #mjx-a97c96f{         display:contents;         mjx-assistive-mml {           user-select: text !important;           clip: auto !important;           color: rgba(0,0,0,0);         }          mjx-container[jax="SVG"] {   direction: ltr; }  mjx-container[jax="SVG"] > svg {   overflow: visible;   min-height: 1px;   min...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/05/24/%E7%A7%91%E7%A0%94/first%20stage/2025-05-24-%E5%85%B3%E4%BA%8EX%E5%B0%84%E7%BA%BF%E7%B2%89%E6%9C%AB%E8%A1%8D%E5%B0%84/" title="从零开始的X射线原理">从零开始的X射线原理</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-05-24T12:24:00.000Z" title="Created 2025-05-24 20:24:00">2025-05-24</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/">从零开始的科研之旅</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/first-stage/">first stage</a></span></div><div class="content">¶前言 1917 年，赫尔首次描述了简单粉末衍射仪的构造，这是在 1895 年威廉·康拉德·伦琴发现 X 射线后不久。衍射仪测量 X 射线反射的角度，从而获得其包含的结构信息。如今，这项技术的分辨率有了显著提高，它被广泛用作分析相信息和解决固态材料晶体结构的工具。X 射线衍射技术用于确定样品的组成或晶体结构。对于大分子和无机化合物等较大的晶体，它可用于确定样品中原子的结构。如果晶体尺寸太小，它可以确定样品的组成、结晶度和相纯度。 ¶什么是X射线？ X射线是一种电磁波，由内壳层电子跃迁所得：  对于原子序数为Z、仅含一个电子的类氢原子，内壳层电子跃迁所辐射的能量可由Rydberg方程计算：                    #mjx-7fe29fd{         display:contents;         mjx-assistive-mml {           user-select: text !important;           clip: auto !important;           color: rgba(0,0,0,0);        ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/05/19/%E7%A7%91%E7%A0%94/VASP/vasp6.5.1+HDF5+Wannier90%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/" title="vasp.6.5.1+HDF6+Wannier90的编译安装">vasp.6.5.1+HDF6+Wannier90的编译安装</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-05-19T08:40:40.000Z" title="Created 2025-05-19 16:40:40">2025-05-19</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/">从零开始的科研之旅</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/VASP/">VASP</a></span></div><div class="content">后记 重新安装了Rocky Linux10，并安装了Slurm作业系统，尝试编译安装vasp，由于用的Rocky10，gcc等各种套件都比较新，折腾麻了，各种编译报错，干脆换到了较新的vasp.6.5.1版本，一遍过！ ¶编译HDF5 编译HDF5部分内容参考了教程：https://zhuanlan.zhihu.com/p/617261007 编译安装HDF5之前需要先编译安装它的依赖zlib😂，首先去官网https://www.zlib.net/，目前最新的的版本是`zlib 1.3.1，下载源代码source code，哪种格式的都行，我的工作站有网就直接用wget`了： 1wget https://www.zlib.net/zlib-1.3.1.tar.gz 没网的集群自己下载到本地计算机再上传到集群上。 解压、配置、编译、测试、安装： 1tar -zxvf zlib-1.3.1.tar.gz 1./configure --prefix=install_directory 1make -jN 1make test 1make install 接下来安装szip，官网(ht...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/05/18/%E7%A7%91%E7%A0%94/first%20stage/%E5%85%B3%E4%BA%8E%E7%94%B5%E5%AD%90%E8%83%BD%E8%B0%B1/" title="关于电子能谱">关于电子能谱</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-05-18T09:28:00.000Z" title="Created 2025-05-18 17:28:00">2025-05-18</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/">从零开始的科研之旅</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/first-stage/">first stage</a></span></div><div class="content">什么是电子能谱？ 电子能谱就是用一定能量的电子束或光子与样品表面相互作用，使样品表面原子中不同能级的电子激发成自由电子，并研究这些自由电子的电子强度（电子数目）按其能量变化的分布曲线。根据使用的激发源的不同，电子能谱又分为X射线光电子能谱（XPS）、紫外光电子能谱（UPS）、俄歇电子能谱（AES） 电子能谱的基础是光电效应：当能量为                   #mjx-b79d0178{         display:contents;         mjx-assistive-mml {           user-select: text !important;           clip: auto !important;           color: rgba(0,0,0,0);         }          mjx-container[jax="SVG"] {   direction: ltr; }  mjx-container[jax="SVG"] > svg {   overflow: visible;   min-height: 1p...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/05/18/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E4%BD%BF%E7%94%A8Multiwfn%E5%8A%A0%E8%BD%BDELFCAR%E7%BB%98%E5%88%B6%E7%AD%89%E5%80%BC%E9%9D%A2%E5%9B%BE/" title="使用Multiwfn加载ELFCAR文件绘制等值面图">使用Multiwfn加载ELFCAR文件绘制等值面图</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-05-18T00:40:00.000Z" title="Created 2025-05-18 08:40:00">2025-05-18</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/">从零开始的科研之旅</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/VASP/">VASP</a></span></div><div class="content">本文仅为学习记录，并非教程 Multiwfn是一个波函数分析程序，功能非常强大，也能绘制ELF等值面图，它支持多种类型的输入文件，既有量子化学计算程序的输出文件，又有第一性原理计算程序的输出文件  以下是Multiwfn加载ELFCAR绘制等值面图的过程  step1：用ELFCAR绘图其实是基于格点数据文件的绘图，需要修改根目录下的配置文件settings.ini，将参数iuserfunc改为-1或者-3 step2：加载ELFCAR文件 step3：4 Output and plot specific property in a plane step4：100 User-defined function (iuserfunc= step5：5 Shaded relief map with projection step6：1: XY plane step7：1a  如果将Multiwfn的根目录添加到PATH环境变量以方便调用，那么画出来的图可能会遇到如下如题  如果直接在根目录下双击.exe文件运行的话就能正常绘图  </div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/05/17/%E7%A7%91%E7%A0%94/first%20stage/%E6%8E%BA%E6%9D%82%E8%B4%A8%E9%87%8F%E8%AE%A1%E7%AE%97/" title="掺杂质量计算的python脚本">掺杂质量计算的python脚本</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-05-17T12:40:00.000Z" title="Created 2025-05-17 20:40:00">2025-05-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/">从零开始的科研之旅</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/VASP/">VASP</a></span></div><div class="content">起因是我想合成各式各样的材料，需要用到各种药品，计算起来比较麻烦，尤其是非化学计量比的化合物比如                   #mjx-6e0958a{         display:contents;         mjx-assistive-mml {           user-select: text !important;           clip: auto !important;           color: rgba(0,0,0,0);         }          mjx-container[jax="SVG"] {   direction: ltr; }  mjx-container[jax="SVG"] > svg {   overflow: visible;   min-height: 1px;   min-width: 1px; }  mjx-container[jax="SVG"] > svg a {   fill: blue;   stroke: blue; }  mjx-assistive-mml {   positi...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/05/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E5%88%9D%E5%AD%A6ELF%E7%94%B5%E5%AD%90%E5%B1%80%E5%9F%9F%E5%8C%96%E5%87%BD%E6%95%B0%E7%9A%84%E8%AE%A1%E7%AE%97%E4%B8%8E%E5%88%86%E6%9E%90/" title="初学ELF电子定域化函数的计算与分析">初学ELF电子定域化函数的计算与分析</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-05-14T07:40:00.000Z" title="Created 2025-05-14 15:40:00">2025-05-14</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/">从零开始的科研之旅</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/VASP/">VASP</a></span></div><div class="content">本文仅为学习记录，并非教程 这次记录文主要侧重于应用，参考了Sob老师的博文和网络上的各大教程 ¶以FCC Cu为例进行ELF计算与分析 采用FCC面心立方最密堆积的铜单胞，使用vasp计算，先进行结构优化，确认收敛后进行ELF计算 123456789101112131415161718192021222324252627282930313233343536373839Global ParametersISTART =  1            (Read existing wavefunction, if there)ISPIN  =  2            (Non-Spin polarised DFT)MAGMOM = 4*0.6# ICHARG =  11         (Non-self-consistent: GGA/LDA band structures)LREAL  = .FALSE.       (Projection operators: automatic) ENCUT  =  530        (Cut-off energy for plane...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/05/12/%E7%A7%91%E7%A0%94/VASP/2025-04-21-2025%E5%B9%B44%E6%9C%88Intel%E5%B9%B3%E5%8F%B0VASP.6.4.3%E7%9A%84%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/" title="2025年5月Intel平台VASP.6.4.3的编译安装">2025年5月Intel平台VASP.6.4.3的编译安装</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-05-12T14:40:00.000Z" title="Created 2025-05-12 22:40:00">2025-05-12</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/">从零开始的科研之旅</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/VASP/">VASP</a></span></div><div class="content">2025年5月Intel平台VASP.6.4.3的编译安装  ¶WSL的安装 选择Arch Linux，个人比较熟悉，仅供学习使用不作为稳定的生产力环境，配置如下，两颗E5 2676 v3  打开powershell或者终端，输入wsl --install archlinux以自动安装，这一步需要使用代理(MAGIC)，主机上使用Clash-Verge进行代理（运气好也能连上），终端中输入： 12set http_proxy=http://127.0.0.1:7897 #自己使用的端口是7897，http代理set https_proxy=http://127.0.0.1:7897 #自己使用的端口是7897，https代理 如果没有条件使用代理，也可以手动安装，参考Arch Wiki，https://wiki.archlinuxcn.org/wiki/在_WSL_上安装_Arch_Linux，手动下载`.wsl`镜像，然后安装 笔者计算机C盘性能太差，于是想要将wsl2迁移到另一个分区 安装成功 12345678910111213141516171819202122[root@...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2025/05/12/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vaspkit%E7%9A%84%E4%BD%BF%E7%94%A8/" title="Vaspkit的使用">Vaspkit的使用</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">Created</span><time datetime="2025-05-12T02:40:00.000Z" title="Created 2025-05-12 10:40:00">2025-05-12</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/">从零开始的科研之旅</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/VASP/">VASP</a></span></div><div class="content">安装、配置好vaspkit之后输入vaspkit可启动软件包 12345678910111213141516171819202122232425262728293031323334(base) storm@DESKTOP-HE4FQ8Q:~/my-learn/trash-vaspkit$ vaspkit            \\\///           / _  _ \         Hey, you must know what you are doing.         (| (o)(o) |)       Otherwise you might get wrong results. o-----.OOOo--()--oOOO.------------------------------------------o |         VASPKIT Standard Edition 1.5.1 (27 Jan. 2024)         | |         Lead Developer: Vei WANG (wangvei@icloud.com)       ...</div></div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/2/#content-inner"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/#content-inner">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/#content-inner">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/#content-inner">9</a><a class="extend next" rel="next" href="/page/4/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">John Doe</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">89</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">15</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/08/%E5%91%A8%E6%97%A5%E9%97%B2%E7%9D%80%E5%BF%83%E8%A1%80%E6%9D%A5%E6%BD%AE%EF%BC%8C%E7%9C%8B%E7%9C%8B%E8%BF%9C%E5%A4%84%E7%9A%84Gentoo/" title="Untitled">Untitled</a><time datetime="2026-02-08T06:48:06.538Z" title="Created 2026-02-08 14:48:06">2026-02-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/08/%E7%A7%91%E7%A0%94/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" title="Untitled">Untitled</a><time datetime="2026-02-08T06:48:06.130Z" title="Created 2026-02-08 14:48:06">2026-02-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/08/%E7%A7%91%E7%A0%94/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E6%9C%80%E7%BB%8F%E5%85%B8%E7%9A%84%E7%A8%8B%E5%BA%8F/" title="Untitled">Untitled</a><time datetime="2026-02-08T06:48:06.118Z" title="Created 2026-02-08 14:48:06">2026-02-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/08/%E7%A7%91%E7%A0%94/first%20stage/ATAT%E6%97%A0%E5%BA%8F%E6%8E%BA%E6%9D%82/" title="Untitled">Untitled</a><time datetime="2026-02-08T06:48:05.478Z" title="Created 2026-02-08 14:48:05">2026-02-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/08/hello-world/" title="Hello World">Hello World</a><time datetime="2026-02-08T05:39:06.897Z" title="Created 2026-02-08 13:39:06">2026-02-08</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>Categories</span>
+            <a class="card-more-btn" href="/categories/" title="View More">
+      <i class="fas fa-angle-right"></i></a>
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Stormy-English/"><span class="card-category-list-name">Stormy English</span><span class="card-category-list-count">26</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Stormy-English/Stupid-Words/"><span class="card-category-list-name">Stupid Words</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Stormy-English/TED-Ed/"><span class="card-category-list-name">TED-Ed</span><span class="card-category-list-count">12</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Stormy-English/The-Atlantic/"><span class="card-category-list-name">The Atlantic</span><span class="card-category-list-count">5</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Stormy-English/The-Atlantic/April/"><span class="card-category-list-name">April</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Stormy-English/The-Atlantic/March/"><span class="card-category-list-name">March</span><span class="card-category-list-count">4</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Stormy-English/%E8%B5%96%E4%B8%96%E9%9B%84%E9%AB%98%E7%BA%A7%E7%BE%8E%E8%AF%AD/"><span class="card-category-list-name">赖世雄高级美语</span><span class="card-category-list-count">8</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E4%B8%80%E4%BA%9B%E6%9D%82%E8%B0%88/"><span class="card-category-list-name">一些杂谈</span><span class="card-category-list-count">5</span></a></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>Tags</span></div><div class="card-tag-cloud"><a href="/tags/Learning/" style="font-size: 1.1em; color: #999">Learning</a> <a href="/tags/%E7%A7%91%E7%A0%94/" style="font-size: 1.44em; color: #99a7ba">科研</a> <a href="/tags/%E8%AE%B8%E7%BE%8E%E9%9D%99/" style="font-size: 1.16em; color: #999b9e">许美静</a> <a href="/tags/%E5%8C%96%E5%AD%A6/" style="font-size: 1.5em; color: #99a9bf">化学</a> <a href="/tags/%E9%94%82%E7%94%B5%E6%B1%A0%E5%9F%BA%E7%A1%80%E7%A7%91%E5%AD%A6/" style="font-size: 1.16em; color: #999b9e">锂电池基础科学</a> <a href="/tags/%E6%8A%98%E8%85%BE/" style="font-size: 1.21em; color: #999ea4">折腾</a> <a href="/tags/English-Learning/" style="font-size: 1.39em; color: #99a4b4">English Learning</a> <a href="/tags/AI/" style="font-size: 1.1em; color: #999">AI</a> <a href="/tags/hexo/" style="font-size: 1.1em; color: #999">hexo</a> <a href="/tags/Linux/" style="font-size: 1.1em; color: #999">Linux</a> <a href="/tags/%E6%AD%8C%E8%AF%8D/" style="font-size: 1.16em; color: #999b9e">歌词</a> <a href="/tags/%E9%AB%98%E5%88%86%E5%AD%90%E7%89%A9%E7%90%86/" style="font-size: 1.27em; color: #99a0a9">高分子物理</a> <a href="/tags/English/" style="font-size: 1.1em; color: #999">English</a> <a href="/tags/%E6%B2%89%E6%80%9D%E5%BD%95/" style="font-size: 1.33em; color: #99a2af">沉思录</a></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>Archives</span>
+      <a class="card-more-btn" href="/archives/"
+            title="View More">
+            <i class="fas fa-angle-right"></i>
+          </a>
+    </div>
+  
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/02/">
+            <span class="card-archive-list-date">
+              February 2026
+            </span>
+            <span class="card-archive-list-count">5</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/10/">
+            <span class="card-archive-list-date">
+              October 2025
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/09/">
+            <span class="card-archive-list-date">
+              September 2025
+            </span>
+            <span class="card-archive-list-count">4</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/08/">
+            <span class="card-archive-list-date">
+              August 2025
+            </span>
+            <span class="card-archive-list-count">4</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/07/">
+            <span class="card-archive-list-date">
+              July 2025
+            </span>
+            <span class="card-archive-list-count">3</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/06/">
+            <span class="card-archive-list-date">
+              June 2025
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/05/">
+            <span class="card-archive-list-date">
+              May 2025
+            </span>
+            <span class="card-archive-list-count">14</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/04/">
+            <span class="card-archive-list-date">
+              April 2025
+            </span>
+            <span class="card-archive-list-count">24</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>Website Info</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">Article Count :</div><div class="item-count">89</div></div><div class="webinfo-item"><div class="item-name">Unique Visitors :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Page Views :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">Last Update :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-02-08T07:38:31.641Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By John Doe</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

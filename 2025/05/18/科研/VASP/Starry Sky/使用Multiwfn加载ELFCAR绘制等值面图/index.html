@@ -1,0 +1,180 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>使用Multiwfn加载ELFCAR文件绘制等值面图 | Hexo</title><meta name="author" content="John Doe"><meta name="copyright" content="John Doe"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本文仅为学习记录，并非教程 Multiwfn是一个波函数分析程序，功能非常强大，也能绘制ELF等值面图，它支持多种类型的输入文件，既有量子化学计算程序的输出文件，又有第一性原理计算程序的输出文件  以下是Multiwfn加载ELFCAR绘制等值面图的过程  step1：用ELFCAR绘图其实是基于格点数据文件的绘图，需要修改根目录下的配置文件settings.ini，将参数iuserfunc改为-">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Multiwfn加载ELFCAR文件绘制等值面图">
+<meta property="og:url" content="http://example.com/2025/05/18/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E4%BD%BF%E7%94%A8Multiwfn%E5%8A%A0%E8%BD%BDELFCAR%E7%BB%98%E5%88%B6%E7%AD%89%E5%80%BC%E9%9D%A2%E5%9B%BE/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="本文仅为学习记录，并非教程 Multiwfn是一个波函数分析程序，功能非常强大，也能绘制ELF等值面图，它支持多种类型的输入文件，既有量子化学计算程序的输出文件，又有第一性原理计算程序的输出文件  以下是Multiwfn加载ELFCAR绘制等值面图的过程  step1：用ELFCAR绘图其实是基于格点数据文件的绘图，需要修改根目录下的配置文件settings.ini，将参数iuserfunc改为-">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-05-18T00:40:00.000Z">
+<meta property="article:modified_time" content="2025-08-31T03:20:54.250Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="化学">
+<meta property="article:tag" content="科研">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "使用Multiwfn加载ELFCAR文件绘制等值面图",
+  "url": "http://example.com/2025/05/18/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E4%BD%BF%E7%94%A8Multiwfn%E5%8A%A0%E8%BD%BDELFCAR%E7%BB%98%E5%88%B6%E7%AD%89%E5%80%BC%E9%9D%A2%E5%9B%BE/",
+  "image": "http://example.com/img/butterfly-icon.png",
+  "datePublished": "2025-05-18T00:40:00.000Z",
+  "dateModified": "2025-08-31T03:20:54.250Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "John Doe",
+      "url": "http://example.com"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2025/05/18/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E4%BD%BF%E7%94%A8Multiwfn%E5%8A%A0%E8%BD%BDELFCAR%E7%BB%98%E5%88%B6%E7%AD%89%E5%80%BC%E9%9D%A2%E5%9B%BE/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '使用Multiwfn加载ELFCAR文件绘制等值面图',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.1.1"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Hexo</span></a><a class="nav-page-title" href="/"><span class="site-name">使用Multiwfn加载ELFCAR文件绘制等值面图</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">使用Multiwfn加载ELFCAR文件绘制等值面图</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2025-05-18T00:40:00.000Z" title="Created 2025-05-18 08:40:00">2025-05-18</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2025-08-31T03:20:54.250Z" title="Updated 2025-08-31 11:20:54">2025-08-31</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/">从零开始的科研之旅</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/VASP/">VASP</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p><strong>本文仅为学习记录，并非教程</strong></p>
+<p><code>Multiwfn</code>是一个波函数分析程序，功能非常强大，也能绘制ELF等值面图，它支持多种类型的输入文件，既有量子化学计算程序的输出文件，又有第一性原理计算程序的输出文件</p>
+<img src="/2025/05/18/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E4%BD%BF%E7%94%A8Multiwfn%E5%8A%A0%E8%BD%BDELFCAR%E7%BB%98%E5%88%B6%E7%AD%89%E5%80%BC%E9%9D%A2%E5%9B%BE/1%20(1)-1756610428425-1.png" class="" title="Multiwfn的输入文件(http:&#x2F;&#x2F;sobereva.com&#x2F;379)">
+<p>以下是<code>Multiwfn</code>加载<code>ELFCAR</code>绘制等值面图的过程</p>
+<ul>
+<li>step1：<a target="_blank" rel="noopener" href="http://sobereva.com/452">用<code>ELFCAR</code>绘图其实是基于格点数据文件的绘图，需要修改根目录下的配置文件<code>settings.ini</code>，将参数<code>iuserfunc</code>改为-1或者-3</a></li>
+<li>step2：加载<code>ELFCAR</code>文件</li>
+<li>step3：4 Output and plot specific property in a plane</li>
+<li>step4：100 User-defined function (iuserfunc=</li>
+<li>step5：5 Shaded relief map with projection</li>
+<li>step6：1: XY plane</li>
+<li>step7：1a</li>
+</ul>
+<p>如果将<code>Multiwfn</code>的根目录添加到<code>PATH</code>环境变量以方便调用，那么画出来的图可能会遇到如下如题</p>
+<img src="/2025/05/18/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E4%BD%BF%E7%94%A8Multiwfn%E5%8A%A0%E8%BD%BDELFCAR%E7%BB%98%E5%88%B6%E7%AD%89%E5%80%BC%E9%9D%A2%E5%9B%BE/QQ20250515-193116-1756610428425-3.png" class="" title="在非根目录下调用Multiwfn">
+<p>如果直接在根目录下双击<code>.exe</code>文件运行的话就能正常绘图</p>
+<img src="/2025/05/18/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E4%BD%BF%E7%94%A8Multiwfn%E5%8A%A0%E8%BD%BDELFCAR%E7%BB%98%E5%88%B6%E7%AD%89%E5%80%BC%E9%9D%A2%E5%9B%BE/QQ20250518-092244-1756610428425-2.png" class="" title="正常的ELF等值面图">
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="http://example.com">John Doe</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="http://example.com/2025/05/18/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E4%BD%BF%E7%94%A8Multiwfn%E5%8A%A0%E8%BD%BDELFCAR%E7%BB%98%E5%88%B6%E7%AD%89%E5%80%BC%E9%9D%A2%E5%9B%BE/">http://example.com/2025/05/18/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E4%BD%BF%E7%94%A8Multiwfn%E5%8A%A0%E8%BD%BDELFCAR%E7%BB%98%E5%88%B6%E7%AD%89%E5%80%BC%E9%9D%A2%E5%9B%BE/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%8C%96%E5%AD%A6/">化学</a><a class="post-meta__tags" href="/tags/%E7%A7%91%E7%A0%94/">科研</a></div><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/05/18/%E7%A7%91%E7%A0%94/first%20stage/%E5%85%B3%E4%BA%8E%E7%94%B5%E5%AD%90%E8%83%BD%E8%B0%B1/" title="关于电子能谱"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">关于电子能谱</div></div><div class="info-2"><div class="info-item-1">什么是电子能谱？ 电子能谱就是用一定能量的电子束或光子与样品表面相互作用，使样品表面原子中不同能级的电子激发成自由电子，并研究这些自由电子的电子强度（电子数目）按其能量变化的分布曲线。根据使用的激发源的不同，电子能谱又分为X射线光电子能谱（XPS）、紫外光电子能谱（UPS）、俄歇电子能谱（AES） 电子能谱的基础是光电效应：当能量为                   #mjx-b79d0178{         display:contents;         mjx-assistive-mml {           user-select: text !important;           clip: auto !important;           color: rgba(0,0,0,0);         }          mjx-container[jax="SVG"] {   direction: ltr; }  mjx-container[jax="SVG"] > svg {   overflow: visible;   min-height: 1p...</div></div></div></a><a class="pagination-related" href="/2025/05/17/%E7%A7%91%E7%A0%94/first%20stage/%E6%8E%BA%E6%9D%82%E8%B4%A8%E9%87%8F%E8%AE%A1%E7%AE%97/" title="掺杂质量计算的python脚本"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2">掺杂质量计算的python脚本</div></div><div class="info-2"><div class="info-item-1">起因是我想合成各式各样的材料，需要用到各种药品，计算起来比较麻烦，尤其是非化学计量比的化合物比如                   #mjx-6e0958a{         display:contents;         mjx-assistive-mml {           user-select: text !important;           clip: auto !important;           color: rgba(0,0,0,0);         }          mjx-container[jax="SVG"] {   direction: ltr; }  mjx-container[jax="SVG"] > svg {   overflow: visible;   min-height: 1px;   min-width: 1px; }  mjx-container[jax="SVG"] > svg a {   fill: blue;   stroke: blue; }  mjx-assistive-mml {   positi...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/05/25/%E7%A7%91%E7%A0%94/first%20stage/%E7%A7%91%E7%A0%94%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98/" title="科研中的小问题"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-25</div><div class="info-item-2">科研中的小问题</div></div><div class="info-2"><div class="info-item-1">实验部分 ¶球磨  球磨的原理是什么？ 球磨的作用是什么？ 200rpm合不出来，300rpm就能合出来？  ¶X-ray diffraction  X射线是什么？ X射线衍射的原理和用途是什么？ XRD谱图的横坐标和纵坐标分别是什么意义？ XRD为什么会产生峰？峰是什么意义？ 横坐标2theta角度为什么通常选择20                   #mjx-a97c96f{         display:contents;         mjx-assistive-mml {           user-select: text !important;           clip: auto !important;           color: rgba(0,0,0,0);         }          mjx-container[jax="SVG"] {   direction: ltr; }  mjx-container[jax="SVG"] > svg {   overflow: visible;   min-height: 1px;   min...</div></div></div></a><a class="pagination-related" href="/2025/05/19/%E7%A7%91%E7%A0%94/VASP/vasp6.5.1+HDF5+Wannier90%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/" title="vasp.6.5.1+HDF6+Wannier90的编译安装"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-19</div><div class="info-item-2">vasp.6.5.1+HDF6+Wannier90的编译安装</div></div><div class="info-2"><div class="info-item-1">后记 重新安装了Rocky Linux10，并安装了Slurm作业系统，尝试编译安装vasp，由于用的Rocky10，gcc等各种套件都比较新，折腾麻了，各种编译报错，干脆换到了较新的vasp.6.5.1版本，一遍过！ ¶编译HDF5 编译HDF5部分内容参考了教程：https://zhuanlan.zhihu.com/p/617261007 编译安装HDF5之前需要先编译安装它的依赖zlib😂，首先去官网https://www.zlib.net/，目前最新的的版本是`zlib 1.3.1，下载源代码source code，哪种格式的都行，我的工作站有网就直接用wget`了： 1wget https://www.zlib.net/zlib-1.3.1.tar.gz 没网的集群自己下载到本地计算机再上传到集群上。 解压、配置、编译、测试、安装： 1tar -zxvf zlib-1.3.1.tar.gz 1./configure --prefix=install_directory 1make -jN 1make test 1make install 接下来安装szip，官网(ht...</div></div></div></a><a class="pagination-related" href="/2025/05/24/%E7%A7%91%E7%A0%94/first%20stage/2025-05-24-%E5%85%B3%E4%BA%8EX%E5%B0%84%E7%BA%BF%E7%B2%89%E6%9C%AB%E8%A1%8D%E5%B0%84/" title="从零开始的X射线原理"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-24</div><div class="info-item-2">从零开始的X射线原理</div></div><div class="info-2"><div class="info-item-1">¶前言 1917 年，赫尔首次描述了简单粉末衍射仪的构造，这是在 1895 年威廉·康拉德·伦琴发现 X 射线后不久。衍射仪测量 X 射线反射的角度，从而获得其包含的结构信息。如今，这项技术的分辨率有了显著提高，它被广泛用作分析相信息和解决固态材料晶体结构的工具。X 射线衍射技术用于确定样品的组成或晶体结构。对于大分子和无机化合物等较大的晶体，它可用于确定样品中原子的结构。如果晶体尺寸太小，它可以确定样品的组成、结晶度和相纯度。 ¶什么是X射线？ X射线是一种电磁波，由内壳层电子跃迁所得：  对于原子序数为Z、仅含一个电子的类氢原子，内壳层电子跃迁所辐射的能量可由Rydberg方程计算：                    #mjx-7fe29fd{         display:contents;         mjx-assistive-mml {           user-select: text !important;           clip: auto !important;           color: rgba(0,0,0,0);        ...</div></div></div></a><a class="pagination-related" href="/2025/04/23/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Cu%E5%8D%95%E8%83%9E%E7%9A%84bulk%E8%AE%A1%E7%AE%97/" title="Cu单胞的bulk计算"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-23</div><div class="info-item-2">Cu单胞的bulk计算</div></div><div class="info-2"><div class="info-item-1">bulk计算，直译为“体相计算”，指的是模拟理想的三维无限大晶体（无表面、界面或缺陷，不模拟则体系太大算不动），利用 周期性边界条件 描述材料的体相性质，主要用于研究材料的本征物理化学性质（如晶格结构、电子能带、热力学稳定性等） ¶准备POSCAR 打开materials studio-File-Import-Structures-Metals-pure metals-Cu.xsd，然后export为cif文件 用vesta打开Cu.cif文件，再export data，导出保存为POSCAR文件 ¶准备KPOINTS 12345KPOINTS for Cu-concentional-cell-bulk-calc0Gamma13 13 130 0 0 ¶准备INCAR 123456789101112SYSTEM = Cu-conventional-cell-bulk-calculationISMEAR = 0SIGMA = 0.1ENCUT = 700ISIF = 3NSW = 200NELM = 200IBRION = 2POTIM = 0.1EDIFFG = -0.01ALG...</div></div></div></a><a class="pagination-related" href="/2025/09/01/%E7%A7%91%E7%A0%94/first%20stage/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E9%94%82%E7%94%B5%E6%B1%A0%E5%9F%BA%E7%A1%80%E7%A7%91%E5%AD%A6/%E7%94%B5%E6%B1%A0%E7%95%8C%E9%9D%A2%E9%97%AE%E9%A2%98/" title="第二弹——能量密度的估算"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-01</div><div class="info-item-2">第二弹——能量密度的估算</div></div><div class="info-2"><div class="info-item-1">SEI膜的结构 锂离子电池工作电位范围为2～4.3V。其中，石墨类负极工作电位范围在0～1.0V（vs.Li+/Li），正极工作电位范围一般在2.5～ 4.3V（vs.Li+/Li）。而目前商用电解液不发生氧化还原反应的电化学窗口一般为1.2～3.7V（vs.Li+/Li）。因此，在负极侧，当负极点位 &lt;1.2 V时会生成SEI固态电解质中间相，类似的在正极侧会生成CEI结构。 从机理来看，当负极的Fermi能级高于电解质的LUMO时，电子容易从Fermi能级转移到LUMO轨道，即发生氧化还原反应形成SEI界面  如果电极材料的充放电电位范围较窄，例如负极的嵌锂电位高于1.2V（ vs.Li+/Li ） ， 正极的脱锂电位低于 3.5V（vs.Li+/Li），则正负极表面可以不发生电解质的氧化还原反应，不会形成SEI膜。 SEI界相的厚度可能需要&gt;2 nm以防止电子隧穿效应，&lt;50 nm来确保离子能够顺利传输。它的结构如下图所示：  SEI膜的成分和结构通常认为是靠近电极材料的为无机物层，对于锂离子电池，主要包含                   #mjx-b...</div></div></div></a><a class="pagination-related" href="/2025/03/20/%E7%A7%91%E7%A0%94/first%20stage/20250319night/" title="一种掺杂硫银锗矿电解质的合成"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-20</div><div class="info-item-2">一种掺杂硫银锗矿电解质的合成</div></div><div class="info-2"><div class="info-item-1">19日晚第一次进实验室，师姐带我合成一种固态电解质，参考文献有Angew. Chem. Int. Ed. 2019, 58, 8681 –8686等。由于电池是锂电池，需要隔绝                   #mjx-db8d3258{         display:contents;         mjx-assistive-mml {           user-select: text !important;           clip: auto !important;           color: rgba(0,0,0,0);         }          mjx-container[jax="SVG"] {   direction: ltr; }  mjx-container[jax="SVG"] > svg {   overflow: visible;   min-height: 1px;   min-width: 1px; }  mjx-container[jax="SVG"] > svg a {   fill: blue;   stro...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">John Doe</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">89</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">15</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/08/%E5%91%A8%E6%97%A5%E9%97%B2%E7%9D%80%E5%BF%83%E8%A1%80%E6%9D%A5%E6%BD%AE%EF%BC%8C%E7%9C%8B%E7%9C%8B%E8%BF%9C%E5%A4%84%E7%9A%84Gentoo/" title="Untitled">Untitled</a><time datetime="2026-02-08T06:48:06.538Z" title="Created 2026-02-08 14:48:06">2026-02-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/08/%E7%A7%91%E7%A0%94/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" title="Untitled">Untitled</a><time datetime="2026-02-08T06:48:06.130Z" title="Created 2026-02-08 14:48:06">2026-02-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/08/%E7%A7%91%E7%A0%94/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E6%9C%80%E7%BB%8F%E5%85%B8%E7%9A%84%E7%A8%8B%E5%BA%8F/" title="Untitled">Untitled</a><time datetime="2026-02-08T06:48:06.118Z" title="Created 2026-02-08 14:48:06">2026-02-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/08/%E7%A7%91%E7%A0%94/first%20stage/ATAT%E6%97%A0%E5%BA%8F%E6%8E%BA%E6%9D%82/" title="Untitled">Untitled</a><time datetime="2026-02-08T06:48:05.478Z" title="Created 2026-02-08 14:48:05">2026-02-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/02/08/hello-world/" title="Hello World">Hello World</a><time datetime="2026-02-08T05:39:06.897Z" title="Created 2026-02-08 13:39:06">2026-02-08</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By John Doe</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

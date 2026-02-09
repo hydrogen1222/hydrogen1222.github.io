@@ -1,12 +1,79 @@
-/* 引入落霞文楷字体 */
+/* =========================================================
+   1. 字体引入（落霞文楷）
+   ========================================================= */
 @import url('https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css');
 
-/* 强制覆盖字体设置 */
-/* 这里的顺序很重要：Times New Roman (英文) -> 落霞文楷 (中文) -> 系统默认 */
-body, 
-#article-container, 
+
+/* =========================================================
+   2. 全局字体设置（英文优先 + 中文补充）
+   ========================================================= */
+body,
+#article-container,
 h1, h2, h3, h4, h5, h6,
-.code-block, 
-#footer {
-    font-family: "Times New Roman", "LXGW WenKai Screen", sans-serif !important;
+.code-block,
+#footer,
+#nav,
+#aside-content {
+  font-family: "Times New Roman", "LXGW WenKai Screen", sans-serif !important;
+}
+
+
+/* =========================================================
+   3. 磨砂玻璃卡片效果（亮色模式）
+   ========================================================= */
+#aside-content .card-widget,
+#recent-posts > .recent-post-item,
+.layout > .recent-posts .pagination > *,
+.layout > div:first-child:not(.recent-posts) {
+  background: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+}
+
+
+/* =========================================================
+   4. 深色模式适配（磨砂玻璃）
+   ========================================================= */
+[data-theme="dark"] #aside-content .card-widget,
+[data-theme="dark"] #recent-posts > .recent-post-item,
+[data-theme="dark"] .layout > .recent-posts .pagination > *,
+[data-theme="dark"] .layout > div:first-child:not(.recent-posts) {
+  background: rgba(0, 0, 0, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+
+/* =========================================================
+   5. 背景图固定（增强沉浸感）
+   ========================================================= */
+body {
+  background-attachment: fixed !important;
+  background-position: center !important;
+  background-size: cover !important;
+}
+
+
+/* =========================================================
+   6. 滚动条美化（WebKit 内核）
+   ========================================================= */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #49b1f5;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff7242;
 }

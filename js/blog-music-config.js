@@ -17,7 +17,7 @@ window.BLOG_MUSIC_CONFIG = {
   track: {
     title: "夢をあきらめないで",
     artist: "Takako Okamura",
-    subtitle: "Single Track Edition",
+    subtitle: "Liberté",
     eyebrow: "Moonlight Broadcast",
     ambience: "本地自托管单曲 · 玻璃氛围播放器 · LRC 时序歌词",
     src: "/music/夢をあきらめないで.mp3?v=20260322a",

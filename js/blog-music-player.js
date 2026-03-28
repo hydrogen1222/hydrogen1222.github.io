@@ -1240,7 +1240,7 @@
           <header class="music-player__topbar">
             <button class="music-player__drag" type="button" aria-label="拖动播放器" title="拖动播放器">${icons.drag}</button>
             <div class="music-player__eyebrow-wrap">
-              <p class="music-player__eyebrow">${config.track.eyebrow || "Moonlight Broadcast"}</p>
+              <p class="music-player__eyebrow">${config.track.eyebrow || "Stormy Broadcast"}</p>
               <p class="music-player__hint"></p>
             </div>
             <div class="music-player__actions">

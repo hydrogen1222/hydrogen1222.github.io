@@ -1,0 +1,14 @@
+{
+  "showFrontmatter": false,
+  "strictLineBreaks": true,
+  "readableLineLength": false,
+  "spellcheck": true,
+  "alwaysUpdateLinks": true,
+  "newLinkFormat": "relative",
+  "useMarkdownLinks": true,
+  "newFileLocation": "current",
+  "showInlineTitle": false,
+  "attachmentFolderPath": "./{{filename}}/",
+  "promptDelete": false,
+  "trashOption": "local"
+}

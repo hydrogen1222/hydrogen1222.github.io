@@ -1,0 +1,229 @@
+{
+  "main": {
+    "id": "662a16bb9f58750e",
+    "type": "split",
+    "children": [
+      {
+        "id": "7624e431527b65e8",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "c782289487d79df2",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "新标签页"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "f362b6e6ff6933a9",
+    "type": "split",
+    "children": [
+      {
+        "id": "456efdb554e68725",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ef34c08a9dc962bf",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
+            }
+          },
+          {
+            "id": "abdd2d427c68746a",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
+            }
+          },
+          {
+            "id": "28cf11feff654e8a",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {},
+              "icon": "lucide-ghost",
+              "title": "starred"
+            }
+          },
+          {
+            "id": "522c71f574b9bef7",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "source/_posts/计算机/Gentoo初体验.md",
+                "followCursor": true,
+                "showSearch": true,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Gentoo初体验 的大纲"
+            }
+          },
+          {
+            "id": "ae35f59cf4c1fb2e",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
+            }
+          },
+          {
+            "id": "57783a4e356b00cd",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "书签"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 274.5
+  },
+  "right": {
+    "id": "0acf714d92fc4e9b",
+    "type": "split",
+    "children": [
+      {
+        "id": "b00ed99d7e70d6c0",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "375315d9693ad81b",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "D-软件技能/hexo博客安装.md",
+                "collapseAll": true,
+                "extraContext": true,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "hexo博客安装 的反向链接列表"
+            }
+          },
+          {
+            "id": "93375a0954355b52",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "D-软件技能/hexo博客安装.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "hexo博客安装 的出链列表"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 248.5,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "bases:新建数据库": false,
+      "canvas:新建白板": false,
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false,
+      "zk-prefixer:创建时间戳笔记": false,
+      "workspaces:管理工作区布局": false
+    }
+  },
+  "active": "c782289487d79df2",
+  "lastOpenFiles": [
+    "public/2026/03/29/沉思录/终将听到青春的声音/1ef7008787c5315c865354536db6c495_720.png",
+    "public/2026/03/29/沉思录/终将听到青春的声音/cover.png",
+    "public/2026/03/29/沉思录/终将听到青春的声音/29b3d9d1a1097d08f8ec0788d1618144_720.png",
+    "public/2026/03/29/沉思录/终将听到青春的声音/index.html",
+    "public/2026/03/29/沉思录/终将听到青春的声音/file-20260329233507148.png",
+    "public/2026/03/29/沉思录/终将听到青春的声音",
+    "public/2026/03/29/沉思录",
+    "public/2026/03/29",
+    "public/page/10/index.html",
+    "public/archives/page/10/index.html",
+    "public/page/10",
+    "public/archives/page/10",
+    "source/_posts/沉思录/终将听到青春的声音.md",
+    "source/_posts/沉思录/终将听到青春的声音/cover.png",
+    "source/_posts/沉思录/终将听到青春的声音/136c2c02b00488281e68507858e24737_720.png",
+    "source/_posts/沉思录/终将听到青春的声音/29b3d9d1a1097d08f8ec0788d1618144_720.png",
+    "source/_posts/沉思录/终将听到青春的声音/1ef7008787c5315c865354536db6c495_720.png",
+    "source/_posts/沉思录/终将听到青春的声音/file-20260329233507148.png",
+    "source/_posts/沉思录/终将听到青春的声音",
+    "source/_posts/沉思录/浴火重生.md",
+    "source/_posts/沉思录/Starry Sky.md",
+    "source/_posts/沉思录/Spring-Sundays.md",
+    "source/_posts/沉思录/Phoenix.md",
+    "source/_posts/沉思录/Mild Waterfall.md",
+    "source/_posts/沉思录/Isolated city.md",
+    "source/_posts/沉思录/关于沉思录.md",
+    "public/2026/03/21/沉思录/浴火重生/wx_camera_1774081735951.jpg",
+    "public/2026/03/21/沉思录/浴火重生/1.jpg",
+    "public/2026/03/21/沉思录/浴火重生/index.html",
+    "source/_posts/科研/VASP/Starry Sky/表面能的计算.md",
+    "source/_posts/科研/VASP/Starry Sky/复杂工程.md",
+    "source/_posts/科研/VASP/Starry Sky/表面能的计算 1.md",
+    "source/_posts/计算机/Linux 7.0 新内核尝鲜.md",
+    "source/_posts/计算机/Gentoo初体验.md",
+    "source/_posts/科研/VASP/Starry Sky/吸附能的计算.md",
+    "source/_posts/科研/VASP/Starry Sky/Vasp-note.md",
+    "source/_posts/科研/VASP/Starry Sky/过渡态.md",
+    "source/_posts/科研/VASP/2025年5月AMD平台下VASP的编译安装.md",
+    "source/_posts/科研/VASP/Starry Sky/Cu单胞的bulk计算.md",
+    "source/_posts/科研/VASP/2025-04-21-2025年4月Intel平台VASP.6.4.3的编译安装.md",
+    "source/_posts/科研/VASP/Starry Sky/初学ELF电子局域化函数的计算与分析.md",
+    "source/_posts/科研/VASP/Starry Sky/未命名 1.md",
+    "LVTHW-master/source/_posts/ex61.md",
+    "LVTHW-master/source/_posts/ex59.md",
+    "LVTHW-master/source/_posts/ex58.md",
+    "LVTHW-master/source/_posts/ex57.md"
+  ]
+}

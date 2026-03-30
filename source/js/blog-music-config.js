@@ -1,0 +1,30 @@
+window.BLOG_MUSIC_CONFIG = {
+  enabled: true,
+  storageNamespace: "storm-blog-music",
+  compactMode: true,
+  uiScale: 0.78,
+  lyricsAutoOpenMinWidth: 1800,
+  compactCollapseWidth: 1680,
+  autoplayOnFirstVisit: true,
+  autoUnlockOnFirstInteraction: true,
+  mutedWarmupOnAutoplayBlock: true,
+  rememberPosition: true,
+  defaultVolume: 0.18,
+  fadeInDuration: 1400,
+  accentColor: "#7edcff",
+  secondaryAccent: "#bb9cff",
+  warmGlowColor: "#ffd68f",
+  track: {
+    title: "夢をあきらめないで",
+    artist: "Takako Okamura",
+    subtitle: "Liberté",
+    eyebrow: "Stormy Broadcast",
+    ambience: "本地自托管单曲 · 玻璃氛围播放器 · LRC 时序歌词",
+    src: "/music/夢をあきらめないで.mp3?v=20260322a",
+    cover: "/music/liberte.jpg",
+    lyrics: "/music/夢をあきらめないで.lrc?v=20260322a",
+    loop: true,
+    sourceUrl: "",
+    sourceLabel: ""
+  }
+};

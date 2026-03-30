@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Allow: /archives/
+Allow: /categories/
+Allow: /tags/
+
+Sitemap: https://hydrogen1222.com.cn/sitemap.xml
+Sitemap: https://hydrogen1222.com.cn/baidusitemap.xml

@@ -199,9 +199,9 @@
 </ul>
 <p>手册里明确写出：<mark>The VASP guide is written for experienced user, although even beginners might find it useful to read</mark>。初学者直接上手Wiki会比较困难。</p>
 <p>对于任何基于平面波方法的程序，总会有那么几个步骤（比如波函数正交）会让计算量随着价电子书的增长而爆炸性增长，电子数翻一倍，那么计算量就会增长八倍，但是VASP的开发者让计算复杂度O(N
-    <span id="mjx-61213348">
+    <span id="mjx-95f506c">
       <style>
-      #mjx-61213348{
+      #mjx-95f506c{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -393,9 +393,9 @@ g[data-mml-node="xypic"] path {
 <p>为了求解KS基态，SCF自洽场迭代使用的是Pulay mixer和Iterative matrix diagonalisation（迭代矩阵对角化）这两种方案，前者负责平稳收敛，后者负责快速求解方程，关于VASP的<code>stdout</code>标准输出，看看手册中的例子：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">VASP.4.4.3 10Jun99</span><br><span class="line">POSCAR found : 1 types and 2 ions</span><br><span class="line">LDA part: xc-table for CA standard interpolation</span><br><span class="line">file io ok, starting setup</span><br><span class="line">WARNING: wrap around errors must be expected</span><br><span class="line">entering main loop</span><br><span class="line">     N  E              dE         d eps     ncg rms       rms(c)</span><br><span class="line">CG : 1  0.1209934E+02  0.120E+02 -0.175E+03 165 0.475E+02</span><br><span class="line">CG : 2 -0.1644093E+02 -0.285E+02 -0.661E+01 181 0.741E+01</span><br><span class="line">CG : 3 -0.2047323E+02 -0.403E+01 -0.192E+00 173 0.992E+00 0.416E+00</span><br><span class="line">CG : 4 -0.2002923E+02  0.444E+00 -0.915E-01 175 0.854E+00 0.601E-01</span><br><span class="line">CG : 5 -0.2002815E+02  0.107E-02 -0.268E-03 178 0.475E-01 0.955E-02</span><br><span class="line">CG : 6 -0.2002815E+02  0.116E-05 -0.307E-05 119 0.728E-02</span><br><span class="line">1 F= -.20028156E+02 E0= -.20028156E+02 d E =0.000000E+00</span><br><span class="line">writing wavefunctions</span><br></pre></td></tr></table></figure>
 <p>其中，<code>dE</code>是自由能的差值，<code>d eps</code>是能带结构的差值，<code>ncg</code>是指Number of CG (Conjugate Gradient) iterations，即共轭梯度迭代次数（<strong>哈密顿量作用于波函数的求值总次数</strong>），数值大说明当前电子步波函数收敛慢，需要多次迭代才能达到精度要求<code>EDIFF</code>进入下一个电子步。<code>rms</code>给出了残差向量
-    <span id="mjx-c865b228">
+    <span id="mjx-4f0815f">
       <style>
-      #mjx-c865b228{
+      #mjx-4f0815f{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -558,9 +558,9 @@ g[data-mml-node="xypic"] path {
 <p>对于一个普通的电子步，<code>self-consistency cycle</code>可概括成：</p>
 <ul>
 <li>给/猜一个初始电荷密度（具体由ICHARG参数控制）
-    <span id="mjx-3647c2c">
+    <span id="mjx-9fe47d28">
       <style>
-      #mjx-3647c2c{
+      #mjx-9fe47d28{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -720,9 +720,9 @@ g[data-mml-node="xypic"] path {
     </span>
   </li>
 <li>根据电荷密度计算哈密顿量
-    <span id="mjx-0841499">
+    <span id="mjx-46a7ab4">
       <style>
-      #mjx-0841499{
+      #mjx-46a7ab4{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -885,9 +885,9 @@ g[data-mml-node="xypic"] path {
 <li>根据本征值和轨道计算部分占据数</li>
 <li>计算自由能</li>
 <li>根据轨道和占据数构造新的电荷密度
-    <span id="mjx-fe80374">
+    <span id="mjx-bcfed7b">
       <style>
-      #mjx-fe80374{
+      #mjx-bcfed7b{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -1048,9 +1048,9 @@ g[data-mml-node="xypic"] path {
   </li>
 <li>把新旧密度做mixing混合</li>
 <li>得到下一步的
-    <span id="mjx-b3973528">
+    <span id="mjx-a38fdaa">
       <style>
-      #mjx-b3973528{
+      #mjx-a38fdaa{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -1247,9 +1247,9 @@ g[data-mml-node="xypic"] path {
 本质上都要对整个Brillouin区做积分，但是在实际中没有办法对无限多、连续分布的K点逐个计算，因此改为在离散的K点上做积分，而不用K空间的重要性不同，因此需要做加权求和。<br>
 比如用上面的自动网格的时候，VASP会自动考虑晶体的对称性，会自动知道哪些K点等价，然后自动给每个不可约K点一个权重。<br>
 既然提到对Brillouin区做积分，就不得不提到Brillouin区了，我没太学过固体物理/固体化学，简单地说，<strong>对三维周期晶体，第一布里渊区就是倒空间里的一个三维区域</strong>。它占有体积，但体积是倒空间体积，单位通常是Å
-    <span id="mjx-f67c68b">
+    <span id="mjx-fa13bf3">
       <style>
-      #mjx-f67c68b{
+      #mjx-fa13bf3{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -1411,9 +1411,9 @@ g[data-mml-node="xypic"] path {
 </ul>
 <p>那么什么又是倒空间呢？POSCAR中的结构为实空间晶格，晶格基矢为：</p>
 
-    <span id="mjx-3ae6bc1">
+    <span id="mjx-010bf6a8">
       <style>
-      #mjx-3ae6bc1{
+      #mjx-010bf6a8{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -1573,9 +1573,9 @@ g[data-mml-node="xypic"] path {
     </span>
   <p>它们张成的原子真正摆放的实空间。而倒空间是另外一套与之对应的空间，用倒格矢表示：</p>
 
-    <span id="mjx-0122eef">
+    <span id="mjx-704cb838">
       <style>
-      #mjx-0122eef{
+      #mjx-704cb838{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -1735,9 +1735,9 @@ g[data-mml-node="xypic"] path {
     </span>
   <p>晶格基矢和倒格矢满足：</p>
 
-    <span id="mjx-8a41ed">
+    <span id="mjx-4b9ff3f8">
       <style>
-      #mjx-8a41ed{
+      #mjx-4b9ff3f8{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -1905,9 +1905,9 @@ g[data-mml-node="xypic"] path {
 <p>那么第一Brillouin区的体积和POSCAR结构的体积有何关系呢？<br>
 实空间的体积可表示为：</p>
 
-    <span id="mjx-981f7ef8">
+    <span id="mjx-3e16d51">
       <style>
-      #mjx-981f7ef8{
+      #mjx-3e16d51{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -2067,9 +2067,9 @@ g[data-mml-node="xypic"] path {
     </span>
   <p>那么倒空间的原胞体积，即第一Brillouin体积可表示为：</p>
 
-    <span id="mjx-b5cc32b8">
+    <span id="mjx-b810e58">
       <style>
-      #mjx-b5cc32b8{
+      #mjx-b810e58{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -2232,9 +2232,9 @@ g[data-mml-node="xypic"] path {
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Automatic mesh</span><br><span class="line">0</span><br><span class="line">Gamma</span><br><span class="line">4 4 4</span><br><span class="line">0 0 0</span><br></pre></td></tr></table></figure>
 <p>VASP会将整个倒空间均匀地划分成64等份，每一小份是等权的，然后在大部分的计算情况下，比如立方晶胞，VASP会利用对称性将若干个小等份（若干个K点）合并成一个K点，此时这个新的K点权重就会明显更大，从数学公式上看，原本的网格是：</p>
 
-    <span id="mjx-afadeca8">
+    <span id="mjx-e98dc4f">
       <style>
-      #mjx-afadeca8{
+      #mjx-e98dc4f{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -2396,9 +2396,9 @@ g[data-mml-node="xypic"] path {
 其中：</p>
 <ul>
 <li>
-    <span id="mjx-a2ccba3">
+    <span id="mjx-f5824788">
       <style>
-      #mjx-a2ccba3{
+      #mjx-f5824788{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -2558,9 +2558,9 @@ g[data-mml-node="xypic"] path {
     </span>
    是这个代表点算出来的量</li>
 <li>
-    <span id="mjx-170e224">
+    <span id="mjx-6d0c283">
       <style>
-      #mjx-170e224{
+      #mjx-6d0c283{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -2720,9 +2720,9 @@ g[data-mml-node="xypic"] path {
     </span>
    是它代表了多少个原始等价小份</li>
 <li>
-    <span id="mjx-78c4b448">
+    <span id="mjx-b1265458">
       <style>
-      #mjx-78c4b448{
+      #mjx-b1265458{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -2895,9 +2895,9 @@ The primary use case of this mode is to look at particular features in the band 
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">40</span><br><span class="line">line mode</span><br><span class="line">fractional</span><br><span class="line">0    0    0    Γ</span><br><span class="line">0.5  0.5  0    X</span><br><span class="line"></span><br><span class="line">0.5  0.5  0    X</span><br><span class="line">0.5  0.75 0.25 W</span><br></pre></td></tr></table></figure>
 <p>它不是为了积分整个Brillouin区，而是为了看
-    <span id="mjx-1057caa">
+    <span id="mjx-2b408948">
       <style>
-      #mjx-1057caa{
+      #mjx-2b408948{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -3071,9 +3071,9 @@ g[data-mml-node="xypic"] path {
 自动撒点可以使用Gamma中心也可使用Monkhorst Pack网格，手册指出，对于六边形晶格，用Gamma中心网格时能量收敛速度<mark>显著更快</mark>。</p>
 <p>此外，KPOINTS文件并不是必须输入文件，但通常推荐显式设置，INCAR中有一个参数叫作<code>KSPACING</code>，默认取0.5,若不显式设置KPOINTS文件，那么k点数量为：</p>
 
-    <span id="mjx-e819bc8">
+    <span id="mjx-a56d2de8">
       <style>
-      #mjx-e819bc8{
+      #mjx-a56d2de8{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -3233,9 +3233,9 @@ g[data-mml-node="xypic"] path {
     </span>
   <p>比如一个立方晶胞的结构（也即下面某一节中的Si的单胞结构），晶胞参数为5.468 Å，不显式设置KPOINTS，而写入KSPACING=0.4,那么倒格矢长度为：</p>
 
-    <span id="mjx-b554b718">
+    <span id="mjx-777035b8">
       <style>
-      #mjx-b554b718{
+      #mjx-777035b8{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -3395,9 +3395,9 @@ g[data-mml-node="xypic"] path {
     </span>
   <p>所以：</p>
 
-    <span id="mjx-673d54b8">
+    <span id="mjx-eb6bc4b8">
       <style>
-      #mjx-673d54b8{
+      #mjx-eb6bc4b8{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -3560,9 +3560,9 @@ g[data-mml-node="xypic"] path {
 <p>以上的KPOINTS只是自己推算的，计算之后并不会生成，但会生成IBZKPT文件，我们可以以此来验证：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Automatically generated mesh</span><br><span class="line">      14</span><br><span class="line">Reciprocal lattice</span><br><span class="line">    0.00000000000000    0.00000000000000    0.00000000000000             1</span><br><span class="line">    0.33333333333334   -0.00000000000000   -0.00000000000000             2</span><br><span class="line">   -0.00000000000000    0.33333333333334   -0.00000000000000             2</span><br><span class="line">    0.33333333333334    0.33333333333334   -0.00000000000000             2</span><br><span class="line">    0.33333333333334   -0.33333333333334    0.00000000000000             2</span><br><span class="line">   -0.00000000000000   -0.00000000000000    0.33333333333334             2</span><br><span class="line">    0.33333333333334   -0.00000000000000    0.33333333333334             2</span><br><span class="line">    0.33333333333334    0.00000000000000   -0.33333333333334             2</span><br><span class="line">    0.00000000000000    0.33333333333334    0.33333333333334             2</span><br><span class="line">    0.33333333333334    0.33333333333334    0.33333333333334             2</span><br><span class="line">    0.33333333333334   -0.33333333333334   -0.33333333333334             2</span><br><span class="line">   -0.00000000000000   -0.33333333333334    0.33333333333334             2</span><br><span class="line">    0.33333333333334   -0.33333333333334    0.33333333333334             2</span><br><span class="line">    0.33333333333334    0.33333333333334   -0.33333333333334             2</span><br></pre></td></tr></table></figure>
 <p>从IBZKPT文件可以看到，有14个不可约的k点，总k点数目为
-    <span id="mjx-c3002c">
+    <span id="mjx-f958a278">
       <style>
-      #mjx-c3002c{
+      #mjx-f958a278{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -3731,9 +3731,9 @@ KPOINTS为：</p>
 <p>IBZKPT为：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Automatically generated mesh</span><br><span class="line">4</span><br><span class="line">Reciprocal lattice</span><br><span class="line">0.00000000000000  0.00000000000000  0.00000000000000   1</span><br><span class="line">0.33333333333334  0.00000000000000  0.00000000000000   6</span><br><span class="line">0.33333333333334  0.33333333333334  0.00000000000000  12</span><br><span class="line">0.33333333333334  0.33333333333334  0.33333333333334   8</span><br></pre></td></tr></table></figure>
 <p>根据KPOITNS，Γ-centered 网格沿倒格矢各分
-    <span id="mjx-1db3ebf">
+    <span id="mjx-e2b704b8">
       <style>
-      #mjx-1db3ebf{
+      #mjx-e2b704b8{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -3898,9 +3898,9 @@ g[data-mml-node="xypic"] path {
 </li>
 <li>
 <p>
-    <span id="mjx-1522fc68">
+    <span id="mjx-6d815ac8">
       <style>
-      #mjx-1522fc68{
+      #mjx-6d815ac8{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -4062,9 +4062,9 @@ g[data-mml-node="xypic"] path {
 </li>
 <li>
 <p>
-    <span id="mjx-2f305ca">
+    <span id="mjx-dc193478">
       <style>
-      #mjx-2f305ca{
+      #mjx-dc193478{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -4224,9 +4224,9 @@ g[data-mml-node="xypic"] path {
     </span>
   <br>
 因为倒空间有周期边界，所以
-    <span id="mjx-cc4b162">
+    <span id="mjx-f7dfca5">
       <style>
-      #mjx-cc4b162{
+      #mjx-f7dfca5{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -4385,9 +4385,9 @@ g[data-mml-node="xypic"] path {
       <mjx-container class="MathJax" jax="SVG" style="position: relative;"><svg style="vertical-align: -0.816ex;" xmlns="http://www.w3.org/2000/svg" width="1.795ex" height="2.773ex" role="img" focusable="false" viewBox="0 -864.9 793.6 1225.5" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mfrac"><g data-mml-node="mn" transform="translate(220,394) scale(0.707)"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="mn" transform="translate(220,-345) scale(0.707)"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path></g><rect width="553.6" height="60" x="120" y="220"></rect></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mfrac><mn>2</mn><mn>3</mn></mfrac></math></mjx-assistive-mml></mjx-container>
     </span>
   也可以理解成
-    <span id="mjx-de97f0c">
+    <span id="mjx-cc2990d">
       <style>
-      #mjx-de97f0c{
+      #mjx-cc2990d{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -4552,9 +4552,9 @@ g[data-mml-node="xypic"] path {
 </li>
 <li>
 <p>+
-    <span id="mjx-0388b47">
+    <span id="mjx-54d1f2f8">
       <style>
-      #mjx-0388b47{
+      #mjx-54d1f2f8{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -4716,9 +4716,9 @@ g[data-mml-node="xypic"] path {
 </li>
 <li>
 <p>-
-    <span id="mjx-109c1bf8">
+    <span id="mjx-d1d7418">
       <style>
-      #mjx-109c1bf8{
+      #mjx-d1d7418{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -4884,9 +4884,9 @@ g[data-mml-node="xypic"] path {
 </li>
 <li>
 <p>包括所有“一个分量是
-    <span id="mjx-a401bad">
+    <span id="mjx-982de9f8">
       <style>
-      #mjx-a401bad{
+      #mjx-982de9f8{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -5045,9 +5045,9 @@ g[data-mml-node="xypic"] path {
       <mjx-container class="MathJax" jax="SVG" style="position: relative;"><svg style="vertical-align: -0.816ex;" xmlns="http://www.w3.org/2000/svg" width="3.556ex" height="2.773ex" role="img" focusable="false" viewBox="0 -864.9 1571.6 1225.5" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><path data-c="B1" d="M56 320T56 333T70 353H369V502Q369 651 371 655Q376 666 388 666Q402 666 405 654T409 596V500V353H707Q722 345 722 333Q722 320 707 313H409V40H707Q722 32 722 20T707 0H70Q56 7 56 20T70 40H369V313H70Q56 320 56 333Z"></path></g><g data-mml-node="mfrac" transform="translate(778,0)"><g data-mml-node="mn" transform="translate(220,394) scale(0.707)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mn" transform="translate(220,-345) scale(0.707)"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path></g><rect width="553.6" height="60" x="120" y="220"></rect></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo>±</mo><mfrac><mn>1</mn><mn>3</mn></mfrac></math></mjx-assistive-mml></mjx-container>
     </span>
   ，另外两个是 0”的排列组合：（
-    <span id="mjx-f9a4eb6">
+    <span id="mjx-48397a08">
       <style>
-      #mjx-f9a4eb6{
+      #mjx-48397a08{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -5206,9 +5206,9 @@ g[data-mml-node="xypic"] path {
       <mjx-container class="MathJax" jax="SVG" style="position: relative;"><svg style="vertical-align: -0.816ex;" xmlns="http://www.w3.org/2000/svg" width="3.556ex" height="2.773ex" role="img" focusable="false" viewBox="0 -864.9 1571.6 1225.5" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><path data-c="B1" d="M56 320T56 333T70 353H369V502Q369 651 371 655Q376 666 388 666Q402 666 405 654T409 596V500V353H707Q722 345 722 333Q722 320 707 313H409V40H707Q722 32 722 20T707 0H70Q56 7 56 20T70 40H369V313H70Q56 320 56 333Z"></path></g><g data-mml-node="mfrac" transform="translate(778,0)"><g data-mml-node="mn" transform="translate(220,394) scale(0.707)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mn" transform="translate(220,-345) scale(0.707)"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path></g><rect width="553.6" height="60" x="120" y="220"></rect></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo>±</mo><mfrac><mn>1</mn><mn>3</mn></mfrac></math></mjx-assistive-mml></mjx-container>
     </span>
   ,0,0）、（0,
-    <span id="mjx-a79ecb18">
+    <span id="mjx-ede9b5a8">
       <style>
-      #mjx-a79ecb18{
+      #mjx-ede9b5a8{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -5367,9 +5367,9 @@ g[data-mml-node="xypic"] path {
       <mjx-container class="MathJax" jax="SVG" style="position: relative;"><svg style="vertical-align: -0.816ex;" xmlns="http://www.w3.org/2000/svg" width="3.556ex" height="2.773ex" role="img" focusable="false" viewBox="0 -864.9 1571.6 1225.5" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><path data-c="B1" d="M56 320T56 333T70 353H369V502Q369 651 371 655Q376 666 388 666Q402 666 405 654T409 596V500V353H707Q722 345 722 333Q722 320 707 313H409V40H707Q722 32 722 20T707 0H70Q56 7 56 20T70 40H369V313H70Q56 320 56 333Z"></path></g><g data-mml-node="mfrac" transform="translate(778,0)"><g data-mml-node="mn" transform="translate(220,394) scale(0.707)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mn" transform="translate(220,-345) scale(0.707)"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path></g><rect width="553.6" height="60" x="120" y="220"></rect></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo>±</mo><mfrac><mn>1</mn><mn>3</mn></mfrac></math></mjx-assistive-mml></mjx-container>
     </span>
   ,0）、（0,0,
-    <span id="mjx-81be27d8">
+    <span id="mjx-c86c29d">
       <style>
-      #mjx-81be27d8{
+      #mjx-c86c29d{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -5531,9 +5531,9 @@ g[data-mml-node="xypic"] path {
 </li>
 <li>
 <p>包括所有“两个分量是
-    <span id="mjx-ec88f868">
+    <span id="mjx-57145088">
       <style>
-      #mjx-ec88f868{
+      #mjx-57145088{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -5692,9 +5692,9 @@ g[data-mml-node="xypic"] path {
       <mjx-container class="MathJax" jax="SVG" style="position: relative;"><svg style="vertical-align: -0.816ex;" xmlns="http://www.w3.org/2000/svg" width="3.556ex" height="2.773ex" role="img" focusable="false" viewBox="0 -864.9 1571.6 1225.5" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><path data-c="B1" d="M56 320T56 333T70 353H369V502Q369 651 371 655Q376 666 388 666Q402 666 405 654T409 596V500V353H707Q722 345 722 333Q722 320 707 313H409V40H707Q722 32 722 20T707 0H70Q56 7 56 20T70 40H369V313H70Q56 320 56 333Z"></path></g><g data-mml-node="mfrac" transform="translate(778,0)"><g data-mml-node="mn" transform="translate(220,394) scale(0.707)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mn" transform="translate(220,-345) scale(0.707)"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path></g><rect width="553.6" height="60" x="120" y="220"></rect></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo>±</mo><mfrac><mn>1</mn><mn>3</mn></mfrac></math></mjx-assistive-mml></mjx-container>
     </span>
   ，一个分量是 0”的排列组合：（0,
-    <span id="mjx-f02f684">
+    <span id="mjx-06ef3db8">
       <style>
-      #mjx-f02f684{
+      #mjx-06ef3db8{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -5853,9 +5853,9 @@ g[data-mml-node="xypic"] path {
       <mjx-container class="MathJax" jax="SVG" style="position: relative;"><svg style="vertical-align: -0.816ex;" xmlns="http://www.w3.org/2000/svg" width="3.556ex" height="2.773ex" role="img" focusable="false" viewBox="0 -864.9 1571.6 1225.5" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><path data-c="B1" d="M56 320T56 333T70 353H369V502Q369 651 371 655Q376 666 388 666Q402 666 405 654T409 596V500V353H707Q722 345 722 333Q722 320 707 313H409V40H707Q722 32 722 20T707 0H70Q56 7 56 20T70 40H369V313H70Q56 320 56 333Z"></path></g><g data-mml-node="mfrac" transform="translate(778,0)"><g data-mml-node="mn" transform="translate(220,394) scale(0.707)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mn" transform="translate(220,-345) scale(0.707)"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path></g><rect width="553.6" height="60" x="120" y="220"></rect></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo>±</mo><mfrac><mn>1</mn><mn>3</mn></mfrac></math></mjx-assistive-mml></mjx-container>
     </span>
   ,
-    <span id="mjx-5e23e268">
+    <span id="mjx-9793dd9">
       <style>
-      #mjx-5e23e268{
+      #mjx-9793dd9{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -6014,9 +6014,9 @@ g[data-mml-node="xypic"] path {
       <mjx-container class="MathJax" jax="SVG" style="position: relative;"><svg style="vertical-align: -0.816ex;" xmlns="http://www.w3.org/2000/svg" width="3.556ex" height="2.773ex" role="img" focusable="false" viewBox="0 -864.9 1571.6 1225.5" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><path data-c="B1" d="M56 320T56 333T70 353H369V502Q369 651 371 655Q376 666 388 666Q402 666 405 654T409 596V500V353H707Q722 345 722 333Q722 320 707 313H409V40H707Q722 32 722 20T707 0H70Q56 7 56 20T70 40H369V313H70Q56 320 56 333Z"></path></g><g data-mml-node="mfrac" transform="translate(778,0)"><g data-mml-node="mn" transform="translate(220,394) scale(0.707)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mn" transform="translate(220,-345) scale(0.707)"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path></g><rect width="553.6" height="60" x="120" y="220"></rect></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo>±</mo><mfrac><mn>1</mn><mn>3</mn></mfrac></math></mjx-assistive-mml></mjx-container>
     </span>
   ）、(
-    <span id="mjx-9c140ce">
+    <span id="mjx-5939e7d8">
       <style>
-      #mjx-9c140ce{
+      #mjx-5939e7d8{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -6175,9 +6175,9 @@ g[data-mml-node="xypic"] path {
       <mjx-container class="MathJax" jax="SVG" style="position: relative;"><svg style="vertical-align: -0.816ex;" xmlns="http://www.w3.org/2000/svg" width="3.556ex" height="2.773ex" role="img" focusable="false" viewBox="0 -864.9 1571.6 1225.5" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><path data-c="B1" d="M56 320T56 333T70 353H369V502Q369 651 371 655Q376 666 388 666Q402 666 405 654T409 596V500V353H707Q722 345 722 333Q722 320 707 313H409V40H707Q722 32 722 20T707 0H70Q56 7 56 20T70 40H369V313H70Q56 320 56 333Z"></path></g><g data-mml-node="mfrac" transform="translate(778,0)"><g data-mml-node="mn" transform="translate(220,394) scale(0.707)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mn" transform="translate(220,-345) scale(0.707)"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path></g><rect width="553.6" height="60" x="120" y="220"></rect></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo>±</mo><mfrac><mn>1</mn><mn>3</mn></mfrac></math></mjx-assistive-mml></mjx-container>
     </span>
   ,0,
-    <span id="mjx-191eeea">
+    <span id="mjx-98377bb8">
       <style>
-      #mjx-191eeea{
+      #mjx-98377bb8{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -6336,9 +6336,9 @@ g[data-mml-node="xypic"] path {
       <mjx-container class="MathJax" jax="SVG" style="position: relative;"><svg style="vertical-align: -0.816ex;" xmlns="http://www.w3.org/2000/svg" width="3.556ex" height="2.773ex" role="img" focusable="false" viewBox="0 -864.9 1571.6 1225.5" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><path data-c="B1" d="M56 320T56 333T70 353H369V502Q369 651 371 655Q376 666 388 666Q402 666 405 654T409 596V500V353H707Q722 345 722 333Q722 320 707 313H409V40H707Q722 32 722 20T707 0H70Q56 7 56 20T70 40H369V313H70Q56 320 56 333Z"></path></g><g data-mml-node="mfrac" transform="translate(778,0)"><g data-mml-node="mn" transform="translate(220,394) scale(0.707)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mn" transform="translate(220,-345) scale(0.707)"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path></g><rect width="553.6" height="60" x="120" y="220"></rect></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo>±</mo><mfrac><mn>1</mn><mn>3</mn></mfrac></math></mjx-assistive-mml></mjx-container>
     </span>
   )、(
-    <span id="mjx-ccbbe7c">
+    <span id="mjx-3066d258">
       <style>
-      #mjx-ccbbe7c{
+      #mjx-3066d258{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -6497,9 +6497,9 @@ g[data-mml-node="xypic"] path {
       <mjx-container class="MathJax" jax="SVG" style="position: relative;"><svg style="vertical-align: -0.816ex;" xmlns="http://www.w3.org/2000/svg" width="3.556ex" height="2.773ex" role="img" focusable="false" viewBox="0 -864.9 1571.6 1225.5" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><path data-c="B1" d="M56 320T56 333T70 353H369V502Q369 651 371 655Q376 666 388 666Q402 666 405 654T409 596V500V353H707Q722 345 722 333Q722 320 707 313H409V40H707Q722 32 722 20T707 0H70Q56 7 56 20T70 40H369V313H70Q56 320 56 333Z"></path></g><g data-mml-node="mfrac" transform="translate(778,0)"><g data-mml-node="mn" transform="translate(220,394) scale(0.707)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mn" transform="translate(220,-345) scale(0.707)"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path></g><rect width="553.6" height="60" x="120" y="220"></rect></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo>±</mo><mfrac><mn>1</mn><mn>3</mn></mfrac></math></mjx-assistive-mml></mjx-container>
     </span>
   ,
-    <span id="mjx-7ad181f8">
+    <span id="mjx-6491275">
       <style>
-      #mjx-7ad181f8{
+      #mjx-6491275{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -6661,9 +6661,9 @@ g[data-mml-node="xypic"] path {
 </li>
 <li>
 <p>包括所有“三个分量都是
-    <span id="mjx-3b56e5c">
+    <span id="mjx-f9de0c08">
       <style>
-      #mjx-3b56e5c{
+      #mjx-f9de0c08{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -6822,9 +6822,9 @@ g[data-mml-node="xypic"] path {
       <mjx-container class="MathJax" jax="SVG" style="position: relative;"><svg style="vertical-align: -0.816ex;" xmlns="http://www.w3.org/2000/svg" width="3.556ex" height="2.773ex" role="img" focusable="false" viewBox="0 -864.9 1571.6 1225.5" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><path data-c="B1" d="M56 320T56 333T70 353H369V502Q369 651 371 655Q376 666 388 666Q402 666 405 654T409 596V500V353H707Q722 345 722 333Q722 320 707 313H409V40H707Q722 32 722 20T707 0H70Q56 7 56 20T70 40H369V313H70Q56 320 56 333Z"></path></g><g data-mml-node="mfrac" transform="translate(778,0)"><g data-mml-node="mn" transform="translate(220,394) scale(0.707)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mn" transform="translate(220,-345) scale(0.707)"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path></g><rect width="553.6" height="60" x="120" y="220"></rect></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo>±</mo><mfrac><mn>1</mn><mn>3</mn></mfrac></math></mjx-assistive-mml></mjx-container>
     </span>
   ”的排列组合：(
-    <span id="mjx-96ca0d58">
+    <span id="mjx-3dd3144">
       <style>
-      #mjx-96ca0d58{
+      #mjx-3dd3144{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -6983,9 +6983,9 @@ g[data-mml-node="xypic"] path {
       <mjx-container class="MathJax" jax="SVG" style="position: relative;"><svg style="vertical-align: -0.816ex;" xmlns="http://www.w3.org/2000/svg" width="3.556ex" height="2.773ex" role="img" focusable="false" viewBox="0 -864.9 1571.6 1225.5" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><path data-c="B1" d="M56 320T56 333T70 353H369V502Q369 651 371 655Q376 666 388 666Q402 666 405 654T409 596V500V353H707Q722 345 722 333Q722 320 707 313H409V40H707Q722 32 722 20T707 0H70Q56 7 56 20T70 40H369V313H70Q56 320 56 333Z"></path></g><g data-mml-node="mfrac" transform="translate(778,0)"><g data-mml-node="mn" transform="translate(220,394) scale(0.707)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mn" transform="translate(220,-345) scale(0.707)"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path></g><rect width="553.6" height="60" x="120" y="220"></rect></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo>±</mo><mfrac><mn>1</mn><mn>3</mn></mfrac></math></mjx-assistive-mml></mjx-container>
     </span>
   ,
-    <span id="mjx-1d12dbe">
+    <span id="mjx-680eb5">
       <style>
-      #mjx-1d12dbe{
+      #mjx-680eb5{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -7144,9 +7144,9 @@ g[data-mml-node="xypic"] path {
       <mjx-container class="MathJax" jax="SVG" style="position: relative;"><svg style="vertical-align: -0.816ex;" xmlns="http://www.w3.org/2000/svg" width="3.556ex" height="2.773ex" role="img" focusable="false" viewBox="0 -864.9 1571.6 1225.5" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><path data-c="B1" d="M56 320T56 333T70 353H369V502Q369 651 371 655Q376 666 388 666Q402 666 405 654T409 596V500V353H707Q722 345 722 333Q722 320 707 313H409V40H707Q722 32 722 20T707 0H70Q56 7 56 20T70 40H369V313H70Q56 320 56 333Z"></path></g><g data-mml-node="mfrac" transform="translate(778,0)"><g data-mml-node="mn" transform="translate(220,394) scale(0.707)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mn" transform="translate(220,-345) scale(0.707)"><path data-c="33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path></g><rect width="553.6" height="60" x="120" y="220"></rect></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mo>±</mo><mfrac><mn>1</mn><mn>3</mn></mfrac></math></mjx-assistive-mml></mjx-container>
     </span>
   ,
-    <span id="mjx-d1569768">
+    <span id="mjx-a8b7405">
       <style>
-      #mjx-d1569768{
+      #mjx-a8b7405{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -7400,9 +7400,9 @@ g[data-mml-node="xypic"] path {
 <td>0（静态计算）</td>
 <td>控制离子步的最大数量或AIMD的步数</td>
 <td>NSW
-    <span id="mjx-326002f">
+    <span id="mjx-597972b">
       <style>
-      #mjx-326002f{
+      #mjx-597972b{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -7633,9 +7633,9 @@ g[data-mml-node="xypic"] path {
 <td></td>
 <td>控制从头算分子动力学模AIMD过程中的速度(用于Nosé–Hoover恒温器)</td>
 <td>-3,-2,-1,
-    <span id="mjx-5122b62">
+    <span id="mjx-822be078">
       <style>
-      #mjx-5122b62{
+      #mjx-822be078{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -7872,9 +7872,9 @@ g[data-mml-node="xypic"] path {
 <li><code>LOCPOT</code>文件存储的是实空间<code>局域势</code>，有以下三部分，具体是哪种由参数控制。LVTOT = .TRUE.则三个势能全部写入LOCPOT，LVHAR = .TRUE.（此时LVTOT会被关闭）则不写入交换-相关势能。在某些情况下不需要交换-相关势，比如表面功函数的计算（<a target="_blank" rel="noopener" href="https://vasp.at/wiki/Computing_the_work_function?utm_source=chatgpt.com%EF%BC%89%EF%BC%8C%E6%AD%A4%E6%97%B6%E9%9C%80%E8%A6%81%E5%BC%80%E5%90%AFLVHAR=.TRUE">https://vasp.at/wiki/Computing_the_work_function?utm_source=chatgpt.com），此时需要开启LVHAR=.TRUE</a>.
 <ul>
 <li>离子势
-    <span id="mjx-4cc55fe">
+    <span id="mjx-14f73148">
       <style>
-      #mjx-4cc55fe{
+      #mjx-14f73148{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -8034,9 +8034,9 @@ g[data-mml-node="xypic"] path {
     </span>
   </li>
 <li>Hartree势
-    <span id="mjx-63e8fae">
+    <span id="mjx-7ab8c6f8">
       <style>
-      #mjx-63e8fae{
+      #mjx-7ab8c6f8{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -8196,9 +8196,9 @@ g[data-mml-node="xypic"] path {
     </span>
   </li>
 <li>交换-相关势
-    <span id="mjx-b7b99518">
+    <span id="mjx-13b6847">
       <style>
-      #mjx-b7b99518{
+      #mjx-13b6847{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -8368,9 +8368,9 @@ g[data-mml-node="xypic"] path {
 <li>Nosé–Hoover chain，MDALGO=4</li>
 <li>CSVR，MDALGO=5<br>
 关于并行加速，非常不严谨的测试了一下，
-    <span id="mjx-ffc2842">
+    <span id="mjx-c5280c3">
       <style>
-      #mjx-ffc2842{
+      #mjx-c5280c3{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -8533,9 +8533,9 @@ g[data-mml-node="xypic"] path {
 </li>
 <li><code>KPAR=2</code>,<code>NCORE</code>，Elapsed time (sec):266.584，Total CPU time used (sec):262.691，Free Energy:-214.25486</li>
 <li>互联网上还有一种说法（当然wiki里面也有记载），就是NCORE=~
-    <span id="mjx-7281ca68">
+    <span id="mjx-689407a">
       <style>
-      #mjx-7281ca68{
+      #mjx-689407a{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -8701,9 +8701,9 @@ NBANDS这个参数，对于电子能量最小化计算过程（ALGO标签不指�
 <li>如果使用迭代矩阵对角化算法，即ALGO=Normal，那么默认的NBANDS大多数情况是被推荐的，即NELECT/2 + NIONS/2
 <ul>
 <li>对于部分f开壳层体系，可能需要更多的空带（态），最多到 NELECT/2+2*NIONS，具体的临界数值需要进行收敛性测试：设置ICHARG=12，执行多次计算，并不断增加能带数量（例如从 NELECT/2 + NIONS/2 开始）。应在10-15 次迭代内获得
-    <span id="mjx-3a08e5b8">
+    <span id="mjx-ab277938">
       <style>
-      #mjx-3a08e5b8{
+      #mjx-ab277938{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -9317,9 +9317,9 @@ g[data-mml-node="xypic"] path {
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WARNING: grid <span class="keyword">for</span> Broyden might be to small</span><br></pre></td></tr></table></figure>
 <img src="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/file-20260415165053579.png" class="" title="求解KS基态的过程">
 <p>大概的过程是：猜密度 → 解电子态 → 生成新密度 → 混合一下 → 再猜密度。在电子最小化之后，用旧密度算出的势，解出来的新轨道对应的新密度
-    <span id="mjx-e2d9839">
+    <span id="mjx-2fea49c">
       <style>
-      #mjx-e2d9839{
+      #mjx-2fea49c{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -9479,9 +9479,9 @@ g[data-mml-node="xypic"] path {
     </span>
   通常不会一下子就和旧密度一致，如果令两者直接相等就可能会出现charge sloshing（<a target="_blank" rel="noopener" href="https://www.vasp.at/wiki/Charge_sloshing%EF%BC%89%EF%BC%8C%E4%B8%80%E4%B8%AA%E6%9C%80%E6%9C%B4%E7%B4%A0%E7%9A%84%E6%B7%B7%E5%90%88%E4%BE%8B%E5%AD%90%E5%B0%B1%E6%98%AF%E7%BA%BF%E6%80%A7%E6%B7%B7%E5%90%88%EF%BC%9A">https://www.vasp.at/wiki/Charge_sloshing），一个最朴素的混合例子就是线性混合：</a></p>
 
-    <span id="mjx-cad9ce2">
+    <span id="mjx-4dadc09">
       <style>
-      #mjx-cad9ce2{
+      #mjx-4dadc09{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -9642,7 +9642,7 @@ g[data-mml-node="xypic"] path {
   <p>VASP显然不会用这么简单的线性混合，而是更聪明的<strong>Broyden / Pulay mixing</strong>，也就是利用前几步历史信息来构造更好的下一步输入密度。</p>
 <p>被混合的是电荷密度，而所有的电荷密度都是存放在一个均匀的实空间网格中的，这个网格由 <code>NGXF, NGYF, NGZF</code> 定义（<a target="_blank" rel="noopener" href="https://www.vasp.at/wiki/CHGCAR%EF%BC%89%E3%80%82">https://www.vasp.at/wiki/CHGCAR）。</a></p>
 <p>VASP使用的平面波方法，会来回在倒空间（平面波系数）、实空间（密度和势）之间来回做快速傅里叶变换（FFT），因此这个网格被称作FFT网格，根据Warning，可以尝试加密一点FFT网格，比如在INCAR中手动设置NGX和NGXF等参数</p>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://hydrogen1222.com.cn">Storm Talia</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://hydrogen1222.com.cn/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/">https://hydrogen1222.com.cn/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://hydrogen1222.com.cn" target="_blank">Storm's Storehouse</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%8C%96%E5%AD%A6/">化学</a><a class="post-meta__tags" href="/tags/%E7%A7%91%E7%A0%94/">科研</a></div><div class="post-share"><div class="social-share" data-image="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/cover.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/formula/" title="一些简单的Linux命令"><img class="cover" src="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/formula/cover.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">一些简单的Linux命令</div></div><div class="info-2"><div class="info-item-1">使用for循环批量创建文件夹 1for i in &#123;2..9&#125;; do cp 0.01 0.0$i -r ; done 使用sed命令不打开文件而进行替换 1sed &#x27;3s/0.01/0.02/g&#x27; ICNAR  对第三行(3)出现的所有0.01(g,全局替换)进行替换(s表示替换操作)，替换为0.02，只输出替换后的结果 sed ‘3/0.01/0.02/g’ INCAR &gt; INCAR最后什么也没有 加上-i参数可以直接进行编辑  结合for循环和sed批量命名 1234567891011[storm@cachyos-x8664 ex03]$ for i in *; do sed -i &quot;3s/0.05/$i/g&quot; $i/INCAR ; done[storm@cachyos-x8664 ex03]$ grep SIGMA */INCAR0.01/INCAR:SIGMA = 0.010.02/INCAR:SIGMA = 0.020.03/INCAR:SIGMA = 0.030.04/INCAR:SIGMA = 0...</div></div></div></a><a class="pagination-related" href="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/VASP%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8D%E6%8A%A5%E9%94%99/" title="VASP中的各种报错"><img class="cover" src="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/VASP%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8D%E6%8A%A5%E9%94%99/cover.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">VASP中的各种报错</div></div><div class="info-2"><div class="info-item-1">如题，记录一下在计算时遇到的各种报错 ¶2025.05.14 12345678910111213141516 -----------------------------------------------------------------------------|                                                                             ||     EEEEEEE  RRRRRR   RRRRRR   OOOOOOO  RRRRRR      ###     ###     ###     ||     E        R     R  R     R  O     O  R     R     ###     ###     ###     ||     E        R     R  R     R  O     O  R     R     ###     ###     ###     ||     EEEEE    RRRRRR   RRRRRR   O     O  RRRRRR ...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/03/13/%E7%A7%91%E7%A0%94/first%20stage/note/" title="一些背景知识"><img class="cover" src="/2025/03/13/%E7%A7%91%E7%A0%94/first%20stage/note/cover.webp" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-13</div><div class="info-item-2">一些背景知识</div></div><div class="info-2"><div class="info-item-1">本文排版非常混乱，笔者无心整理，请见谅，不要看大纲 ¶无机固态电解质基础性质 ¶多尺度离子传输 ¶原子尺度  离子扩散路径与环境：  阳离子沿着有利的路径扩散，这些路径由阴离子构成的框架所决定。阳离子扩散可看作是在基态稳定位点与中间亚稳位点之间的离子跳跃，能量主要由其局部离子配位环境决定（晶体中通常为四配位和六配位），体心立方阴离子框架就是一种常见的优秀离子导体框架，因为这种框架能让离子在相邻四面体位点间直接跳跃，且活化能                   #mjx-1dfa0378{         display:contents;         mjx-assistive-mml {           user-select: text !important;           clip: auto !important;           color: rgba(0,0,0,0);         }          mjx-container[jax="SVG"] {   direction: ltr; }  mjx-container[jax="SVG"]...</div></div></div></a><a class="pagination-related" href="/2025/05/12/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vaspkit%E7%9A%84%E4%BD%BF%E7%94%A8/" title="Vaspkit的使用"><img class="cover" src="/2025/05/12/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vaspkit%E7%9A%84%E4%BD%BF%E7%94%A8/cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-12</div><div class="info-item-2">Vaspkit的使用</div></div><div class="info-2"><div class="info-item-1">安装、配置好vaspkit之后输入vaspkit可启动软件包 12345678910111213141516171819202122232425262728293031323334(base) storm@DESKTOP-HE4FQ8Q:~/my-learn/trash-vaspkit$ vaspkit            \\\///           / _  _ \         Hey, you must know what you are doing.         (| (o)(o) |)       Otherwise you might get wrong results. o-----.OOOo--()--oOOO.------------------------------------------o |         VASPKIT Standard Edition 1.5.1 (27 Jan. 2024)         | |         Lead Developer: Vei WANG (wangvei@icloud.com)       ...</div></div></div></a><a class="pagination-related" href="/2025/03/20/%E7%A7%91%E7%A0%94/first%20stage/20250319night/" title="一种掺杂硫银锗矿电解质的合成"><img class="cover" src="/2025/03/20/%E7%A7%91%E7%A0%94/first%20stage/20250319night/cover.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-20</div><div class="info-item-2">一种掺杂硫银锗矿电解质的合成</div></div><div class="info-2"><div class="info-item-1">19日晚第一次进实验室，师姐带我合成一种固态电解质，参考文献有Angew. Chem. Int. Ed. 2019, 58, 8681 –8686等。由于电池是锂电池，需要隔绝                   #mjx-4cfadca8{         display:contents;         mjx-assistive-mml {           user-select: text !important;           clip: auto !important;           color: rgba(0,0,0,0);         }          mjx-container[jax="SVG"] {   direction: ltr; }  mjx-container[jax="SVG"] > svg {   overflow: visible;   min-height: 1px;   min-width: 1px; }  mjx-container[jax="SVG"] > svg a {   fill: blue;   stro...</div></div></div></a><a class="pagination-related" href="/2025/07/18/%E7%A7%91%E7%A0%94/first%20stage/%E5%85%B3%E4%BA%8E%E7%94%B5%E6%B1%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="关于电池的一些基础知识"><img class="cover" src="/2025/07/18/%E7%A7%91%E7%A0%94/first%20stage/%E5%85%B3%E4%BA%8E%E7%94%B5%E6%B1%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-07-18</div><div class="info-item-2">关于电池的一些基础知识</div></div><div class="info-2"><div class="info-item-1">为什么方形电池设计为带正电的？，作为一个小白的无意间看到了这么一个问题，仔细学习了一下，参考许多资料。 动力电池的电芯封装模式：  硬壳  圆柱：技术成熟成本较低、稳定耐用、单体一致性好，但能量密度的上升空间小、对电池管理系统的要求高  铝壳 钢壳   方形：强度高、内阻小、寿命长、空间利用率高，应用最广，但厂商需求不一样，规格多且难统一  铝壳 钢壳     软包：能量密度极高、重量轻，但成本高，需要额外防护防止电池受损和热失控，更容易因为膨胀产生内应力、膨胀力，导致电池内部的结构都会发生改变  铝塑膜 钢塑膜    标题中的方形电池应该指的是铝壳封装的方形电池，其中的电芯通常与正极相连，出于以下五个方面考虑  容易形成Al-Li合金。Al的立方晶格的八面体空隙大小与                   #mjx-90fb5928{         display:contents;         mjx-assistive-mml {           user-select: text !important;           clip: auto !importan...</div></div></div></a><a class="pagination-related" href="/2025/05/17/%E7%A7%91%E7%A0%94/first%20stage/%E6%8E%BA%E6%9D%82%E8%B4%A8%E9%87%8F%E8%AE%A1%E7%AE%97/" title="掺杂质量计算的python脚本"><img class="cover" src="/2025/05/17/%E7%A7%91%E7%A0%94/first%20stage/%E6%8E%BA%E6%9D%82%E8%B4%A8%E9%87%8F%E8%AE%A1%E7%AE%97/cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-17</div><div class="info-item-2">掺杂质量计算的python脚本</div></div><div class="info-2"><div class="info-item-1">起因是我想合成各式各样的材料，需要用到各种药品，计算起来比较麻烦，尤其是非化学计量比的化合物比如                   #mjx-346314f8{         display:contents;         mjx-assistive-mml {           user-select: text !important;           clip: auto !important;           color: rgba(0,0,0,0);         }          mjx-container[jax="SVG"] {   direction: ltr; }  mjx-container[jax="SVG"] > svg {   overflow: visible;   min-height: 1px;   min-width: 1px; }  mjx-container[jax="SVG"] > svg a {   fill: blue;   stroke: blue; }  mjx-assistive-mml {   posit...</div></div></div></a><a class="pagination-related" href="/2025/09/01/%E7%A7%91%E7%A0%94/first%20stage/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E9%94%82%E7%94%B5%E6%B1%A0%E5%9F%BA%E7%A1%80%E7%A7%91%E5%AD%A6/%E8%83%BD%E9%87%8F%E5%AF%86%E5%BA%A6%E7%9A%84%E4%BC%B0%E7%AE%97/" title="第一弹——能量密度的估算"><img class="cover" src="/2025/09/01/%E7%A7%91%E7%A0%94/first%20stage/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E9%94%82%E7%94%B5%E6%B1%A0%E5%9F%BA%E7%A1%80%E7%A7%91%E5%AD%A6/%E8%83%BD%E9%87%8F%E5%AF%86%E5%BA%A6%E7%9A%84%E4%BC%B0%E7%AE%97/cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-01</div><div class="info-item-2">第一弹——能量密度的估算</div></div><div class="info-2"><div class="info-item-1">   项目 3C设备 动力电池 储能     质量能量密度 /(W·h·kg⁻¹) 260~295 240~300 140~200   体积能量密度 /(W·h·L⁻¹) 650~730 500~600 320~450   循环寿命 /周 1000 1500~3000 5000~15000   倍率 3C 1~3C 0.2~0.5C   工作温度 /℃ ‑20~55 ‑30~55 ‑30~55   成本 /(元·(W·h电芯)⁻¹) 1.2~2.0 0.5~1.2 0.5~0.8   电池容量 /A·h 3~20 3.2~200 50~400   工程能力指数 (Cpk) 1.33~1.66 — —   安全性（欧洲汽车危险等级） 4 — —    上表是三种常见的不同应用场合锂离子电池的性能参数 电化学池的环境可近似为恒温、恒压且非体积功只有电功，那么反应中吉布斯自由能的改变即为电功：                    #mjx-0b14218{         display:contents;         mjx-assistive-mml {           ...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://s2.loli.net/2026/02/08/GvfVnlgAeFHszc3.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Storm Talia</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">93</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">16</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hydrogen1222"><i class="fab fa-github"></i><span>GitHub</span></a><div class="card-info-social-icons"><a class="social-icon" href="mailto:2170147489@qq.com" target="_blank" title="你的邮箱"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/img/wechat.jpg" target="_blank" title="微信 (这里通常放二维码图片链接)"><i class="fab fa-weixin"></i></a><a class="social-icon" href="tencent://message/?uin=2170147489" target="_blank" title="QQ"><i class="fab fa-qq"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">哈喽！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">VASP概览</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">VASP计算</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">VASP的编译安装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">各个输入&#x2F;输出文件概览</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#STOPCAR"><span class="toc-number">4.1.</span> <span class="toc-text">STOPCAR</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#KPOINTS"><span class="toc-number">4.2.</span> <span class="toc-text">KPOINTS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IBZKPT"><span class="toc-number">4.3.</span> <span class="toc-text">IBZKPT</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#POSCAR"><span class="toc-number">4.4.</span> <span class="toc-text">POSCAR</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CONTCAR"><span class="toc-number">4.5.</span> <span class="toc-text">CONTCAR</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CHGCAR%E5%92%8CCHG"><span class="toc-number">4.6.</span> <span class="toc-text">CHGCAR和CHG</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WAVECAR"><span class="toc-number">4.7.</span> <span class="toc-text">WAVECAR</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">5.</span> <span class="toc-text">INCAR中的参数（高版本VASP）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">6.</span> <span class="toc-text">一些计算过程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%AD%E7%AE%97"><span class="toc-number">6.1.</span> <span class="toc-text">续算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8E%E8%B7%9D%E7%A6%BB%E6%9E%81%E5%B0%8F%E5%80%BC%E7%82%B9%E8%BE%83%E8%BF%9C%E7%9A%84%E5%88%9D%E5%A7%8B%E7%BB%93%E6%9E%84%E8%BF%9B%E8%A1%8C%E5%87%A0%E4%BD%95%E4%BC%98%E5%8C%96"><span class="toc-number">6.2.</span> <span class="toc-text">从距离极小值点较远的初始结构进行几何优化</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">7.</span> <span class="toc-text">记录一些警告Warning</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%B5%E8%8D%B7%E5%AF%86%E5%BA%A6%E6%B7%B7%E5%90%88%E7%BD%91%E6%A0%BC%E8%BF%87%E5%B0%8F"><span class="toc-number">7.1.</span> <span class="toc-text">电荷密度混合网格过小</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/04/17/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E4%B8%80%E6%AC%BE%E9%9F%B3%E9%A2%91%E5%8F%AF%E8%A7%86%E5%8C%96%E8%BD%AF%E4%BB%B6/" title="StormyPulse"><img src="/2026/04/17/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E4%B8%80%E6%AC%BE%E9%9F%B3%E9%A2%91%E5%8F%AF%E8%A7%86%E5%8C%96%E8%BD%AF%E4%BB%B6/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="StormyPulse"/></a><div class="content"><a class="title" href="/2026/04/17/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E4%B8%80%E6%AC%BE%E9%9F%B3%E9%A2%91%E5%8F%AF%E8%A7%86%E5%8C%96%E8%BD%AF%E4%BB%B6/" title="StormyPulse">StormyPulse</a><time datetime="2026-04-17T03:23:31.951Z" title="更新于 2026-04-17 11:23:31">2026-04-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/" title="VASP学习笔记"><img src="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="VASP学习笔记"/></a><div class="content"><a class="title" href="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/" title="VASP学习笔记">VASP学习笔记</a><time datetime="2026-04-15T09:14:13.799Z" title="更新于 2026-04-15 17:14:13">2026-04-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/04/12/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/bash%E8%AF%AD%E8%A8%80%E6%A6%82%E8%A7%88/" title="bash语言概览"><img src="/2026/04/12/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/bash%E8%AF%AD%E8%A8%80%E6%A6%82%E8%A7%88/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="bash语言概览"/></a><div class="content"><a class="title" href="/2026/04/12/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/bash%E8%AF%AD%E8%A8%80%E6%A6%82%E8%A7%88/" title="bash语言概览">bash语言概览</a><time datetime="2026-04-13T03:55:21.690Z" title="更新于 2026-04-13 11:55:21">2026-04-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/02/08/hexo%E5%8D%9A%E5%AE%A2%E5%AE%89%E8%A3%85/" title="hexo框架下博客的改造与主题迁移"><img src="/2026/02/08/hexo%E5%8D%9A%E5%AE%A2%E5%AE%89%E8%A3%85/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="hexo框架下博客的改造与主题迁移"/></a><div class="content"><a class="title" href="/2026/02/08/hexo%E5%8D%9A%E5%AE%A2%E5%AE%89%E8%A3%85/" title="hexo框架下博客的改造与主题迁移">hexo框架下博客的改造与主题迁移</a><time datetime="2026-04-12T09:02:27.803Z" title="更新于 2026-04-12 17:02:27">2026-04-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/29/%E6%B2%89%E6%80%9D%E5%BD%95/%E7%BB%88%E5%B0%86%E5%90%AC%E5%88%B0%E9%9D%92%E6%98%A5%E7%9A%84%E5%A3%B0%E9%9F%B3/" title="きっと青春が聞こえる"><img src="/2026/03/29/%E6%B2%89%E6%80%9D%E5%BD%95/%E7%BB%88%E5%B0%86%E5%90%AC%E5%88%B0%E9%9D%92%E6%98%A5%E7%9A%84%E5%A3%B0%E9%9F%B3/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="きっと青春が聞こえる"/></a><div class="content"><a class="title" href="/2026/03/29/%E6%B2%89%E6%80%9D%E5%BD%95/%E7%BB%88%E5%B0%86%E5%90%AC%E5%88%B0%E9%9D%92%E6%98%A5%E7%9A%84%E5%A3%B0%E9%9F%B3/" title="きっと青春が聞こえる">きっと青春が聞こえる</a><time datetime="2026-03-29T15:41:23.802Z" title="更新于 2026-03-29 23:41:23">2026-03-29</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/cover.png);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Storm Talia</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">欢迎来到我的个人博客！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="/js/tw_cn.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><div class="js-pjax"><script>(() => {
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://hydrogen1222.com.cn">Storm Talia</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://hydrogen1222.com.cn/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/">https://hydrogen1222.com.cn/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://hydrogen1222.com.cn" target="_blank">Storm's Storehouse</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%8C%96%E5%AD%A6/">化学</a><a class="post-meta__tags" href="/tags/%E7%A7%91%E7%A0%94/">科研</a></div><div class="post-share"><div class="social-share" data-image="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/cover.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/formula/" title="一些简单的Linux命令"><img class="cover" src="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/formula/cover.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">一些简单的Linux命令</div></div><div class="info-2"><div class="info-item-1">使用for循环批量创建文件夹 1for i in &#123;2..9&#125;; do cp 0.01 0.0$i -r ; done 使用sed命令不打开文件而进行替换 1sed &#x27;3s/0.01/0.02/g&#x27; ICNAR  对第三行(3)出现的所有0.01(g,全局替换)进行替换(s表示替换操作)，替换为0.02，只输出替换后的结果 sed ‘3/0.01/0.02/g’ INCAR &gt; INCAR最后什么也没有 加上-i参数可以直接进行编辑  结合for循环和sed批量命名 1234567891011[storm@cachyos-x8664 ex03]$ for i in *; do sed -i &quot;3s/0.05/$i/g&quot; $i/INCAR ; done[storm@cachyos-x8664 ex03]$ grep SIGMA */INCAR0.01/INCAR:SIGMA = 0.010.02/INCAR:SIGMA = 0.020.03/INCAR:SIGMA = 0.030.04/INCAR:SIGMA = 0...</div></div></div></a><a class="pagination-related" href="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/VASP%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8D%E6%8A%A5%E9%94%99/" title="VASP中的各种报错"><img class="cover" src="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/VASP%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8D%E6%8A%A5%E9%94%99/cover.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">VASP中的各种报错</div></div><div class="info-2"><div class="info-item-1">如题，记录一下在计算时遇到的各种报错 ¶2025.05.14 12345678910111213141516 -----------------------------------------------------------------------------|                                                                             ||     EEEEEEE  RRRRRR   RRRRRR   OOOOOOO  RRRRRR      ###     ###     ###     ||     E        R     R  R     R  O     O  R     R     ###     ###     ###     ||     E        R     R  R     R  O     O  R     R     ###     ###     ###     ||     EEEEE    RRRRRR   RRRRRR   O     O  RRRRRR ...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/05/12/%E7%A7%91%E7%A0%94/VASP/2025-04-21-2025%E5%B9%B44%E6%9C%88Intel%E5%B9%B3%E5%8F%B0VASP.6.4.3%E7%9A%84%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/" title="2025年5月Intel平台VASP.6.4.3的编译安装"><img class="cover" src="/2025/05/12/%E7%A7%91%E7%A0%94/VASP/2025-04-21-2025%E5%B9%B44%E6%9C%88Intel%E5%B9%B3%E5%8F%B0VASP.6.4.3%E7%9A%84%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-12</div><div class="info-item-2">2025年5月Intel平台VASP.6.4.3的编译安装</div></div><div class="info-2"><div class="info-item-1">==请参考VASP官方wiki中关于编译工具链的介绍部分：https://www.vasp.at/wiki/Toolchains== 2025年5月Intel平台VASP.6.4.3的编译安装  ¶WSL的安装 选择Arch Linux，个人比较熟悉，仅供学习使用不作为稳定的生产力环境，配置如下，两颗E5 2676 v3  打开powershell或者终端，输入wsl --install archlinux以自动安装，这一步需要使用代理(MAGIC)，主机上使用Clash-Verge进行代理（运气好也能连上），终端中输入： 12set http_proxy=http://127.0.0.1:7897 #自己使用的端口是7897，http代理set https_proxy=http://127.0.0.1:7897 #自己使用的端口是7897，https代理 如果没有条件使用代理，也可以手动安装，参考Arch Wiki，https://wiki.archlinuxcn.org/wiki/在_WSL_上安装_Arch_Linux，手动下载`.wsl`镜像，然后安装 笔者计算机C盘性能...</div></div></div></a><a class="pagination-related" href="/2025/10/09/%E7%A7%91%E7%A0%94/first%20stage/%E7%94%B2%E7%83%B7%E7%84%B0%E7%86%94%E8%9E%8D%E5%B9%B6%E5%AF%86%E5%B0%81%E7%8E%BB%E7%92%83%E7%AE%A1%E8%AE%B0%E5%BD%95/" title="使用甲烷焰熔融并密封石英玻璃管"><img class="cover" src="/2025/10/09/%E7%A7%91%E7%A0%94/first%20stage/%E7%94%B2%E7%83%B7%E7%84%B0%E7%86%94%E8%9E%8D%E5%B9%B6%E5%AF%86%E5%B0%81%E7%8E%BB%E7%92%83%E7%AE%A1%E8%AE%B0%E5%BD%95/cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-10-09</div><div class="info-item-2">使用甲烷焰熔融并密封石英玻璃管</div></div><div class="info-2"><div class="info-item-1">实验安全第一位！封管是一个高风险操作，需要耐心、逐步学习！ 上学期应该是五六月份的时候师姐教过我一次，现在封管的所有气体钢瓶等仪器搬到了904内小屋，也发生了一些变化，师姐又交了一次，然鹅我的忘性总是很大，开贴记录一下，图为后补。 甲烷钢瓶在左侧，忘记是啥颜色的了；氧气钢瓶在右侧，大概是深蓝色的样子。 先放掉上一个使用者可能未放掉的残留气体，接着打开气瓶。 首先打开氧气钢瓶，完全拧开大气阀，再开小气阀，约为2.5；再打开甲烷，同理大气阀开完，小气阀0.2左右。 握住喷枪时管口朝下，靠近枪口的阀门为甲烷阀门，首先开启，开启后点燃，再开启远离枪口的阀门，它是氧气阀门，需要非常谨慎地、慢慢地开启，知道出现明显的内焰且内焰长度较小、较合适，切不可过快，否则内焰长度减小到0后可能发生回火爆炸。 </div></div></div></a><a class="pagination-related" href="/2025/05/12/%E7%A7%91%E7%A0%94/first%20stage/ATAT%E6%97%A0%E5%BA%8F%E6%8E%BA%E6%9D%82/" title="ATAT无序掺杂测试"><img class="cover" src="/2025/05/12/%E7%A7%91%E7%A0%94/first%20stage/ATAT%E6%97%A0%E5%BA%8F%E6%8E%BA%E6%9D%82/cover.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-12</div><div class="info-item-2">ATAT无序掺杂测试</div></div><div class="info-2"><div class="info-item-1">¶测试案例 首先进入一个新目录，然后拷贝测试文件： 1cp ../atat/examples/cuau.in lat.in 让Maps开始运行： 1maps -d &amp; 现在Maps已经开始运行，等待下一步的指令，输入命令开始生成结构： 1touch ready 大概在10s内，Maps会回应：replies Finding best structure...，此时可以输入： 1ls */wait 查看进入，返回0说明完事了，0目录里包含str.out文件，它描述了需要计算能量的结构，比如： 12345678(base) storm@cernet2:~/test/0$ cat str.out 3.800000 0.000000 0.0000000.000000 3.800000 0.0000000.000000 0.000000 3.8000000.500000 0.000000 0.5000000.500000 0.500000 0.000000-0.000000 0.500000 0.5000001.000000 1.000000 1.000000 Cu The clu...</div></div></div></a><a class="pagination-related" href="/2025/05/25/%E7%A7%91%E7%A0%94/first%20stage/%E7%A7%91%E7%A0%94%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98/" title="科研中的小问题"><img class="cover" src="/2025/05/25/%E7%A7%91%E7%A0%94/first%20stage/%E7%A7%91%E7%A0%94%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98/cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-25</div><div class="info-item-2">科研中的小问题</div></div><div class="info-2"><div class="info-item-1">实验部分 ¶球磨  球磨的原理是什么？ 球磨的作用是什么？ 200rpm合不出来，300rpm就能合出来？  ¶X-ray diffraction  X射线是什么？ X射线衍射的原理和用途是什么？ XRD谱图的横坐标和纵坐标分别是什么意义？ XRD为什么会产生峰？峰是什么意义？ 横坐标2theta角度为什么通常选择20                   #mjx-433c177{         display:contents;         mjx-assistive-mml {           user-select: text !important;           clip: auto !important;           color: rgba(0,0,0,0);         }          mjx-container[jax="SVG"] {   direction: ltr; }  mjx-container[jax="SVG"] > svg {   overflow: visible;   min-height: 1px;   min...</div></div></div></a><a class="pagination-related" href="/2025/04/29/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E8%A1%A8%E9%9D%A2%E8%83%BD%E7%9A%84%E8%AE%A1%E7%AE%97/" title="表面能的计算"><img class="cover" src="/2025/04/29/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E8%A1%A8%E9%9D%A2%E8%83%BD%E7%9A%84%E8%AE%A1%E7%AE%97/cover.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-29</div><div class="info-item-2">表面能的计算</div></div><div class="info-2"><div class="info-item-1">¶关于表面能 根据VASP官方手册Hands on Session III，表面能的定义如下，大师兄的文章也提到了这个定义( Nanoscale, 2017, 9, 13089–13094)                    #mjx-e110feb{         display:contents;         mjx-assistive-mml {           user-select: text !important;           clip: auto !important;           color: rgba(0,0,0,0);         }          mjx-container[jax="SVG"] {   direction: ltr; }  mjx-container[jax="SVG"] > svg {   overflow: visible;   min-height: 1px;   min-width: 1px; }  mjx-container[jax="SVG"] > svg a {   fill: blue;...</div></div></div></a><a class="pagination-related" href="/2025/05/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E5%88%9D%E5%AD%A6ELF%E7%94%B5%E5%AD%90%E5%B1%80%E5%9F%9F%E5%8C%96%E5%87%BD%E6%95%B0%E7%9A%84%E8%AE%A1%E7%AE%97%E4%B8%8E%E5%88%86%E6%9E%90/" title="初学ELF电子定域化函数的计算与分析"><img class="cover" src="/2025/05/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E5%88%9D%E5%AD%A6ELF%E7%94%B5%E5%AD%90%E5%B1%80%E5%9F%9F%E5%8C%96%E5%87%BD%E6%95%B0%E7%9A%84%E8%AE%A1%E7%AE%97%E4%B8%8E%E5%88%86%E6%9E%90/cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-14</div><div class="info-item-2">初学ELF电子定域化函数的计算与分析</div></div><div class="info-2"><div class="info-item-1">本文仅为学习记录，并非教程 这次记录文主要侧重于应用，参考了Sob老师的博文和网络上的各大教程 ¶以FCC Cu为例进行ELF计算与分析 采用FCC面心立方最密堆积的铜单胞，使用vasp计算，先进行结构优化，确认收敛后进行ELF计算 123456789101112131415161718192021222324252627282930313233343536373839Global ParametersISTART =  1            (Read existing wavefunction, if there)ISPIN  =  2            (Non-Spin polarised DFT)MAGMOM = 4*0.6# ICHARG =  11         (Non-self-consistent: GGA/LDA band structures)LREAL  = .FALSE.       (Projection operators: automatic) ENCUT  =  530        (Cut-off energy for plane...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://s2.loli.net/2026/02/08/GvfVnlgAeFHszc3.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Storm Talia</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">93</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">16</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hydrogen1222"><i class="fab fa-github"></i><span>GitHub</span></a><div class="card-info-social-icons"><a class="social-icon" href="mailto:2170147489@qq.com" target="_blank" title="你的邮箱"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/img/wechat.jpg" target="_blank" title="微信 (这里通常放二维码图片链接)"><i class="fab fa-weixin"></i></a><a class="social-icon" href="tencent://message/?uin=2170147489" target="_blank" title="QQ"><i class="fab fa-qq"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">哈喽！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">VASP概览</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">VASP计算</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">VASP的编译安装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">各个输入&#x2F;输出文件概览</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#STOPCAR"><span class="toc-number">4.1.</span> <span class="toc-text">STOPCAR</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#KPOINTS"><span class="toc-number">4.2.</span> <span class="toc-text">KPOINTS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IBZKPT"><span class="toc-number">4.3.</span> <span class="toc-text">IBZKPT</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#POSCAR"><span class="toc-number">4.4.</span> <span class="toc-text">POSCAR</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CONTCAR"><span class="toc-number">4.5.</span> <span class="toc-text">CONTCAR</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CHGCAR%E5%92%8CCHG"><span class="toc-number">4.6.</span> <span class="toc-text">CHGCAR和CHG</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WAVECAR"><span class="toc-number">4.7.</span> <span class="toc-text">WAVECAR</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">5.</span> <span class="toc-text">INCAR中的参数（高版本VASP）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">6.</span> <span class="toc-text">一些计算过程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%AD%E7%AE%97"><span class="toc-number">6.1.</span> <span class="toc-text">续算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8E%E8%B7%9D%E7%A6%BB%E6%9E%81%E5%B0%8F%E5%80%BC%E7%82%B9%E8%BE%83%E8%BF%9C%E7%9A%84%E5%88%9D%E5%A7%8B%E7%BB%93%E6%9E%84%E8%BF%9B%E8%A1%8C%E5%87%A0%E4%BD%95%E4%BC%98%E5%8C%96"><span class="toc-number">6.2.</span> <span class="toc-text">从距离极小值点较远的初始结构进行几何优化</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">7.</span> <span class="toc-text">记录一些警告Warning</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%B5%E8%8D%B7%E5%AF%86%E5%BA%A6%E6%B7%B7%E5%90%88%E7%BD%91%E6%A0%BC%E8%BF%87%E5%B0%8F"><span class="toc-number">7.1.</span> <span class="toc-text">电荷密度混合网格过小</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/04/17/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E4%B8%80%E6%AC%BE%E9%9F%B3%E9%A2%91%E5%8F%AF%E8%A7%86%E5%8C%96%E8%BD%AF%E4%BB%B6/" title="StormyPulse"><img src="/2026/04/17/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E4%B8%80%E6%AC%BE%E9%9F%B3%E9%A2%91%E5%8F%AF%E8%A7%86%E5%8C%96%E8%BD%AF%E4%BB%B6/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="StormyPulse"/></a><div class="content"><a class="title" href="/2026/04/17/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E4%B8%80%E6%AC%BE%E9%9F%B3%E9%A2%91%E5%8F%AF%E8%A7%86%E5%8C%96%E8%BD%AF%E4%BB%B6/" title="StormyPulse">StormyPulse</a><time datetime="2026-04-17T03:23:31.951Z" title="更新于 2026-04-17 11:23:31">2026-04-17</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/" title="VASP学习笔记"><img src="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="VASP学习笔记"/></a><div class="content"><a class="title" href="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/" title="VASP学习笔记">VASP学习笔记</a><time datetime="2026-04-15T09:14:13.799Z" title="更新于 2026-04-15 17:14:13">2026-04-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/04/12/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/bash%E8%AF%AD%E8%A8%80%E6%A6%82%E8%A7%88/" title="bash语言概览"><img src="/2026/04/12/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/bash%E8%AF%AD%E8%A8%80%E6%A6%82%E8%A7%88/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="bash语言概览"/></a><div class="content"><a class="title" href="/2026/04/12/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/bash%E8%AF%AD%E8%A8%80%E6%A6%82%E8%A7%88/" title="bash语言概览">bash语言概览</a><time datetime="2026-04-13T03:55:21.690Z" title="更新于 2026-04-13 11:55:21">2026-04-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/02/08/hexo%E5%8D%9A%E5%AE%A2%E5%AE%89%E8%A3%85/" title="hexo框架下博客的改造与主题迁移"><img src="/2026/02/08/hexo%E5%8D%9A%E5%AE%A2%E5%AE%89%E8%A3%85/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="hexo框架下博客的改造与主题迁移"/></a><div class="content"><a class="title" href="/2026/02/08/hexo%E5%8D%9A%E5%AE%A2%E5%AE%89%E8%A3%85/" title="hexo框架下博客的改造与主题迁移">hexo框架下博客的改造与主题迁移</a><time datetime="2026-04-12T09:02:27.803Z" title="更新于 2026-04-12 17:02:27">2026-04-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/03/29/%E6%B2%89%E6%80%9D%E5%BD%95/%E7%BB%88%E5%B0%86%E5%90%AC%E5%88%B0%E9%9D%92%E6%98%A5%E7%9A%84%E5%A3%B0%E9%9F%B3/" title="きっと青春が聞こえる"><img src="/2026/03/29/%E6%B2%89%E6%80%9D%E5%BD%95/%E7%BB%88%E5%B0%86%E5%90%AC%E5%88%B0%E9%9D%92%E6%98%A5%E7%9A%84%E5%A3%B0%E9%9F%B3/cover.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="きっと青春が聞こえる"/></a><div class="content"><a class="title" href="/2026/03/29/%E6%B2%89%E6%80%9D%E5%BD%95/%E7%BB%88%E5%B0%86%E5%90%AC%E5%88%B0%E9%9D%92%E6%98%A5%E7%9A%84%E5%A3%B0%E9%9F%B3/" title="きっと青春が聞こえる">きっと青春が聞こえる</a><time datetime="2026-03-29T15:41:23.802Z" title="更新于 2026-03-29 23:41:23">2026-03-29</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/cover.png);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Storm Talia</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">欢迎来到我的个人博客！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="/js/tw_cn.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><div class="js-pjax"><script>(() => {
   const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
   const option = null
 

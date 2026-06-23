@@ -1,0 +1,45 @@
+name: Deploy Hexo
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Restore hexo-updated-cache
+        uses: actions/cache@v4
+        with:
+          path: .hexo-updated-cache.json
+          key: hexo-updated-cache-${{ github.sha }}
+          restore-keys: |
+            hexo-updated-cache-
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate site
+        run: npx hexo g
+
+      - name: Deploy to hydrogen1222.github.io
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          personal_token: ${{ secrets.DEPLOY_PAT }}
+          external_repository: hydrogen1222/hydrogen1222.github.io
+          publish_branch: main
+          publish_dir: ./public
+          force_orphan: true

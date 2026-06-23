@@ -199,7 +199,7 @@ toc:
   post: true
   page: false
   number: true
-  expand: false
+  expand: true
   # Only for post
   style_simple: false
   scroll_percent: true
@@ -303,7 +303,7 @@ aside:
     # If set 0 will show all
     limit: 5
     # Sort: date / updated
-    sort: date
+    sort: updated
     sort_order:
   card_newest_comments:
     enable: false
@@ -1075,6 +1075,7 @@ inject:
   bottom:
     - <script defer src="/js/blog-music-config.js?v=20260322a"></script>
     - <script defer src="/js/blog-music-player.js?v=20260322a"></script>
+    - <script defer src="/js/toc-h1-fix.js?v=20260412b"></script>
 
 # CDN Settings
 # Don't modify the following settings unless you know how they work

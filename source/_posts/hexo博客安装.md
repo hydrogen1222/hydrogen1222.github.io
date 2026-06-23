@@ -544,3 +544,66 @@ if (CONFIG.dryRun) {
 console.log('========================================');
 ```
 执行`node xxx.js`即可
+## 2026-04 后续补充：按更新时间排序 + 多级目录可跳转
+近期又补了三个和日常写作强相关的点，统一记录一下：
+
+1. 最后更新时间改为由文章内容变化自动维护，不依赖 Git 提交记录。
+2. 首页和侧边栏“最新文章”改为按更新时间排序，方便查看最近修订内容。
+3. 右侧目录（TOC）改为多级展开，并修复了部分标题“显示但不能点击跳转”的问题。
+
+### 1) 自动维护 updated（不依赖 Git）
+新增脚本：
+
+- `scripts/auto-updated-by-content.js`
+
+机制说明：
+
+- 生成站点时计算每篇文章内容哈希；
+- 内容不变则保留原 updated；
+- 内容变化则把 updated 更新为当前时间；
+- 状态保存在根目录 `.hexo-updated-cache.json`（已加入 `.gitignore`）。
+
+### 2) 按更新时间排序
+_config.yml：
+
+```yaml
+index_generator:
+  path: ''
+  per_page: 10
+  order_by: -updated
+```
+
+_config.butterfly.yml：
+
+```yaml
+aside:
+  card_recent_post:
+    enable: true
+    limit: 5
+    sort: updated
+```
+
+### 3) 右侧目录多级可跳转
+_config.butterfly.yml：
+
+```yaml
+toc:
+  post: true
+  page: false
+  number: true
+  expand: true
+```
+
+新增脚本：
+
+- `source/js/toc-h1-fix.js`
+
+并在主题注入中加载：
+
+```yaml
+inject:
+  bottom:
+    - <script defer src="/js/toc-h1-fix.js?v=20260412b"></script>
+```
+
+这个脚本会在页面加载/PJAX切换后自动修复目录锚点映射，确保 # / ## / ### 各级标题都能点击跳转。

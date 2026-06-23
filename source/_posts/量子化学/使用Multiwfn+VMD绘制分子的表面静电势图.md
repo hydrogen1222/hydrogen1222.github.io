@@ -5,9 +5,24 @@ categories: [从零开始的科研之旅, first stage]
 tags: [化学, 科研]
 cover: cover.png
 ---
+==后记==：
+- 批量计算偶极矩可以使用星尘喵老师的脚本，极为方便，并且计算完成的目录结构也非常清晰，原帖链接：http://bbs.keinsci.com/thread-53281-1-1.html
+- 想要绘制色彩更丰富的彩虹配色的ESP图需要使用不稳定的1.9.4版本的VMD，不过此版本的VMD无法修改默认路径
+- 稳定的VMD 1.9.3版本最好使用64位版本，公社论坛坛友自行编译，原帖链接：http://bbs.keinsci.com/forum.php?mod=viewthread&tid=23119&highlight=VMD%2B1.9.3
 
-- Multiwfn版本：3.8(dev)，Last update: 2025-May-5
-- VMD版本：1.9.3
+若在Windows上进行批量计算，需要安装cmder、额外的并性库、Windows版本的Orca，批量计算脚本中的路径需要修改，比如：
+```bash
+export Multiwfnpath=/c/Users/tp798/Desktop/Multiwfn_2026.4.10_bin_Win64
+export PATH=$PATH:/c/Users/tp798/Desktop/Multiwfn_2026.4.10_bin_Win64
+orca='/d/orca611/orca.exe'
+```
+脚本末尾填写VMD的路径：
+```bash
+"/c/Program Files/VMD/vmd.exe" -e ESP_stardust0831.vmd
+```
+
+当然，在Linux上也可使用此脚本，修改对应的路径即可，不过可能超算上用起来比较麻烦
+
 
 **VMD版本请尽可能使用1.9.3而不要使用bug较多的1.9.4**
 

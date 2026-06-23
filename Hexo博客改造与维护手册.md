@@ -1041,3 +1041,19 @@ npm run server
 1. 播放器初始体积是否协调。
 2. 首次访问是否按预期尝试自动播放。
 3. 歌词栏默认是否符合你设定的屏宽策略。
+
+### 16.5 2026-04-12：更新时间追踪、排序与多级目录跳转修复
+
+本次改造包含 3 个目标：自动维护 `updated`、按更新时间排序、右侧目录多级可跳转。
+
+1. 新增 `scripts/auto-updated-by-content.js`，改为“按文章内容变化”自动维护 `updated`：
+   内容不变保留旧值，内容变化更新为当前时间。
+2. 新增本地缓存文件 `.hexo-updated-cache.json`（已加入 `.gitignore`），用于保存每篇文章的内容哈希与上次更新时间；该方案不依赖 Git 提交历史。
+3. 文章页时间显示继续使用 Butterfly 的“双时间”模式（创建时间 + 更新时间），即在文章头部展示“发表于 / 更新于”。
+4. 首页文章排序从按发布时间改为按更新时间倒序：`_config.yml` 中 `index_generator.order_by` 调整为 `-updated`。
+5. 侧边栏“最新文章”排序同步改为按更新时间：`_config.butterfly.yml` 中 `card_recent_post.sort` 调整为 `updated`。
+6. 右侧 TOC 目录改为默认展开多级：`_config.butterfly.yml` 中 `toc.expand: true`，便于直接点击任意层级标题。
+7. 新增 `source/js/toc-h1-fix.js`，修复部分文章目录项“显示但不可点击”的问题：
+   自动为缺失锚点的标题补 `id`，并为 TOC 无效项补齐 `href`；支持 PJAX 切页后再次生效。
+8. 主题注入新增脚本：`_config.butterfly.yml` 的 `inject.bottom` 已加入
+   `<script defer src="/js/toc-h1-fix.js?v=20260412b"></script>`，若本地仍是旧行为请先强刷页面。

@@ -1,7 +1,12 @@
 (function () {
   const config = window.BLOG_MUSIC_CONFIG;
 
-  if (!config || !config.enabled || !config.track || !config.track.src) {
+  if (!config || !config.enabled) {
+    return;
+  }
+
+  const playlistData = window.BLOG_MUSIC_PLAYLIST;
+  if (!Array.isArray(playlistData) || !playlistData.length) {
     return;
   }
 
@@ -14,7 +19,9 @@
     volume: `${storageNamespace}:volume`,
     dockX: `${storageNamespace}:dock-x`,
     dockY: `${storageNamespace}:dock-y`,
-    lyricsOpen: `${storageNamespace}:lyrics-open`
+    lyricsOpen: `${storageNamespace}:lyrics-open`,
+    lyricsMode: `${storageNamespace}:lyrics-mode`,
+    playlistOpen: `${storageNamespace}:playlist-open`
   };
 
   const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
@@ -174,9 +181,10 @@
       return {
         start: group.start,
         end,
-        text: texts.join("\n")
+        original: texts[0] || "",
+        translation: texts[1] || ""
       };
-    }).filter((line) => line.text);
+    }).filter((line) => line.original || line.translation);
 
     mergedLines.sort((a, b) => a.start - b.start);
     mergedLines.forEach((line, index) => {
@@ -187,6 +195,24 @@
     });
 
     return mergedLines;
+  };
+
+  const formatLine = (line) => {
+    if (!line) {
+      return "";
+    }
+
+    switch (state.lyricsMode) {
+      case "original":
+        return line.original || "";
+      case "translation":
+        return line.translation || line.original || "";
+      case "dual":
+      default:
+        return line.translation
+          ? `${line.original}\n${line.translation}`
+          : (line.original || "");
+    }
   };
 
   const icons = {
@@ -207,7 +233,13 @@
     lyrics:
       '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h12v2H6zm0 5h12v2H6zm0 5h8v2H6z" fill="currentColor"></path><path d="M18 12.2V7h-2v7.2a2.8 2.8 0 1 0 2 0z" fill="currentColor" opacity=".82"></path></svg>',
     drag:
-      '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM9 10.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM9 15a1.5 1.5 0 1 1 0 3A1.5 1.5 0 0 1 9 15Zm6 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" fill="currentColor"></path></svg>'
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM9 10.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM9 15a1.5 1.5 0 1 1 0 3A1.5 1.5 0 0 1 9 15Zm6 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" fill="currentColor"></path></svg>',
+    prev:
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" fill="currentColor"></path></svg>',
+    next:
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 6h2v12h-2zM6 6l8.5 6L6 18z" fill="currentColor"></path></svg>',
+    list:
+      '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h2v2H4zm4 0h12v2H8zM4 11h2v2H4zm4 0h12v2H8zm-4 5h2v2H4zm4 0h12v2H8z" fill="currentColor"></path></svg>'
   };
 
   const initialLyricsOpen = (() => {
@@ -219,7 +251,7 @@
   })();
 
   const state = {
-    audio: new Audio(config.track.src),
+    audio: new Audio(),
     root: null,
     panel: null,
     panelShell: null,
@@ -247,7 +279,7 @@
     lyricCurrent: null,
     lyricNext: null,
     autoplaySeen: readBoolean(storageKeys.autoplaySeen, false),
-    collapsed: readBoolean(storageKeys.collapsed, readBoolean(storageKeys.autoplaySeen, false)),
+    collapsed: readBoolean(storageKeys.collapsed, false),
     hidden: readBoolean(storageKeys.hidden, false),
     muted: readBoolean(storageKeys.muted, false),
     lyricsOpen: initialLyricsOpen,
@@ -261,9 +293,7 @@
     lyricItems: [],
     activeLyricIndex: -1,
     revealLyricsOnNextRender: initialLyricsOpen,
-    lyricsMessage: config.track.lyrics
-      ? "歌词正在从本地文件载入。"
-      : "还没有配置本地歌词文件。",
+    lyricsMessage: "歌单正在载入。",
     position: {
       x: rememberPosition ? readNumber(storageKeys.dockX) : null,
       y: rememberPosition ? readNumber(storageKeys.dockY) : null
@@ -282,7 +312,21 @@
       active: false,
       previewTime: null,
       pointerId: null
-    }
+    },
+    playlist: playlistData,
+    currentIndex: 0,
+    lyricsMode: (() => {
+      const stored = readStorage(storageKeys.lyricsMode, "dual");
+      return stored === "original" || stored === "translation" ? stored : "dual";
+    })(),
+    playlistOpen: readBoolean(storageKeys.playlistOpen, false),
+    retryTimer: null,
+    badge: null,
+    playlistList: null,
+    playlistToggleButton: null,
+    prevButton: null,
+    nextButton: null,
+    lyricsModeButtons: []
   };
 
   if (state.hidden) {
@@ -290,7 +334,6 @@
   }
 
   state.audio.preload = "metadata";
-  state.audio.loop = config.track.loop !== false;
   state.audio.muted = state.muted;
   state.audio.volume = state.muted ? 0 : state.desiredVolume;
 
@@ -739,7 +782,7 @@
     }
 
     if (state.autoWarmMuted && isPlaying()) {
-      state.hint.textContent = "浏览器已静音预热，首次点按页面后会努力恢复出声。";
+      state.hint.textContent = "浏览器已静音预热，点播放键可恢复声音。";
       return;
     }
 
@@ -748,8 +791,9 @@
       return;
     }
 
-    if (config.track.lyrics) {
-      state.hint.textContent = "歌词文件已预留在本地，替换 .lrc 内容后这里会自动滚动显示。";
+    const track = state.playlist && state.playlist[state.currentIndex];
+    if (track && track.lyrics) {
+      state.hint.textContent = "歌词文件正在载入，稍后这里会自动滚动显示。";
       return;
     }
 
@@ -815,16 +859,16 @@
 
     if (activeIndex < 0) {
       const upcomingLine = lines.find((line) => line.start > currentTime);
-      setLyricSpotlight("", upcomingLine ? upcomingLine.text : "");
+      setLyricSpotlight("", upcomingLine ? formatLine(upcomingLine) : "");
       return;
     }
 
     const activeLine = lines[activeIndex];
-    const nextLine = lines.slice(activeIndex + 1).find((line) => line.text) || { text: "" };
+    const nextLine = lines.slice(activeIndex + 1).find((line) => line.original || line.translation);
 
     setLyricSpotlight(
-      activeLine.text,
-      nextLine ? nextLine.text : "这一段旋律会继续陪你阅读，循环时歌词会重新回到开头。"
+      formatLine(activeLine),
+      nextLine ? formatLine(nextLine) : "这一段旋律会继续陪你阅读，循环时歌词会重新回到开头。"
     );
 
     const activeItem = state.lyricItems[activeIndex];
@@ -860,7 +904,7 @@
       const item = document.createElement("button");
       item.className = "music-player__lyric-line";
       item.type = "button";
-      item.textContent = line.text;
+      item.textContent = formatLine(line);
       item.addEventListener("click", () => {
         applySeekTime(line.start, true);
       });
@@ -873,12 +917,15 @@
   };
 
   const loadLyrics = () => {
-    if (!config.track.lyrics) {
+    const track = state.playlist && state.playlist[state.currentIndex];
+    if (!track || !track.lyrics) {
+      state.lyricsMessage = track ? "这一首暂无歌词文件。" : "还没有可播放的曲目。";
+      state.lyricsLines = [];
       renderLyrics();
       return;
     }
 
-    fetch(config.track.lyrics, { cache: "no-store" }).then((response) => {
+    fetch(track.lyrics).then((response) => {
       if (!response.ok) {
         throw new Error("lyrics-not-found");
       }
@@ -892,9 +939,207 @@
       renderLyrics();
     }).catch(() => {
       state.lyricsLines = [];
-      state.lyricsMessage = `没有成功读取歌词文件：${config.track.lyrics}`;
+      state.lyricsMessage = `没有成功读取歌词文件：${track.lyrics}`;
       renderLyrics();
     });
+  };
+
+  const loadTrack = (index, autoplay = false) => {
+    if (!state.playlist || !state.playlist.length) {
+      return;
+    }
+
+    const len = state.playlist.length;
+    const clamped = ((index % len) + len) % len;
+    const prevPlaying = isPlaying();
+    state.currentIndex = clamped;
+    const track = state.playlist[clamped];
+
+    if (state.retryTimer) {
+      window.clearTimeout(state.retryTimer);
+      state.retryTimer = null;
+    }
+
+    state.audio.pause();
+    state.audio.removeAttribute("src");
+    state.audio.load();
+    state.audio.src = track.src;
+    state.audio.loop = track.loop !== false;
+
+    if (state.title) {
+      state.title.textContent = track.title || "未命名音乐";
+    }
+    if (state.artist) {
+      state.artist.textContent = [track.artist, track.subtitle].filter(Boolean).join(" · ") || "";
+    }
+    if (state.ambience) {
+      state.ambience.textContent = track.ambience || "";
+    }
+    if (state.eyebrow) {
+      state.eyebrow.textContent = track.eyebrow || "Stormy Broadcast";
+    }
+    if (state.cover) {
+      if (track.cover) {
+        state.cover.src = track.cover;
+        state.cover.alt = `${track.title || "歌曲"} 封面`;
+        state.cover.hidden = false;
+      } else {
+        state.cover.removeAttribute("src");
+        state.cover.hidden = true;
+      }
+    }
+    if (state.sourceLink) {
+      if (track.sourceUrl) {
+        state.sourceLink.href = track.sourceUrl;
+        state.sourceLink.textContent = track.sourceLabel || "音源";
+        state.sourceLink.hidden = false;
+      } else {
+        state.sourceLink.hidden = true;
+      }
+    }
+    if (state.lyricsToggleButton) {
+      state.lyricsToggleButton.hidden = !track.lyrics;
+    }
+    if (state.badge) {
+      state.badge.textContent = track.lyrics ? "Single Track" : "纯音乐";
+    }
+
+    state.lyricsLines = [];
+    state.activeLyricIndex = -1;
+    state.lyricsMessage = track.lyrics ? "歌词正在从本地文件载入。" : "这一首暂无歌词文件。";
+
+    updatePlaylistActive();
+    renderLyrics();
+    updateProgressUI();
+
+    if (autoplay || prevPlaying) {
+      playMusic({ reason: "track-change" });
+    }
+
+    loadLyrics();
+  };
+
+  const prevTrack = () => {
+    loadTrack(state.currentIndex - 1, true);
+  };
+
+  const nextTrack = () => {
+    loadTrack(state.currentIndex + 1, true);
+  };
+
+  const setLyricsMode = (mode) => {
+    if (mode !== "dual" && mode !== "original" && mode !== "translation") {
+      return;
+    }
+    state.lyricsMode = mode;
+    writeStorage(storageKeys.lyricsMode, mode);
+    state.lyricsModeButtons.forEach((btn) => {
+      btn.dataset.active = String(btn.dataset.mode === mode);
+    });
+    renderLyrics();
+  };
+
+  const updatePlaylistActive = () => {
+    if (!state.playlistList) {
+      return;
+    }
+    const items = state.playlistList.querySelectorAll(".music-player__playlist-item");
+    items.forEach((item, index) => {
+      const active = index === state.currentIndex;
+      item.dataset.current = String(active);
+      item.setAttribute("aria-current", active ? "true" : "false");
+    });
+  };
+
+  const renderPlaylist = () => {
+    if (!state.playlistList || !state.playlist) {
+      return;
+    }
+
+    state.playlistList.innerHTML = "";
+    const fragment = document.createDocumentFragment();
+
+    state.playlist.forEach((track, index) => {
+      const item = document.createElement("button");
+      item.className = "music-player__playlist-item";
+      item.type = "button";
+      item.dataset.current = String(index === state.currentIndex);
+      item.setAttribute("aria-current", index === state.currentIndex ? "true" : "false");
+      const titleSpan = document.createElement("span");
+      titleSpan.className = "music-player__playlist-name";
+      titleSpan.textContent = track.title || track.file;
+      const metaSpan = document.createElement("span");
+      metaSpan.className = "music-player__playlist-meta";
+      metaSpan.textContent = [track.artist, track.subtitle].filter(Boolean).join(" · ") || "未知艺术家";
+      item.appendChild(titleSpan);
+      item.appendChild(metaSpan);
+      item.addEventListener("click", () => {
+        if (index !== state.currentIndex) {
+          loadTrack(index, true);
+        }
+      });
+      fragment.appendChild(item);
+    });
+
+    state.playlistList.appendChild(fragment);
+  };
+
+  const togglePlaylistPane = () => {
+    state.playlistOpen = !state.playlistOpen;
+    writeStorage(storageKeys.playlistOpen, state.playlistOpen);
+    render();
+  };
+
+  const handleKeyboardShortcut = (event) => {
+    if (state.hidden) {
+      return;
+    }
+    const target = event.target;
+    if (target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable)) {
+      return;
+    }
+    if (target === state.progressTrack) {
+      return;
+    }
+    switch (event.key) {
+      case " ":
+      case "Spacebar":
+        event.preventDefault();
+        togglePlayback();
+        break;
+      case "ArrowLeft":
+        event.preventDefault();
+        applySeekTime(state.audio.currentTime - 5, true);
+        break;
+      case "ArrowRight":
+        event.preventDefault();
+        applySeekTime(state.audio.currentTime + 5, true);
+        break;
+      case "ArrowUp":
+        event.preventDefault();
+        setVolume(clamp(state.desiredVolume + 0.05, 0, 1), true);
+        break;
+      case "ArrowDown":
+        event.preventDefault();
+        setVolume(clamp(state.desiredVolume - 0.05, 0, 1), true);
+        break;
+      case "m":
+      case "M":
+        if (state.muteButton) {
+          state.muteButton.click();
+        }
+        break;
+      case "n":
+      case "N":
+        nextTrack();
+        break;
+      case "p":
+      case "P":
+        prevTrack();
+        break;
+      default:
+        break;
+    }
   };
 
   const render = () => {
@@ -908,6 +1153,7 @@
     state.root.dataset.dragging = String(state.drag.active);
     state.root.dataset.warm = String(state.autoWarmMuted && isPlaying());
     state.root.dataset.lyricsOpen = String(state.lyricsOpen);
+    state.root.dataset.playlistOpen = String(state.playlistOpen);
     state.root.dataset.compact = String(state.compactMode);
     updatePlayButton();
     updateMuteButton();
@@ -952,7 +1198,7 @@
   const promoteWarmPlayback = (statusMessage = "已根据首次交互自动恢复声音。") => {
     state.autoWarmMuted = false;
     state.audio.muted = state.muted;
-    state.audio.volume = state.audio.muted ? 0 : 0;
+    state.audio.volume = 0;
     fadeTo(state.desiredVolume);
     setStatus(statusMessage, "ok");
     clearInteractionUnlock();
@@ -1150,7 +1396,7 @@
     const deltaX = event.clientX - state.drag.startPointerX;
     const deltaY = event.clientY - state.drag.startPointerY;
 
-    if (!state.drag.moved && (Math.abs(deltaX) > 6 || Math.abs(deltaY) > 6)) {
+    if (!state.drag.moved && (Math.abs(deltaX) > 10 || Math.abs(deltaY) > 10)) {
       state.drag.moved = true;
     }
 
@@ -1190,21 +1436,9 @@
       return;
     }
 
-    if (isPlaying()) {
-      clearInteractionUnlock();
-      return;
-    }
-
-    playMusic({
-      withFade: true,
-      reason: "interaction-unlock",
-      successStatus: "已根据首次交互自动开启背景音乐。",
-      failureStatus: "当前浏览器仍未放行自动播放，请点播放器里的播放键。"
-    }).then((ok) => {
-      if (ok) {
-        clearInteractionUnlock();
-      }
-    });
+    // 不再在用户点页面任意位置时自动播放——避免突兀出声。
+    // 用户需主动点播放器的播放键。
+    clearInteractionUnlock();
   }
 
   const createPlayer = () => {
@@ -1220,7 +1454,6 @@
     root.style.setProperty("--music-ui-scale", String(uiScale));
     root.innerHTML = `
       <button class="music-player__launcher" type="button" aria-label="展开音乐播放器">
-        <span class="music-player__launcher-orbit"></span>
         <span class="music-player__launcher-core">
           <span class="music-player__launcher-disc">
             <span class="music-player__launcher-note">${icons.note}</span>
@@ -1240,16 +1473,24 @@
           <header class="music-player__topbar">
             <button class="music-player__drag" type="button" aria-label="拖动播放器" title="拖动播放器">${icons.drag}</button>
             <div class="music-player__eyebrow-wrap">
-              <p class="music-player__eyebrow">${config.track.eyebrow || "Stormy Broadcast"}</p>
+              <p class="music-player__eyebrow">${playlistData[0].eyebrow || "Stormy Broadcast"}</p>
               <p class="music-player__hint"></p>
             </div>
             <div class="music-player__actions">
+              <button class="music-player__icon-btn music-player__playlist-toggle" type="button" aria-label="展开歌单">${icons.list}</button>
               <button class="music-player__icon-btn music-player__lyrics-toggle" type="button" aria-label="展开歌词面板">${icons.lyrics}</button>
               <button class="music-player__icon-btn music-player__collapse" type="button" aria-label="收起播放器">${icons.collapse}</button>
               <button class="music-player__icon-btn music-player__close" type="button" aria-label="关闭音乐">${icons.close}</button>
             </div>
           </header>
           <div class="music-player__layout">
+            <aside class="music-player__playlist-pane">
+              <div class="music-player__playlist-head">
+                <p class="music-player__playlist-kicker">Playlist</p>
+                <h4 class="music-player__playlist-title">歌单</h4>
+              </div>
+              <div class="music-player__playlist-list" tabindex="0"></div>
+            </aside>
             <div class="music-player__main">
               <div class="music-player__hero">
                 <div class="music-player__cover-stage">
@@ -1296,7 +1537,9 @@
                 <div class="music-player__pulse music-player__pulse--left" aria-hidden="true">
                   <span></span><span></span><span></span><span></span><span></span>
                 </div>
+                <button class="music-player__icon-btn music-player__prev" type="button" aria-label="上一首">${icons.prev}</button>
                 <button class="music-player__play" type="button" aria-label="播放音乐">${icons.play}</button>
+                <button class="music-player__icon-btn music-player__next" type="button" aria-label="下一首">${icons.next}</button>
                 <div class="music-player__pulse music-player__pulse--right" aria-hidden="true">
                   <span></span><span></span><span></span><span></span><span></span>
                 </div>
@@ -1319,7 +1562,11 @@
                   <p class="music-player__lyrics-kicker">Local Lyrics</p>
                   <h4 class="music-player__lyrics-title">时序歌词</h4>
                 </div>
-                <span class="music-player__lyrics-badge">LRC</span>
+                <div class="music-player__lyrics-modes" role="group" aria-label="歌词模式">
+                  <button class="music-player__lyrics-mode" type="button" data-mode="original" aria-label="仅原文">原</button>
+                  <button class="music-player__lyrics-mode" type="button" data-mode="translation" aria-label="仅译文">译</button>
+                  <button class="music-player__lyrics-mode" type="button" data-mode="dual" aria-label="双语对照">双</button>
+                </div>
               </div>
               <div class="music-player__lyrics-list" tabindex="0"></div>
             </aside>
@@ -1356,6 +1603,13 @@
     state.lyricsList = root.querySelector(".music-player__lyrics-list");
     state.lyricCurrent = root.querySelector(".music-player__lyric-current");
     state.lyricNext = root.querySelector(".music-player__lyric-next");
+    state.eyebrow = root.querySelector(".music-player__eyebrow");
+    state.badge = root.querySelector(".music-player__badge");
+    state.playlistList = root.querySelector(".music-player__playlist-list");
+    state.playlistToggleButton = root.querySelector(".music-player__playlist-toggle");
+    state.prevButton = root.querySelector(".music-player__prev");
+    state.nextButton = root.querySelector(".music-player__next");
+    state.lyricsModeButtons = Array.from(root.querySelectorAll(".music-player__lyrics-mode"));
 
     if (state.collapseButton) {
       state.collapseButton.setAttribute("title", "Minimize player");
@@ -1365,23 +1619,12 @@
       state.closeButton.setAttribute("title", "Close player");
     }
 
-    state.title.textContent = config.track.title || "未命名音乐";
-    state.artist.textContent = [config.track.artist, config.track.subtitle].filter(Boolean).join(" · ");
-    state.ambience.textContent = config.track.ambience || "本地音乐已接入博客。";
+    state.lyricsModeButtons.forEach((btn) => {
+      btn.dataset.active = String(btn.dataset.mode === state.lyricsMode);
+      btn.addEventListener("click", () => setLyricsMode(btn.dataset.mode));
+    });
 
-    if (config.track.cover) {
-      state.cover.src = config.track.cover;
-      state.cover.alt = `${config.track.title || "歌曲"} 封面`;
-    } else {
-      state.cover.removeAttribute("src");
-    }
-
-    if (config.track.sourceUrl) {
-      state.sourceLink.href = config.track.sourceUrl;
-      state.sourceLink.textContent = config.track.sourceLabel || "音源";
-    } else {
-      state.sourceLink.hidden = true;
-    }
+    renderPlaylist();
 
     state.launcher.addEventListener("click", (event) => {
       if (shouldSuppressClick(event)) {
@@ -1399,6 +1642,9 @@
     state.collapseButton.addEventListener("click", collapsePanel);
     state.closeButton.addEventListener("click", closeMusic);
     state.lyricsToggleButton.addEventListener("click", toggleLyricsPane);
+    state.playlistToggleButton.addEventListener("click", togglePlaylistPane);
+    state.prevButton.addEventListener("click", prevTrack);
+    state.nextButton.addEventListener("click", nextTrack);
     state.dragHandle.addEventListener("click", (event) => {
       shouldSuppressClick(event);
       event.preventDefault();
@@ -1462,13 +1708,29 @@
     state.audio.addEventListener("pause", render);
     state.audio.addEventListener("ended", render);
     state.audio.addEventListener("error", () => {
-      setStatus("音频加载失败，请检查 blog-music-config.js。", "warn");
+      setStatus("音频加载失败，2 秒后自动重试一次。", "warn");
+      if (state.retryTimer) {
+        render();
+        return;
+      }
+      state.retryTimer = window.setTimeout(() => {
+        state.retryTimer = null;
+        const track = state.playlist && state.playlist[state.currentIndex];
+        if (track) {
+          state.audio.src = track.src;
+          state.audio.load();
+          if (isPlaying()) {
+            state.audio.play().catch(() => {});
+          }
+        }
+      }, 2000);
       render();
     });
 
     state.panel.addEventListener("transitionend", syncPositionWithinViewport);
     window.addEventListener("resize", syncPositionWithinViewport);
     window.addEventListener("pageshow", syncPositionWithinViewport);
+    document.addEventListener("keydown", handleKeyboardShortcut);
 
     if (state.autoplaySeen) {
       setStatus("播放器已就位，点击角落唱片即可重新展开。");
@@ -1487,39 +1749,31 @@
     }
 
     state.autoplaySeen = true;
-    writeStorage(storageKeys.autoplaySeen, true);
     state.hidden = false;
     state.collapsed = false;
     persistViewState();
     render();
 
-    const startPlayback = () => {
-      playMusic({
-        withFade: true,
-        reason: "autoplay"
-      }).then((ok) => {
-        if (ok) {
-          return;
+    playMusic({
+      withFade: true,
+      reason: "autoplay"
+    }).then((ok) => {
+      if (ok) {
+        writeStorage(storageKeys.autoplaySeen, true);
+        return;
+      }
+
+      tryMutedWarmup().then((warmOk) => {
+        if (!warmOk) {
+          registerInteractionUnlock();
         }
-
-        tryMutedWarmup().then((warmOk) => {
-          if (!warmOk) {
-            registerInteractionUnlock();
-          }
-        });
       });
-    };
-
-    if (state.audio.readyState >= 2) {
-      startPlayback();
-    } else {
-      state.audio.addEventListener("canplay", startPlayback, { once: true });
-    }
+    });
   };
 
   const init = () => {
     createPlayer();
-    loadLyrics();
+    loadTrack(0, false);
     attemptAutoplay();
   };
 

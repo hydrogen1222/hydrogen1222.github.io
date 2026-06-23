@@ -1071,10 +1071,10 @@ inject:
   head:
     - <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" />
     - <link rel="stylesheet" href="/css/my-font.css" />
-    - <link rel="stylesheet" href="/css/music-player.css?v=20260322a" />
+    - <link rel="stylesheet" href="/css/music-player.css" />
   bottom:
-    - <script defer src="/js/blog-music-config.js?v=20260322a"></script>
-    - <script defer src="/js/blog-music-player.js?v=20260322a"></script>
+    - <script defer src="/js/blog-music-config.js"></script>
+    - <script defer src="/js/blog-music-player.js"></script>
     - <script defer src="/js/toc-h1-fix.js?v=20260412b"></script>
 
 # CDN Settings

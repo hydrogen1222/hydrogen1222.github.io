@@ -4,6 +4,16 @@ banner_y: 0.32857
 banner_icon: 🖥️
 ---
 
+# 博客源码分支
+
+当前 `master` 分支保存 <https://hydrogen1222.com.cn/> 的 Hexo 源码，包括 Markdown 文章、站点配置、主题配置和维护脚本。
+
+- 日常写作和维护请在 `master` 分支进行，并将提交推送到 `master`。
+- GitHub Actions 会自动构建站点，并把生成的 HTML、CSS、JavaScript 和静态资源发布到 `main` 分支。
+- `main` 是机器生成的静态页面分支，不应手动编辑。
+
+下面保留原有的 Obsidian 库说明。
+
 # 🌈 01 简介
 
 - 一个专为科研人打造的Obsidian开箱即用库！
@@ -161,5 +171,4 @@ banner_icon: 🖥️
 - 需要word，ppt，excel，那就用微软的三件套即可
 
 >感谢各位软件/插件/主题开发者，提供如此优秀的资源👍👍
-
 

@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build-deploy:
@@ -35,11 +35,13 @@ jobs:
       - name: Generate site
         run: npx hexo g
 
-      - name: Deploy to hydrogen1222.github.io
+      - name: Add deployment branch notice
+        run: cp .github/DEPLOYMENT_README.md public/README.md
+
+      - name: Deploy generated site to main
         uses: peaceiris/actions-gh-pages@v4
         with:
-          personal_token: ${{ secrets.DEPLOY_PAT }}
-          external_repository: hydrogen1222/hydrogen1222.github.io
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: main
           publish_dir: ./public
           force_orphan: true

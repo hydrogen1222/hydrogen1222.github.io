@@ -6,7 +6,7 @@ const path = require('path');
 const yaml = require('js-yaml');
 
 const MUSIC_DIR = path.join(hexo.source_dir, 'music');
-const PLAYLIST_YML = path.join(MUSIC_DIR, 'playlist.yml');
+const PLAYLIST_YML = path.join(hexo.source_dir, '_data', 'music_playlist.yml');
 const COVER_EXTS = ['jpg', 'jpeg', 'png', 'webp', 'svg'];
 
 const hashCache = new Map();

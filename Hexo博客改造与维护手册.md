@@ -1082,13 +1082,13 @@ npm run server
 
 新增 `scripts/music-playlist-generator.js`：
 - 扫描 `source/music/*.mp3`
-- 合并 `source/music/playlist.yml`（手写元数据）
+- 合并 `source/_data/music_playlist.yml`（手写元数据）
 - 同名 sidecar 自动匹配 `.lrc` / `.jpg` / `.jpeg` / `.png` / `.webp` / `.svg`
 - 算每个资源的内容哈希
-- 输出 `/music/playlist.json`（静态文件，备用）
+- 将歌单数据注入页面供播放器读取（配置文件本身不会发布）
 - 内联 `window.BLOG_MUSIC_PLAYLIST` 注入到 HTML `</head>` 前
 
-新增 `source/music/playlist.yml`（手写歌单元数据）：
+新增 `source/_data/music_playlist.yml`（手写歌单元数据）：
 
 ```yaml
 - file: 夢をあきらめないで.mp3
@@ -1199,7 +1199,7 @@ npx hexo s -p 4000
 - `scripts/music-asset-hasher.js` — cache-buster 自动注入
 - `scripts/music-playlist-generator.js` — 歌单扫描 + 内联
 - `scripts/post-asset-link-rewriter.js` — 附件链接路径重写
-- `source/music/playlist.yml` — 手写歌单元数据
+- `source/_data/music_playlist.yml` — 手写歌单元数据
 
 **修改**：
 
@@ -1214,14 +1214,14 @@ npx hexo s -p 4000
 
 1. 把 `.mp3` 丢进 `source/music/`
 2. 如果有歌词/封面，按同名 sidecar 放（`<basename>.lrc`、`<basename>.jpg`）
-3. 编辑 `source/music/playlist.yml` 加一行：
+3. 编辑 `source/_data/music_playlist.yml` 加一行：
    ```yaml
    - file: my-song.mp3
      title: My Song
      artist: Your Name
    ```
-4. `npx hexo clean && npx hexo g && npx hexo s` 本地预览
-5. 没问题再 `npx hexo deploy`
+4. `npm run clean && npm run server` 本地预览
+5. 没问题后提交到 `master` 并执行 `git push`，由 GitHub Actions 自动部署
 
 ### 17.5 回滚策略
 
@@ -1240,13 +1240,13 @@ npx hexo s -p 4000
 
 每次改完音乐播放器或附件相关代码，按此清单验证：
 
-1. `npx hexo clean && npx hexo g` — 生成无报错
+1. `npm run check && npm run clean && npm run build` — 语法检查与生成无报错
 2. `grep -oE '?v=[a-f0-9]{8}' public/index.html | sort -u` — cache-buster 8 位 hex
 3. `grep -oE 'BLOG_MUSIC_PLAYLIST=\[' public/index.html` — 内联歌单存在
-4. 浏览器访问 `/music/playlist.json` — JSON 正常
-5. 刷新 3 次文章页 — autoplay 首次成功后第二次不再卡死
+4. 打开页面源码，确认 `BLOG_MUSIC_PLAYLIST` 数据正常
+5. 刷新或切换文章页 — 保留当前曲目和进度，但不会擅自播放
 6. 在文章 input 内按 Space — 不触发播放
 7. 切原 / 译 / 对照三模式 — 渲染正确
 8. 点上下首 / 列表项 — 音频+歌词+封面同步切换
-9. Network 面板 — audio / lrc / css / js 全 200 + hash
+9. Network 面板 — audio 支持 206 Range，lrc / css / js 返回正常并带 hash
 10. 文章页点击下载链接 — 文件下载

@@ -13,6 +13,34 @@
             "state": {
               "type": "markdown",
               "state": {
+                "file": "source/_posts/科研/next stage/文献复现（一）.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "文献复现（一）"
+            }
+          },
+          {
+            "id": "8ed7aec41ae874dd",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "source/_posts/科研/next stage/文献复现（二）.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "文献复现（二）"
+            }
+          },
+          {
+            "id": "ac820ddd5b53261d",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
                 "file": "source/_posts/科研/VASP/Starry Sky/Vasp-note.md",
                 "mode": "source",
                 "source": false
@@ -22,21 +50,34 @@
             }
           },
           {
-            "id": "d096c6f53f2a69de",
+            "id": "b82663afcebdbdbf",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "source/_posts/科研/next stage/初始Lammps.md",
+                "file": "source/_posts/科研/next stage/精粤双路X99寨板服务器.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "初始Lammps"
+              "title": "精粤双路X99寨板服务器"
+            }
+          },
+          {
+            "id": "0dd576da593c1ee7",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "source/_posts/科研/next stage/再出发.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "再出发"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -95,13 +136,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "source/_posts/科研/next stage/初始Lammps.md",
+                "file": "source/_posts/科研/next stage/文献复现（一）.md",
                 "followCursor": true,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "初始Lammps 的大纲"
+              "title": "文献复现（一） 的大纲"
             }
           },
           {
@@ -129,7 +170,8 @@
               "title": "书签"
             }
           }
-        ]
+        ],
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
@@ -196,39 +238,44 @@
       "workspaces:管理工作区布局": false
     }
   },
-  "active": "d096c6f53f2a69de",
+  "active": "4bde5000b9517af7",
   "lastOpenFiles": [
-    "db.json",
-    "public/music/夢をあきらめないで.mp3",
-    "public/music/evening-journey.mp3",
-    "public/page/9/index.html",
-    "public/page/9",
-    "public/page/8/index.html",
-    "public/page/8",
-    "public/page/5/index.html",
-    "public/page/5",
-    "public/page/7/index.html",
-    "public/page/7",
-    "public/2026/02/09/科研/VASP/Starry Sky/吸附能的计算/Pasted image 20260209204618.png",
-    "public/2026/02/09/科研/VASP/Starry Sky/吸附能的计算/file-20260227214251494.png",
-    "public/2026/02/09/科研/VASP/Starry Sky/吸附能的计算/file-20260212132405510.png",
-    "public/2026/02/09/科研/VASP/Starry Sky/吸附能的计算/file-20260212130308644.png",
-    "public/2026/02/09/科研/VASP/Starry Sky/吸附能的计算/file-20260211234933829.png",
-    "public/2026/02/09/科研/VASP/Starry Sky/吸附能的计算/file-20260211225701876.png",
-    "public/2026/02/09/科研/VASP/Starry Sky/吸附能的计算/file-20260209233701513.png",
-    "public/2026/02/09/科研/VASP/Starry Sky/吸附能的计算/file-20260209232126768.png",
-    "public/2026/02/09/科研/VASP/Starry Sky/吸附能的计算/file-20260209212416142.png",
-    "public/2026/02/09/科研/VASP/Starry Sky/吸附能的计算/file-20260209211601163.png",
+    "source/_posts/科研/next stage/文献复现（二）.md",
+    "source/_posts/科研/next stage/文献复现（一）.md",
+    "source/_posts/科研/next stage/精粤双路X99寨板服务器.md",
+    "source/_posts/科研/next stage/文献复现（二）/gen_conv_test.py",
+    "source/_posts/科研/next stage/精粤双路X99寨板服务器/file-20260708151442637.png",
+    "source/_posts/科研/next stage/精粤双路X99寨板服务器/file-20260708151431759.png",
+    "source/_posts/计算机/Hermes Agent尝鲜.md",
+    "source/_posts/科研/next stage/精粤双路X99寨板服务器/cover.png",
+    "source/_posts/科研/next stage/精粤双路X99寨板服务器/file-20260708151123876.png",
+    "source/_posts/科研/next stage/精粤双路X99寨板服务器",
     "source/_posts/科研/next stage/再出发.md",
+    "source/_posts/科研/VASP/Starry Sky/Vasp-note.md",
+    "source/_posts/科研/next stage/文献复现（二）/gen_cp2k_multiwfn.sh",
+    "source/_posts/科研/next stage/文献复现（二）/file-20260704163052223.png",
+    "source/_posts/科研/next stage/文献复现（二）/file-20260703213951016.png",
+    "source/_posts/科研/next stage/文献复现（二）/file-20260703213354213.png",
+    "source/_posts/科研/next stage/文献复现（二）/file-20260703200452943.png",
+    "source/_posts/科研/next stage/文献复现（二）/file-20260703200217204.png",
+    "source/_posts/科研/next stage/文献复现（二）/cover.png",
+    "source/_posts/科研/next stage/文献复现（二）",
+    "source/_posts/科研/next stage/文献复现（一）/echem_uptake_profile.py",
+    "source/_posts/科研/next stage/文献复现（一）/echem_window.py",
+    "source/_posts/科研/next stage/文献复现（一）/LPSC_phase_stability.py",
+    "source/_posts/科研/next stage/文献复现（一）/batch.sh",
+    "文献复现（1）/gen_cp2k_inputs.py.md",
+    "文献复现（1）",
+    "source/_posts/科研/next stage/文献复现（一）/gen_cp2k_inputs.py",
+    "(文献复现（一）/check_structures.py.md",
+    "(文献复现（一）.md",
     "source/_posts/科研/next stage/初始Lammps.md",
     "source/_posts/计算机/各家厂商的大模型API对比.md",
     "source/_posts/计算机/计算机网络.md",
     "source/_posts/计算机/使用静态原生家庭IP.md",
     "source/_posts/计算机/在Immortalwrt上使用dogcom进行校园网认证.md",
     "source/_posts/计算机/Gentoo初体验.md",
-    "source/_posts/计算机/Hermes Agent尝鲜.md",
     "source/_posts/计算机/听见声音.md",
-    "source/_posts/科研/VASP/Starry Sky/Vasp-note.md",
     "source/_posts/科研/VASP/2025-04-21-2025年4月Intel平台VASP.6.4.3的编译安装.md",
     "source/_posts/科研/VASP/2025年5月AMD平台下VASP的编译安装.md",
     "source/_posts/科研/VASP/formula.md",
@@ -238,12 +285,6 @@
     "source/_posts/量子化学/初识构象搜索.md",
     "source/_posts/量子化学/Orca学习笔记.md",
     "source/_posts/量子化学/使用Multiwfn+VMD绘制分子的表面静电势图.md",
-    "source/_posts/量子化学/各种理论计算方法.md",
-    "source/_posts/量子化学/Sob老师博文学习.md",
-    "source/_posts/计算机/一款音频可视化软件.md",
-    "source/_posts/科研/VASP/Starry Sky/bash语言概览.md",
-    "source/_posts/科研/VASP/Starry Sky/POTCAR赝势的选取.md",
-    "未命名.canvas",
-    "source/_posts/科研/VASP/Starry Sky/AIMD模拟固态电解质离子电导率.md"
+    "未命名.canvas"
   ]
 }

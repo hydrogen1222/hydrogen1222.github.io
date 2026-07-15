@@ -1057,3 +1057,196 @@ npm run server
    自动为缺失锚点的标题补 `id`，并为 TOC 无效项补齐 `href`；支持 PJAX 切页后再次生效。
 8. 主题注入新增脚本：`_config.butterfly.yml` 的 `inject.bottom` 已加入
    `<script defer src="/js/toc-h1-fix.js?v=20260412b"></script>`，若本地仍是旧行为请先强刷页面。
+
+---
+
+## 17. 2026-06-28 音乐播放器全面改造 + 文章附件下载
+
+本次改造包含两个独立部分：音乐播放器大改造（5 个阶段）和文章附件下载功能。两者互不依赖，可独立回滚。
+
+### 17.1 音乐播放器大改造（5 个阶段）
+
+#### 阶段1：cache-buster 自动化
+
+之前每次改音乐播放器代码，都要手动同步 4 处 `?v=` 版本号（CSS/JS 各处），容易漏。
+
+新增 `scripts/music-asset-hasher.js`，用 `after_render:html` filter 在生成时对白名单 URL 自动注入 `?v=<sha1-8>` 内容哈希。文件变了哈希自动变，浏览器就会重新拉取。
+
+白名单路径：`/css/`、`/js/`、`/music/` 下的静态资源。
+
+同时删除了 `_config.butterfly.yml:1074/1076/1077` 里手写的 `?v=20260322a`，让 filter 统一加。
+
+#### 阶段2：歌单 generator + manifest
+
+之前播放器是**单曲硬编码**——只有一首歌，换歌要改 `blog-music-config.js` 里的 `track` 对象。
+
+新增 `scripts/music-playlist-generator.js`：
+- 扫描 `source/music/*.mp3`
+- 合并 `source/music/playlist.yml`（手写元数据）
+- 同名 sidecar 自动匹配 `.lrc` / `.jpg` / `.jpeg` / `.png` / `.webp` / `.svg`
+- 算每个资源的内容哈希
+- 输出 `/music/playlist.json`（静态文件，备用）
+- 内联 `window.BLOG_MUSIC_PLAYLIST` 注入到 HTML `</head>` 前
+
+新增 `source/music/playlist.yml`（手写歌单元数据）：
+
+```yaml
+- file: 夢をあきらめないで.mp3
+  title: 夢をあきらめないで
+  artist: Takako Okamura
+  subtitle: Liberté
+  lyricsMode: dual          # dual | original | translation，缺省 dual
+- file: evening-journey.mp3
+  title: Evening Journey
+  artist: Storm Talia
+  # lyrics/cover 缺省 → 自动按同名查 .lrc / .jpg
+```
+
+每首歌字段：`{file, title, artist?, subtitle?, lyrics?, cover?, lyricsMode?, loop?, sourceUrl?, sourceLabel?}`。
+
+`blog-music-config.js` 删掉硬编码 `track` 对象，只保留 UI 参数（accentColor / defaultVolume / fadeInDuration 等）。
+
+#### 阶段3：自动播放 3 bug 修复
+
+修复了影响每个首访客的 3 个连环 bug：
+
+1. **`autoplaySeen` 提前写入**：之前访问页面就立刻标记"已自动播放过"，导致第二次刷新不再尝试。改为只有真正 `play()` 成功才写入。
+2. **`canplay` 不触发**：之前监听 `canplay` 事件再 `startPlayback()`，但 `preload: "metadata"` 模式下 `canplay` 经常不触发。改为直接 `playMusic()`（`play()` 内部会触发加载）。
+3. **静音预热扰民**：之前用户在页面任意位置点击/按键都会触发 `playMusic`，可能突然出声。改为只有用户点播放器自身才出声，点其他位置只恢复已有静音预热状态。
+
+#### 阶段4：歌单驱动 + 双语切换 + 上下首 + 键盘
+
+**歌单驱动**：保留单个 `Audio` 实例，新增 `state.playlist / state.currentIndex`。`loadTrack(i)` 流程：`pause() → removeAttribute('src') + load() → 赋新 src → 若之前在播放则 play() → 清 lyricsLines 并 loadLyrics() → 更新 UI`。
+
+**双语歌词切换**：`parseLrc` 改返回 `{start, end, original, translation}`——同时间戳组首条为原文，次条为译文。歌词面板头部加三段 toggle（原 / 译 / 对照），状态存 localStorage，默认"对照"。
+
+**上下首**：在播放按钮两侧加 prev/next 按钮。
+
+**全局键盘快捷键**：
+
+| 按键 | 功能 |
+|---|---|
+| `Space` | 播放 / 暂停 |
+| `←` / `→` | ±5 秒 |
+| `↑` / `↓` | ±0.05 音量 |
+| `M` | 静音 |
+| `N` / `P` | 下一首 / 上一首 |
+
+在 `input` / `textarea` / `[contenteditable]` 内按键会跳过，不会触发。
+
+**歌单面板**：左侧 aside 显示所有曲目，当前项带 accent border + 加粗。
+
+#### 阶段5：launcher 减层 + UI 调参
+
+减少 launcher 启动器的 GPU 层叠（手机端 / 低性能设备友好）：
+
+- 删除 `launcher-orbit`（16px blur 最贵的一层）
+- 删除 `launcher-disc::after` 一层 ring
+- `launcher-core` 的 `backdrop-filter: blur(12px)` 改为 `rgba(5,12,29,0.92)` 实色
+
+参数调整：
+
+- 默认音量 `0.18 → 0.35`（之前太小）
+- 拖动阈值 `6px → 10px`（避免误触）
+
+### 17.2 文章附件下载功能
+
+博客现在支持在文章里挂任意类型文件供读者下载。
+
+#### 工作流
+
+1. 把文件丢进文章的同名文件夹（`post_asset_folder: true` 已开启）
+2. 在 markdown 里写一行链接（**注意：不要 `!` 前缀，那是图片用的**）
+
+例如文章 `文献复现（一）.md`，对应同名文件夹 `文献复现（一）/`：
+
+```
+source/_posts/科研/next stage/
+├── 文献复现（一）.md
+└── 文献复现（一）/
+    └── cp2k.inp      ← 拖文件进来
+```
+
+在 markdown 里写：
+
+```markdown
+[下载 CP2K 输入文件](文献复现（一）/cp2k.inp)
+```
+
+任何文件类型通用：`.inp / .exe / .zip / .pdf / .mp3 / .mol / .csv / .dat …`。浏览器对未知类型直接触发下载，对 `.pdf` / `.txt` 会先尝试预览。
+
+#### 技术实现：路径重写 filter
+
+Hexo 的 `marked.postAsset: true` 配置**只对图片 `![]()` 做路径重写**，对普通链接 `[]()` 不动。如果不修，读者点 `[下载](文献复现（一）/file.inp)` 会跳到 `…/文献复现（一）/文献复现（一）/file.inp`（多了一层目录）→ 404。
+
+新增 `scripts/post-asset-link-rewriter.js`（25 行）：`after_render:html` filter，对每个生成的 `index.html`，从输出路径取目录名（即文章同名文件夹名），把 `<a href="dirname/file">` 里的 `dirname/` 前缀去掉，让相对链接正确解析到文章同级目录。逻辑镜像 marked 对图片的处理。
+
+#### 验证
+
+```bash
+npx hexo clean && npx hexo g
+grep -oE 'href="[^"]+cp2k[^"]*"' "public/2026/06/25/科研/next stage/文献复现（一）/index.html"
+# 应看到 href="Li6PS5Cl_cp2k.inp"（无目录前缀）
+
+npx hexo s -p 4000
+# 浏览器访问文章页，点击下载链接 → 文件下载
+```
+
+### 17.3 涉及文件清单
+
+**新增**：
+
+- `scripts/music-asset-hasher.js` — cache-buster 自动注入
+- `scripts/music-playlist-generator.js` — 歌单扫描 + 内联
+- `scripts/post-asset-link-rewriter.js` — 附件链接路径重写
+- `source/music/playlist.yml` — 手写歌单元数据
+
+**修改**：
+
+- `source/js/blog-music-config.js` — 删硬编码 `track`，调音量 `0.35`
+- `source/js/blog-music-player.js` — 歌单驱动 + bug 修复 + 键盘 + 双语 + 上下首
+- `source/css/music-player.css` — playlist-pane / lyrics-mode toggle / launcher 减层
+- `_config.butterfly.yml` — 删手写 `?v=`（filter 统一加）
+
+### 17.4 换音乐文件的新工作流（取代旧第 9 章）
+
+旧第 9 章的"手动改 `blog-music-config.js` 里的 `track`"已废弃。新工作流：
+
+1. 把 `.mp3` 丢进 `source/music/`
+2. 如果有歌词/封面，按同名 sidecar 放（`<basename>.lrc`、`<basename>.jpg`）
+3. 编辑 `source/music/playlist.yml` 加一行：
+   ```yaml
+   - file: my-song.mp3
+     title: My Song
+     artist: Your Name
+   ```
+4. `npx hexo clean && npx hexo g && npx hexo s` 本地预览
+5. 没问题再 `npx hexo deploy`
+
+### 17.5 回滚策略
+
+5 个音乐播放器阶段 + 文件下载功能共 6 个独立改动，任一阶段可独立 `git revert`：
+
+1. cache-buster filter
+2. playlist generator + manifest
+3. 自动播放 bug 修复
+4. 歌单驱动 + 双语 + 上下首 + 键盘
+5. launcher 减层 + UI 调参
+6. 附件下载 filter
+
+最坏情况只回退 `blog-music-player.js`，generator / filter 留着无副作用（filter 给不存在的 URL 加不上 hash，generator 输出的 JSON 没人读也不影响）。
+
+### 17.6 验证检查清单
+
+每次改完音乐播放器或附件相关代码，按此清单验证：
+
+1. `npx hexo clean && npx hexo g` — 生成无报错
+2. `grep -oE '?v=[a-f0-9]{8}' public/index.html | sort -u` — cache-buster 8 位 hex
+3. `grep -oE 'BLOG_MUSIC_PLAYLIST=\[' public/index.html` — 内联歌单存在
+4. 浏览器访问 `/music/playlist.json` — JSON 正常
+5. 刷新 3 次文章页 — autoplay 首次成功后第二次不再卡死
+6. 在文章 input 内按 Space — 不触发播放
+7. 切原 / 译 / 对照三模式 — 渲染正确
+8. 点上下首 / 列表项 — 音频+歌词+封面同步切换
+9. Network 面板 — audio / lrc / css / js 全 200 + hash
+10. 文章页点击下载链接 — 文件下载

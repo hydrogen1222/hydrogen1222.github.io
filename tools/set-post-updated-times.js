@@ -14,7 +14,7 @@ function git(args) {
   }).trim();
 }
 
-const posts = git(['ls-files', 'source/_posts/*.md', 'source/_posts/**/*.md'])
+const posts = git(['ls-files', ':(glob)source/_posts/**/*.md'])
   .split(/\r?\n/)
   .filter(Boolean);
 

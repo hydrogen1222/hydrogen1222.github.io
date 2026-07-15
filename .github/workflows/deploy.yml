@@ -27,7 +27,7 @@ jobs:
         run: npm ci
 
       - name: Generate site
-        run: npx hexo g
+        run: npm run build
 
       - name: Add deployment branch notice
         run: cp .github/DEPLOYMENT_README.md public/README.md

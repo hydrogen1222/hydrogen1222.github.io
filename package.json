@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "hexo generate",
+    "build": "node tools/set-post-updated-times.js && hexo generate",
     "clean": "node tools/hexo-clean-safe.js",
     "cover:generate": "node tools/generate-default-cover-art.js",
     "deploy": "hexo deploy",

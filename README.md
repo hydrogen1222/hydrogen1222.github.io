@@ -4,15 +4,15 @@ banner_y: 0.32857
 banner_icon: 🖥️
 ---
 
-# 博客源码分支
+# 我的博客源码
 
-当前 `master` 分支保存 <https://hydrogen1222.com.cn/> 的 Hexo 源码，包括 Markdown 文章、站点配置、主题配置和维护脚本。
+这里是我的个人博客 <https://hydrogen1222.com.cn/> 的根目录，`master` 分支保存着 Hexo 源码、Markdown 文章、站点配置、主题配置和维护脚本。
 
-- 日常写作和维护请在 `master` 分支进行，并将提交推送到 `master`。
-- GitHub Actions 会自动构建站点，并把生成的 HTML、CSS、JavaScript 和静态资源发布到 `main` 分支。
-- `main` 是机器生成的静态页面分支，不应手动编辑。
+我平时习惯用 Obsidian 写博文，所以仓库里也保留了一些 Obsidian 的配置、主题和相关文件；它们是我的写作环境的一部分，并不是误提交进来的杂项。
 
-下面保留原有的 Obsidian 库说明。
+平时我会在 `master` 分支写作和维护。推送后，GitHub Actions 会自动构建博客，并把生成的 HTML、CSS、JavaScript 和静态资源发布到 `main` 分支。`main` 只是网站的静态页面成品，我不会直接在那里修改内容。
+
+下面是原有的 Obsidian 库说明。
 
 # 🌈 01 简介
 
@@ -171,4 +171,3 @@ banner_icon: 🖥️
 - 需要word，ppt，excel，那就用微软的三件套即可
 
 >感谢各位软件/插件/主题开发者，提供如此优秀的资源👍👍
-

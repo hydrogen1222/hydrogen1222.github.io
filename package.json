@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "build": "node tools/set-post-updated-times.js && hexo generate",
+    "check": "node tools/check-javascript.js",
     "clean": "node tools/hexo-clean-safe.js",
     "cover:generate": "node tools/generate-default-cover-art.js",
     "deploy": "node tools/deploy-via-actions.js",

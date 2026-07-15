@@ -14,20 +14,14 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
-
-      - name: Restore hexo-updated-cache
-        uses: actions/cache@v4
-        with:
-          path: .hexo-updated-cache.json
-          key: hexo-updated-cache-${{ github.sha }}
-          restore-keys: |
-            hexo-updated-cache-
 
       - name: Install dependencies
         run: npm ci

@@ -21,7 +21,9 @@
     dockY: `${storageNamespace}:dock-y`,
     lyricsOpen: `${storageNamespace}:lyrics-open`,
     lyricsMode: `${storageNamespace}:lyrics-mode`,
-    playlistOpen: `${storageNamespace}:playlist-open`
+    playlistOpen: `${storageNamespace}:playlist-open`,
+    currentTrack: `${storageNamespace}:current-track`,
+    currentTime: `${storageNamespace}:current-time`
   };
 
   const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
@@ -315,12 +317,18 @@
     },
     playlist: playlistData,
     currentIndex: 0,
+    pendingRestoreTime: null,
+    lastPersistedSecond: -1,
+    shouldBePlaying: false,
     lyricsMode: (() => {
-      const stored = readStorage(storageKeys.lyricsMode, "dual");
-      return stored === "original" || stored === "translation" ? stored : "dual";
+      const stored = readStorage(storageKeys.lyricsMode, null);
+      return stored === "original" || stored === "translation" || stored === "dual" ? stored : "dual";
     })(),
+    lyricsModeUserSet: readStorage(storageKeys.lyricsMode, null) !== null,
     playlistOpen: readBoolean(storageKeys.playlistOpen, false),
     retryTimer: null,
+    retryCount: 0,
+    lyricsAbortController: null,
     badge: null,
     playlistList: null,
     playlistToggleButton: null,
@@ -370,6 +378,67 @@
     writeStorage(storageKeys.dockX, state.position.x);
     writeStorage(storageKeys.dockY, state.position.y);
   };
+
+  const persistPlaybackState = (force = false) => {
+    const currentSecond = Number.isFinite(state.audio.currentTime)
+      ? Math.max(0, Math.floor(state.audio.currentTime))
+      : 0;
+
+    if (!force && currentSecond === state.lastPersistedSecond) {
+      return;
+    }
+
+    state.lastPersistedSecond = currentSecond;
+    writeStorage(storageKeys.currentTrack, state.currentIndex);
+    writeStorage(storageKeys.currentTime, currentSecond);
+  };
+
+  const restorePlaybackSelection = () => {
+    const storedIndex = readNumber(storageKeys.currentTrack);
+    const storedTime = readNumber(storageKeys.currentTime);
+    const maxIndex = Math.max(0, state.playlist.length - 1);
+
+    return {
+      index: storedIndex === null ? 0 : clamp(Math.round(storedIndex), 0, maxIndex),
+      time: storedTime === null ? null : Math.max(0, storedTime)
+    };
+  };
+
+  const updateMediaSession = () => {
+    if (!("mediaSession" in navigator)) {
+      return;
+    }
+
+    const track = state.playlist && state.playlist[state.currentIndex];
+    if (!track) {
+      return;
+    }
+
+    try {
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: track.title || track.file || "博客音乐",
+        artist: track.artist || "Storm Talia",
+        album: track.subtitle || "Storm's Storehouse",
+        artwork: track.cover ? [{ src: track.cover }] : []
+      });
+    } catch (_) {
+      // 不支持 MediaMetadata 的旧浏览器继续使用基础播放器。
+    }
+  };
+
+  const playbackChannel = typeof window.BroadcastChannel === "function"
+    ? new BroadcastChannel(`${storageNamespace}:playback`)
+    : null;
+
+  if (playbackChannel) {
+    playbackChannel.addEventListener("message", (event) => {
+      if (!event.data || event.data.type !== "playing" || !isPlaying()) {
+        return;
+      }
+
+      pauseMusic("音乐已在另一个标签页播放，本页已暂停。");
+    });
+  }
 
   const isPlaying = () => !state.audio.paused && !state.audio.ended;
 
@@ -917,6 +986,11 @@
   };
 
   const loadLyrics = () => {
+    if (state.lyricsAbortController) {
+      state.lyricsAbortController.abort();
+      state.lyricsAbortController = null;
+    }
+
     const track = state.playlist && state.playlist[state.currentIndex];
     if (!track || !track.lyrics) {
       state.lyricsMessage = track ? "这一首暂无歌词文件。" : "还没有可播放的曲目。";
@@ -925,26 +999,41 @@
       return;
     }
 
-    fetch(track.lyrics).then((response) => {
+    const requestedIndex = state.currentIndex;
+    const controller = typeof window.AbortController === "function" ? new AbortController() : null;
+    state.lyricsAbortController = controller;
+
+    fetch(track.lyrics, controller ? { signal: controller.signal } : undefined).then((response) => {
       if (!response.ok) {
         throw new Error("lyrics-not-found");
       }
 
       return response.text();
     }).then((text) => {
+      if (requestedIndex !== state.currentIndex) {
+        return;
+      }
+
       state.lyricsLines = parseLrc(text);
       state.lyricsMessage = state.lyricsLines.length
         ? "本地歌词已载入。"
         : "歌词文件已经读到，但还没有有效的时间轴内容。";
       renderLyrics();
-    }).catch(() => {
+    }).catch((error) => {
+      if ((controller && controller.signal.aborted) || (error && error.name === "AbortError")) {
+        return;
+      }
+      if (requestedIndex !== state.currentIndex) {
+        return;
+      }
+
       state.lyricsLines = [];
       state.lyricsMessage = `没有成功读取歌词文件：${track.lyrics}`;
       renderLyrics();
     });
   };
 
-  const loadTrack = (index, autoplay = false) => {
+  const loadTrack = (index, autoplay = false, restoreTime = null) => {
     if (!state.playlist || !state.playlist.length) {
       return;
     }
@@ -953,7 +1042,19 @@
     const clamped = ((index % len) + len) % len;
     const prevPlaying = isPlaying();
     state.currentIndex = clamped;
+    state.pendingRestoreTime = Number.isFinite(restoreTime) ? Math.max(0, restoreTime) : null;
     const track = state.playlist[clamped];
+    state.retryCount = 0;
+    state.lastPersistedSecond = -1;
+
+    if (!state.lyricsModeUserSet) {
+      state.lyricsMode = track.lyricsMode === "original" || track.lyricsMode === "translation"
+        ? track.lyricsMode
+        : "dual";
+      state.lyricsModeButtons.forEach((button) => {
+        button.dataset.active = String(button.dataset.mode === state.lyricsMode);
+      });
+    }
 
     if (state.retryTimer) {
       window.clearTimeout(state.retryTimer);
@@ -965,6 +1066,11 @@
     state.audio.load();
     state.audio.src = track.src;
     state.audio.loop = track.loop !== false;
+    writeStorage(storageKeys.currentTrack, state.currentIndex);
+    if (!Number.isFinite(state.pendingRestoreTime)) {
+      writeStorage(storageKeys.currentTime, 0);
+    }
+    updateMediaSession();
 
     if (state.title) {
       state.title.textContent = track.title || "未命名音乐";
@@ -1032,6 +1138,7 @@
       return;
     }
     state.lyricsMode = mode;
+    state.lyricsModeUserSet = true;
     writeStorage(storageKeys.lyricsMode, mode);
     state.lyricsModeButtons.forEach((btn) => {
       btn.dataset.active = String(btn.dataset.mode === mode);
@@ -1091,11 +1198,20 @@
   };
 
   const handleKeyboardShortcut = (event) => {
-    if (state.hidden) {
+    if (state.hidden || state.collapsed || !state.root) {
       return;
     }
     const target = event.target;
-    if (target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable)) {
+    if (!target || !state.root.contains(target)) {
+      return;
+    }
+    if (
+      target.tagName === "INPUT"
+      || target.tagName === "TEXTAREA"
+      || target.tagName === "BUTTON"
+      || target.tagName === "A"
+      || target.isContentEditable
+    ) {
       return;
     }
     if (target === state.progressTrack) {
@@ -1233,6 +1349,7 @@
   } = {}) => {
     stopFade();
     state.userDismissed = false;
+    state.shouldBePlaying = true;
 
     if (!state.autoWarmMuted) {
       state.audio.muted = state.muted;
@@ -1254,6 +1371,10 @@
       state.hidden = false;
       state.collapsed = false;
       persistViewState();
+      persistPlaybackState(true);
+      if (playbackChannel) {
+        playbackChannel.postMessage({ type: "playing" });
+      }
       setStatus(successStatus || (reason === "autoplay" ? "背景音乐已自动尝试开启。" : "背景音乐播放中。"), "ok");
       render();
       return true;
@@ -1299,7 +1420,9 @@
   const pauseMusic = (message = "音乐已暂停。") => {
     clearInteractionUnlock();
     state.autoWarmMuted = false;
+    state.shouldBePlaying = false;
     state.audio.pause();
+    persistPlaybackState(true);
     setStatus(message);
     render();
   };
@@ -1343,8 +1466,10 @@
     state.userDismissed = true;
     clearInteractionUnlock();
     state.autoWarmMuted = false;
+    state.shouldBePlaying = false;
     state.audio.pause();
     state.audio.currentTime = 0;
+    persistPlaybackState(true);
     state.collapsed = true;
     state.hidden = true;
     persistViewState();
@@ -1693,12 +1818,17 @@
     state.progressTrack.addEventListener("keydown", handleProgressKeydown);
 
     state.audio.addEventListener("loadedmetadata", () => {
+      if (Number.isFinite(state.pendingRestoreTime) && state.pendingRestoreTime > 0) {
+        state.audio.currentTime = clamp(state.pendingRestoreTime, 0, state.audio.duration || state.pendingRestoreTime);
+        state.pendingRestoreTime = null;
+      }
       updateProgressUI();
       syncLyrics(true);
     });
     state.audio.addEventListener("timeupdate", () => {
       updateProgressUI();
       syncLyrics();
+      persistPlaybackState();
     });
     state.audio.addEventListener("seeked", () => {
       updateProgressUI();
@@ -1706,21 +1836,41 @@
     });
     state.audio.addEventListener("play", render);
     state.audio.addEventListener("pause", render);
-    state.audio.addEventListener("ended", render);
+    state.audio.addEventListener("ended", () => {
+      persistPlaybackState(true);
+      if (!state.audio.loop && state.playlist.length > 1 && state.shouldBePlaying) {
+        nextTrack();
+        return;
+      }
+      render();
+    });
     state.audio.addEventListener("error", () => {
+      if (state.retryCount >= 1) {
+        state.shouldBePlaying = false;
+        setStatus("音频加载失败，请检查网络后手动重试。", "warn");
+        render();
+        return;
+      }
+
       setStatus("音频加载失败，2 秒后自动重试一次。", "warn");
       if (state.retryTimer) {
         render();
         return;
       }
+      state.retryCount += 1;
+      const shouldResume = state.shouldBePlaying;
       state.retryTimer = window.setTimeout(() => {
         state.retryTimer = null;
         const track = state.playlist && state.playlist[state.currentIndex];
         if (track) {
           state.audio.src = track.src;
           state.audio.load();
-          if (isPlaying()) {
-            state.audio.play().catch(() => {});
+          if (shouldResume) {
+            playMusic({
+              reason: "retry",
+              successStatus: "音频已重新连接。",
+              failureStatus: "音频重试失败，请稍后手动播放。"
+            });
           }
         }
       }, 2000);
@@ -1730,9 +1880,32 @@
     state.panel.addEventListener("transitionend", syncPositionWithinViewport);
     window.addEventListener("resize", syncPositionWithinViewport);
     window.addEventListener("pageshow", syncPositionWithinViewport);
+    window.addEventListener("pagehide", () => persistPlaybackState(true));
     document.addEventListener("keydown", handleKeyboardShortcut);
 
-    if (state.autoplaySeen) {
+    if ("mediaSession" in navigator) {
+      const mediaActions = {
+        play: () => playMusic({ reason: "media-session" }),
+        pause: () => pauseMusic(),
+        previoustrack: prevTrack,
+        nexttrack: nextTrack,
+        seekbackward: (details) => applySeekTime(state.audio.currentTime - (details.seekOffset || 10), true),
+        seekforward: (details) => applySeekTime(state.audio.currentTime + (details.seekOffset || 10), true),
+        seekto: (details) => applySeekTime(details.seekTime, true)
+      };
+
+      Object.entries(mediaActions).forEach(([action, handler]) => {
+        try {
+          navigator.mediaSession.setActionHandler(action, handler);
+        } catch (_) {
+          // 某些浏览器只支持部分 Media Session 动作。
+        }
+      });
+    }
+
+    if (config.autoplayOnFirstVisit === false) {
+      setStatus("播放器已就位，点击播放键开始音乐。");
+    } else if (state.autoplaySeen) {
       setStatus("播放器已就位，点击角落唱片即可重新展开。");
     } else {
       setStatus("首次访问会尽量自动把音乐送进来。");
@@ -1773,7 +1946,8 @@
 
   const init = () => {
     createPlayer();
-    loadTrack(0, false);
+    const restored = restorePlaybackSelection();
+    loadTrack(restored.index, false, restored.time);
     attemptAutoplay();
   };
 

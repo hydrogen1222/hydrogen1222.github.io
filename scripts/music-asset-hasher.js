@@ -9,6 +9,10 @@ const SOURCE_ROOT = hexo.source_dir;
 
 const hashCache = new Map();
 
+hexo.extend.filter.register('before_generate', () => {
+  hashCache.clear();
+});
+
 function computeAssetHash(filePath) {
   if (hashCache.has(filePath)) {
     return hashCache.get(filePath);

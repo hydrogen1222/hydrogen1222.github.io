@@ -111,8 +111,8 @@ cover:
 
 # Replace Broken Images
 error_img:
-  flink: /img/friend_404.gif
-  post_page: /img/404.jpg
+  flink: /img/favicon.jpg
+  post_page: /img/favicon.jpg
 
 # A simple 404 page
 error_404:
@@ -766,23 +766,23 @@ site_verification:
 # Theme color for customize
 # Notice: color value must in double quotes like "#000" or may cause error!
 
-  theme_color:
-    enable: true
-    main: "#7C6EE6"
-    paginator: "#8F82FF"
-    button_hover: "#A395FF"
-    text_selection: "#C9C2FF"
-    link_color: "#8B8FA8"
-    meta_color: "#7A7F99"
-    hr_color: "#DCD8FF"
-    code_foreground: "#9A7ECC"
-    code_background: "#F6F4FF"
-    toc_color: "#7C6EE6"
-    blockquote_padding_color: "#7C6EE6"
-    blockquote_background_color: "#F4F2FF"
-    scrollbar_color: "#7C6EE6"
-    meta_theme_color_light: "#FFFFFF"
-    meta_theme_color_dark: "#121212"
+theme_color:
+  enable: true
+  main: "#7C6EE6"
+  paginator: "#8F82FF"
+  button_hover: "#A395FF"
+  text_selection: "#C9C2FF"
+  link_color: "#8B8FA8"
+  meta_color: "#7A7F99"
+  hr_color: "#DCD8FF"
+  code_foreground: "#9A7ECC"
+  code_background: "#F6F4FF"
+  toc_color: "#7C6EE6"
+  blockquote_padding_color: "#7C6EE6"
+  blockquote_background_color: "#F4F2FF"
+  scrollbar_color: "#7C6EE6"
+  meta_theme_color_light: "#FFFFFF"
+  meta_theme_color_dark: "#121212"
 
 
 # The user interface setting of category and tag page

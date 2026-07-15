@@ -64,9 +64,16 @@ function loadPlaylistYml() {
 
   try {
     const parsed = yaml.load(fs.readFileSync(PLAYLIST_YML, 'utf8'));
-    return Array.isArray(parsed) ? parsed : [];
-  } catch (_) {
-    return [];
+    if (parsed == null) {
+      return [];
+    }
+    if (!Array.isArray(parsed)) {
+      throw new TypeError('playlist.yml 顶层必须是歌曲数组。');
+    }
+    return parsed;
+  } catch (error) {
+    hexo.log.error(`无法解析音乐歌单 ${PLAYLIST_YML}: ${error.message}`);
+    throw error;
   }
 }
 
@@ -84,10 +91,21 @@ function scanMp3() {
 function buildPlaylist() {
   const ymlEntries = loadPlaylistYml();
   const ymlByFile = new Map();
-  ymlEntries.forEach((entry) => {
-    if (entry && entry.file) {
-      ymlByFile.set(entry.file, entry);
+  ymlEntries.forEach((entry, index) => {
+    if (!entry || typeof entry !== 'object' || typeof entry.file !== 'string' || !entry.file.trim()) {
+      throw new TypeError(`playlist.yml 第 ${index + 1} 项缺少有效的 file 字段。`);
     }
+
+    const file = entry.file.trim();
+    if (path.basename(file) !== file) {
+      throw new TypeError(`音乐文件必须直接位于 source/music：${file}`);
+    }
+    if (ymlByFile.has(file)) {
+      throw new TypeError(`playlist.yml 中存在重复歌曲：${file}`);
+    }
+
+    entry.file = file;
+    ymlByFile.set(file, entry);
   });
 
   const mp3List = scanMp3();
@@ -112,6 +130,9 @@ function buildPlaylist() {
     const entry = ymlByFile.get(file) || { file };
     const baseName = file.replace(/\.mp3$/i, '');
     const audioPath = path.join(MUSIC_DIR, file);
+    if (!resolveIfExists(audioPath)) {
+      throw new Error(`歌单引用的音频不存在：${file}`);
+    }
 
     const lyricsName = entry.lyrics || `${baseName}.lrc`;
     const lyricsPath = resolveIfExists(path.join(MUSIC_DIR, lyricsName)) || findSidecar(baseName, ['lrc']);
@@ -120,6 +141,13 @@ function buildPlaylist() {
     const coverPath = coverName
       ? resolveIfExists(path.join(MUSIC_DIR, coverName))
       : findSidecar(baseName, COVER_EXTS);
+
+    if (entry.lyrics && !lyricsPath) {
+      throw new Error(`歌曲 ${file} 指定的歌词不存在：${entry.lyrics}`);
+    }
+    if (entry.cover && !coverPath) {
+      throw new Error(`歌曲 ${file} 指定的封面不存在：${entry.cover}`);
+    }
 
     const track = {
       file,
@@ -130,7 +158,7 @@ function buildPlaylist() {
       ambience: entry.ambience || '',
       src: urlWithHash(`/music/${file}`, audioPath),
       lyricsMode: entry.lyricsMode || 'dual',
-      loop: entry.loop !== false,
+      loop: entry.loop === true,
       sourceUrl: entry.sourceUrl || '',
       sourceLabel: entry.sourceLabel || ''
     };
@@ -155,15 +183,8 @@ function getPlaylist() {
 }
 
 hexo.extend.filter.register('before_generate', () => {
-  getPlaylist();
-});
-
-hexo.extend.generator.register('music-playlist', () => {
-  const playlist = getPlaylist();
-  return {
-    path: 'music/playlist.json',
-    data: JSON.stringify(playlist, null, 2)
-  };
+  hashCache.clear();
+  cachedPlaylist = buildPlaylist();
 });
 
 hexo.extend.filter.register('after_render:html', (str) => {

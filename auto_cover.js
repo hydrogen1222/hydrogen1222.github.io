@@ -10,7 +10,7 @@ const path = require('path');
 const CONFIG = {
   postsDir: './source/_posts',
   defaultCover: 'https://s2.loli.net/2026/02/09/Dn8KqW2prvXtMYg.png',
-  dryRun: false,  // true=仅预览, false=实际执行
+  dryRun: true,  // 默认仅预览，确认输出无误后再显式改为 false
 };
 
 // 解析 Front-matter（更宽容的版本）

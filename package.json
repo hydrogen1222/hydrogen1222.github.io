@@ -6,9 +6,9 @@
     "build": "node tools/set-post-updated-times.js && hexo generate",
     "clean": "node tools/hexo-clean-safe.js",
     "cover:generate": "node tools/generate-default-cover-art.js",
-    "deploy": "hexo deploy",
-    "server": "hexo generate && hexo server",
-    "watch": "hexo generate --watch"
+    "deploy": "node tools/deploy-via-actions.js",
+    "server": "node tools/set-post-updated-times.js && hexo generate && hexo server",
+    "watch": "node tools/set-post-updated-times.js && hexo generate --watch"
   },
   "hexo": {
     "version": "8.1.2"

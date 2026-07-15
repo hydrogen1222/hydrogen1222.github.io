@@ -45,7 +45,7 @@ marked:
   prependRoot: true
   postAsset: true
 relative_link: false
-future: true
+future: false
 syntax_highlighter: highlight.js
 highlight:
   line_number: true
@@ -101,13 +101,6 @@ ignore:
 ## Themes: https://hexo.io/themes/
 theme: butterfly
 
-# Deployment
-## Docs: https://hexo.io/docs/one-command-deployment
-deploy:
-  type: git
-  repo: https://github.com/hydrogen1222/hydrogen1222.github.io.git
-  branch: main
-  
 # Markdown renderer configuration
 markdown:
   render:

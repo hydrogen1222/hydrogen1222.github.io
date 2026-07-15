@@ -10,10 +10,11 @@
   ambience: 本地自托管单曲 · 玻璃氛围播放器 · LRC 时序歌词
   cover: liberte.jpg
   lyricsMode: dual
-  loop: true
+  loop: false
 
 - file: evening-journey.mp3
   title: Evening Journey
   artist: Storm Talia
   lyricsMode: dual
+  loop: false
   # 无 .lrc / 无同名封面 → 纯音乐降级显示

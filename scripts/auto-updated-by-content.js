@@ -38,10 +38,12 @@ hexo.extend.filter.register('before_generate', () => {
   posts.forEach(post => {
     if (!post || !post.source) return;
 
-    const normalizedSource = String(post.source).replace(/\\/g, '/');
-    if (!/(^|\/)_posts\//.test(normalizedSource)) return;
+    const normalizedSource = String(post.source).replace(/\\/g, '/').replace(/^\/+/, '');
+    const sourceRelative = normalizedSource.startsWith('_posts/')
+      ? normalizedSource
+      : `_posts/${normalizedSource}`;
 
-    const fullPath = path.join(hexo.source_dir, normalizedSource);
+    const fullPath = path.join(hexo.source_dir, sourceRelative);
     if (!fs.existsSync(fullPath)) return;
 
     const content = fs.readFileSync(fullPath, 'utf8');

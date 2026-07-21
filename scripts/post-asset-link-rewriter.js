@@ -17,7 +17,7 @@ hexo.extend.filter.register('after_render:html', (str, data) => {
   for (const prefix of variants) {
     if (!prefix) continue;
     const re = new RegExp(
-      `(href=["'])${escapeRegex(prefix)}/([^"']+)(["'])`,
+      `((?:href|src)=["'])${escapeRegex(prefix)}/([^"']+)(["'])`,
       'g'
     );
     out = out.replace(re, '$1$2$3');

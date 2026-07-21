@@ -9,6 +9,7 @@
   eyebrow: Stormy Broadcast
   ambience: 本地自托管单曲 · 玻璃氛围播放器 · LRC 时序歌词
   cover: 永遠の夏.jpg
+  lyrics: 永遠の夏.lrc
   lyricsMode: dual
   loop: false
 
@@ -19,6 +20,7 @@
   eyebrow: Stormy Broadcast
   ambience: 本地自托管单曲 · 玻璃氛围播放器 · LRC 时序歌词
   cover: Believe.jpg
+  lyrics: Believe.lrc
   lyricsMode: dual
   loop: false
   # 无 .lrc / 无同名封面 → 纯音乐降级显示

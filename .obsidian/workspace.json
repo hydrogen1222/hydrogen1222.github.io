@@ -77,7 +77,8 @@
               "title": "再出发"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -136,13 +137,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "source/_posts/科研/next stage/文献复现（一）.md",
+                "file": "source/_posts/科研/next stage/文献复现（二）.md",
                 "followCursor": true,
-                "showSearch": true,
+                "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "文献复现（一） 的大纲"
+              "title": "文献复现（二） 的大纲"
             }
           },
           {
@@ -238,35 +239,38 @@
       "workspaces:管理工作区布局": false
     }
   },
-  "active": "4bde5000b9517af7",
+  "active": "8ed7aec41ae874dd",
   "lastOpenFiles": [
-    "source/_posts/科研/next stage/文献复现（二）.md",
     "source/_posts/科研/next stage/文献复现（一）.md",
-    "source/_posts/科研/next stage/精粤双路X99寨板服务器.md",
-    "source/_posts/科研/next stage/文献复现（二）/gen_conv_test.py",
-    "source/_posts/科研/next stage/精粤双路X99寨板服务器/file-20260708151442637.png",
-    "source/_posts/科研/next stage/精粤双路X99寨板服务器/file-20260708151431759.png",
-    "source/_posts/计算机/Hermes Agent尝鲜.md",
-    "source/_posts/科研/next stage/精粤双路X99寨板服务器/cover.png",
-    "source/_posts/科研/next stage/精粤双路X99寨板服务器/file-20260708151123876.png",
-    "source/_posts/科研/next stage/精粤双路X99寨板服务器",
-    "source/_posts/科研/next stage/再出发.md",
+    "source/_posts/科研/next stage/文献复现（二）.md",
     "source/_posts/科研/VASP/Starry Sky/Vasp-note.md",
-    "source/_posts/科研/next stage/文献复现（二）/gen_cp2k_multiwfn.sh",
-    "source/_posts/科研/next stage/文献复现（二）/file-20260704163052223.png",
-    "source/_posts/科研/next stage/文献复现（二）/file-20260703213951016.png",
-    "source/_posts/科研/next stage/文献复现（二）/file-20260703213354213.png",
-    "source/_posts/科研/next stage/文献复现（二）/file-20260703200452943.png",
-    "source/_posts/科研/next stage/文献复现（二）/file-20260703200217204.png",
-    "source/_posts/科研/next stage/文献复现（二）/cover.png",
-    "source/_posts/科研/next stage/文献复现（二）",
-    "source/_posts/科研/next stage/文献复现（一）/echem_uptake_profile.py",
-    "source/_posts/科研/next stage/文献复现（一）/echem_window.py",
-    "source/_posts/科研/next stage/文献复现（一）/LPSC_phase_stability.py",
-    "source/_posts/科研/next stage/文献复现（一）/batch.sh",
+    "source/_posts/科研/next stage/精粤双路X99寨板服务器.md",
+    "source/_posts/科研/next stage/文献复现（一）/file-20260721110642138.png",
+    "source/_posts/科研/next stage/文献复现（二）/file-20260720232103759.png",
+    "source/_posts/科研/next stage/文献复现（二）/li_uptake_profile.png",
+    "source/_posts/科研/next stage/文献复现（二）/file-20260720220145520.png",
+    "source/_posts/科研/next stage/文献复现（二）/li_grand_potential.png",
+    "source/_posts/科研/next stage/文献复现（二）/LGPS_HSE06_DOS.png",
+    "source/_posts/科研/next stage/文献复现（二）/sample.jpeg",
+    "source/_posts/科研/next stage/文献复现（二）/PDOS_sample.png",
+    "source/_posts/科研/next stage/文献复现（二）/PDOS_sample 1.tif",
+    "source/_posts/科研/next stage/文献复现（二）/PDOS_sample.tif",
+    "source/_posts/科研/next stage/文献复现（二）/file-20260720121144379.png",
+    "source/_posts/科研/next stage/文献复现（二）/gap_from_eigenval.py",
+    "source/_posts/科研/next stage/文献复现（二）/fhvML.png",
+    "source/_posts/科研/VASP/Starry Sky/HSE06杂化泛函计算能带以及origin作图.md",
+    "source/_posts/科研/next stage/文献复现（二）/fetch_mp_structures.py",
+    "source/_posts/科研/next stage/文献复现（二）/LGPS_grand_potential.py",
+    "source/_posts/科研/next stage/文献复现（二）/echem_uptake_profile.py",
+    "source/_posts/科研/next stage/文献复现（二）/echem_uptake_profile.py.downloading",
+    "source/_posts/科研/next stage/文献复现（二）/echem_windows.py",
+    "source/_posts/科研/next stage/文献复现（二）/phase_stability_common.py",
+    "文献复现（二）/phase_stability_common.py.md",
+    "source/_posts/科研/next stage/文献复现（二）/phase_stability_LGPS.json",
+    "文献复现（二）/LGPS_phase_stability.py.md",
+    "source/_posts/计算机/Hermes Agent尝鲜.md",
+    "source/_posts/科研/next stage/再出发.md",
     "文献复现（1）/gen_cp2k_inputs.py.md",
-    "文献复现（1）",
-    "source/_posts/科研/next stage/文献复现（一）/gen_cp2k_inputs.py",
     "(文献复现（一）/check_structures.py.md",
     "(文献复现（一）.md",
     "source/_posts/科研/next stage/初始Lammps.md",
@@ -282,9 +286,6 @@
     "source/_posts/科研/first stage/ATAT无序掺杂.md",
     "source/_posts/科研/first stage/电化学阻抗谱.md",
     "source/_posts/科研/first stage/电池储能微专业.md",
-    "source/_posts/量子化学/初识构象搜索.md",
-    "source/_posts/量子化学/Orca学习笔记.md",
-    "source/_posts/量子化学/使用Multiwfn+VMD绘制分子的表面静电势图.md",
     "未命名.canvas"
   ]
 }

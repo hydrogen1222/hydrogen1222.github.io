@@ -1,0 +1,758 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>氧气分子单点能的计算及结构优化 | Storm's Storehouse</title><meta name="author" content="Storm Talia"><meta name="copyright" content="Storm Talia"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#FFFFFF"><meta name="description" content="单点能计算又叫做静态计算，计算时不会优化结构 INCAR 12345678SYSTEM &#x3D; OISMEAR &#x3D; 0 #绝缘体系ISMEAR &#x3D; 0SIGMA &#x3D; 0.01ISPIN &#x3D; 2 #氧气是顺磁性分子，ISPIN &#x3D; 2开启自旋MAGMON &#x3D; 2*2 #设置磁矩#IBRION &#x3D; 2 确定计算过程中晶体结构如何变化的参数，不设置使默认IBRION &#x3D; -1，IBRION &#x3D;2为共轭梯度算">
+<meta property="og:type" content="article">
+<meta property="og:title" content="氧气分子单点能的计算及结构优化">
+<meta property="og:url" content="https://hydrogen1222.com.cn/2025/04/18/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E6%B0%A7%E6%B0%94%E5%88%86%E5%AD%90/index.html">
+<meta property="og:site_name" content="Storm&#39;s Storehouse">
+<meta property="og:description" content="单点能计算又叫做静态计算，计算时不会优化结构 INCAR 12345678SYSTEM &#x3D; OISMEAR &#x3D; 0 #绝缘体系ISMEAR &#x3D; 0SIGMA &#x3D; 0.01ISPIN &#x3D; 2 #氧气是顺磁性分子，ISPIN &#x3D; 2开启自旋MAGMON &#x3D; 2*2 #设置磁矩#IBRION &#x3D; 2 确定计算过程中晶体结构如何变化的参数，不设置使默认IBRION &#x3D; -1，IBRION &#x3D;2为共轭梯度算">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hydrogen1222.com.cn/2025/04/18/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E6%B0%A7%E6%B0%94%E5%88%86%E5%AD%90/cover.png">
+<meta property="article:published_time" content="2025-04-18T08:40:00.000Z">
+<meta property="article:modified_time" content="2026-03-30T09:17:47.000Z">
+<meta property="article:author" content="Storm Talia">
+<meta property="article:tag" content="化学">
+<meta property="article:tag" content="科研">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hydrogen1222.com.cn/2025/04/18/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E6%B0%A7%E6%B0%94%E5%88%86%E5%AD%90/cover.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "氧气分子单点能的计算及结构优化",
+  "url": "https://hydrogen1222.com.cn/2025/04/18/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E6%B0%A7%E6%B0%94%E5%88%86%E5%AD%90/",
+  "image": "https://hydrogen1222.com.cn/2025/04/18/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E6%B0%A7%E6%B0%94%E5%88%86%E5%AD%90/cover.png",
+  "datePublished": "2025-04-18T08:40:00.000Z",
+  "dateModified": "2026-03-30T09:17:47.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Storm Talia",
+      "url": "https://hydrogen1222.com.cn"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.jpg"><link rel="canonical" href="https://hydrogen1222.com.cn/2025/04/18/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E6%B0%A7%E6%B0%94%E5%88%86%E5%AD%90/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#121212')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#FFFFFF')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '氧气分子单点能的计算及结构优化',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" /><link rel="stylesheet" href="/css/my-font.css?v=4b3c1e1d" /><link rel="stylesheet" href="/css/music-player.css?v=28cfbdf4" /><meta name="generator" content="Hexo 8.1.2"><script>window.BLOG_MUSIC_PLAYLIST=[{"file":"永遠の夏.m4a","title":"永遠の夏","artist":"Takako Okamura","subtitle":"四つ葉のクローバー","eyebrow":"Stormy Broadcast","ambience":"本地自托管单曲 · 玻璃氛围播放器 · LRC 时序歌词","src":"/music/永遠の夏.m4a?v=02b6f60c","lyricsMode":"dual","loop":false,"sourceUrl":"","sourceLabel":"","lyrics":"/music/永遠の夏.lrc?v=96488512","cover":"/music/永遠の夏.jpg?v=7a883bb7"},{"file":"Believe.m4a","title":"Believe","artist":"Takako Okamura","subtitle":"SOLEIL","eyebrow":"Stormy Broadcast","ambience":"本地自托管单曲 · 玻璃氛围播放器 · LRC 时序歌词","src":"/music/Believe.m4a?v=308895fe","lyricsMode":"dual","loop":false,"sourceUrl":"","sourceLabel":"","lyrics":"/music/Believe.lrc?v=237ea0ce","cover":"/music/Believe.jpg?v=c24f28bf"}];</script></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (false) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div class="bg-animation" id="web_bg" style="background-image: url(https://s2.loli.net/2026/02/09/BCGIy51KPoY2z7Z.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://s2.loli.net/2026/02/08/GvfVnlgAeFHszc3.jpg" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">104</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/guestbook/"><i class="fa-fw fas fa-comments"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/2025/04/18/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E6%B0%A7%E6%B0%94%E5%88%86%E5%AD%90/cover.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Storm's Storehouse</span></a><a class="nav-page-title" href="/"><span class="site-name">氧气分子单点能的计算及结构优化</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/guestbook/"><i class="fa-fw fas fa-comments"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">氧气分子单点能的计算及结构优化</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-04-18T08:40:00.000Z" title="发表于 2025-04-18 16:40:00">2025-04-18</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-03-30T09:17:47.000Z" title="更新于 2026-03-30 17:17:47">2026-03-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/">从零开始的科研之旅</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/VASP/">VASP</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.9k</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>单点能计算又叫做静态计算，计算时不会优化结构</p>
+<p>INCAR</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SYSTEM = O</span><br><span class="line">ISMEAR = 0 #绝缘体系ISMEAR = 0</span><br><span class="line">SIGMA = 0.01</span><br><span class="line">ISPIN = 2 #氧气是顺磁性分子，ISPIN = 2开启自旋</span><br><span class="line">MAGMON = 2*2 #设置磁矩</span><br><span class="line"></span><br><span class="line">#IBRION = 2 确定计算过程中晶体结构如何变化的参数，不设置使默认IBRION = -1，IBRION =2为共轭梯度算法</span><br><span class="line">#NSW = 10  离子步10步</span><br></pre></td></tr></table></figure>
+<p>POSCAR</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">O</span><br><span class="line">1.0</span><br><span class="line">7.5 0.0 0.0</span><br><span class="line">0.0 8.0 0.0</span><br><span class="line">0.0 0.0 8.9 #三斜的格子打破对称性，symmetry broken solution！！！</span><br><span class="line">O</span><br><span class="line">2</span><br><span class="line">Cartesian</span><br><span class="line">0.0 0.0 0.0</span><br><span class="line">0.0 0.0 1.2074</span><br></pre></td></tr></table></figure>
+<p>KPOINTS</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">K-POINTS</span><br><span class="line"> 0</span><br><span class="line">Gamma</span><br><span class="line"> 1 1 1</span><br><span class="line"> 0 0 0</span><br></pre></td></tr></table></figure>
+<p>运行<code>mpirun -n 8 vasp</code>，正常结束，OUTCAR的部分信息如下，显然，单点计算的结果并不可靠</p>
+<p>
+    <span id="mjx-c3c4d53">
+      <style>
+      #mjx-c3c4d53{
+        display:contents;
+        mjx-assistive-mml {
+          user-select: text !important;
+          clip: auto !important;
+          color: rgba(0,0,0,0);
+        }
+        
+mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+  min-height: 1px;
+  min-width: 1px;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display="block"] {
+  width: 100% !important;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][display="true"][width="full"] {
+  display: flex;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line], svg[data-table] > g > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame], svg[data-table] > g > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed, svg[data-table] > g > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted, svg[data-table] > g > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > g > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
+  stroke-width: 3;
+}
+
+g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+.MathJax g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+      }
+      </style>
+      <mjx-container class="MathJax" jax="SVG" style="position: relative;"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="1.448ex" height="1.025ex" role="img" focusable="false" viewBox="0 -442 640 453" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D6FC" d="M34 156Q34 270 120 356T309 442Q379 442 421 402T478 304Q484 275 485 237V208Q534 282 560 374Q564 388 566 390T582 393Q603 393 603 385Q603 376 594 346T558 261T497 161L486 147L487 123Q489 67 495 47T514 26Q528 28 540 37T557 60Q559 67 562 68T577 70Q597 70 597 62Q597 56 591 43Q579 19 556 5T512 -10H505Q438 -10 414 62L411 69L400 61Q390 53 370 41T325 18T267 -2T203 -11Q124 -11 79 39T34 156ZM208 26Q257 26 306 47T379 90L403 112Q401 255 396 290Q382 405 304 405Q235 405 183 332Q156 292 139 224T121 120Q121 71 146 49T208 26Z"></path></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>α</mi></math></mjx-assistive-mml></mjx-container>
+    </span>
+  电子部分</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">spin component 1</span><br><span class="line"></span><br><span class="line">k-point     1 :       0.0000    0.0000    0.0000</span><br><span class="line"> band No.  band energies     occupation</span><br><span class="line">     1     -32.9044      1.00000			#1σ轨道</span><br><span class="line">     2     -20.2474      1.00000			#2σ轨道</span><br><span class="line">     3     -13.3174      1.00000			#3σ轨道,能量应比1π和2π轨道更低，不合理</span><br><span class="line">     4     -13.3171      1.00000			#1π轨道</span><br><span class="line">     5     -13.2940      1.00000			#2π轨道，能量应与1π轨道相同，不合理</span><br><span class="line">     6      -6.5560      1.00000			#3π轨道</span><br><span class="line">     7      -6.5524      1.00000			#4π轨道</span><br><span class="line">     8      -0.3909      0.00000</span><br><span class="line">     9       1.1220      0.00000</span><br><span class="line">    10       1.5493      0.00000</span><br><span class="line">    11       1.7604      0.00000</span><br><span class="line">    12       2.0536      0.00000</span><br><span class="line">    13       2.0592      0.00000</span><br><span class="line">    14       2.4672      0.00000</span><br><span class="line">    15       3.1984      0.00000</span><br><span class="line">    16       3.6244      0.00000</span><br><span class="line">Fermi energy:        -6.4848556277</span><br></pre></td></tr></table></figure>
+<p>
+    <span id="mjx-ec8decc">
+      <style>
+      #mjx-ec8decc{
+        display:contents;
+        mjx-assistive-mml {
+          user-select: text !important;
+          clip: auto !important;
+          color: rgba(0,0,0,0);
+        }
+        
+mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+  min-height: 1px;
+  min-width: 1px;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display="block"] {
+  width: 100% !important;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][display="true"][width="full"] {
+  display: flex;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line], svg[data-table] > g > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame], svg[data-table] > g > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed, svg[data-table] > g > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted, svg[data-table] > g > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > g > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
+  stroke-width: 3;
+}
+
+g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+.MathJax g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+      }
+      </style>
+      <mjx-container class="MathJax" jax="SVG" style="position: relative;"><svg style="vertical-align: -0.439ex;" xmlns="http://www.w3.org/2000/svg" width="1.281ex" height="2.034ex" role="img" focusable="false" viewBox="0 -705 566 899" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D6FD" d="M29 -194Q23 -188 23 -186Q23 -183 102 134T186 465Q208 533 243 584T309 658Q365 705 429 705H431Q493 705 533 667T573 570Q573 465 469 396L482 383Q533 332 533 252Q533 139 448 65T257 -10Q227 -10 203 -2T165 17T143 40T131 59T126 65L62 -188Q60 -194 42 -194H29ZM353 431Q392 431 427 419L432 422Q436 426 439 429T449 439T461 453T472 471T484 495T493 524T501 560Q503 569 503 593Q503 611 502 616Q487 667 426 667Q384 667 347 643T286 582T247 514T224 455Q219 439 186 308T152 168Q151 163 151 147Q151 99 173 68Q204 26 260 26Q302 26 349 51T425 137Q441 171 449 214T457 279Q457 337 422 372Q380 358 347 358H337Q258 358 258 389Q258 396 261 403Q275 431 353 431Z"></path></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>β</mi></math></mjx-assistive-mml></mjx-container>
+    </span>
+  电子，正常</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">spin component 2</span><br><span class="line"></span><br><span class="line">k-point     1 :       0.0000    0.0000    0.0000</span><br><span class="line"> band No.  band energies     occupation</span><br><span class="line">     1     -31.6977      1.00000</span><br><span class="line">     2     -18.4541      1.00000</span><br><span class="line">     3     -12.3485      1.00000</span><br><span class="line">     4     -11.4763      1.00000</span><br><span class="line">     5     -11.4760      1.00000</span><br><span class="line">     6      -4.2772      0.00000</span><br><span class="line">     7      -4.2742      0.00000</span><br><span class="line">     8      -0.2440      0.00000</span><br><span class="line">     9       1.4049      0.00000</span><br><span class="line">    10       1.6215      0.00000</span><br><span class="line">    11       1.9473      0.00000</span><br><span class="line">    12       2.1710      0.00000</span><br><span class="line">    13       2.2499      0.00000</span><br><span class="line">    14       2.5860      0.00000</span><br><span class="line">    15       3.5816      0.00000</span><br><span class="line">    16       3.8831      0.00000</span><br></pre></td></tr></table></figure>
+<p><img src="imageedit_6_9897027704-1756610731821-53.png" alt="Molecule orbital of oxygen"></p>
+<p>对氧气进行结构优化，更改INCAR</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SYSTEM = O</span><br><span class="line">ISMEAR = 0 #绝缘体系ISMEAR = 0</span><br><span class="line">SIGMA = 0.01</span><br><span class="line">ISPIN = 2 #氧气是顺磁性分子，ISPIN = 2开启自旋</span><br><span class="line">MAGMON = 2*2 #设置磁矩</span><br><span class="line"></span><br><span class="line">IBRION = 2 #确定计算过程中晶体结构如何变化的参数，不设置使默认IBRION = -1，IBRION =2为共轭梯度算法</span><br><span class="line">NSW = 10  #离子步10步</span><br></pre></td></tr></table></figure>
+<p>计算后发现
+    <span id="mjx-e2c2436">
+      <style>
+      #mjx-e2c2436{
+        display:contents;
+        mjx-assistive-mml {
+          user-select: text !important;
+          clip: auto !important;
+          color: rgba(0,0,0,0);
+        }
+        
+mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+  min-height: 1px;
+  min-width: 1px;
+}
+
+mjx-container[jax="SVG"] > svg a {
+  fill: blue;
+  stroke: blue;
+}
+
+mjx-assistive-mml {
+  position: absolute !important;
+  top: 0px;
+  left: 0px;
+  clip: rect(1px, 1px, 1px, 1px);
+  padding: 1px 0px 0px 0px !important;
+  border: 0px !important;
+  display: block !important;
+  width: auto !important;
+  overflow: hidden !important;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+mjx-assistive-mml[display="block"] {
+  width: 100% !important;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][display="true"][width="full"] {
+  display: flex;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line], svg[data-table] > g > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame], svg[data-table] > g > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed, svg[data-table] > g > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted, svg[data-table] > g > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > g > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"] path[data-c], mjx-container[jax="SVG"] use[data-c] {
+  stroke-width: 3;
+}
+
+g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+.MathJax g[data-mml-node="xypic"] path {
+  stroke-width: inherit;
+}
+
+      }
+      </style>
+      <mjx-container class="MathJax" jax="SVG" style="position: relative;"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="1.448ex" height="1.025ex" role="img" focusable="false" viewBox="0 -442 640 453" aria-hidden="true"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D6FC" d="M34 156Q34 270 120 356T309 442Q379 442 421 402T478 304Q484 275 485 237V208Q534 282 560 374Q564 388 566 390T582 393Q603 393 603 385Q603 376 594 346T558 261T497 161L486 147L487 123Q489 67 495 47T514 26Q528 28 540 37T557 60Q559 67 562 68T577 70Q597 70 597 62Q597 56 591 43Q579 19 556 5T512 -10H505Q438 -10 414 62L411 69L400 61Q390 53 370 41T325 18T267 -2T203 -11Q124 -11 79 39T34 156ZM208 26Q257 26 306 47T379 90L403 112Q401 255 396 290Q382 405 304 405Q235 405 183 332Q156 292 139 224T121 120Q121 71 146 49T208 26Z"></path></g></g></g></svg><mjx-assistive-mml unselectable="on" display="inline"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>α</mi></math></mjx-assistive-mml></mjx-container>
+    </span>
+  电子部分已经修正</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">spin component 1</span><br><span class="line"></span><br><span class="line">k-point     1 :       0.0000    0.0000    0.0000</span><br><span class="line"> band No.  band energies     occupation</span><br><span class="line">     1     -32.2878      1.00000			#1σ轨道</span><br><span class="line">     2     -20.4859      1.00000			#2σ轨道</span><br><span class="line">     3     -13.2238      1.00000			#3σ轨道，能量合理</span><br><span class="line">     4     -13.0591      1.00000</span><br><span class="line">     5     -13.0588      1.00000</span><br><span class="line">     6      -6.7814      1.00000</span><br><span class="line">     7      -6.7778      1.00000</span><br><span class="line">     8      -0.3857      0.00000</span><br><span class="line">     9       1.0213      0.00000</span><br><span class="line">    10       1.6177      0.00000</span><br><span class="line">    11       1.7818      0.00000</span><br><span class="line">    12       2.0634      0.00000</span><br><span class="line">    13       2.0746      0.00000</span><br><span class="line">    14       2.4643      0.00000</span><br><span class="line">    15       2.8035      0.00000</span><br><span class="line">    16       3.6409      0.00000</span><br><span class="line">Fermi energy:        -6.7122607632</span><br></pre></td></tr></table></figure>
+<p>用VESTA打开优化好的结构(<code>CONTCAR</code>)可以查看键长</p>
+<p><img src="QQ20250418-203001-1756610731821-54.png" alt="优化完的氧气分子的键长"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://hydrogen1222.com.cn">Storm Talia</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://hydrogen1222.com.cn/2025/04/18/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E6%B0%A7%E6%B0%94%E5%88%86%E5%AD%90/">https://hydrogen1222.com.cn/2025/04/18/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E6%B0%A7%E6%B0%94%E5%88%86%E5%AD%90/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://hydrogen1222.com.cn" target="_blank">Storm's Storehouse</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%8C%96%E5%AD%A6/">化学</a><a class="post-meta__tags" href="/tags/%E7%A7%91%E7%A0%94/">科研</a></div><div class="post-share"><div class="social-share" data-image="/2025/04/18/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E6%B0%A7%E6%B0%94%E5%88%86%E5%AD%90/cover.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/04/18/Stormy%20English/The%20TED-Ed%20project/What%20staying%20up%20all%20night%20does%20to%20your%20brain/" title="What staying up all nights does to your brain"><img class="cover" src="/2025/04/18/Stormy%20English/The%20TED-Ed%20project/What%20staying%20up%20all%20night%20does%20to%20your%20brain/cover.png" onerror="onerror=null;src='/img/favicon.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">What staying up all nights does to your brain</div></div><div class="info-2"><div class="info-item-1">What staying up all night does to your brain You’re just one Roman Empire history final away from a relaxing spring break. But you still have so much to study! So you decide to follow in the footsteps of many students before you and pull an all-nighter. When you stay up all night, you’re fighting against your body’s natural circadian rhythms. These are the cyclical changes that virtually all living things experience over the course of a 24-hour period—such as sleeping and waking—and they’re h...</div></div></div></a><a class="pagination-related" href="/2025/04/17/%E7%A7%91%E7%A0%94/VASP/2025%E5%B9%B45%E6%9C%88AMD%E5%B9%B3%E5%8F%B0%E4%B8%8BVASP%E7%9A%84%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/" title="2025年4月AMD平台下VASP的编译安装"><img class="cover" src="/2025/04/17/%E7%A7%91%E7%A0%94/VASP/2025%E5%B9%B45%E6%9C%88AMD%E5%B9%B3%E5%8F%B0%E4%B8%8BVASP%E7%9A%84%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/cover.png" onerror="onerror=null;src='/img/favicon.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">2025年4月AMD平台下VASP的编译安装</div></div><div class="info-2"><div class="info-item-1">==请参考VASP官方wiki中关于编译工具链的介绍部分（本次编译工具链比wiki更新一些，未报错）：https://www.vasp.at/wiki/Toolchains== 2025年4月AMD平台下VASP的编译安装 ¶WSL2安装 本次安装选择的Ubuntu作为发行版，使用人数较多，解决方案较多  更新源 1sudo apt update ¶安装编译器 ¶AOCC 下载aocc-compiler-5.0.0.tar，解压 1234tar -xvf aocc-compiler-5.0.0.tar #解压cd aocc-compiler-3.2.0 #进入目录install.sh #如果没有可执行权限请赋予可执行权限, chmod +x install.shsource .setenv_AOCC.sh #这一行可以写入~/.bashrc，然后source ~/.bashrc，刷新一下环境变量 ¶AOCL 下载AOCL 5.0 binary packages compiled with AOCC 5.0 123tar -zxvf XXX.tar.gz #解压tar.gz包，如果...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/05/25/%E7%A7%91%E7%A0%94/first%20stage/%E7%A7%91%E7%A0%94%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98/" title="科研中的小问题"><img class="cover" src="/2025/05/25/%E7%A7%91%E7%A0%94/first%20stage/%E7%A7%91%E7%A0%94%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98/cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-25</div><div class="info-item-2">科研中的小问题</div></div><div class="info-2"><div class="info-item-1">实验部分 ¶球磨  球磨的原理是什么？ 球磨的作用是什么？ 200rpm合不出来，300rpm就能合出来？  ¶X-ray diffraction  X射线是什么？ X射线衍射的原理和用途是什么？ XRD谱图的横坐标和纵坐标分别是什么意义？ XRD为什么会产生峰？峰是什么意义？ 横坐标2theta角度为什么通常选择20                   #mjx-7651cfd{         display:contents;         mjx-assistive-mml {           user-select: text !important;           clip: auto !important;           color: rgba(0,0,0,0);         }          mjx-container[jax="SVG"] {   direction: ltr; }  mjx-container[jax="SVG"] > svg {   overflow: visible;   min-height: 1px;   min...</div></div></div></a><a class="pagination-related" href="/2025/04/29/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E6%88%AA%E6%96%AD%E8%83%BDENCUT%E7%9A%84%E9%80%89%E5%8F%96/" title="截断能ENCUT的选取"><img class="cover" src="/2025/04/29/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E6%88%AA%E6%96%AD%E8%83%BDENCUT%E7%9A%84%E9%80%89%E5%8F%96/cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-29</div><div class="info-item-2">截断能ENCUT的选取</div></div><div class="info-2"><div class="info-item-1"> ENCUT是用来指定平面波基组能量截止值的参数  以上是wiki对ENCUT的描述，POTCAR文件中已经包含了元素的ENMAX和ENMIN，这也是互联网上对ENCUT的选择方案对通常是1.3倍的ENMAX 侯柱峰老师提供了另外一种方法并指出通过该方法选择的ENCUT通常能满足1.3倍ENMAX，供参考使用 截断能指定了用于波函数展开的平面波基组的截断能量，此能量越大则用来描述波函数的平面波基组越多，精度越高，但计算也越耗时。 可以通过计算测试来选择合适的ENCUT。 以下是用于测试的脚本： 123456789101112131415#!/bin/shrm WAVECARfor i in 150 200 250 300 350 400docat &gt; INCAR &lt;&lt;!SYSTEM = Si-DiamondENCUT = $iISTART = 0 ; ICHARG = 2ISMEAR = -5PREC = Accurate!echo &quot;ENCUT = $i eV&quot; ; time vaspE=`grep &quot;TOTEN&quot; OU...</div></div></div></a><a class="pagination-related" href="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/" title="VASP学习笔记"><img class="cover" src="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-14</div><div class="info-item-2">VASP学习笔记</div></div><div class="info-2"><div class="info-item-1">VASP概览 VASP是一个复合的软件包，主要功能是从头算量子力学分子动力学模拟，使用赝势方法或者投影增强波+平面波基组的方法（projector-augmented wave，即PAW方法，也是当下VASP最主流的方法）。VASP的技术实现使用高效的矩阵对角化和Pulay/Broyden电荷密度混合算法。原子核附近的真实电子波函数为了满足正交性，振荡得非常剧烈。用平面波这个描述这种剧烈振荡十分困难，由此产生出三种解决方案：  US-PP超软赝势，构造“超软”的赝波函数，在芯区尽量平滑，它是早期VASP的主要方法 PAW投影增强波，它将全电子波函数精确地映射到一条平滑的赝波函数上，是VASP的默认和主流方法 模守恒赝势（NCPP），它的计算成本高，对轻元素尤其明显，是VASP的早期标准，现多用于高精度对比  手册里明确写出：The VASP guide is written for experienced user, although even beginners might find it useful to read。初学者直接上手Wiki会比较困难。 对于任何基于平面波方法...</div></div></div></a><a class="pagination-related" href="/2025/04/12/%E7%A7%91%E7%A0%94/first%20stage/%E7%94%B5%E6%B1%A0%E5%82%A8%E8%83%BD%E5%BE%AE%E4%B8%93%E4%B8%9A/" title="电池储能微专业"><img class="cover" src="/2025/04/12/%E7%A7%91%E7%A0%94/first%20stage/%E7%94%B5%E6%B1%A0%E5%82%A8%E8%83%BD%E5%BE%AE%E4%B8%93%E4%B8%9A/cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-12</div><div class="info-item-2">电池储能微专业</div></div><div class="info-2"><div class="info-item-1">¶相、相变和相图 锂电池中的相？——有助于获得晶体结构与组成 关注材料的e物相，包括晶体结构、化学组成、结晶度、固液态 从电子自旋态来看，3d电子常常具有自旋长程关联作用，表现出不同的磁性状态 磁态来解释充放电过程中的异常情况  一级相变 二级相变  大部分固态相变属于一级相变，只有少部分属于二级相变 显著平台——一级相变 保持固溶体——二级相变 NIPP钠电池正极 前驱体的合成可能出现杂相 ¶温度和相组成是最重要的两个参量（others:高压、磁场、电场、机械搅拌） ¶高压法一级固相合成法制备偏铝酸锂 ==LiAlO~2~==具有较高化学稳定性和热吻星星 六方相R-3m正极材料,                   #mjx-8bbcc52{         display:contents;         mjx-assistive-mml {           user-select: text !important;           clip: auto !important;           color: rgba(0,0,0,0);         }  ...</div></div></div></a><a class="pagination-related" href="/2025/03/20/%E7%A7%91%E7%A0%94/first%20stage/20250319night/" title="一种掺杂硫银锗矿电解质的合成"><img class="cover" src="/2025/03/20/%E7%A7%91%E7%A0%94/first%20stage/20250319night/cover.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-20</div><div class="info-item-2">一种掺杂硫银锗矿电解质的合成</div></div><div class="info-2"><div class="info-item-1">19日晚第一次进实验室，师姐带我合成一种固态电解质，参考文献有Angew. Chem. Int. Ed. 2019, 58, 8681 –8686等。由于电池是锂电池，需要隔绝                   #mjx-5f601df{         display:contents;         mjx-assistive-mml {           user-select: text !important;           clip: auto !important;           color: rgba(0,0,0,0);         }          mjx-container[jax="SVG"] {   direction: ltr; }  mjx-container[jax="SVG"] > svg {   overflow: visible;   min-height: 1px;   min-width: 1px; }  mjx-container[jax="SVG"] > svg a {   fill: blue;   strok...</div></div></div></a><a class="pagination-related" href="/2026/06/25/%E7%A7%91%E7%A0%94/next%20stage/%E6%96%87%E7%8C%AE%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%B8%80%EF%BC%89/" title="文献复现（一）"><img class="cover" src="/2026/06/25/%E7%A7%91%E7%A0%94/next%20stage/%E6%96%87%E7%8C%AE%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%B8%80%EF%BC%89/cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-06-25</div><div class="info-item-2">文献复现（一）</div></div><div class="info-2"><div class="info-item-1">需要复现的文献是[Data-Driven First-Principles Methods for the Study and Design of Alkali Superionic Conductors][https://pubs.acs.org/doi/10.1021/acs.chemmater.6b02648]  ¶初筛 这里有必要先了解一下.cif结构文件，从补充材料里面可以获取到，作者说是从ICSD数据中获得的，但是约10年过去了，我在ICSD中没有检索到这个结构，其中的最后几行是这样的： 1234567891011121314151617181920212223242526272829_atom_site_label_atom_site_type_symbol_atom_site_symmetry_multiplicity_atom_site_Wyckoff_symbol_atom_site_fract_x_atom_site_fract_y_atom_site_fract_z_atom_site_B_iso_or_equiv_atom_site_occupancy_...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://s2.loli.net/2026/02/08/GvfVnlgAeFHszc3.jpg" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="avatar"/></div><div class="author-info-name">Storm Talia</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">104</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hydrogen1222"><i class="fab fa-github"></i><span>GitHub</span></a><div class="card-info-social-icons"><a class="social-icon" href="mailto:2170147489@qq.com" target="_blank" title="你的邮箱"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/img/wechat.jpg" target="_blank" title="微信 (这里通常放二维码图片链接)"><i class="fab fa-weixin"></i></a><a class="social-icon" href="tencent://message/?uin=2170147489" target="_blank" title="QQ"><i class="fab fa-qq"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">哈喽！</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/07/03/%E7%A7%91%E7%A0%94/next%20stage/%E6%96%87%E7%8C%AE%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="文献复现（二）"><img src="/2026/07/03/%E7%A7%91%E7%A0%94/next%20stage/%E6%96%87%E7%8C%AE%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%BA%8C%EF%BC%89/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="文献复现（二）"/></a><div class="content"><a class="title" href="/2026/07/03/%E7%A7%91%E7%A0%94/next%20stage/%E6%96%87%E7%8C%AE%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="文献复现（二）">文献复现（二）</a><time datetime="2026-07-21T03:47:39.000Z" title="更新于 2026-07-21 11:47:39">2026-07-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/06/25/%E7%A7%91%E7%A0%94/next%20stage/%E6%96%87%E7%8C%AE%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%B8%80%EF%BC%89/" title="文献复现（一）"><img src="/2026/06/25/%E7%A7%91%E7%A0%94/next%20stage/%E6%96%87%E7%8C%AE%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%B8%80%EF%BC%89/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="文献复现（一）"/></a><div class="content"><a class="title" href="/2026/06/25/%E7%A7%91%E7%A0%94/next%20stage/%E6%96%87%E7%8C%AE%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%B8%80%EF%BC%89/" title="文献复现（一）">文献复现（一）</a><time datetime="2026-07-21T03:15:41.000Z" title="更新于 2026-07-21 11:15:41">2026-07-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/07/08/%E7%A7%91%E7%A0%94/next%20stage/%E7%B2%BE%E7%B2%A4%E5%8F%8C%E8%B7%AFX99%E5%AF%A8%E6%9D%BF%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="从零打造的outdated工作站"><img src="/2026/07/08/%E7%A7%91%E7%A0%94/next%20stage/%E7%B2%BE%E7%B2%A4%E5%8F%8C%E8%B7%AFX99%E5%AF%A8%E6%9D%BF%E6%9C%8D%E5%8A%A1%E5%99%A8/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="从零打造的outdated工作站"/></a><div class="content"><a class="title" href="/2026/07/08/%E7%A7%91%E7%A0%94/next%20stage/%E7%B2%BE%E7%B2%A4%E5%8F%8C%E8%B7%AFX99%E5%AF%A8%E6%9D%BF%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="从零打造的outdated工作站">从零打造的outdated工作站</a><time datetime="2026-07-21T03:15:41.000Z" title="更新于 2026-07-21 11:15:41">2026-07-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/" title="VASP学习笔记"><img src="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="VASP学习笔记"/></a><div class="content"><a class="title" href="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/" title="VASP学习笔记">VASP学习笔记</a><time datetime="2026-07-15T14:12:08.000Z" title="更新于 2026-07-15 22:12:08">2026-07-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/02/08/hexo%E5%8D%9A%E5%AE%A2%E5%AE%89%E8%A3%85/" title="hexo框架下博客的改造与主题迁移"><img src="/2026/02/08/hexo%E5%8D%9A%E5%AE%A2%E5%AE%89%E8%A3%85/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="hexo框架下博客的改造与主题迁移"/></a><div class="content"><a class="title" href="/2026/02/08/hexo%E5%8D%9A%E5%AE%A2%E5%AE%89%E8%A3%85/" title="hexo框架下博客的改造与主题迁移">hexo框架下博客的改造与主题迁移</a><time datetime="2026-06-23T05:14:11.000Z" title="更新于 2026-06-23 13:14:11">2026-06-23</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/2025/04/18/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E6%B0%A7%E6%B0%94%E5%88%86%E5%AD%90/cover.png);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Storm Talia</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">欢迎来到我的个人博客！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="/js/tw_cn.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://comments.hydrogen1222.com.cn',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://comments.hydrogen1222.com.cn',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script defer src="/js/blog-music-config.js?v=09fd9ee6"></script><script defer src="/js/blog-music-player.js?v=f792ab00"></script><script defer src="/js/toc-h1-fix.js?v=7f7bc652"></script><canvas class="fireworks" mobile="true"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/fireworks.min.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="嗖一下~好奇宝宝~😯" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.4"></script></div></div></body></html>

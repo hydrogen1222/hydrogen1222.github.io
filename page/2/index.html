@@ -1,0 +1,269 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Storm's Storehouse - 啦啦啦的百宝箱</title><meta name="author" content="Storm Talia"><meta name="copyright" content="Storm Talia"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#FFFFFF"><meta property="og:type" content="website">
+<meta property="og:title" content="Storm&#39;s Storehouse">
+<meta property="og:url" content="https://hydrogen1222.com.cn/page/2/index.html">
+<meta property="og:site_name" content="Storm&#39;s Storehouse">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2026/02/08/GvfVnlgAeFHszc3.jpg">
+<meta property="article:author" content="Storm Talia">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2026/02/08/GvfVnlgAeFHszc3.jpg"><script type="application/ld+json"></script><link rel="shortcut icon" href="/img/favicon.jpg"><link rel="canonical" href="https://hydrogen1222.com.cn/page/2/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#121212')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#FFFFFF')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Storm\'s Storehouse',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'home'
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" /><link rel="stylesheet" href="/css/my-font.css?v=4b3c1e1d" /><link rel="stylesheet" href="/css/music-player.css?v=28cfbdf4" /><meta name="generator" content="Hexo 8.1.2"><script>window.BLOG_MUSIC_PLAYLIST=[{"file":"永遠の夏.m4a","title":"永遠の夏","artist":"Takako Okamura","subtitle":"四つ葉のクローバー","eyebrow":"Stormy Broadcast","ambience":"本地自托管单曲 · 玻璃氛围播放器 · LRC 时序歌词","src":"/music/永遠の夏.m4a?v=02b6f60c","lyricsMode":"dual","loop":false,"sourceUrl":"","sourceLabel":"","lyrics":"/music/永遠の夏.lrc?v=96488512","cover":"/music/永遠の夏.jpg?v=7a883bb7"},{"file":"Believe.m4a","title":"Believe","artist":"Takako Okamura","subtitle":"SOLEIL","eyebrow":"Stormy Broadcast","ambience":"本地自托管单曲 · 玻璃氛围播放器 · LRC 时序歌词","src":"/music/Believe.m4a?v=308895fe","lyricsMode":"dual","loop":false,"sourceUrl":"","sourceLabel":"","lyrics":"/music/Believe.lrc?v=237ea0ce","cover":"/music/Believe.jpg?v=c24f28bf"}];</script></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (false) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div class="bg-animation" id="web_bg" style="background-image: url(https://s2.loli.net/2026/02/09/BCGIy51KPoY2z7Z.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://s2.loli.net/2026/02/08/GvfVnlgAeFHszc3.jpg" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">104</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/guestbook/"><i class="fa-fw fas fa-comments"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url(https://s2.loli.net/2026/02/08/gQkMUcGuZAJH8wW.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Storm's Storehouse</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/guestbook/"><i class="fa-fw fas fa-comments"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="site-info"><h1 id="site-title">Storm's Storehouse</h1><div id="site_social_icons"><a class="social-icon" href="mailto:2170147489@qq.com" target="_blank" title="你的邮箱"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/img/wechat.jpg" target="_blank" title="微信 (这里通常放二维码图片链接)"><i class="fab fa-weixin"></i></a><a class="social-icon" href="tencent://message/?uin=2170147489" target="_blank" title="QQ"><i class="fab fa-qq"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts nc" id="recent-posts"><div class="recent-post-items"><div class="recent-post-item"><div class="post_cover left"><a href="/2026/07/21/%E9%87%8F%E5%AD%90%E5%8C%96%E5%AD%A6/Orca%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="Orca学习笔记"><img class="post-bg" src="/2026/07/21/%E9%87%8F%E5%AD%90%E5%8C%96%E5%AD%A6/Orca%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="Orca学习笔记"></a></div><div class="recent-post-info"><a class="article-title" href="/2026/07/21/%E9%87%8F%E5%AD%90%E5%8C%96%E5%AD%A6/Orca%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="Orca学习笔记">Orca学习笔记</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-07-21T04:21:44.766Z" title="发表于 2026-07-21 12:21:44">2026-07-21</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/">从零开始的科研之旅</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/first-stage/">first stage</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E5%8C%96%E5%AD%A6/">化学</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E7%A7%91%E7%A0%94/">科研</a></span></div><div class="content">用了一年多的Orca，再回过头来好好看看manual吧，权当“复习”了，正所谓温故而知新。 Orca6.1概览 手册中对Orca的定义是：  An ab initio, DFT and semiempirical SCF-MO package  Orca起源于1999, 名字由Frank Neese在观看鲸鱼表演的时候所拟，大体上是一个general-purpose quantum chemistry package。它可免费用于学术用途，包含了众多的量子化学计算方法，比如半经验方法、密度泛函理论方法、多体扰动方法、耦合簇方法以及多参考方法，目前由马普所的Department of Molecular Theory and Spectroscopy主导开发。 安装没什么好说的，并不需要编译，只需要解压，添加环境变量即可，可参考公社博文：http://sobereva.com/451 Orca的许多功能都于xtb模块紧紧联系，Orca本身集成了xtb，但Grimme实验室的软件包也集成到ORCA工作流程中，因此建议安装它。 可视化软件可以使用卢老师的Multiwfn。 计算概览 ¶...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2025/05/30/%E9%87%8F%E5%AD%90%E5%8C%96%E5%AD%A6/%E4%BD%BF%E7%94%A8Multiwfn+VMD%E7%BB%98%E5%88%B6%E5%88%86%E5%AD%90%E7%9A%84%E8%A1%A8%E9%9D%A2%E9%9D%99%E7%94%B5%E5%8A%BF%E5%9B%BE/" title="使用Multiwfn+VMD绘制分子的表面静电势图(ESP)"><img class="post-bg" src="/2025/05/30/%E9%87%8F%E5%AD%90%E5%8C%96%E5%AD%A6/%E4%BD%BF%E7%94%A8Multiwfn+VMD%E7%BB%98%E5%88%B6%E5%88%86%E5%AD%90%E7%9A%84%E8%A1%A8%E9%9D%A2%E9%9D%99%E7%94%B5%E5%8A%BF%E5%9B%BE/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="使用Multiwfn+VMD绘制分子的表面静电势图(ESP)"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/05/30/%E9%87%8F%E5%AD%90%E5%8C%96%E5%AD%A6/%E4%BD%BF%E7%94%A8Multiwfn+VMD%E7%BB%98%E5%88%B6%E5%88%86%E5%AD%90%E7%9A%84%E8%A1%A8%E9%9D%A2%E9%9D%99%E7%94%B5%E5%8A%BF%E5%9B%BE/" title="使用Multiwfn+VMD绘制分子的表面静电势图(ESP)">使用Multiwfn+VMD绘制分子的表面静电势图(ESP)</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-05-30T12:12:02.000Z" title="发表于 2025-05-30 20:12:02">2025-05-30</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/">从零开始的科研之旅</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/first-stage/">first stage</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E5%8C%96%E5%AD%A6/">化学</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E7%A7%91%E7%A0%94/">科研</a></span></div><div class="content">后记：  批量计算偶极矩可以使用星尘喵老师的脚本，极为方便，并且计算完成的目录结构也非常清晰，原帖链接：http://bbs.keinsci.com/thread-53281-1-1.html 想要绘制色彩更丰富的彩虹配色的ESP图需要使用不稳定的1.9.4版本的VMD，不过此版本的VMD无法修改默认路径 稳定的VMD 1.9.3版本最好使用64位版本，公社论坛坛友自行编译，原帖链接：http://bbs.keinsci.com/forum.php?mod=viewthread&amp;tid=23119&amp;highlight=VMD%2B1.9.3  若在Windows上进行批量计算，需要安装cmder、额外的并性库、Windows版本的Orca，批量计算脚本中的路径需要修改，比如： 123export Multiwfnpath=/c/Users/tp798/Desktop/Multiwfn_2026.4.10_bin_Win64export PATH=$PATH:/c/Users/tp798/Desktop/Multiwfn_2026.4.10_bin_Win64orc...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2026/07/21/%E9%87%8F%E5%AD%90%E5%8C%96%E5%AD%A6/%E5%88%9D%E8%AF%86%E6%9E%84%E8%B1%A1%E6%90%9C%E7%B4%A2/" title="分子构象搜索"><img class="post-bg" src="/2026/07/21/%E9%87%8F%E5%AD%90%E5%8C%96%E5%AD%A6/%E5%88%9D%E8%AF%86%E6%9E%84%E8%B1%A1%E6%90%9C%E7%B4%A2/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="分子构象搜索"></a></div><div class="recent-post-info"><a class="article-title" href="/2026/07/21/%E9%87%8F%E5%AD%90%E5%8C%96%E5%AD%A6/%E5%88%9D%E8%AF%86%E6%9E%84%E8%B1%A1%E6%90%9C%E7%B4%A2/" title="分子构象搜索">分子构象搜索</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-07-21T04:21:44.792Z" title="发表于 2026-07-21 12:21:44">2026-07-21</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/">从零开始的科研之旅</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/first-stage/">first stage</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E5%8C%96%E5%AD%A6/">化学</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E7%A7%91%E7%A0%94/">科研</a></span></div><div class="content">构象搜索（Conformational Search）是计算化学和分子模拟中的一种核心技术，旨在找出柔性分子在三维空间中所有能量较低、结构稳定的原子排列形式（即构象）。 这个概念其实并不陌生，在很久以前，每当进行分子结构建模的时候大脑中就有一个模糊的疑问，这个分子、团簇凭什么是这样的构型？当然，常见的结构已经早已烂熟于心，成为了尝试，但是当遇见不熟悉的结构又该怎样建模？ 本文算是一个小小的记录、实战吧，第一次接触构象搜索，欢迎指出错误，欢迎交流讨论。 使用的构象搜索软件是卢老师的Moclus，不开源也没有文档手册，可能是因为软件比较简约、非常容易上手。详细的使用方法可以参考公社论坛上的帖子。 先简单用例子上手吧，后面复习的时候再补充一下具体的背景之类的。 ¶环辛四烯 根据一点点基础有机化学知识，环辛四烯不是平面型的而是澡盆型的，如果是平面型的那么单环8个电子将会满足Hückel规则中的反芳香型，变得非常不稳定，能量非常高。 如果我手动建立一个平面型的环辛四烯并且进行几何优化会怎么样呢？ 设置几何优化至极小值就一定会优化到能量最小的结构吗？ 答案是否定的，极小值不一定是最小值，寻找...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2026/06/18/%E7%A7%91%E7%A0%94/next%20stage/%E5%86%8D%E5%87%BA%E5%8F%91/" title="再出发"><img class="post-bg" src="/2026/06/18/%E7%A7%91%E7%A0%94/next%20stage/%E5%86%8D%E5%87%BA%E5%8F%91/cover.jpg" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="再出发"></a></div><div class="recent-post-info"><a class="article-title" href="/2026/06/18/%E7%A7%91%E7%A0%94/next%20stage/%E5%86%8D%E5%87%BA%E5%8F%91/" title="再出发">再出发</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-06-18T02:35:00.000Z" title="发表于 2026-06-18 10:35:00">2026-06-18</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/">从零开始的科研之旅</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/next-stage/">next stage</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E5%8C%96%E5%AD%A6/">化学</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E7%A7%91%E7%A0%94/">科研</a></span></div><div class="content">沉寂了一段时间，还是下定决心再出发，向前冲吧~ uixs&amp;师姐简单告诉了我以下学习任务:      基础知识：晶体学基础， 空间群、晶格矢量、倒空间、布里渊区等然后了解一下扩散系数、迁移能垒、电导率、Arrhenius公式、MSD（均方位移）计算：结构搭建，一般是分数占据结构,需要用到pymagen、atat等软件，vasp用来计算 opt/ DOS / band /MD，还有lammps软件计算MD以及一下大模型和训练机器学习势函数来计算MD      或多或少也都接触过，谈不上困难，只是我这记忆…… ¶倒空间 / 布里渊区——From book “The Oxford Solid State Basics” ¶lattice与cell Lattice:  Definition A: a set of points defined as integer sums of primitive(namely principle) lattice(namely translation/basis) vectors. 定义A: 由一组线性无关的初基晶格矢量 (Primitive ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2026/06/21/%E7%A7%91%E7%A0%94/next%20stage/%E5%88%9D%E5%A7%8BLammps/" title="初识Lammps"><img class="post-bg" src="/2026/06/21/%E7%A7%91%E7%A0%94/next%20stage/%E5%88%9D%E5%A7%8BLammps/cover.gif" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="初识Lammps"></a></div><div class="recent-post-info"><a class="article-title" href="/2026/06/21/%E7%A7%91%E7%A0%94/next%20stage/%E5%88%9D%E5%A7%8BLammps/" title="初识Lammps">初识Lammps</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-06-21T12:35:00.000Z" title="发表于 2026-06-21 20:35:00">2026-06-21</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/">从零开始的科研之旅</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/next-stage/">next stage</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E5%8C%96%E5%AD%A6/">化学</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E7%A7%91%E7%A0%94/">科研</a></span></div><div class="content">组里面偏向于固体材料这边，所以经典MD用的是Lammps而不是Gromacs（我猜的😢） 这还是第一次接触Lammps，记录一下。 ¶Lammps的编译安装 首先是软件安装这块。依旧是编译安装，有张破烂P104显卡就编译GPU版本了，这破烂GPU的PCIE带宽很低，双精度极弱，所以采用GPU Package的方案而不是KOKKOS。 参考的博文随便找了一篇：https://pa.ci/417.html 嘿，那个博主的硬件是GTX 1060，和P104的核心正好是Pascal架构的同一代的。 进行配置： 1234567891011121314151617181920212223cmake ../cmake \  -D CMAKE_BUILD_TYPE=Release \  -D CMAKE_INSTALL_PREFIX=/home/storm/apps/lammps_installation \  -D BUILD_SHARED_LIBS=on \  -D LAMMPS_EXCEPTIONS=on \  -D FFT=FFTW3 \  -D BUILD_MPI=on -D BUI...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2026/04/12/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/bash%E8%AF%AD%E8%A8%80%E6%A6%82%E8%A7%88/" title="bash语言概览"><img class="post-bg" src="/2026/04/12/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/bash%E8%AF%AD%E8%A8%80%E6%A6%82%E8%A7%88/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="bash语言概览"></a></div><div class="recent-post-info"><a class="article-title" href="/2026/04/12/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/bash%E8%AF%AD%E8%A8%80%E6%A6%82%E8%A7%88/" title="bash语言概览">bash语言概览</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-04-12T06:48:00.000Z" title="发表于 2026-04-12 14:48:00">2026-04-12</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E4%B8%8E%E6%8A%80%E6%9C%AF%EF%BC%9F/">计算机科学与技术？</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E5%8C%96%E5%AD%A6/">化学</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E7%A7%91%E7%A0%94/">科研</a></span></div><div class="content">远在天边，近在眼前，熟悉shell（bash、fish），却又从未真正深入了解过，借此机会学习一下吧~ 123456789101112131415161718192021222324252627282930#!/usr/bin/env bashset -euo pipefail #严格模式，任何命令失败（返回非0）则立即退出脚本BUNDLE_ROOT=&quot;$(cd &quot;$(dirname &quot;$&#123;BASH_SOURCE[0]&#125;&quot;)/..&quot; &amp;&amp; pwd)&quot;cd &quot;$BUNDLE_ROOT&quot;TEMPERATURES=&quot;$&#123;TEMPERATURES:-600 700 800&#125;&quot; #如果未定义或为空，则使用默认值600,700,800STEPS=&quot;$&#123;STEPS:-20000&#125;&quot;#如果未定义或为空，则使用默认值2000SAVE_INTERVAL=&quot;$&#123;SAVE_INTERVAL:...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2025/07/20/%E5%9B%BA%E4%BD%93%E5%8C%96%E5%AD%A6/" title="关于固体化学"><img class="post-bg" src="/2025/07/20/%E5%9B%BA%E4%BD%93%E5%8C%96%E5%AD%A6/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="关于固体化学"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/07/20/%E5%9B%BA%E4%BD%93%E5%8C%96%E5%AD%A6/" title="关于固体化学">关于固体化学</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-07-20T01:20:02.000Z" title="发表于 2025-07-20 09:20:02">2025-07-20</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/">从零开始的科研之旅</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/first-stage/">first stage</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E5%8C%96%E5%AD%A6/">化学</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E7%A7%91%E7%A0%94/">科研</a></span></div><div class="content">从固体材料的化学组成来区，主要有无机、有机和金属三大类材料。固体物质可以按照其中原子排列的有序成都分类为晶态固体和非晶态固体，后者类似于液体，只在及个原子间距的短程范围内具有源自有序的状态，比如玻璃和许多聚合物可以看作是过冷的液体，它们中间的原子排列是没有一定的格子的。 金属键和金属晶体 ¶金属的自由电子模型 20世纪初，Drude和Lorentz提出了自由电子论。金属都是电离能第、颠覆性小的元素，这些元素容易失去外层价电子，形成正离子，正离子按照紧密堆积的方式形成晶体，价电子在整个金属晶体中自由运动，为所有原子所共有。自由电子处于类似于理想气体的状态，可以看作是自由电子气 在金属表面存在着一种把自由电子限制在金属范围内的是能查，但是在金属内部，势能是相对均匀的，好像自由电子是在一个均匀的正电场中运动着，势能相对为0. 当沿着与电流在金属晶体中运动方向垂直的方向上再施加一个外磁场时，电子将受到Lorentz力而偏向某一侧，这便是霍尔效应。大多数金属的霍尔系数小于零，即载流子是电子。然而有一些金属如Zn，Cd，Pb等，其霍尔系数大于零，载流子密度月底，霍尔系数值越高，但是由霍尔效应...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2025/02/27/%E7%95%85%E7%8E%A9%E6%9C%AC%E5%9C%B0%E5%A4%A7%E6%A8%A1%E5%9E%8B/" title="AMD显卡畅玩本地大模型"><img class="post-bg" src="/2025/02/27/%E7%95%85%E7%8E%A9%E6%9C%AC%E5%9C%B0%E5%A4%A7%E6%A8%A1%E5%9E%8B/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="AMD显卡畅玩本地大模型"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/02/27/%E7%95%85%E7%8E%A9%E6%9C%AC%E5%9C%B0%E5%A4%A7%E6%A8%A1%E5%9E%8B/" title="AMD显卡畅玩本地大模型">AMD显卡畅玩本地大模型</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-02-27T04:36:14.000Z" title="发表于 2025-02-27 12:36:14">2025-02-27</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%B8%80%E4%BA%9B%E6%9D%82%E8%B0%88/">一些杂谈</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%8A%98%E8%85%BE/">折腾</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/AI/">AI</a></span></div><div class="content">PS：很久之前写的一篇体验文章啦~ 测试一下hexo的博客功能~ ¶为什么选择AMD 因为穷（bushi✘），广大的DIY玩家因为各种各样的原因选择了AMD显卡，让我们相聚于此。AMD显卡相较于NVDIA以其高性价比著称，奈何NVDIA早已建立起CUDA的壁垒，AMD显卡在人工智能领域“有劲使不出”或者算力较NV差。几个月前，Ollama支持了部分AMD Radeon显卡以及AMD Radeon Pro显卡，让广大玩家有了尝鲜的机会，接下来咱们展开说说 ¶什么是Ollama “畅玩”之前，咱先把简单的原理搞清楚。 Ollama gihtub：https://github.com/ollama/ollama Ollama官网：https://ollama.com/（可正常访问） 什么是Ollama？ ——Get up and running with large language models. Ollama是一个调用和运行大模型的工具，可以是官方提供的大模型，也可以是非官方提供的途径，非Ollama官方提供的大模型可以前往Huggingface和魔搭社区（可正常访问）下载。 几个...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2025/03/11/Stormy%20English/Stupid%20Words/" title="Stupid Words😭"><img class="post-bg" src="/2025/03/11/Stormy%20English/Stupid%20Words/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="Stupid Words😭"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/03/11/Stormy%20English/Stupid%20Words/" title="Stupid Words😭">Stupid Words😭</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-03-11T13:18:53.000Z" title="发表于 2025-03-11 21:18:53">2025-03-11</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Stormy-English/">Stormy English</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/Stormy-English/Stupid-Words/">Stupid Words</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/English-Learning/">English Learning</a></span></div><div class="content">   Word Chinese Definition     mute 沉默的   reckless 鲁莽的   ordeal 磨难   chronicle 编年史   warranty 担保   eligibility 资格   surveillance 监视，监控   dissent 异议   conviction 信念   turnout 投票人数，出席人数   ammunition 弹药   convoy 车队   sergeant 中士，警官   verdict 判决   akin 相似的，类似的   retarded 智力迟钝的   stipulate 规定   depreciate 贬值，贬低   whereabout 下落，行踪（复数形式whereabouts）   faction 派别，小集团   premium 保险费，额外费用，溢价   coup 政变，成功之举   trench 战壕，沟   motor 发动机，马达，机动车   cavity 洞，腔   consecutive 连续的，连贯的   cram 塞满，挤满，填塞，死记硬背   equitabl...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2025/05/03/%E6%9D%82%E8%B0%88/%E5%BF%AB%E4%B9%90%E6%97%A0%E7%BD%AA%E6%AD%8C%E8%AF%8D%E8%B5%8F%E6%9E%90/" title="快乐无罪"><img class="post-bg" src="/2025/05/03/%E6%9D%82%E8%B0%88/%E5%BF%AB%E4%B9%90%E6%97%A0%E7%BD%AA%E6%AD%8C%E8%AF%8D%E8%B5%8F%E6%9E%90/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="快乐无罪"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/05/03/%E6%9D%82%E8%B0%88/%E5%BF%AB%E4%B9%90%E6%97%A0%E7%BD%AA%E6%AD%8C%E8%AF%8D%E8%B5%8F%E6%9E%90/" title="快乐无罪">快乐无罪</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-05-03T08:33:24.000Z" title="发表于 2025-05-03 16:33:24">2025-05-03</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%B8%80%E4%BA%9B%E6%9D%82%E8%B0%88/">一些杂谈</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%B8%80%E4%BA%9B%E6%9D%82%E8%B0%88/%E6%AD%8C%E8%AF%8D%E8%B5%8F%E6%9E%90/">歌词赏析</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%AD%8C%E8%AF%8D/">歌词</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E8%AE%B8%E7%BE%8E%E9%9D%99/">许美静</a></span></div><div class="content">¶歌词 123456789101112131415161718192021222324252627282930313233343536373839404142[00:00.43]快乐无罪 - 许美静[00:01.62]词：许常德/陈佳明[00:03.13]曲：陈建宁/陈政卿[00:19.82]你要我快乐[00:23.76]我非常快乐[00:27.22]在不想太多的时候[00:34.32]吻你是烟火 吻后是寂寞[00:41.32]爱是我犯的差错[00:49.38]我要你什么 我贪你什么[00:56.73]在你想消失的时候[01:04.12]想你是黑洞 它没有尽头[01:10.72]就算流星也该坠落[01:17.55]快乐有泪 怎会有泪[01:21.23]我哭到心碎[01:25.52]不解幸福会被永恒连累[01:29.16]不解刹那是你要的美[01:32.60]快乐有罪 怎会有罪[01:36.29]我怎么拒绝[01:40.55]也许到最后你我都反悔[01:44.21]留下空荡的城市黑夜[01:47.60]让我撒野[02:22.36]我要你什么 我贪你什么[02:29.56]在你想消失...</div></div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#content-inner">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/#content-inner">11</a><a class="extend next" rel="next" href="/page/3/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://s2.loli.net/2026/02/08/GvfVnlgAeFHszc3.jpg" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="avatar"/></div><div class="author-info-name">Storm Talia</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">104</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hydrogen1222"><i class="fab fa-github"></i><span>GitHub</span></a><div class="card-info-social-icons"><a class="social-icon" href="mailto:2170147489@qq.com" target="_blank" title="你的邮箱"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/img/wechat.jpg" target="_blank" title="微信 (这里通常放二维码图片链接)"><i class="fab fa-weixin"></i></a><a class="social-icon" href="tencent://message/?uin=2170147489" target="_blank" title="QQ"><i class="fab fa-qq"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">哈喽！</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/07/03/%E7%A7%91%E7%A0%94/next%20stage/%E6%96%87%E7%8C%AE%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="文献复现（二）"><img src="/2026/07/03/%E7%A7%91%E7%A0%94/next%20stage/%E6%96%87%E7%8C%AE%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%BA%8C%EF%BC%89/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="文献复现（二）"/></a><div class="content"><a class="title" href="/2026/07/03/%E7%A7%91%E7%A0%94/next%20stage/%E6%96%87%E7%8C%AE%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="文献复现（二）">文献复现（二）</a><time datetime="2026-07-21T03:47:39.000Z" title="更新于 2026-07-21 11:47:39">2026-07-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/06/25/%E7%A7%91%E7%A0%94/next%20stage/%E6%96%87%E7%8C%AE%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%B8%80%EF%BC%89/" title="文献复现（一）"><img src="/2026/06/25/%E7%A7%91%E7%A0%94/next%20stage/%E6%96%87%E7%8C%AE%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%B8%80%EF%BC%89/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="文献复现（一）"/></a><div class="content"><a class="title" href="/2026/06/25/%E7%A7%91%E7%A0%94/next%20stage/%E6%96%87%E7%8C%AE%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%B8%80%EF%BC%89/" title="文献复现（一）">文献复现（一）</a><time datetime="2026-07-21T03:15:41.000Z" title="更新于 2026-07-21 11:15:41">2026-07-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/07/08/%E7%A7%91%E7%A0%94/next%20stage/%E7%B2%BE%E7%B2%A4%E5%8F%8C%E8%B7%AFX99%E5%AF%A8%E6%9D%BF%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="从零打造的outdated工作站"><img src="/2026/07/08/%E7%A7%91%E7%A0%94/next%20stage/%E7%B2%BE%E7%B2%A4%E5%8F%8C%E8%B7%AFX99%E5%AF%A8%E6%9D%BF%E6%9C%8D%E5%8A%A1%E5%99%A8/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="从零打造的outdated工作站"/></a><div class="content"><a class="title" href="/2026/07/08/%E7%A7%91%E7%A0%94/next%20stage/%E7%B2%BE%E7%B2%A4%E5%8F%8C%E8%B7%AFX99%E5%AF%A8%E6%9D%BF%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="从零打造的outdated工作站">从零打造的outdated工作站</a><time datetime="2026-07-21T03:15:41.000Z" title="更新于 2026-07-21 11:15:41">2026-07-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/" title="VASP学习笔记"><img src="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="VASP学习笔记"/></a><div class="content"><a class="title" href="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/" title="VASP学习笔记">VASP学习笔记</a><time datetime="2026-07-15T14:12:08.000Z" title="更新于 2026-07-15 22:12:08">2026-07-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/02/08/hexo%E5%8D%9A%E5%AE%A2%E5%AE%89%E8%A3%85/" title="hexo框架下博客的改造与主题迁移"><img src="/2026/02/08/hexo%E5%8D%9A%E5%AE%A2%E5%AE%89%E8%A3%85/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="hexo框架下博客的改造与主题迁移"/></a><div class="content"><a class="title" href="/2026/02/08/hexo%E5%8D%9A%E5%AE%A2%E5%AE%89%E8%A3%85/" title="hexo框架下博客的改造与主题迁移">hexo框架下博客的改造与主题迁移</a><time datetime="2026-06-23T05:14:11.000Z" title="更新于 2026-06-23 13:14:11">2026-06-23</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+      <i class="fas fa-angle-right"></i></a>
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Stormy-English/"><span class="card-category-list-name">Stormy English</span><span class="card-category-list-count">26</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Stormy-English/Stupid-Words/"><span class="card-category-list-name">Stupid Words</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Stormy-English/TED-Ed/"><span class="card-category-list-name">TED-Ed</span><span class="card-category-list-count">12</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Stormy-English/The-Atlantic/"><span class="card-category-list-name">The Atlantic</span><span class="card-category-list-count">5</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Stormy-English/The-Atlantic/April/"><span class="card-category-list-name">April</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Stormy-English/The-Atlantic/March/"><span class="card-category-list-name">March</span><span class="card-category-list-count">4</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Stormy-English/%E8%B5%96%E4%B8%96%E9%9B%84%E9%AB%98%E7%BA%A7%E7%BE%8E%E8%AF%AD/"><span class="card-category-list-name">赖世雄高级美语</span><span class="card-category-list-count">8</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E4%B8%80%E4%BA%9B%E6%9D%82%E8%B0%88/"><span class="card-category-list-name">一些杂谈</span><span class="card-category-list-count">3</span></a></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/Linux/" style="font-size: 1.16em; color: #999b9e">Linux</a> <a href="/tags/%E7%A7%91%E7%A0%94/" style="font-size: 1.44em; color: #99a7ba">科研</a> <a href="/tags/English/" style="font-size: 1.1em; color: #999">English</a> <a href="/tags/%E6%B2%89%E6%80%9D%E5%BD%95/" style="font-size: 1.27em; color: #99a0a9">沉思录</a> <a href="/tags/English-Learning/" style="font-size: 1.39em; color: #99a4b4">English Learning</a> <a href="/tags/%E8%AE%B8%E7%BE%8E%E9%9D%99/" style="font-size: 1.16em; color: #999b9e">许美静</a> <a href="/tags/Learning/" style="font-size: 1.1em; color: #999">Learning</a> <a href="/tags/%E6%8A%98%E8%85%BE/" style="font-size: 1.33em; color: #99a2af">折腾</a> <a href="/tags/hexo/" style="font-size: 1.1em; color: #999">hexo</a> <a href="/tags/AI/" style="font-size: 1.1em; color: #999">AI</a> <a href="/tags/Gentoo/" style="font-size: 1.1em; color: #999">Gentoo</a> <a href="/tags/%E9%AB%98%E5%88%86%E5%AD%90%E7%89%A9%E7%90%86/" style="font-size: 1.21em; color: #999ea4">高分子物理</a> <a href="/tags/%E6%AD%8C%E8%AF%8D/" style="font-size: 1.16em; color: #999b9e">歌词</a> <a href="/tags/%E5%8C%96%E5%AD%A6/" style="font-size: 1.5em; color: #99a9bf">化学</a> <a href="/tags/%E9%94%82%E7%94%B5%E6%B1%A0%E5%9F%BA%E7%A1%80%E7%A7%91%E5%AD%A6/" style="font-size: 1.16em; color: #999b9e">锂电池基础科学</a></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>归档</span>
+      <a class="card-more-btn" href="/archives/"
+            title="查看更多">
+            <i class="fas fa-angle-right"></i>
+          </a>
+    </div>
+  
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/07/">
+            <span class="card-archive-list-date">
+              七月 2026
+            </span>
+            <span class="card-archive-list-count">4</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/06/">
+            <span class="card-archive-list-date">
+              六月 2026
+            </span>
+            <span class="card-archive-list-count">4</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/05/">
+            <span class="card-archive-list-date">
+              五月 2026
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/04/">
+            <span class="card-archive-list-date">
+              四月 2026
+            </span>
+            <span class="card-archive-list-count">3</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/03/">
+            <span class="card-archive-list-date">
+              三月 2026
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/02/">
+            <span class="card-archive-list-date">
+              二月 2026
+            </span>
+            <span class="card-archive-list-count">3</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/12/">
+            <span class="card-archive-list-date">
+              十二月 2025
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/11/">
+            <span class="card-archive-list-date">
+              十一月 2025
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">104</div></div><div class="webinfo-item"><div class="item-name">运行时间 :</div><div class="item-count" id="runtimeshow" data-publishDate="2025-02-23T18:00:00.000Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">652.8k</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-07-21T04:22:00.581Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(https://s2.loli.net/2026/02/08/gQkMUcGuZAJH8wW.jpg);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Storm Talia</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">欢迎来到我的个人博客！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="/js/tw_cn.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><div class="js-pjax"></div><script defer src="/js/blog-music-config.js?v=09fd9ee6"></script><script defer src="/js/blog-music-player.js?v=f792ab00"></script><script defer src="/js/toc-h1-fix.js?v=7f7bc652"></script><canvas class="fireworks" mobile="true"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/fireworks.min.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="嗖一下~好奇宝宝~😯" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.4"></script></div></div></body></html>

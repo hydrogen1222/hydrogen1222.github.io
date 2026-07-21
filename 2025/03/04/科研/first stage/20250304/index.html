@@ -1,0 +1,453 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>初识全固态电池 | Storm's Storehouse</title><meta name="author" content="Storm Talia"><meta name="copyright" content="Storm Talia"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#FFFFFF"><meta name="description" content="¶研究背景 ¶金属锂作负极的挑战  锂枝晶生长  固态电解质可抑制锂枝晶生长 过充or快充时、以金属锂作负极时   体积膨胀与电极粉化  ¶固态电池——采用固态电解质的锂离子电池   电化学窗口，5V&gt;4.2V   金属Li作负极可能实现   高锂离子电导率   低电子电导率   正负极优异的化学和电化学稳定性   难表征   柔性不够   不好回收   固态电解质的电化学分解，不可避免">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初识全固态电池">
+<meta property="og:url" content="https://hydrogen1222.com.cn/2025/03/04/%E7%A7%91%E7%A0%94/first%20stage/20250304/index.html">
+<meta property="og:site_name" content="Storm&#39;s Storehouse">
+<meta property="og:description" content="¶研究背景 ¶金属锂作负极的挑战  锂枝晶生长  固态电解质可抑制锂枝晶生长 过充or快充时、以金属锂作负极时   体积膨胀与电极粉化  ¶固态电池——采用固态电解质的锂离子电池   电化学窗口，5V&gt;4.2V   金属Li作负极可能实现   高锂离子电导率   低电子电导率   正负极优异的化学和电化学稳定性   难表征   柔性不够   不好回收   固态电解质的电化学分解，不可避免">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hydrogen1222.com.cn/2025/03/04/%E7%A7%91%E7%A0%94/first%20stage/20250304/cover.png">
+<meta property="article:published_time" content="2025-03-04T01:20:02.000Z">
+<meta property="article:modified_time" content="2026-03-30T09:17:47.000Z">
+<meta property="article:author" content="Storm Talia">
+<meta property="article:tag" content="化学">
+<meta property="article:tag" content="科研">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hydrogen1222.com.cn/2025/03/04/%E7%A7%91%E7%A0%94/first%20stage/20250304/cover.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "初识全固态电池",
+  "url": "https://hydrogen1222.com.cn/2025/03/04/%E7%A7%91%E7%A0%94/first%20stage/20250304/",
+  "image": "https://hydrogen1222.com.cn/2025/03/04/%E7%A7%91%E7%A0%94/first%20stage/20250304/cover.png",
+  "datePublished": "2025-03-04T01:20:02.000Z",
+  "dateModified": "2026-03-30T09:17:47.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Storm Talia",
+      "url": "https://hydrogen1222.com.cn"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.jpg"><link rel="canonical" href="https://hydrogen1222.com.cn/2025/03/04/%E7%A7%91%E7%A0%94/first%20stage/20250304/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#121212')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#FFFFFF')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '初识全固态电池',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" /><link rel="stylesheet" href="/css/my-font.css?v=4b3c1e1d" /><link rel="stylesheet" href="/css/music-player.css?v=28cfbdf4" /><meta name="generator" content="Hexo 8.1.2"><script>window.BLOG_MUSIC_PLAYLIST=[{"file":"永遠の夏.m4a","title":"永遠の夏","artist":"Takako Okamura","subtitle":"四つ葉のクローバー","eyebrow":"Stormy Broadcast","ambience":"本地自托管单曲 · 玻璃氛围播放器 · LRC 时序歌词","src":"/music/永遠の夏.m4a?v=02b6f60c","lyricsMode":"dual","loop":false,"sourceUrl":"","sourceLabel":"","lyrics":"/music/永遠の夏.lrc?v=96488512","cover":"/music/永遠の夏.jpg?v=7a883bb7"},{"file":"Believe.m4a","title":"Believe","artist":"Takako Okamura","subtitle":"SOLEIL","eyebrow":"Stormy Broadcast","ambience":"本地自托管单曲 · 玻璃氛围播放器 · LRC 时序歌词","src":"/music/Believe.m4a?v=308895fe","lyricsMode":"dual","loop":false,"sourceUrl":"","sourceLabel":"","lyrics":"/music/Believe.lrc?v=237ea0ce","cover":"/music/Believe.jpg?v=c24f28bf"}];</script></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (false) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div class="bg-animation" id="web_bg" style="background-image: url(https://s2.loli.net/2026/02/09/BCGIy51KPoY2z7Z.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://s2.loli.net/2026/02/08/GvfVnlgAeFHszc3.jpg" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">104</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/guestbook/"><i class="fa-fw fas fa-comments"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/2025/03/04/%E7%A7%91%E7%A0%94/first%20stage/20250304/cover.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Storm's Storehouse</span></a><a class="nav-page-title" href="/"><span class="site-name">初识全固态电池</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/guestbook/"><i class="fa-fw fas fa-comments"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">初识全固态电池</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-03-04T01:20:02.000Z" title="发表于 2025-03-04 09:20:02">2025-03-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-03-30T09:17:47.000Z" title="更新于 2026-03-30 17:17:47">2026-03-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/">从零开始的科研之旅</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/first-stage/">first stage</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">1.7k</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="研究背景"><a class="header-anchor" href="#研究背景">¶</a>研究背景</h2>
+<h3 id="金属锂作负极的挑战"><a class="header-anchor" href="#金属锂作负极的挑战">¶</a>金属锂作负极的挑战</h3>
+<ul>
+<li>锂枝晶生长
+<ul>
+<li>固态电解质可抑制锂枝晶生长</li>
+<li>过充or快充时、以金属锂作负极时</li>
+</ul>
+</li>
+<li>体积膨胀与电极粉化</li>
+</ul>
+<h3 id="固态电池——采用固态电解质的锂离子电池"><a class="header-anchor" href="#固态电池——采用固态电解质的锂离子电池">¶</a>固态电池——采用固态电解质的锂离子电池</h3>
+<ul>
+<li>
+<p>电化学窗口，5V&gt;4.2V</p>
+</li>
+<li>
+<p>金属Li作负极可能实现</p>
+</li>
+<li>
+<p>高锂离子电导率</p>
+</li>
+<li>
+<p>低电子电导率</p>
+</li>
+<li>
+<p>正负极优异的化学和电化学稳定性</p>
+</li>
+<li>
+<p><mark>难表征</mark></p>
+</li>
+<li>
+<p>柔性不够</p>
+</li>
+<li>
+<p>不好回收</p>
+</li>
+<li>
+<p>固态电解质的电化学分解，不可避免</p>
+</li>
+</ul>
+<h3 id="硫化物固态电解质"><a class="header-anchor" href="#硫化物固态电解质">¶</a>硫化物固态电解质</h3>
+<h4 id="优势"><a class="header-anchor" href="#优势">¶</a>优势</h4>
+<ul>
+<li>更高的离子电导率</li>
+<li>良好的界面接触</li>
+</ul>
+<h4 id="不足"><a class="header-anchor" href="#不足">¶</a>不足</h4>
+<ul>
+<li>电压窗口较窄
+<ul>
+<li>固态电解质在不发生电化学分解的情况下能够稳定工作的电压范围</li>
+</ul>
+</li>
+<li>化学失效——电极/电解质界面兼容性差</li>
+<li>锂枝晶失效</li>
+<li>机械失效</li>
+<li>“在正极引入保护涂层是实现ASSLBs实际应用的最有效方法”</li>
+<li>无法大规模制造？超薄电解质膜制备困难，无机电解质的力学性能差</li>
+</ul>
+<h4 id="改性"><a class="header-anchor" href="#改性">¶</a>改性</h4>
+<ul>
+<li>电解质表面涂层来抑制界面反应（如GO）</li>
+<li>结构设计：通过增加电解质的密度和优化微观结构来抑制锂枝晶生长。例如，通过两步烧结法制备的Li6PS5Cl电解质具有6.11 mS cm^-1^的高离子传导率和良好的循环稳定性</li>
+<li>掺杂来提高电解质的稳定性和离子传导率</li>
+<li>涉及锂合金负极来减少体积膨胀，增加界面相容性</li>
+<li>低成本策略？
+<ul>
+<li>LiCl + Na~2~S → Li~2~S + NaCl</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>机械球磨法</td>
+<td>工艺简单，实验室易操作</td>
+<td>易引入杂质（如Fe污染）</td>
+</tr>
+<tr>
+<td>溶液法</td>
+<td>颗粒均匀，适合规模化</td>
+<td>需高温去除溶剂残留</td>
+</tr>
+<tr>
+<td>固相反应</td>
+<td>高纯度，适用于复杂成分</td>
+<td>能耗高，需高温烧结</td>
+</tr>
+</tbody>
+</table>
+<h4 id="未来研究方向"><a class="header-anchor" href="#未来研究方向">¶</a>未来研究方向</h4>
+<ul>
+<li>新材料
+<ul>
+<li>更高离子传导率</li>
+<li>更好的机械性能</li>
+</ul>
+</li>
+<li>制备工艺优化</li>
+<li>优化电解质界面</li>
+</ul>
+<h4 id="Li-argyrodite类型——Li-6-PS-5-X-X-Cl-Br"><a class="header-anchor" href="#Li-argyrodite类型——Li-6-PS-5-X-X-Cl-Br">¶</a>Li-argyrodite类型——Li~6~PS~5~X(X=Cl, Br)</h4>
+<h3 id="电固态电解质工作原理"><a class="header-anchor" href="#电固态电解质工作原理">¶</a>电固态电解质工作原理</h3>
+<ul>
+<li>
+<h4 id="扩散机制："><a class="header-anchor" href="#扩散机制：">¶</a>扩散机制：</h4>
+<ul>
+<li><strong>空位机制</strong>：晶体结构中存在一些空位（即晶格中本应存在离子的位置却空缺），锂离子可以通过跳跃到相邻的空位来实现扩散。当温度升高时，离子的热运动加剧，锂离子获得足够的能量克服周围离子的束缚，从而更容易跳跃到空位中。</li>
+<li><strong>间隙机制</strong>：有些锂离子并不占据正常的晶格位置，而是处于晶格的间隙位置。这些间隙锂离子可以在晶格的间隙中移动，从一个间隙位置跳跃到另一个间隙位置，从而实现扩散。</li>
+</ul>
+</li>
+<li>
+<p>减小扩散能垒：掺杂</p>
+<ul>
+<li>改变晶体结构</li>
+<li>改变化学键</li>
+<li>增加Li^+^浓度</li>
+</ul>
+</li>
+</ul>
+<h2 id="J-Mater-Chem-A-2024-12-27011"><a class="header-anchor" href="#J-Mater-Chem-A-2024-12-27011">¶</a>J. Mater. Chem. A, 2024, 12, 27011</h2>
+<h3 id="优势-2"><a class="header-anchor" href="#优势-2">¶</a>优势</h3>
+<ul>
+<li>全固态锂电池（ASSLBs）因固态电解质的使用，在追求<mark>高能量密度</mark>和可靠储能方面具有重要意义x</li>
+<li>硫化物固态电解质的晶体结构通常具有相对开放的框架，存在较多的离子通道。硫（S）离子<mark>半径</mark>较大，与锂离子之间的<mark>相互作用较弱</mark>，使得锂离子在其中迁移时受到的阻碍较小，能够比较容易地在晶格中移动</li>
+<li>硫化物的化学键性质相对较弱，在受到外力作用时，其原子或离子能够相对容易地发生位置调整和重排，使得材料能够发生一定程度的形变而不破裂，表现出<mark>较好的延展性</mark></li>
+</ul>
+<h3 id="解决问题"><a class="header-anchor" href="#解决问题">¶</a>解决问题</h3>
+<ul>
+<li>硫化物固态电解质（SSEs）因室温锂离子传导率高和延展性好而具有竞争力，但存在与锂金属<mark>界面反应</mark>严重以及对<mark>水分极度敏感</mark>两个瓶颈问题
+<ul>
+<li>界面反应：矿物中的高价金属如Ge、Sn会与Li反应，在Li/SSE界面形成混合离子 - 电子传导的中间相，这会导致SSE的持续降解和界面阻抗增加
+<ul>
+<li>掺杂后，在Li/LPSC - 0.05界面会原位形成高度离子传导但电子绝缘的<mark>LiI</mark></li>
+<li>在Li/LPSC - 0.05界面还会形成适量的Li - Sn和Li - Sb合金</li>
+<li>降低了Li⁺扩散势垒，减少了界面处的极化和副反应</li>
+</ul>
+</li>
+<li>对水敏感：SSEs中的一些成分（如硫代磷酸盐等）水解
+<ul>
+<li>HSAB理论，形成了稳定的（P,Sn,Sb）S₄单元，具有强的Sn - S和Sb - S键</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="材料"><a class="header-anchor" href="#材料">¶</a>材料</h3>
+<ul>
+<li>思路：通过掺杂来改进性能良好但稳定性不够好的电解质
+<ul>
+<li>磷基硫银锗矿Li~6~PS~5~Cl(LPSC)+锑基硫银锗矿Li~6.4~Sn~0.4~Sb~0.6~S~5~I(LSSSI)—&gt; LSSSI掺杂的LSPC电解质(LPSC - x, 0.0 ≤ x ≤ 0.1)</li>
+</ul>
+</li>
+<li>电池
+<ul>
+<li>正极——Li~2~O包覆的LiNi~0.8~Co~0.1~Mn~0.1~O~2~（NCM811@Li~2~O）</li>
+<li>负极——Li</li>
+<li>电解质：LSSSI掺杂的LPSC - x系列电解质，其中LPSC - 0.05表现出最优性能</li>
+</ul>
+</li>
+</ul>
+<h3 id="关键参数"><a class="header-anchor" href="#关键参数">¶</a>关键参数</h3>
+<ul>
+<li>离子传导率</li>
+<li>临界电流密度CCD</li>
+<li>电池性能参数</li>
+</ul>
+<h3 id="Q-A"><a class="header-anchor" href="#Q-A">¶</a>Q&amp;A</h3>
+<ol>
+<li>硫银锗矿电解质的通式为 <strong>Li₆PS₅X（X=Cl, Br, I）</strong>，解释其晶体结构中 <strong>PS₄³⁻四面体</strong> 和 <strong>卤素离子（X⁻）</strong> 的作用。为什么卤素种类会影响离子电导率？
+<ol>
+<li><strong>PS₄³⁻四面体</strong>：构成硫银锗矿的刚性骨架，提供稳定的三维结构框架，允许Li⁺在间隙位点迁移。</li>
+<li><strong>卤素离子（X⁻）</strong>：占据硫空位，调节晶格参数（如Li₆PS₅Cl晶胞参数 <strong>~10.0 Å</strong>），扩大Li⁺迁移通道。</li>
+<li><strong>卤素影响</strong>：Cl⁻（较小）使晶格紧密，Li⁺迁移路径受限；Br⁻（较大）扩大通道，电导率提高（Li₆PS₅I达 <strong>~3 mS/cm</strong>）</li>
+</ol>
+</li>
+<li>文献提到硫银锗矿电解质的Li⁺迁移活化能较低（~0.2 eV），试从<strong>协同迁移（cooperative migration）</strong> 的角度解释其高离子电导率的来源
+<ol>
+<li><strong>协同迁移</strong>：多个Li⁺通过共享位点协同跳跃，降低单个Li^+^迁移的活化能（Li₆PS₅Cl活化能 <strong>~0.22 eV</strong>）</li>
+<li><strong>卤素作用</strong>：X⁻极化作用削弱Li⁺与骨架的相互作用，促进Li^+^脱嵌（如Li₆PS₅Br中Br⁻的极化效应强于Cl⁻）</li>
+</ol>
+</li>
+<li>若在Li₆PS₅Cl中掺杂 <strong>Sn</strong> 和 <strong>O</strong>（如Li₆.₃P₀.₇Sn₀.₃S₄.₄O₀.₃I），这种“双掺杂”如何同时提升离子电导率和空气稳定性？
+<ol>
+<li><strong>Sn掺杂</strong>：Sn⁴⁺取代P⁵⁺，引入阳离子空位，提升Li⁺浓度（如Li₆.₃P₀.₇Sn₀.₃S₄.₄O₀.₃I电导率 <strong>~0.2 mS/cm</strong>）。</li>
+<li><strong>O掺杂</strong>：O²⁻钝化晶界，抑制H₂O吸附（空气稳定性提升至 <strong>&gt;24小时@30% RH</strong>）。</li>
+</ol>
+</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://hydrogen1222.com.cn">Storm Talia</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://hydrogen1222.com.cn/2025/03/04/%E7%A7%91%E7%A0%94/first%20stage/20250304/">https://hydrogen1222.com.cn/2025/03/04/%E7%A7%91%E7%A0%94/first%20stage/20250304/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://hydrogen1222.com.cn" target="_blank">Storm's Storehouse</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%8C%96%E5%AD%A6/">化学</a><a class="post-meta__tags" href="/tags/%E7%A7%91%E7%A0%94/">科研</a></div><div class="post-share"><div class="social-share" data-image="/2025/03/04/%E7%A7%91%E7%A0%94/first%20stage/20250304/cover.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/03/05/%E9%AB%98%E5%88%86%E5%AD%90%E7%89%A9%E7%90%86/%E9%AB%98%E5%88%86%E5%AD%90%E7%89%A9%E7%90%86%E4%B9%A0%E9%A2%98/" title="高分子物理习题"><img class="cover" src="/2025/03/05/%E9%AB%98%E5%88%86%E5%AD%90%E7%89%A9%E7%90%86/%E9%AB%98%E5%88%86%E5%AD%90%E7%89%A9%E7%90%86%E4%B9%A0%E9%A2%98/cover.png" onerror="onerror=null;src='/img/favicon.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">高分子物理习题</div></div><div class="info-2"><div class="info-item-1">¶高分子链的结构 ¶近程结构   石墨和纸浆是天然高分子化合物   试讨论线形聚异戊二烯可能有哪些不同的构型,假定不考虑键接结构(画出结构示意图)——聚异戊二烯可能有6种有规立构体解  本题为何没考虑无规立构呢？    写出有取代的二烯 CH~3~CH=CH-CH=CH-COOCH~3~ 经加聚反应得到的聚合物,若只考虑单体的1,4-加成和单体头-尾相接,则理论上可能有几种立体异构?  为什么不是3X3X2=18种呢？为什么没有考虑无规异构呢？    ==【例1-8】==在聚乙烯醇(PVA)溶液中加人 HIO4,假定1,2-乙二醇结构全都与HIO4,作用使分子链断裂。在加人前测得PVA的数均相对分子质量为35000作用后相对分子质量为2200。试求PVA中头-头相接结构的百分数(即每100个结构单元中头-头结构数)。                      #mjx-b0154e1{         display:contents;         mjx-assistive-mml {           user-select: text !important;     ...</div></div></div></a><a class="pagination-related" href="/2025/03/03/Stormy%20English/The%20TED-Ed%20project/Why-Does-February-Only-Have-28-Days/" title="Why Does February Only Have 28 Days"><img class="cover" src="/2025/03/03/Stormy%20English/The%20TED-Ed%20project/Why-Does-February-Only-Have-28-Days/cover.png" onerror="onerror=null;src='/img/favicon.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Why Does February Only Have 28 Days</div></div><div class="info-2"><div class="info-item-1">¶Why Does February Only Have 28 Days Although February 2015  might fit perfectly on the page , every year  it’s the runt of the monthly litter . This deficit of days, this calendar  craziness , this  oddity  of the annum, like so much of modern culture, is the Romans’ fault. Here’s the crazy story of why February has 28 days… except when it doesn’t. Romulus, the maybe-mythical, maybe-real founder and first king of Rome, had a problem. With an increasing number of festivals, feasts, military c...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2025/05/27/%E7%A7%91%E7%A0%94/first%20stage/%E7%94%B5%E5%8C%96%E5%AD%A6%E9%98%BB%E6%8A%97%E8%B0%B1/" title="从零开始的电化学阻抗谱原理"><img class="cover" src="/2025/05/27/%E7%A7%91%E7%A0%94/first%20stage/%E7%94%B5%E5%8C%96%E5%AD%A6%E9%98%BB%E6%8A%97%E8%B0%B1/cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-27</div><div class="info-item-2">从零开始的电化学阻抗谱原理</div></div><div class="info-2"><div class="info-item-1">¶什么是电化学阻抗谱？ 有一种叫做黑箱的未知特性系统。可采用一系列测量方法，通过施加输入信号并检测输出响应来探查黑箱。例如，假设将黑箱置于暗室中，然后施加特定波长的光照。若观察到响应信号（如电流），则可判定箱内物质具有光活性。输入与输出之间的关系称为“传递函数”，阻抗谱是传递函数的一种特例。 阻抗：电路中电阻、电感、电容对交流电个阻碍作用个统称。阻抗是一个复数，实部称为电阻，虚部称为电抗。电化学过程主要涉及电荷在电极和电解质界面上的传输和存储。例如，电极表面的双电层效应会形成双电层电容，电解质中的离子扩散也会导致电容行为。这些机制使电容成为电化学系统中主要的电抗元件。 相比之下，电感通常与磁场的变化相关，比如电流通过线圈时产生的磁场。然而，在常规的电化学系统中，磁场变化通常不显著，因此电感的影响非常小，通常电化学系统中考虑电阻、容抗而不考虑感抗。 电化学阻抗谱（EIS）通过施加交流电压（或电流）并测量产生的电流（或电压），能够研究电极和电化学池的电化学特性，利用等效电路进行分析，可以确定与电极电化学反应相关的重要参数，如电荷转移电阻、双电层电容和Warburg阻抗 ¶阻抗的复数表...</div></div></div></a><a class="pagination-related" href="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/VASP%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8D%E6%8A%A5%E9%94%99/" title="VASP中的各种报错"><img class="cover" src="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/VASP%E4%B8%AD%E7%9A%84%E5%90%84%E7%A7%8D%E6%8A%A5%E9%94%99/cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-14</div><div class="info-item-2">VASP中的各种报错</div></div><div class="info-2"><div class="info-item-1">如题，记录一下在计算时遇到的各种报错 ¶2025.05.14 12345678910111213141516 -----------------------------------------------------------------------------|                                                                             ||     EEEEEEE  RRRRRR   RRRRRR   OOOOOOO  RRRRRR      ###     ###     ###     ||     E        R     R  R     R  O     O  R     R     ###     ###     ###     ||     E        R     R  R     R  O     O  R     R     ###     ###     ###     ||     EEEEE    RRRRRR   RRRRRR   O     O  RRRRRR ...</div></div></div></a><a class="pagination-related" href="/2025/05/24/%E7%A7%91%E7%A0%94/first%20stage/2025-05-24-%E5%85%B3%E4%BA%8EX%E5%B0%84%E7%BA%BF%E7%B2%89%E6%9C%AB%E8%A1%8D%E5%B0%84/" title="从零开始的X射线原理"><img class="cover" src="/2025/05/24/%E7%A7%91%E7%A0%94/first%20stage/2025-05-24-%E5%85%B3%E4%BA%8EX%E5%B0%84%E7%BA%BF%E7%B2%89%E6%9C%AB%E8%A1%8D%E5%B0%84/cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-24</div><div class="info-item-2">从零开始的X射线原理</div></div><div class="info-2"><div class="info-item-1">¶前言 1917 年，赫尔首次描述了简单粉末衍射仪的构造，这是在 1895 年威廉·康拉德·伦琴发现 X 射线后不久。衍射仪测量 X 射线反射的角度，从而获得其包含的结构信息。如今，这项技术的分辨率有了显著提高，它被广泛用作分析相信息和解决固态材料晶体结构的工具。X 射线衍射技术用于确定样品的组成或晶体结构。对于大分子和无机化合物等较大的晶体，它可用于确定样品中原子的结构。如果晶体尺寸太小，它可以确定样品的组成、结晶度和相纯度。 ¶什么是X射线？ X射线是一种电磁波，由内壳层电子跃迁所得： ![X 射线由内壳层电子跃迁产生](2025-05-24-关于X射线粉末衍射/Screen Shot 2022-08-29 at 10.39.21 PM-1756610339401-1.png) 对于原子序数为Z、仅含一个电子的类氢原子，内壳层电子跃迁所辐射的能量可由Rydberg方程计算：                    #mjx-393901b{         display:contents;         mjx-assistive-mml {           user-...</div></div></div></a><a class="pagination-related" href="/2025/04/29/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E8%A1%A8%E9%9D%A2%E8%83%BD%E7%9A%84%E8%AE%A1%E7%AE%97/" title="表面能的计算"><img class="cover" src="/2025/04/29/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E8%A1%A8%E9%9D%A2%E8%83%BD%E7%9A%84%E8%AE%A1%E7%AE%97/cover.jpg" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-29</div><div class="info-item-2">表面能的计算</div></div><div class="info-2"><div class="info-item-1">¶关于表面能 根据VASP官方手册Hands on Session III，表面能的定义如下，大师兄的文章也提到了这个定义( Nanoscale, 2017, 9, 13089–13094)                    #mjx-6297a79{         display:contents;         mjx-assistive-mml {           user-select: text !important;           clip: auto !important;           color: rgba(0,0,0,0);         }          mjx-container[jax="SVG"] {   direction: ltr; }  mjx-container[jax="SVG"] > svg {   overflow: visible;   min-height: 1px;   min-width: 1px; }  mjx-container[jax="SVG"] > svg a {   fill: blue;...</div></div></div></a><a class="pagination-related" href="/2025/04/19/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E4%B9%99%E9%86%87%E5%88%86%E5%AD%90/" title="乙醇分子的气相优化和振动频率计算"><img class="cover" src="/2025/04/19/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/%E4%B9%99%E9%86%87%E5%88%86%E5%AD%90/cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-19</div><div class="info-item-2">乙醇分子的气相优化和振动频率计算</div></div><div class="info-2"><div class="info-item-1">¶乙醇分子的结构优化 ¶INCAR 1234567SYSTEM = ethanolISMEAR = 0 #Gaussian ismear, for insulatorSIGMA = 0.01NSW = 200IBRION = 2 #OptimizarionPOTIM = 0.01 #a little conservative step ¶KPOINTS 12345K-POINTS0Gamma1 1 10 0 0 ¶POSCAR 1234567891011121314151617Title1.0        4.8082499504         0.0000000000         0.0000000000        0.0000000000         4.8082499504         0.0000000000        0.0000000000         0.0000000000         4.8082499504    O    C    H    1    2    6Direct     0.747990456         0...</div></div></div></a><a class="pagination-related" href="/2025/09/04/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/AIMD%E6%A8%A1%E6%8B%9F%E5%9B%BA%E6%80%81%E7%94%B5%E8%A7%A3%E8%B4%A8%E7%A6%BB%E5%AD%90%E7%94%B5%E5%AF%BC%E7%8E%87/" title="VASP进行AIMD模拟固态电解质离子电导率的计算"><img class="cover" src="/2025/09/04/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/AIMD%E6%A8%A1%E6%8B%9F%E5%9B%BA%E6%80%81%E7%94%B5%E8%A7%A3%E8%B4%A8%E7%A6%BB%E5%AD%90%E7%94%B5%E5%AF%BC%E7%8E%87/cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-09-04</div><div class="info-item-2">VASP进行AIMD模拟固态电解质离子电导率的计算</div></div><div class="info-2"><div class="info-item-1">使用VASP计算离子电导率，需要进行从头算分子动力学(AIMD)模拟，对象为                   #mjx-d6b881d{         display:contents;         mjx-assistive-mml {           user-select: text !important;           clip: auto !important;           color: rgba(0,0,0,0);         }          mjx-container[jax="SVG"] {   direction: ltr; }  mjx-container[jax="SVG"] > svg {   overflow: visible;   min-height: 1px;   min-width: 1px; }  mjx-container[jax="SVG"] > svg a {   fill: blue;   stroke: blue; }  mjx-assistive-mml {   position: absolu...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://s2.loli.net/2026/02/08/GvfVnlgAeFHszc3.jpg" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="avatar"/></div><div class="author-info-name">Storm Talia</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">104</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hydrogen1222"><i class="fab fa-github"></i><span>GitHub</span></a><div class="card-info-social-icons"><a class="social-icon" href="mailto:2170147489@qq.com" target="_blank" title="你的邮箱"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/img/wechat.jpg" target="_blank" title="微信 (这里通常放二维码图片链接)"><i class="fab fa-weixin"></i></a><a class="social-icon" href="tencent://message/?uin=2170147489" target="_blank" title="QQ"><i class="fab fa-qq"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">哈喽！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A0%94%E7%A9%B6%E8%83%8C%E6%99%AF"><span class="toc-number">1.</span> <span class="toc-text">研究背景</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%91%E5%B1%9E%E9%94%82%E4%BD%9C%E8%B4%9F%E6%9E%81%E7%9A%84%E6%8C%91%E6%88%98"><span class="toc-number">1.1.</span> <span class="toc-text">金属锂作负极的挑战</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BA%E6%80%81%E7%94%B5%E6%B1%A0%E2%80%94%E2%80%94%E9%87%87%E7%94%A8%E5%9B%BA%E6%80%81%E7%94%B5%E8%A7%A3%E8%B4%A8%E7%9A%84%E9%94%82%E7%A6%BB%E5%AD%90%E7%94%B5%E6%B1%A0"><span class="toc-number">1.2.</span> <span class="toc-text">固态电池——采用固态电解质的锂离子电池</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A1%AB%E5%8C%96%E7%89%A9%E5%9B%BA%E6%80%81%E7%94%B5%E8%A7%A3%E8%B4%A8"><span class="toc-number">1.3.</span> <span class="toc-text">硫化物固态电解质</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%98%E5%8A%BF"><span class="toc-number">1.3.1.</span> <span class="toc-text">优势</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E8%B6%B3"><span class="toc-number">1.3.2.</span> <span class="toc-text">不足</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%94%B9%E6%80%A7"><span class="toc-number">1.3.3.</span> <span class="toc-text">改性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%AA%E6%9D%A5%E7%A0%94%E7%A9%B6%E6%96%B9%E5%90%91"><span class="toc-number">1.3.4.</span> <span class="toc-text">未来研究方向</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Li-argyrodite%E7%B1%BB%E5%9E%8B%E2%80%94%E2%80%94Li-6-PS-5-X-X-Cl-Br"><span class="toc-number">1.3.5.</span> <span class="toc-text">Li-argyrodite类型——Li~6~PS~5~X(X&#x3D;Cl, Br)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%B5%E5%9B%BA%E6%80%81%E7%94%B5%E8%A7%A3%E8%B4%A8%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-number">1.4.</span> <span class="toc-text">电固态电解质工作原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%A9%E6%95%A3%E6%9C%BA%E5%88%B6%EF%BC%9A"><span class="toc-number">1.4.1.</span> <span class="toc-text">扩散机制：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#J-Mater-Chem-A-2024-12-27011"><span class="toc-number">2.</span> <span class="toc-text">J. Mater. Chem. A, 2024, 12, 27011</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E5%8A%BF-2"><span class="toc-number">2.1.</span> <span class="toc-text">优势</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98"><span class="toc-number">2.2.</span> <span class="toc-text">解决问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9D%90%E6%96%99"><span class="toc-number">2.3.</span> <span class="toc-text">材料</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E5%8F%82%E6%95%B0"><span class="toc-number">2.4.</span> <span class="toc-text">关键参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Q-A"><span class="toc-number">2.5.</span> <span class="toc-text">Q&amp;A</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/07/03/%E7%A7%91%E7%A0%94/next%20stage/%E6%96%87%E7%8C%AE%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="文献复现（二）"><img src="/2026/07/03/%E7%A7%91%E7%A0%94/next%20stage/%E6%96%87%E7%8C%AE%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%BA%8C%EF%BC%89/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="文献复现（二）"/></a><div class="content"><a class="title" href="/2026/07/03/%E7%A7%91%E7%A0%94/next%20stage/%E6%96%87%E7%8C%AE%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="文献复现（二）">文献复现（二）</a><time datetime="2026-07-21T03:47:39.000Z" title="更新于 2026-07-21 11:47:39">2026-07-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/06/25/%E7%A7%91%E7%A0%94/next%20stage/%E6%96%87%E7%8C%AE%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%B8%80%EF%BC%89/" title="文献复现（一）"><img src="/2026/06/25/%E7%A7%91%E7%A0%94/next%20stage/%E6%96%87%E7%8C%AE%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%B8%80%EF%BC%89/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="文献复现（一）"/></a><div class="content"><a class="title" href="/2026/06/25/%E7%A7%91%E7%A0%94/next%20stage/%E6%96%87%E7%8C%AE%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%B8%80%EF%BC%89/" title="文献复现（一）">文献复现（一）</a><time datetime="2026-07-21T03:15:41.000Z" title="更新于 2026-07-21 11:15:41">2026-07-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/07/08/%E7%A7%91%E7%A0%94/next%20stage/%E7%B2%BE%E7%B2%A4%E5%8F%8C%E8%B7%AFX99%E5%AF%A8%E6%9D%BF%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="从零打造的outdated工作站"><img src="/2026/07/08/%E7%A7%91%E7%A0%94/next%20stage/%E7%B2%BE%E7%B2%A4%E5%8F%8C%E8%B7%AFX99%E5%AF%A8%E6%9D%BF%E6%9C%8D%E5%8A%A1%E5%99%A8/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="从零打造的outdated工作站"/></a><div class="content"><a class="title" href="/2026/07/08/%E7%A7%91%E7%A0%94/next%20stage/%E7%B2%BE%E7%B2%A4%E5%8F%8C%E8%B7%AFX99%E5%AF%A8%E6%9D%BF%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="从零打造的outdated工作站">从零打造的outdated工作站</a><time datetime="2026-07-21T03:15:41.000Z" title="更新于 2026-07-21 11:15:41">2026-07-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/" title="VASP学习笔记"><img src="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="VASP学习笔记"/></a><div class="content"><a class="title" href="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/" title="VASP学习笔记">VASP学习笔记</a><time datetime="2026-07-15T14:12:08.000Z" title="更新于 2026-07-15 22:12:08">2026-07-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/02/08/hexo%E5%8D%9A%E5%AE%A2%E5%AE%89%E8%A3%85/" title="hexo框架下博客的改造与主题迁移"><img src="/2026/02/08/hexo%E5%8D%9A%E5%AE%A2%E5%AE%89%E8%A3%85/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="hexo框架下博客的改造与主题迁移"/></a><div class="content"><a class="title" href="/2026/02/08/hexo%E5%8D%9A%E5%AE%A2%E5%AE%89%E8%A3%85/" title="hexo框架下博客的改造与主题迁移">hexo框架下博客的改造与主题迁移</a><time datetime="2026-06-23T05:14:11.000Z" title="更新于 2026-06-23 13:14:11">2026-06-23</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/2025/03/04/%E7%A7%91%E7%A0%94/first%20stage/20250304/cover.png);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Storm Talia</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">欢迎来到我的个人博客！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="/js/tw_cn.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://comments.hydrogen1222.com.cn',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://comments.hydrogen1222.com.cn',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script defer src="/js/blog-music-config.js?v=09fd9ee6"></script><script defer src="/js/blog-music-player.js?v=f792ab00"></script><script defer src="/js/toc-h1-fix.js?v=7f7bc652"></script><canvas class="fireworks" mobile="true"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/fireworks.min.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="嗖一下~好奇宝宝~😯" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.4"></script></div></div></body></html>

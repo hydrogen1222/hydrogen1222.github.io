@@ -1,0 +1,278 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Storm's Storehouse - 啦啦啦的百宝箱</title><meta name="author" content="Storm Talia"><meta name="copyright" content="Storm Talia"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#FFFFFF"><meta property="og:type" content="website">
+<meta property="og:title" content="Storm&#39;s Storehouse">
+<meta property="og:url" content="https://hydrogen1222.com.cn/index.html">
+<meta property="og:site_name" content="Storm&#39;s Storehouse">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2026/02/08/GvfVnlgAeFHszc3.jpg">
+<meta property="article:author" content="Storm Talia">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2026/02/08/GvfVnlgAeFHszc3.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Storm's Storehouse",
+  "alternateName": [
+    "啦啦啦的百宝箱",
+    "hydrogen1222.com.cn"
+  ],
+  "url": "https://hydrogen1222.com.cn/"
+}</script><link rel="shortcut icon" href="/img/favicon.jpg"><link rel="canonical" href="https://hydrogen1222.com.cn/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#121212')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#FFFFFF')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Storm\'s Storehouse',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'home'
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" /><link rel="stylesheet" href="/css/my-font.css?v=4b3c1e1d" /><link rel="stylesheet" href="/css/music-player.css?v=28cfbdf4" /><meta name="generator" content="Hexo 8.1.2"><script>window.BLOG_MUSIC_PLAYLIST=[{"file":"永遠の夏.m4a","title":"永遠の夏","artist":"Takako Okamura","subtitle":"四つ葉のクローバー","eyebrow":"Stormy Broadcast","ambience":"本地自托管单曲 · 玻璃氛围播放器 · LRC 时序歌词","src":"/music/永遠の夏.m4a?v=02b6f60c","lyricsMode":"dual","loop":false,"sourceUrl":"","sourceLabel":"","lyrics":"/music/永遠の夏.lrc?v=96488512","cover":"/music/永遠の夏.jpg?v=7a883bb7"},{"file":"Believe.m4a","title":"Believe","artist":"Takako Okamura","subtitle":"SOLEIL","eyebrow":"Stormy Broadcast","ambience":"本地自托管单曲 · 玻璃氛围播放器 · LRC 时序歌词","src":"/music/Believe.m4a?v=308895fe","lyricsMode":"dual","loop":false,"sourceUrl":"","sourceLabel":"","lyrics":"/music/Believe.lrc?v=237ea0ce","cover":"/music/Believe.jpg?v=c24f28bf"}];</script></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (false) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div class="bg-animation" id="web_bg" style="background-image: url(https://s2.loli.net/2026/02/09/BCGIy51KPoY2z7Z.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://s2.loli.net/2026/02/08/GvfVnlgAeFHszc3.jpg" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">104</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/guestbook/"><i class="fa-fw fas fa-comments"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url(https://s2.loli.net/2026/02/08/gQkMUcGuZAJH8wW.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Storm's Storehouse</span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/guestbook/"><i class="fa-fw fas fa-comments"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="site-info"><h1 id="site-title">Storm's Storehouse</h1><div id="site_social_icons"><a class="social-icon" href="mailto:2170147489@qq.com" target="_blank" title="你的邮箱"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/img/wechat.jpg" target="_blank" title="微信 (这里通常放二维码图片链接)"><i class="fab fa-weixin"></i></a><a class="social-icon" href="tencent://message/?uin=2170147489" target="_blank" title="QQ"><i class="fab fa-qq"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts nc" id="recent-posts"><div class="recent-post-items"><div class="recent-post-item"><div class="post_cover left"><a href="/2026/07/03/%E7%A7%91%E7%A0%94/next%20stage/%E6%96%87%E7%8C%AE%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="文献复现（二）"><img class="post-bg" src="/2026/07/03/%E7%A7%91%E7%A0%94/next%20stage/%E6%96%87%E7%8C%AE%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%BA%8C%EF%BC%89/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="文献复现（二）"></a></div><div class="recent-post-info"><a class="article-title" href="/2026/07/03/%E7%A7%91%E7%A0%94/next%20stage/%E6%96%87%E7%8C%AE%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="文献复现（二）">文献复现（二）</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-07-03T09:35:00.000Z" title="发表于 2026-07-03 17:35:00">2026-07-03</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/">从零开始的科研之旅</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/next-stage/">next stage</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E5%8C%96%E5%AD%A6/">化学</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E7%A7%91%E7%A0%94/">科研</a></span></div><div class="content">再来看看另一篇计算的文献。  Shyue Ping Ong仍是这篇文章的作者之一，是一篇较短的通讯文章，材料是LGPS(                   #mjx-4c3a788{         display:contents;         mjx-assistive-mml {           user-select: text !important;           clip: auto !important;           color: rgba(0,0,0,0);         }          mjx-container[jax="SVG"] {   direction: ltr; }  mjx-container[jax="SVG"] > svg {   overflow: visible;   min-height: 1px;   min-width: 1px; }  mjx-container[jax="SVG"] > svg a {   fill: blue;   stroke: blue; }  mjx-assistive-mm...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2026/06/25/%E7%A7%91%E7%A0%94/next%20stage/%E6%96%87%E7%8C%AE%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%B8%80%EF%BC%89/" title="文献复现（一）"><img class="post-bg" src="/2026/06/25/%E7%A7%91%E7%A0%94/next%20stage/%E6%96%87%E7%8C%AE%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%B8%80%EF%BC%89/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="文献复现（一）"></a></div><div class="recent-post-info"><a class="article-title" href="/2026/06/25/%E7%A7%91%E7%A0%94/next%20stage/%E6%96%87%E7%8C%AE%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%B8%80%EF%BC%89/" title="文献复现（一）">文献复现（一）</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-06-25T06:35:00.000Z" title="发表于 2026-06-25 14:35:00">2026-06-25</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/">从零开始的科研之旅</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/next-stage/">next stage</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E5%8C%96%E5%AD%A6/">化学</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E7%A7%91%E7%A0%94/">科研</a></span></div><div class="content">需要复现的文献是[Data-Driven First-Principles Methods for the Study and Design of Alkali Superionic Conductors][https://pubs.acs.org/doi/10.1021/acs.chemmater.6b02648]  ¶初筛 这里有必要先了解一下.cif结构文件，从补充材料里面可以获取到，作者说是从ICSD数据中获得的，但是约10年过去了，我在ICSD中没有检索到这个结构，其中的最后几行是这样的： 1234567891011121314151617181920212223242526272829_atom_site_label_atom_site_type_symbol_atom_site_symmetry_multiplicity_atom_site_Wyckoff_symbol_atom_site_fract_x_atom_site_fract_y_atom_site_fract_z_atom_site_B_iso_or_equiv_atom_site_occupancy_...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2026/07/08/%E7%A7%91%E7%A0%94/next%20stage/%E7%B2%BE%E7%B2%A4%E5%8F%8C%E8%B7%AFX99%E5%AF%A8%E6%9D%BF%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="从零打造的outdated工作站"><img class="post-bg" src="/2026/07/08/%E7%A7%91%E7%A0%94/next%20stage/%E7%B2%BE%E7%B2%A4%E5%8F%8C%E8%B7%AFX99%E5%AF%A8%E6%9D%BF%E6%9C%8D%E5%8A%A1%E5%99%A8/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="从零打造的outdated工作站"></a></div><div class="recent-post-info"><a class="article-title" href="/2026/07/08/%E7%A7%91%E7%A0%94/next%20stage/%E7%B2%BE%E7%B2%A4%E5%8F%8C%E8%B7%AFX99%E5%AF%A8%E6%9D%BF%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="从零打造的outdated工作站">从零打造的outdated工作站</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-07-08T06:35:00.000Z" title="发表于 2026-07-08 14:35:00">2026-07-08</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/">从零开始的科研之旅</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/next-stage/">next stage</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E7%A7%91%E7%A0%94/">科研</a></span></div><div class="content">船来啦~船来啦~垃圾佬们纷纷涌到窗前，盼望着大船靠岸的那一刻😢。 LGA3647(C621)大船靠岸可能只是时间问题。在能用上便宜大碗的C621、EYPC 7002/7003之前，还是先看看近处已靠岸的C612吧家人们()。 然而，DDR4 RECC也涨飞了，面对咫尺的众多正规军双路C612主板，比如浪潮5212M4、超微X10DRi、联想RD450X……，只能望洋兴叹。 还好25年初一口气买了8根16GB DDR3 RECC，按理来讲，所有正规军C612，包括御三家（华硕、微星、技嘉，这三家的正规军质量没得说，但现在能买到的很多都是二修的了，个人卖家挺少，且远贵于大船靠岸后的服务器厂商的主板）以及服务器厂商的主板均使用的是DDR4服务器条子，但是在众多正规军双路主板中有一块妖板：英业达代工的X99，支持DDR3内存。 它的前身是作为硬盘服务器来的，所以PCIE插槽少得可怜，且安装显卡极其容易和CPU散热器撞上，  之前买了同款的，不过被我玩坏了，上电反复重启，这种疑难杂症也不太好修，小黄鱼上还剩一块，190R价格也还可以，但是安装显卡的话得用延长线，考虑到这是EEB板型比E-...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/" title="VASP学习笔记"><img class="post-bg" src="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="VASP学习笔记"></a></div><div class="recent-post-info"><a class="article-title" href="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/" title="VASP学习笔记">VASP学习笔记</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-04-14T08:40:00.000Z" title="发表于 2025-04-14 16:40:00">2025-04-14</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/">从零开始的科研之旅</a><i class="fas fa-angle-right article-meta-link"></i><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/VASP/">VASP</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E5%8C%96%E5%AD%A6/">化学</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E7%A7%91%E7%A0%94/">科研</a></span></div><div class="content">VASP概览 VASP是一个复合的软件包，主要功能是从头算量子力学分子动力学模拟，使用赝势方法或者投影增强波+平面波基组的方法（projector-augmented wave，即PAW方法，也是当下VASP最主流的方法）。VASP的技术实现使用高效的矩阵对角化和Pulay/Broyden电荷密度混合算法。原子核附近的真实电子波函数为了满足正交性，振荡得非常剧烈。用平面波这个描述这种剧烈振荡十分困难，由此产生出三种解决方案：  US-PP超软赝势，构造“超软”的赝波函数，在芯区尽量平滑，它是早期VASP的主要方法 PAW投影增强波，它将全电子波函数精确地映射到一条平滑的赝波函数上，是VASP的默认和主流方法 模守恒赝势（NCPP），它的计算成本高，对轻元素尤其明显，是VASP的早期标准，现多用于高精度对比  手册里明确写出：The VASP guide is written for experienced user, although even beginners might find it useful to read。初学者直接上手Wiki会比较困难。 对于任何基于平面波方法...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2026/02/08/hexo%E5%8D%9A%E5%AE%A2%E5%AE%89%E8%A3%85/" title="hexo框架下博客的改造与主题迁移"><img class="post-bg" src="/2026/02/08/hexo%E5%8D%9A%E5%AE%A2%E5%AE%89%E8%A3%85/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="hexo框架下博客的改造与主题迁移"></a></div><div class="recent-post-info"><a class="article-title" href="/2026/02/08/hexo%E5%8D%9A%E5%AE%A2%E5%AE%89%E8%A3%85/" title="hexo框架下博客的改造与主题迁移">hexo框架下博客的改造与主题迁移</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-02-08T11:36:14.000Z" title="发表于 2026-02-08 19:36:14">2026-02-08</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E4%B8%8E%E6%8A%80%E6%9C%AF%EF%BC%9F/">计算机科学与技术？</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%8A%98%E8%85%BE/">折腾</a><span class="article-meta-link">•</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/hexo/">hexo</a></span></div><div class="content">今天对博客大改造一下，一是域名到期了，阿里云的xyz域名续费一年109 ￥，去隔壁腾讯看了一下三年的顶级域名com.cn也才一百出头，故索性把域名更换了，二是之前用的主题不太习惯，也停更很久了，三是想弄一个游客向的评论系统，于是有了本篇文档。记录一下，免得以后忘记。 操作系统为Windows 11 25H2，An ab-initio construction😄~ ¶安装Node.js 在Windows平台，通过取得管理员权限的PowerShell进行安装，首先允许执行脚本： 1set-executionpolicy remotesigned 然后安装包管理工具Chocolatey，执行： 1powershell -c &quot;irm https://community.chocolatey.org/install.ps1|iex&quot; 接着安装Node.js： 1choco install nodejs --version=&quot;24.13.0&quot; 再新开一个终端应该就能看到输出： 1node -v # Should print &quot;v24.13...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2026/04/17/%E8%AE%A1%E7%AE%97%E6%9C%BA/Hermes%20Agent%E5%B0%9D%E9%B2%9C/" title="Hermes Agent尝鲜"><img class="post-bg" src="/2026/04/17/%E8%AE%A1%E7%AE%97%E6%9C%BA/Hermes%20Agent%E5%B0%9D%E9%B2%9C/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="Hermes Agent尝鲜"></a></div><div class="recent-post-info"><a class="article-title" href="/2026/04/17/%E8%AE%A1%E7%AE%97%E6%9C%BA/Hermes%20Agent%E5%B0%9D%E9%B2%9C/" title="Hermes Agent尝鲜">Hermes Agent尝鲜</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-04-17T02:36:14.000Z" title="发表于 2026-04-17 10:36:14">2026-04-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E4%B8%8E%E6%8A%80%E6%9C%AF%EF%BC%9F/">计算机科学与技术？</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%8A%98%E8%85%BE/">折腾</a></span></div><div class="content">之前一百多捡了一台小主机，安装的CatOS，基于Arch Linux的发行版，准备养龙虾的，结果部署好了发现非常难用，最近Hermes Agent挺火热的，来试试水。 如图，配置真挺差的，用的ssh远程访问： 1234567891011121314151617storm-tobefilledbyoem# fastfetch        #####            root@storm-tobefilledbyoem       #######           --------------------------       ##O#O##           OS: CatOS x86_64       #######           Kernel: Linux 6.19.10-arch1-1     ###########         Uptime: 17 mins    #############        Packages: 1131 (pacman)   ###############       Shell: zsh 5.9   ########...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2026/04/17/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E4%B8%80%E6%AC%BE%E9%9F%B3%E9%A2%91%E5%8F%AF%E8%A7%86%E5%8C%96%E8%BD%AF%E4%BB%B6/" title="StormyPulse"><img class="post-bg" src="/2026/04/17/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E4%B8%80%E6%AC%BE%E9%9F%B3%E9%A2%91%E5%8F%AF%E8%A7%86%E5%8C%96%E8%BD%AF%E4%BB%B6/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="StormyPulse"></a></div><div class="recent-post-info"><a class="article-title" href="/2026/04/17/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E4%B8%80%E6%AC%BE%E9%9F%B3%E9%A2%91%E5%8F%AF%E8%A7%86%E5%8C%96%E8%BD%AF%E4%BB%B6/" title="StormyPulse">StormyPulse</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-04-17T02:36:14.000Z" title="发表于 2026-04-17 10:36:14">2026-04-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E4%B8%8E%E6%8A%80%E6%9C%AF%EF%BC%9F/">计算机科学与技术？</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%8A%98%E8%85%BE/">折腾</a></span></div><div class="content">一款可视化的音频播放器，支持视频导出，特效由纯CPU渲染。 很早之前就想做这么个玩意，我认为歌曲中一定有某种“特征”，将歌曲与歌曲之间区分开来，比如所谓的“流行歌曲”与“古典音乐”就是不同的派别，这个软件旨在尽可能多地提取一些特征，然后使用相应的数学公式量化，再用特效的方式呈现出来，达到“音频可视化”的效果。惭愧的说，本人并没有深入学习过相关的知识，大部分的功劳归功于AI Agent：  Codex(GPT-Codex 5.3) Gemini-cli(Gemini-3.1-pro-preview) Antigravity(Claude Opus 4.6) Claude Code(Minimax-M2.7) 音频可视化的实现效果如下：  视频导出效果：  当然，视频导出压制需要依赖本地的FFmpeg，发布了16:9和9:16的两个视频： https://www.bilibili.com/video/BV17FD1BmEhe/?spm_id_from=333.1387.homepage.video_card.click&amp;vd_source=4b4b0bce46607b3376...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2026/05/09/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E5%90%AC%E8%A7%81%E5%A3%B0%E9%9F%B3/" title="玩转人声"><img class="post-bg" src="/2026/05/09/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E5%90%AC%E8%A7%81%E5%A3%B0%E9%9F%B3/Cover.jpg" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="玩转人声"></a></div><div class="recent-post-info"><a class="article-title" href="/2026/05/09/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E5%90%AC%E8%A7%81%E5%A3%B0%E9%9F%B3/" title="玩转人声">玩转人声</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-05-09T07:36:14.000Z" title="发表于 2026-05-09 15:36:14">2026-05-09</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E4%B8%8E%E6%8A%80%E6%9C%AF%EF%BC%9F/">计算机科学与技术？</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%8A%98%E8%85%BE/">折腾</a></span></div><div class="content">使用的显卡是前几天99捡的P104-100 8GB，亮机卡是AMD R9 270，通过cockpit和ssh访问。CUDA版本如下： 1234567891011121314151617181920212223storm@gentoo ~/HDD $ nvidia-smiTue Apr 28 03:16:41 2026       +-----------------------------------------------------------------------------------------+| NVIDIA-SMI 580.126.18             Driver Version: 580.126.18     CUDA Version: 13.0     |+-----------------------------------------+------------------------+----------------------+| GPU  Name                 Persistence-M | Bus-Id        ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2026/06/21/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E5%90%84%E5%AE%B6%E5%8E%82%E5%95%86%E7%9A%84%E5%A4%A7%E6%A8%A1%E5%9E%8BAPI%E5%AF%B9%E6%AF%94/" title="各家厂商的大模型API对比"><img class="post-bg" src="/2026/06/21/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E5%90%84%E5%AE%B6%E5%8E%82%E5%95%86%E7%9A%84%E5%A4%A7%E6%A8%A1%E5%9E%8BAPI%E5%AF%B9%E6%AF%94/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="各家厂商的大模型API对比"></a></div><div class="recent-post-info"><a class="article-title" href="/2026/06/21/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E5%90%84%E5%AE%B6%E5%8E%82%E5%95%86%E7%9A%84%E5%A4%A7%E6%A8%A1%E5%9E%8BAPI%E5%AF%B9%E6%AF%94/" title="各家厂商的大模型API对比">各家厂商的大模型API对比</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-06-21T03:36:14.000Z" title="发表于 2026-06-21 11:36:14">2026-06-21</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E4%B8%8E%E6%8A%80%E6%9C%AF%EF%BC%9F/">计算机科学与技术？</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%8A%98%E8%85%BE/">折腾</a></span></div><div class="content">   厂商 模型 输入价格(缓存命中|缓存未命中，单位¥) 输出价格 备注     Moonshot AI kimi-k2.5 0.7|4 21    Moonshot AI kimi-k2.6 1.1|6.5 27    Moonshot AI kimi-k2.7-code 1.3|6.5 27    Moonshot AI kimi-k2.7-code-highspeed 2.6|13 54    Moonshot AI moonshot-v1-8k 2 10 通用大模型基座？   Moonshot AI moonshot-v1-32k 5 20 通用大模型基座？   Moonshot AI moonshot-v1-128k 10 30 通用大模型基座？   Moonshot AI moonshot-v1-8k-vision-preview 2 10 通用大模型基座？   Moonshot AI moonshot-v1-32k-vision-preview 5 20 通用大模型基座？   Moonshot AI moonshot-v1-128k-vision-preview ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2026/05/17/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E4%BD%BF%E7%94%A8%E9%9D%99%E6%80%81%E5%8E%9F%E7%94%9F%E5%AE%B6%E5%BA%ADIP/" title="使用静态原生家庭IP"><img class="post-bg" src="/2026/05/17/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E4%BD%BF%E7%94%A8%E9%9D%99%E6%80%81%E5%8E%9F%E7%94%9F%E5%AE%B6%E5%BA%ADIP/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="使用静态原生家庭IP"></a></div><div class="recent-post-info"><a class="article-title" href="/2026/05/17/%E8%AE%A1%E7%AE%97%E6%9C%BA/%E4%BD%BF%E7%94%A8%E9%9D%99%E6%80%81%E5%8E%9F%E7%94%9F%E5%AE%B6%E5%BA%ADIP/" title="使用静态原生家庭IP">使用静态原生家庭IP</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2026-05-17T09:36:14.000Z" title="发表于 2026-05-17 17:36:14">2026-05-17</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6%E4%B8%8E%E6%8A%80%E6%9C%AF%EF%BC%9F/">计算机科学与技术？</a></span><span class="article-meta tags"><span class="article-meta-separator">|</span><i class="fas fa-tag"></i><a class="article-meta__tags" href="/tags/%E6%8A%98%E8%85%BE/">折腾</a></span></div><div class="content">早上醒来一看，ChatGPT号被封了😢：  之前用上低价的pro 5x并且发现5小时限额根本用不完时：奥特曼的恩情还不完🖐️😭🖐️ 之前低价的pro 5x用了不到一周掉订阅&amp;感觉还没蹬爽：奥特曼你坏事做尽😭 今早发现正价充的plus会员号直接被封了：O畜😡😠💢  尽管如此，现在感觉OpenAI还是最优的选择，模型能力顶尖还有还是多模态的，Gemini能力不行，A畜过于畜生，国内的GLM抢不着，DeepSeek没有订阅方案，Minimax💩中💩，这辈子不会再用它编程了，Kimi的订阅听说额度不太透明，也不够，能力也不太信任。  感觉封号是因为网络问题，希望是网络问题吧。当前使用的网络方案有两个：  RackNerd的VPS，原生纯净的IP，但是是机房IP，机房位于圣克拉拉 某个万人骑的机场，速度比较快，但是是原生的万人骑机房IP 这俩访问其实都有一定的风险，只是今天突然被封了。  接下来尝试套一个原生的静态家庭IP，这样会安全很多，考虑到有机房VPS的完全控制权（root权限），因此最后的方案大概是VPS+住宅IP的形式。 在cliproxy上买了一个美...</div></div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span><a class="page-number" href="/page/2/#content-inner">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/#content-inner">11</a><a class="extend next" rel="next" href="/page/2/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://s2.loli.net/2026/02/08/GvfVnlgAeFHszc3.jpg" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="avatar"/></div><div class="author-info-name">Storm Talia</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">104</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hydrogen1222"><i class="fab fa-github"></i><span>GitHub</span></a><div class="card-info-social-icons"><a class="social-icon" href="mailto:2170147489@qq.com" target="_blank" title="你的邮箱"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/img/wechat.jpg" target="_blank" title="微信 (这里通常放二维码图片链接)"><i class="fab fa-weixin"></i></a><a class="social-icon" href="tencent://message/?uin=2170147489" target="_blank" title="QQ"><i class="fab fa-qq"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">哈喽！</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/07/03/%E7%A7%91%E7%A0%94/next%20stage/%E6%96%87%E7%8C%AE%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="文献复现（二）"><img src="/2026/07/03/%E7%A7%91%E7%A0%94/next%20stage/%E6%96%87%E7%8C%AE%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%BA%8C%EF%BC%89/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="文献复现（二）"/></a><div class="content"><a class="title" href="/2026/07/03/%E7%A7%91%E7%A0%94/next%20stage/%E6%96%87%E7%8C%AE%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="文献复现（二）">文献复现（二）</a><time datetime="2026-07-21T03:47:39.000Z" title="更新于 2026-07-21 11:47:39">2026-07-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/06/25/%E7%A7%91%E7%A0%94/next%20stage/%E6%96%87%E7%8C%AE%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%B8%80%EF%BC%89/" title="文献复现（一）"><img src="/2026/06/25/%E7%A7%91%E7%A0%94/next%20stage/%E6%96%87%E7%8C%AE%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%B8%80%EF%BC%89/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="文献复现（一）"/></a><div class="content"><a class="title" href="/2026/06/25/%E7%A7%91%E7%A0%94/next%20stage/%E6%96%87%E7%8C%AE%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%B8%80%EF%BC%89/" title="文献复现（一）">文献复现（一）</a><time datetime="2026-07-21T03:15:41.000Z" title="更新于 2026-07-21 11:15:41">2026-07-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/07/08/%E7%A7%91%E7%A0%94/next%20stage/%E7%B2%BE%E7%B2%A4%E5%8F%8C%E8%B7%AFX99%E5%AF%A8%E6%9D%BF%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="从零打造的outdated工作站"><img src="/2026/07/08/%E7%A7%91%E7%A0%94/next%20stage/%E7%B2%BE%E7%B2%A4%E5%8F%8C%E8%B7%AFX99%E5%AF%A8%E6%9D%BF%E6%9C%8D%E5%8A%A1%E5%99%A8/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="从零打造的outdated工作站"/></a><div class="content"><a class="title" href="/2026/07/08/%E7%A7%91%E7%A0%94/next%20stage/%E7%B2%BE%E7%B2%A4%E5%8F%8C%E8%B7%AFX99%E5%AF%A8%E6%9D%BF%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="从零打造的outdated工作站">从零打造的outdated工作站</a><time datetime="2026-07-21T03:15:41.000Z" title="更新于 2026-07-21 11:15:41">2026-07-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/" title="VASP学习笔记"><img src="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="VASP学习笔记"/></a><div class="content"><a class="title" href="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/" title="VASP学习笔记">VASP学习笔记</a><time datetime="2026-07-15T14:12:08.000Z" title="更新于 2026-07-15 22:12:08">2026-07-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/02/08/hexo%E5%8D%9A%E5%AE%A2%E5%AE%89%E8%A3%85/" title="hexo框架下博客的改造与主题迁移"><img src="/2026/02/08/hexo%E5%8D%9A%E5%AE%A2%E5%AE%89%E8%A3%85/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="hexo框架下博客的改造与主题迁移"/></a><div class="content"><a class="title" href="/2026/02/08/hexo%E5%8D%9A%E5%AE%A2%E5%AE%89%E8%A3%85/" title="hexo框架下博客的改造与主题迁移">hexo框架下博客的改造与主题迁移</a><time datetime="2026-06-23T05:14:11.000Z" title="更新于 2026-06-23 13:14:11">2026-06-23</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+      <i class="fas fa-angle-right"></i></a>
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Stormy-English/"><span class="card-category-list-name">Stormy English</span><span class="card-category-list-count">26</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Stormy-English/Stupid-Words/"><span class="card-category-list-name">Stupid Words</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Stormy-English/TED-Ed/"><span class="card-category-list-name">TED-Ed</span><span class="card-category-list-count">12</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Stormy-English/The-Atlantic/"><span class="card-category-list-name">The Atlantic</span><span class="card-category-list-count">5</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Stormy-English/The-Atlantic/April/"><span class="card-category-list-name">April</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Stormy-English/The-Atlantic/March/"><span class="card-category-list-name">March</span><span class="card-category-list-count">4</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Stormy-English/%E8%B5%96%E4%B8%96%E9%9B%84%E9%AB%98%E7%BA%A7%E7%BE%8E%E8%AF%AD/"><span class="card-category-list-name">赖世雄高级美语</span><span class="card-category-list-count">8</span></a></li></ul></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E4%B8%80%E4%BA%9B%E6%9D%82%E8%B0%88/"><span class="card-category-list-name">一些杂谈</span><span class="card-category-list-count">3</span></a></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/Linux/" style="font-size: 1.16em; color: #999b9e">Linux</a> <a href="/tags/%E7%A7%91%E7%A0%94/" style="font-size: 1.44em; color: #99a7ba">科研</a> <a href="/tags/English/" style="font-size: 1.1em; color: #999">English</a> <a href="/tags/%E6%B2%89%E6%80%9D%E5%BD%95/" style="font-size: 1.27em; color: #99a0a9">沉思录</a> <a href="/tags/English-Learning/" style="font-size: 1.39em; color: #99a4b4">English Learning</a> <a href="/tags/%E8%AE%B8%E7%BE%8E%E9%9D%99/" style="font-size: 1.16em; color: #999b9e">许美静</a> <a href="/tags/Learning/" style="font-size: 1.1em; color: #999">Learning</a> <a href="/tags/%E6%8A%98%E8%85%BE/" style="font-size: 1.33em; color: #99a2af">折腾</a> <a href="/tags/hexo/" style="font-size: 1.1em; color: #999">hexo</a> <a href="/tags/AI/" style="font-size: 1.1em; color: #999">AI</a> <a href="/tags/Gentoo/" style="font-size: 1.1em; color: #999">Gentoo</a> <a href="/tags/%E9%AB%98%E5%88%86%E5%AD%90%E7%89%A9%E7%90%86/" style="font-size: 1.21em; color: #999ea4">高分子物理</a> <a href="/tags/%E6%AD%8C%E8%AF%8D/" style="font-size: 1.16em; color: #999b9e">歌词</a> <a href="/tags/%E5%8C%96%E5%AD%A6/" style="font-size: 1.5em; color: #99a9bf">化学</a> <a href="/tags/%E9%94%82%E7%94%B5%E6%B1%A0%E5%9F%BA%E7%A1%80%E7%A7%91%E5%AD%A6/" style="font-size: 1.16em; color: #999b9e">锂电池基础科学</a></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>归档</span>
+      <a class="card-more-btn" href="/archives/"
+            title="查看更多">
+            <i class="fas fa-angle-right"></i>
+          </a>
+    </div>
+  
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/07/">
+            <span class="card-archive-list-date">
+              七月 2026
+            </span>
+            <span class="card-archive-list-count">4</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/06/">
+            <span class="card-archive-list-date">
+              六月 2026
+            </span>
+            <span class="card-archive-list-count">4</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/05/">
+            <span class="card-archive-list-date">
+              五月 2026
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/04/">
+            <span class="card-archive-list-date">
+              四月 2026
+            </span>
+            <span class="card-archive-list-count">3</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/03/">
+            <span class="card-archive-list-date">
+              三月 2026
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/02/">
+            <span class="card-archive-list-date">
+              二月 2026
+            </span>
+            <span class="card-archive-list-count">3</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/12/">
+            <span class="card-archive-list-date">
+              十二月 2025
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/11/">
+            <span class="card-archive-list-date">
+              十一月 2025
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">104</div></div><div class="webinfo-item"><div class="item-name">运行时间 :</div><div class="item-count" id="runtimeshow" data-publishDate="2025-02-23T18:00:00.000Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">652.8k</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-07-21T04:22:00.581Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(https://s2.loli.net/2026/02/08/gQkMUcGuZAJH8wW.jpg);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Storm Talia</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">欢迎来到我的个人博客！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="/js/tw_cn.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><div class="js-pjax"></div><script defer src="/js/blog-music-config.js?v=09fd9ee6"></script><script defer src="/js/blog-music-player.js?v=f792ab00"></script><script defer src="/js/toc-h1-fix.js?v=7f7bc652"></script><canvas class="fireworks" mobile="true"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/fireworks.min.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="嗖一下~好奇宝宝~😯" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.4"></script></div></div></body></html>

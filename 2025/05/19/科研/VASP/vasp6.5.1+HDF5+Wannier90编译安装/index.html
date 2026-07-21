@@ -1,0 +1,391 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>vasp.6.5.1+HDF6+Wannier90的编译安装 | Storm's Storehouse</title><meta name="author" content="Storm Talia"><meta name="copyright" content="Storm Talia"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#FFFFFF"><meta name="description" content="后记 重新安装了Rocky Linux10，并安装了Slurm作业系统，尝试编译安装vasp，由于用的Rocky10，gcc等各种套件都比较新，折腾麻了，各种编译报错，干脆换到了较新的vasp.6.5.1版本，一遍过！ ¶编译HDF5 编译HDF5部分内容参考了教程：https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;617261007 编译安装HDF5之前需要先编译安装它的依赖zlib😂">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vasp.6.5.1+HDF6+Wannier90的编译安装">
+<meta property="og:url" content="https://hydrogen1222.com.cn/2025/05/19/%E7%A7%91%E7%A0%94/VASP/vasp6.5.1+HDF5+Wannier90%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/index.html">
+<meta property="og:site_name" content="Storm&#39;s Storehouse">
+<meta property="og:description" content="后记 重新安装了Rocky Linux10，并安装了Slurm作业系统，尝试编译安装vasp，由于用的Rocky10，gcc等各种套件都比较新，折腾麻了，各种编译报错，干脆换到了较新的vasp.6.5.1版本，一遍过！ ¶编译HDF5 编译HDF5部分内容参考了教程：https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;617261007 编译安装HDF5之前需要先编译安装它的依赖zlib😂">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hydrogen1222.com.cn/2025/05/19/%E7%A7%91%E7%A0%94/VASP/vasp6.5.1+HDF5+Wannier90%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/cover.png">
+<meta property="article:published_time" content="2025-05-19T08:40:40.000Z">
+<meta property="article:modified_time" content="2026-03-30T09:17:47.000Z">
+<meta property="article:author" content="Storm Talia">
+<meta property="article:tag" content="化学">
+<meta property="article:tag" content="科研">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://hydrogen1222.com.cn/2025/05/19/%E7%A7%91%E7%A0%94/VASP/vasp6.5.1+HDF5+Wannier90%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/cover.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "vasp.6.5.1+HDF6+Wannier90的编译安装",
+  "url": "https://hydrogen1222.com.cn/2025/05/19/%E7%A7%91%E7%A0%94/VASP/vasp6.5.1+HDF5+Wannier90%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/",
+  "image": "https://hydrogen1222.com.cn/2025/05/19/%E7%A7%91%E7%A0%94/VASP/vasp6.5.1+HDF5+Wannier90%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/cover.png",
+  "datePublished": "2025-05-19T08:40:40.000Z",
+  "dateModified": "2026-03-30T09:17:47.000Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Storm Talia",
+      "url": "https://hydrogen1222.com.cn"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.jpg"><link rel="canonical" href="https://hydrogen1222.com.cn/2025/05/19/%E7%A7%91%E7%A0%94/VASP/vasp6.5.1+HDF5+Wannier90%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#121212')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#FFFFFF')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.json","preload":false,"top_n_per_article":1,"unescape":false,"pagination":{"enable":false,"hitsPerPage":8},"languages":{"hits_empty":"未找到符合您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'vasp.6.5.1+HDF6+Wannier90的编译安装',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css" /><link rel="stylesheet" href="/css/my-font.css?v=4b3c1e1d" /><link rel="stylesheet" href="/css/music-player.css?v=28cfbdf4" /><meta name="generator" content="Hexo 8.1.2"><script>window.BLOG_MUSIC_PLAYLIST=[{"file":"永遠の夏.m4a","title":"永遠の夏","artist":"Takako Okamura","subtitle":"四つ葉のクローバー","eyebrow":"Stormy Broadcast","ambience":"本地自托管单曲 · 玻璃氛围播放器 · LRC 时序歌词","src":"/music/永遠の夏.m4a?v=02b6f60c","lyricsMode":"dual","loop":false,"sourceUrl":"","sourceLabel":"","lyrics":"/music/永遠の夏.lrc?v=96488512","cover":"/music/永遠の夏.jpg?v=7a883bb7"},{"file":"Believe.m4a","title":"Believe","artist":"Takako Okamura","subtitle":"SOLEIL","eyebrow":"Stormy Broadcast","ambience":"本地自托管单曲 · 玻璃氛围播放器 · LRC 时序歌词","src":"/music/Believe.m4a?v=308895fe","lyricsMode":"dual","loop":false,"sourceUrl":"","sourceLabel":"","lyrics":"/music/Believe.lrc?v=237ea0ce","cover":"/music/Believe.jpg?v=c24f28bf"}];</script></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      if ($loadingBox.classList.contains('loaded')) return
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+
+  if (document.readyState === 'complete') {
+    preloader.endLoading()
+  } else {
+    window.addEventListener('load', preloader.endLoading)
+    document.addEventListener('DOMContentLoaded', preloader.endLoading)
+    // Add timeout protection: force end after 7 seconds
+    setTimeout(preloader.endLoading, 7000)
+  }
+
+  if (false) {
+    btf.addGlobalFn('pjaxSend', preloader.initLoading, 'preloader_init')
+    btf.addGlobalFn('pjaxComplete', preloader.endLoading, 'preloader_end')
+  }
+})()</script><div class="bg-animation" id="web_bg" style="background-image: url(https://s2.loli.net/2026/02/09/BCGIy51KPoY2z7Z.jpg);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://s2.loli.net/2026/02/08/GvfVnlgAeFHszc3.jpg" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">104</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/guestbook/"><i class="fa-fw fas fa-comments"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/2025/05/19/%E7%A7%91%E7%A0%94/VASP/vasp6.5.1+HDF5+Wannier90%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/cover.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Storm's Storehouse</span></a><a class="nav-page-title" href="/"><span class="site-name">vasp.6.5.1+HDF6+Wannier90的编译安装</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div id="search-button"><span class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></span></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/guestbook/"><i class="fa-fw fas fa-comments"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">vasp.6.5.1+HDF6+Wannier90的编译安装</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-05-19T08:40:40.000Z" title="发表于 2025-05-19 16:40:40">2025-05-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-03-30T09:17:47.000Z" title="更新于 2026-03-30 17:17:47">2026-03-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/">从零开始的科研之旅</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E7%A7%91%E7%A0%94%E4%B9%8B%E6%97%85/VASP/">VASP</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">总字数:</span><span class="word-count">2.7k</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1>后记</h1>
+<p>重新安装了<code>Rocky Linux10</code>，并安装了<code>Slurm</code>作业系统，尝试编译安装<code>vasp</code>，由于用的<code>Rocky10</code>，gcc等各种套件都比较新，折腾麻了，各种编译报错，干脆换到了较新的<code>vasp.6.5.1</code>版本，一遍过！</p>
+<h2 id="编译HDF5"><a class="header-anchor" href="#编译HDF5">¶</a>编译HDF5</h2>
+<p>编译<code>HDF5</code>部分内容参考了教程：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/617261007">https://zhuanlan.zhihu.com/p/617261007</a></p>
+<p>编译安装<code>HDF5</code>之前需要先编译安装它的依赖<code>zlib</code>😂，首先去官网<a target="_blank" rel="noopener" href="https://www.zlib.net/%EF%BC%8C%E7%9B%AE%E5%89%8D%E6%9C%80%E6%96%B0%E7%9A%84%E7%9A%84%E7%89%88%E6%9C%AC%E6%98%AF%60zlib">https://www.zlib.net/，目前最新的的版本是`zlib</a> 1.3.1<code>，下载源代码source code，哪种格式的都行，我的工作站有网就直接用</code>wget`了：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://www.zlib.net/zlib-1.3.1.tar.gz</span><br></pre></td></tr></table></figure>
+<p>没网的集群自己下载到本地计算机再上传到集群上。</p>
+<p>解压、配置、编译、测试、安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf zlib-1.3.1.tar.gz</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure --prefix=install_directory</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make -jN</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make install</span><br></pre></td></tr></table></figure>
+<p>接下来安装<code>szip</code>，官网(<a target="_blank" rel="noopener" href="https://docs.hdfgroup.org/archive/support/doc_resource/SZIP/index.html">https://docs.hdfgroup.org/archive/support/doc_resource/SZIP/index.html</a>)同样只提供了源代码，需要编译安装，安装过程大差不差，类似的</p>
+<p>接下来编译安装<code>HDF5</code>，官网打开比较慢、、、目前最新版本是<code>1.14.6</code>，使用<code>1.14.5</code>版本编译成功</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://support.hdfgroup.org/releases/hdf5/v1_14/v1_14_6/downloads/hdf5-1.14.6.tar.gz</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf hdf5-1.14.6.tar.gz</span><br></pre></td></tr></table></figure>
+<p>接下来是配置，需要使用intel的编译器，所有首先需要安装intel的<code>oneapi</code>套件，安装下面这些：</p>
+<p><img src="vasp6.5.1+HDF5+Wannier90%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/image-20250916212752349.png" alt="intel的C++编译器，部分组件会捆绑其他组件"></p>
+<p><img src="vasp6.5.1+HDF5+Wannier90%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/image-20250916212947895.png" alt="intel的fortran编译器"></p>
+<p>需要格外注意，我是用的是最新版的<code>oneapi</code>套件，已经删除了对<code>icc</code>、<code>ifort</code>的支持，所以需要注意<code>CC</code>、<code>FC</code>、<code>CXX</code>的写法</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">./configure --prefix=/opt/apps/vasp.6.5.1/hdf5/hdf5 \</span><br><span class="line">	--enable-fortran \</span><br><span class="line">	--with-zlib=/opt/apps/vasp.6.5.1/hdf5/dependences/zlib \</span><br><span class="line">	--with-szlib=/opt/apps/vasp.6.5.1/hdf5/dependencies/szip \</span><br><span class="line">	--enable-shared \</span><br><span class="line">	--enable-parallel \</span><br><span class="line">	CC=mpiicx \</span><br><span class="line">	FC=mpiifx \</span><br><span class="line">	CXX=mpiicpx</span><br></pre></td></tr></table></figure>
+<p>接着编译、测试、安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make -jN</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make check</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make install</span><br></pre></td></tr></table></figure>
+<h2 id="Wannier安装"><a class="header-anchor" href="#Wannier安装">¶</a>Wannier安装</h2>
+<p>接下来编译安装<code>Wannier90</code>，官网是<a target="_blank" rel="noopener" href="https://wannier.org/download/%EF%BC%8C%E4%B8%8B%E8%BD%BD%EF%BC%9A">https://wannier.org/download/，下载：</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/wannier-developers/wannier90/archive/v3.1.0.tar.gz</span><br></pre></td></tr></table></figure>
+<p>然后是解压，接着拷贝<code>config</code>文件夹中的模板：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> config/make.inc.ifort make.inc</span><br></pre></td></tr></table></figure>
+<p><code>Wannier90</code>的模板并没有调整，依然使用的<code>ifort</code>，然鹅Intel已经废弃了<code>ifort</code>，所以得手动修改一下模板了，把<code>ifort</code>改成<code>ifx</code>，依此类推，改完后的模板如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">root@cernet2:~/Wannier90/wannier90-3.1.0# <span class="built_in">cat</span> make.inc </span><br><span class="line"></span><br><span class="line"><span class="comment">#=====================================================</span></span><br><span class="line"><span class="comment"># For Linux with intel version 11/12 on 64bit machines</span></span><br><span class="line"><span class="comment">#=====================================================</span></span><br><span class="line">F90 = ifx</span><br><span class="line">COMMS=mpi</span><br><span class="line">MPIF90=mpiifx</span><br><span class="line">FCOPTS=-O2</span><br><span class="line">LDOPTS=-O2</span><br><span class="line"></span><br><span class="line"><span class="comment">#========================================================</span></span><br><span class="line"><span class="comment"># Intel mkl libraries. Set LIBPATH if not in default path</span></span><br><span class="line"><span class="comment">#========================================================</span></span><br><span class="line"></span><br><span class="line">LIBDIR = /opt/intel/mkl/lib/intel64</span><br><span class="line">LIBS   =  -L$(LIBDIR) -lmkl_core -lmkl_intel_lp64 -lmkl_sequential -lpthread</span><br><span class="line"></span><br><span class="line"><span class="comment">#=======================</span></span><br><span class="line"><span class="comment"># ATLAS Blas and LAPACK</span></span><br><span class="line"><span class="comment">#=======================</span></span><br><span class="line"><span class="comment">#LIBDIR = /usr/local/lib</span></span><br><span class="line"><span class="comment">#LIBS = -L$(LIBDIR)  -llapack -lf77blas -lcblas -latlas</span></span><br></pre></td></tr></table></figure>
+<p>接着编译吧：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make -jN</span><br></pre></td></tr></table></figure>
+<p>再编译库：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make lib -jN</span><br></pre></td></tr></table></figure>
+<p>最终，得到了两个重要的文件：<code>wannier90.x</code>和<code>libwannier.a</code>，记住这两个文件所在的目录，</p>
+<h2 id="VTST的安装"><a class="header-anchor" href="#VTST的安装">¶</a>VTST的安装</h2>
+<p><code>VTST</code>，是一个”插件“，随着<code>vasp</code>的编译而安装，首先下载<code>VTST</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://theory.cm.utexas.edu/code/vtstcode-209.tgz</span><br></pre></td></tr></table></figure>
+<p>参考官网的安装过程，需要修改源代码，谨慎且小麻烦，<a target="_blank" rel="noopener" href="https://theory.cm.utexas.edu/vtsttools/installation.html">https://theory.cm.utexas.edu/vtsttools/installation.html</a></p>
+<p>按照教程修改vasp的<code>main.F</code>源代码，源代码都在<code>src</code>目录内</p>
+<p><img src="vasp6.5.1+HDF5+Wannier90%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/image-20250919165649395.png" alt="修改main.F，记得备份源码"></p>
+<p><img src="vasp6.5.1+HDF5+Wannier90%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/image-20250919165729633.png" alt="修改main.F，记得备份源码"></p>
+<p>接着将<code>VTST</code>文件夹下的所有源码文件复制到<code>vasp</code>的源码文件夹内，此时会覆盖掉<code>chain.F</code></p>
+<p>然后修改<code>.objects</code></p>
+<p><img src="vasp6.5.1+HDF5+Wannier90%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/image-20250919170037549.png" alt="修改.object，记得备份"></p>
+<p>接着修改<code>源码目录</code>内的<code>makefile</code>文件，将其中的某一行由：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LIB=lib parser</span><br></pre></td></tr></table></figure>
+<p>修改为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LIB= lib parser pyamff_fortran</span><br></pre></td></tr></table></figure>
+<p>我编译<code>vasp</code>时为了加快编译速度，需要并行编译，因此也需要将：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dependencies: sources</span><br></pre></td></tr></table></figure>
+<p>修改为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dependencies: sources libs</span><br></pre></td></tr></table></figure>
+<p>至此，<code>VTST</code>需要做的已经完成了，开始编译<code>vasp</code>吧~~</p>
+<h2 id="编译vasp"><a class="header-anchor" href="#编译vasp">¶</a>编译vasp</h2>
+<p>使用<code>makefile.include.oneapi</code>这个模板，这个模板已经适配了新版的<code>intel</code>套件，只需要修改<code>hdf5</code>和<code>wannier90</code>这两个地方就行，本次编译使用了<code>比较激进</code>的方案，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"># Default precompiler options</span><br><span class="line">CPP_OPTIONS = -DHOST=\&quot;LinuxIFC\&quot; \</span><br><span class="line">              -DMPI -DMPI_BLOCK=8000 -Duse_collective \</span><br><span class="line">              -DscaLAPACK \</span><br><span class="line">              -DCACHE_SIZE=4000 \</span><br><span class="line">              -Davoidalloc \</span><br><span class="line">              -Dvasp6 \</span><br><span class="line">              -Dtbdyn \</span><br><span class="line">              -Dfock_dblbuf</span><br><span class="line"></span><br><span class="line">CPP         = fpp -f_com=no -free -w0  $*$(FUFFIX) $*$(SUFFIX) $(CPP_OPTIONS)</span><br><span class="line"></span><br><span class="line">FC          = mpiifort -fc=ifx</span><br><span class="line">FCL         = mpiifort -fc=ifx</span><br><span class="line"></span><br><span class="line">FREE        = -free -names lowercase</span><br><span class="line"></span><br><span class="line">FFLAGS      = -assume byterecl -w</span><br><span class="line"></span><br><span class="line">OFLAG       = -O3 -xHost -unroll-aggressive  #激进的方案</span><br><span class="line">OFLAG_IN    = $(OFLAG)</span><br><span class="line">DEBUG       = -O0</span><br><span class="line"></span><br><span class="line"># For what used to be vasp.5.lib</span><br><span class="line">CPP_LIB     = $(CPP)</span><br><span class="line">FC_LIB      = $(FC)</span><br><span class="line">CC_LIB      = icx</span><br><span class="line">CFLAGS_LIB  = -O</span><br><span class="line">FFLAGS_LIB  = -O1</span><br><span class="line">FREE_LIB    = $(FREE)</span><br><span class="line"></span><br><span class="line">OBJECTS_LIB = linpack_double.o</span><br><span class="line"></span><br><span class="line"># For the parser library</span><br><span class="line">CXX_PARS    = icpx</span><br><span class="line">LLIBS       = -lstdc++</span><br><span class="line"></span><br><span class="line">##</span><br><span class="line">## Customize as of this point! Of course you may change the preceding</span><br><span class="line">## part of this file as well if you like, but it should rarely be</span><br><span class="line">## necessary ...</span><br><span class="line">##</span><br><span class="line"></span><br><span class="line"># When compiling on the target machine itself, change this to the</span><br><span class="line"># relevant target when cross-compiling for another architecture</span><br><span class="line">VASP_TARGET_CPU ?= -xHOST</span><br><span class="line">FFLAGS     += $(VASP_TARGET_CPU)</span><br><span class="line"></span><br><span class="line"># Intel MKL (FFTW, BLAS, LAPACK, and scaLAPACK)</span><br><span class="line"># (Note: for Intel Parallel Studio&#x27;s MKL use -mkl instead of -qmkl)</span><br><span class="line">FCL        += -qmkl=parallel</span><br><span class="line">MKLROOT    ?= /path/to/your/mkl/installation</span><br><span class="line">LLIBS      += -L$(MKLROOT)/lib/intel64 -lmkl_scalapack_lp64 -lmkl_blacs_intelmpi_lp64</span><br><span class="line">INCS        =-I$(MKLROOT)/include/fftw</span><br><span class="line"></span><br><span class="line">MKL_THREADING_LAYER=INTEL </span><br><span class="line">OMP_NUM_THREADS=1 # MPI+MKL 并行时必须绑 1，否则容易 oversubscribe</span><br><span class="line"></span><br><span class="line"># HDF5-support (optional but strongly recommended, and mandatory for some features)</span><br><span class="line">CPP_OPTIONS+= -DVASP_HDF5</span><br><span class="line">HDF5_ROOT  ?= /opt/apps/vasp.6.5.1/hdf5/hdf5</span><br><span class="line">LLIBS      += -L$(HDF5_ROOT)/lib -lhdf5_fortran</span><br><span class="line">INCS       += -I$(HDF5_ROOT)/include</span><br><span class="line"></span><br><span class="line"># For the VASP-2-Wannier90 interface (optional)</span><br><span class="line">CPP_OPTIONS    += -DVASP2WANNIER90</span><br><span class="line">WANNIER90_ROOT ?= /opt/apps/vasp.6.5.1/wannier90-3.1.0</span><br><span class="line">LLIBS          += -L$(WANNIER90_ROOT)/lib -lwannier</span><br><span class="line"></span><br><span class="line"># For machine learning library vaspml (experimental)</span><br><span class="line">#CPP_OPTIONS += -Dlibvaspml</span><br><span class="line">#CPP_OPTIONS += -DVASPML_USE_CBLAS</span><br><span class="line">#CPP_OPTIONS += -DVASPML_USE_MKL</span><br><span class="line">#CPP_OPTIONS += -DVASPML_DEBUG_LEVEL=3</span><br><span class="line">#CXX_ML      = mpiicpc -cxx=icpx</span><br><span class="line">#CXXFLAGS_ML = -O3 -std=c++17 -Wall</span><br><span class="line">#INCLUDE_ML  =</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make DEPS=1 -jN</span><br></pre></td></tr></table></figure>
+<p>笔者用的双路<code>2676 v3</code>的落后的工作站，因为调用了24个核心并行编译所以比较快，编译时间大概是四五分钟</p>
+<p>接着是测试，<code>make test</code>默认调用4个核心，可以编辑<code>runtest</code>文件手动修改核心数目加快测试速度，关于测试的说明在官网：<a target="_blank" rel="noopener" href="https://www.vasp.at/wiki/Validation_tests">https://www.vasp.at/wiki/Validation_tests</a></p>
+<p>我自己测试时需要手动加上<code>hdf5</code>库的环境变量，否则一个测试也跑不了：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> LD_LIBRARY_PATH=/opt/apps/vasp.6.5.1/hdf5/hdf5/lib:<span class="variable">$LD_LIBRARY_PATH</span></span><br></pre></td></tr></table></figure>
+<p>对了，为了避免任何关于内存栈的错误，也请执行下面四行命令（从集群slurm脚本抄的）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ulimit</span> -d unlimited</span><br><span class="line"><span class="built_in">ulimit</span> -s unlimited</span><br><span class="line"><span class="built_in">ulimit</span> -t unlimited</span><br><span class="line"><span class="built_in">ulimit</span> -v unlimited</span><br></pre></td></tr></table></figure>
+<p>./install_cp2k_toolchain.sh --with-sirius=no --with-intelmpi=system --with-mkl=system --with-openmpi=no --with-plumed=install --with-cmake=system  --with-ninja=install  --with-dftd4=install</p>
+<p>./install_cp2k_toolchain.sh --with-sirius=no --with-intelmpi=no --with-openmpi=install --with-plumed=install --with-cmake=system</p>
+<p>./install_cp2k_toolchain.sh <br>
+–with-intel=no <br>
+–with-intelmpi=no <br>
+–with-sirius=no <br>
+–with-openmpi=install <br>
+–with-mkl=no <br>
+–with-plumed=install <br>
+–with-fftw=install <br>
+–with-cmake=system</p>
+<p><strong>./install_cp2k_toolchain.sh --with-sirius=no --with-openmpi=install --with-plumed=install --with-gcc=system --with-intel=no  --with-fftw=install --with-cmake=system  &gt; out.log2&gt;&amp;1 &amp;</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./install_cp2k_toolchain.sh --with-sirius=no --with-openmpi=install --with-plumed=install --with-cmake=system --with-fftw=install &gt; out.log2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">salloc -N 1 -c 20 -t 02:30:00 --job-name=CP2K</span><br></pre></td></tr></table></figure>
+<p>重新进入节点；</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">srun --jobid=12345 --pty bash</span><br></pre></td></tr></table></figure>
+<p>cp2k的dftd4库和ninja库参考公社上的文件，<a target="_blank" rel="noopener" href="http://bbs.keinsci.com/forum.php?mod=viewthread&amp;tid=55624&amp;highlight=dftd4">http://bbs.keinsci.com/forum.php?mod=viewthread&amp;tid=55624&amp;highlight=dftd4</a></p>
+<h2 id="全核并行"><a class="header-anchor" href="#全核并行">¶</a>全核并行</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> OMP_NUM_THREADS=24       <span class="comment"># 每个 rank 用 24 个线程</span></span><br><span class="line"><span class="built_in">export</span> MKL_NUM_THREADS=1        <span class="comment"># 防止 MKL 再开线程</span></span><br><span class="line"><span class="built_in">export</span> OMP_PROC_BIND=spread     <span class="comment"># 将线程均匀分布在逻辑核上</span></span><br><span class="line"><span class="built_in">export</span> OMP_PLACES=threads</span><br><span class="line"><span class="built_in">export</span> OMP_DYNAMIC=FALSE</span><br><span class="line"><span class="built_in">export</span> KMP_STACKSIZE=256m</span><br></pre></td></tr></table></figure>
+<p>运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mpirun -np 1 numactl --physcpubind=0-11,24-35 --membind=0 vasp : \</span><br><span class="line">       -np 1 numactl --physcpubind=12-23,36-47 --membind=1 vasp</span><br></pre></td></tr></table></figure>
+<h1>Advancements in Single-Atom Photocatalysts for CO2 Reduction: Mechanisms, Materials, and Challenges</h1>
+<ul>
+<li>introduction</li>
+<li>the principle of photocatalysis co2 reduction</li>
+<li>elemental landscape of single-atom photocatalyst</li>
+<li>research methods
+<ul>
+<li>theoretical calculation and simulation methods</li>
+<li>cross-scale collaborative characterization methods</li>
+</ul>
+</li>
+<li>mechanism of photogenerated electrons transfer to single-atom sites
+<ul>
+<li>interlayer electric field driven charge transfer pathway</li>
+<li>Π-conjugated network driven charge transfer pathway</li>
+<li>Vacancy driven charge transfer pathway</li>
+<li>Internal electric field of heterojunction driven charge transfer pathway</li>
+</ul>
+</li>
+<li>Reported performance of single-atom photocatalysts</li>
+<li>Selectivity of Products
+<ul>
+<li>C1 products</li>
+<li>C2 products</li>
+<li>C3 products</li>
+</ul>
+</li>
+<li>Industrial perspective analysis of single-atom photocatalytic systems</li>
+<li>Conclusions</li>
+</ul>
+<blockquote>
+<p>A visually striking scientific illustration showing the concept of single-atom photocatalysts for carbon dioxide reduction. A central metallic single atom (e.g., Cu, Ni, or Fe) anchored on a semiconductor surface represents the active site. Photons from sunlight excite electrons, which travel through multiple charge transfer pathways — interlayer electric fields, π-conjugated networks, vacancies, and internal electric fields in heterojunctions — toward the single atom. The single atom catalyzes carbon dioxide molecules into multicarbon products (C1–C3). The image should feature vibrant colors (blue, green, gold) and clean, modern design with soft glows indicating photoexcitation, energy flow arrows, and molecular orbitals. Background should be abstract but scientific, suitable for a high-impact journal graphical abstract. Rendered in 3D or semi-realistic scientific art style, high resolution (&gt;300 dpi).</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Scientific graphical abstract of single-atom photocatalysts for carbon dioxide reduction: sunlight excitation, electron transfer through multiple pathways (interlayer fields, π-conjugation, vacancies, heterojunctions), single atom active site converting carbon dioxide into C1–C3 products. Clean, colorful, professional 3D scientific illustration.</span><br></pre></td></tr></table></figure>
+<p>g-C3N4(平面氮化碳)、COF、MOF、金属氧化物</p>
+<p>Single-Atom Photocatalysts for CO₂ Reduction: A Review of Charge Transfer Mechanisms, Material Design, and Future Perspectives</p>
+<p>Photocatalytic CO₂ reduction into value-added fuels and chemicals represents a sustainable and promising way for addressing global energy and environmental challenges. In recent years, single-atom photocatalysts (SAPs) have emerged at the forefront of this field, offering maximized atomic efficiency, unique electronic structures, and well-defined active sites that facilitate unprecedented activity and selectivity. This review provides a comprehensive overview of the significant advancements in the design and application of SAPs for CO₂ reduction. A central focus is placed on elucidating the fundamental mechanisms of photogenerated charge transfer from the semiconductor support to the single-atom sites, which is critical for catalyst performance.</p>
+<p>We systematically categorize and analyze four primary charge transfer pathways: those driven by interlayer electric fields, π-conjugated networks, surface vacancies, and heterojunction internal electric fields. Furthermore, we survey the diverse elemental landscape of single-atom centers and discuss advanced in-situ characterization techniques and theoretical simulations that are pivotal for mechanistic investigations. A detailed analysis of product selectivity, from C₁ chemicals (CO, CH₄) to more valuable multi-carbon (C₂₊) products, is presented. Finally, this review critically examines the current challenges and offers an industrial perspective on catalyst stability, quantum efficiency, and system scalability, concluding with forward-looking insights to guide the future rational design of next-generation single-atom photocatalysts for practical CO₂ utilization.</p>
+<hr>
+<p>Single-atom photocatalysts (SAPs) have emerged as a frontier class of materials for the conversion of CO₂ into value-added chemicals, primarily due to their maximized atomic efficiency and highly tunable electronic properties. This review summarizes the significant recent advancements in the field. The principal focus is a systematic analysis of the fundamental charge transfer mechanisms from the support to the single-atom active sites, a process critical to catalytic performance. Four primary pathways are detailed: interlayer electric field-driven, π-conjugated network-driven, vacancy-driven, and heterojunction-driven charge transfer. The discussion also covers the elemental diversity of single-atom centers, the application of advanced characterization and computational methods for mechanistic studies, and the factors governing product selectivity toward C₁ and multi-carbon (C₂₊) products. The review concludes by critically evaluating the major challenges, including catalyst stability and quantum efficiency, and provides forward-looking perspectives on the rational design of SAPs for potential industrial applications.</p>
+<hr>
+<p>Single-atom photocatalysts (SAPs) represent a paradigm shift in the quest for efficient CO₂ conversion into chemical feedstocks, offering ultimate atom-efficiency and uniquely tunable active sites. This review critically surveys recent breakthroughs in the field, with a central focus on elucidating the charge transfer mechanisms from the support to the single-atom centers—a process governing catalytic efficacy. Four distinct pathways are systematically examined: those driven by interlayer electric fields, π-conjugated networks, surface vacancies, and heterojunctions. Accompanying this mechanistic analysis is an exploration of the elemental diversity of metal centers and the pivotal role of advanced characterization and computational methods in unraveling reaction pathways. Emphasis is also placed on the factors dictating product selectivity, particularly the challenging shift from C₁ to multi-carbon (C₂₊) products. The review culminates in a critical assessment of prevailing challenges, including catalyst stability and quantum efficiency, offering forward-looking perspectives on the rational design of SAPs for viable industrial translation.</p>
+<hr>
+<p>With the growing urgency to address climate change and achieve carbon neutrality, the photocatalytic conversion of CO₂ into valuable chemicals has become a paramount scientific endeavor. Single-atom photocatalysts (SAPs) have recently emerged at the forefront of this field, yet a deep, systematic understanding of the crucial charge transfer process—which governs catalytic efficiency—is still needed.</p>
+<p>Our review aims to provide a timely and comprehensive overview of this rapidly advancing area. Distinct from previous reviews, our manuscript places a central focus on the fundamental charge transfer mechanisms, systematically categorizing and critically discussing four primary pathways: those driven by interlayer electric fields, π-conjugated networks, surface vacancies, and heterojunctions. By connecting these core principles to rational material design, advanced characterization techniques, and the challenges of product selectivity, we believe our work offers a unique, mechanism-centric perspective. It provides a clear and instructive roadmap for both newcomers and seasoned researchers aiming to design the next generation of highly efficient SAPs.</p>
+<p>We believe that <em>Chinese Chemical Letters</em>, with its distinguished reputation for publishing high-impact and timely research across the chemical sciences, is the ideal platform for our work. The subject of our review aligns perfectly with the journal’s scope in catalysis, materials science, and physical chemistry. We are confident that this comprehensive review will be of great interest to your broad readership and will serve as a valuable resource for the community, stimulating further innovation in this exciting field.</p>
+<p>Thank you very much for your time and consideration. We deeply appreciate the effort of the editors and reviewers in the peer-review process and look forward to hearing from you at your earliest convenience.</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://hydrogen1222.com.cn">Storm Talia</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://hydrogen1222.com.cn/2025/05/19/%E7%A7%91%E7%A0%94/VASP/vasp6.5.1+HDF5+Wannier90%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/">https://hydrogen1222.com.cn/2025/05/19/%E7%A7%91%E7%A0%94/VASP/vasp6.5.1+HDF5+Wannier90%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://hydrogen1222.com.cn" target="_blank">Storm's Storehouse</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%8C%96%E5%AD%A6/">化学</a><a class="post-meta__tags" href="/tags/%E7%A7%91%E7%A0%94/">科研</a></div><div class="post-share"><div class="social-share" data-image="/2025/05/19/%E7%A7%91%E7%A0%94/VASP/vasp6.5.1+HDF5+Wannier90%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/cover.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2025/05/24/%E7%A7%91%E7%A0%94/first%20stage/2025-05-24-%E5%85%B3%E4%BA%8EX%E5%B0%84%E7%BA%BF%E7%B2%89%E6%9C%AB%E8%A1%8D%E5%B0%84/" title="从零开始的X射线原理"><img class="cover" src="/2025/05/24/%E7%A7%91%E7%A0%94/first%20stage/2025-05-24-%E5%85%B3%E4%BA%8EX%E5%B0%84%E7%BA%BF%E7%B2%89%E6%9C%AB%E8%A1%8D%E5%B0%84/cover.png" onerror="onerror=null;src='/img/favicon.jpg'" alt="cover of previous post"><div class="info"><div class="info-1"><div class="info-item-1">上一篇</div><div class="info-item-2">从零开始的X射线原理</div></div><div class="info-2"><div class="info-item-1">¶前言 1917 年，赫尔首次描述了简单粉末衍射仪的构造，这是在 1895 年威廉·康拉德·伦琴发现 X 射线后不久。衍射仪测量 X 射线反射的角度，从而获得其包含的结构信息。如今，这项技术的分辨率有了显著提高，它被广泛用作分析相信息和解决固态材料晶体结构的工具。X 射线衍射技术用于确定样品的组成或晶体结构。对于大分子和无机化合物等较大的晶体，它可用于确定样品中原子的结构。如果晶体尺寸太小，它可以确定样品的组成、结晶度和相纯度。 ¶什么是X射线？ X射线是一种电磁波，由内壳层电子跃迁所得： ![X 射线由内壳层电子跃迁产生](2025-05-24-关于X射线粉末衍射/Screen Shot 2022-08-29 at 10.39.21 PM-1756610339401-1.png) 对于原子序数为Z、仅含一个电子的类氢原子，内壳层电子跃迁所辐射的能量可由Rydberg方程计算：                    #mjx-393901b{         display:contents;         mjx-assistive-mml {           user-...</div></div></div></a><a class="pagination-related" href="/2025/05/18/%E7%A7%91%E7%A0%94/first%20stage/%E5%85%B3%E4%BA%8E%E7%94%B5%E5%AD%90%E8%83%BD%E8%B0%B1/" title="关于电子能谱"><img class="cover" src="/2025/05/18/%E7%A7%91%E7%A0%94/first%20stage/%E5%85%B3%E4%BA%8E%E7%94%B5%E5%AD%90%E8%83%BD%E8%B0%B1/cover.jpg" onerror="onerror=null;src='/img/favicon.jpg'" alt="cover of next post"><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">关于电子能谱</div></div><div class="info-2"><div class="info-item-1">什么是电子能谱？ 电子能谱就是用一定能量的电子束或光子与样品表面相互作用，使样品表面原子中不同能级的电子激发成自由电子，并研究这些自由电子的电子强度（电子数目）按其能量变化的分布曲线。根据使用的激发源的不同，电子能谱又分为X射线光电子能谱（XPS）、紫外光电子能谱（UPS）、俄歇电子能谱（AES） 电子能谱的基础是光电效应：当能量为                   #mjx-0d7a455{         display:contents;         mjx-assistive-mml {           user-select: text !important;           clip: auto !important;           color: rgba(0,0,0,0);         }          mjx-container[jax="SVG"] {   direction: ltr; }  mjx-container[jax="SVG"] > svg {   overflow: visible;   min-height: 1px...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/04/12/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/bash%E8%AF%AD%E8%A8%80%E6%A6%82%E8%A7%88/" title="bash语言概览"><img class="cover" src="/2026/04/12/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/bash%E8%AF%AD%E8%A8%80%E6%A6%82%E8%A7%88/cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-04-12</div><div class="info-item-2">bash语言概览</div></div><div class="info-2"><div class="info-item-1">远在天边，近在眼前，熟悉shell（bash、fish），却又从未真正深入了解过，借此机会学习一下吧~ 123456789101112131415161718192021222324252627282930#!/usr/bin/env bashset -euo pipefail #严格模式，任何命令失败（返回非0）则立即退出脚本BUNDLE_ROOT=&quot;$(cd &quot;$(dirname &quot;$&#123;BASH_SOURCE[0]&#125;&quot;)/..&quot; &amp;&amp; pwd)&quot;cd &quot;$BUNDLE_ROOT&quot;TEMPERATURES=&quot;$&#123;TEMPERATURES:-600 700 800&#125;&quot; #如果未定义或为空，则使用默认值600,700,800STEPS=&quot;$&#123;STEPS:-20000&#125;&quot;#如果未定义或为空，则使用默认值2000SAVE_INTERVAL=&quot;$&#123;SAVE_INTERVAL:...</div></div></div></a><a class="pagination-related" href="/2025/08/12/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/vaspkit%E4%B8%ADCIF%E8%BD%ACPOSCAR%E8%84%9A%E6%9C%AC%E7%9A%84%E6%8A%A5%E9%94%99/" title="np.asmatrix函数被废弃使得CIF转POSCAR脚本报错"><img class="cover" src="/2025/08/12/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/vaspkit%E4%B8%ADCIF%E8%BD%ACPOSCAR%E8%84%9A%E6%9C%AC%E7%9A%84%E6%8A%A5%E9%94%99/cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-08-12</div><div class="info-item-2">np.asmatrix函数被废弃使得CIF转POSCAR脚本报错</div></div><div class="info-2"><div class="info-item-1">使用最新版的Miniconda3，python环境的版本是14.x，顺手pip install numpy安装的numpy版本过高，使用vaspkit尝试将.cif文件转换为POSCAR时报错: 1AttributeError: `np.mat` was removed in the NumPy 2.0 release. Use `np.asmatrix` instead 错误原因在于当前的NumPy版本太新（&gt;=2.0），而vaspkit的cif2pos.py脚本中使用了已被移除的np.mat函数，最简单的方式是降级numpy版本： 1pip install numpy==1.26.4 </div></div></div></a><a class="pagination-related" href="/2026/07/03/%E7%A7%91%E7%A0%94/next%20stage/%E6%96%87%E7%8C%AE%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="文献复现（二）"><img class="cover" src="/2026/07/03/%E7%A7%91%E7%A0%94/next%20stage/%E6%96%87%E7%8C%AE%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%BA%8C%EF%BC%89/cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-07-03</div><div class="info-item-2">文献复现（二）</div></div><div class="info-2"><div class="info-item-1">再来看看另一篇计算的文献。  Shyue Ping Ong仍是这篇文章的作者之一，是一篇较短的通讯文章，材料是LGPS(                   #mjx-4c3a788{         display:contents;         mjx-assistive-mml {           user-select: text !important;           clip: auto !important;           color: rgba(0,0,0,0);         }          mjx-container[jax="SVG"] {   direction: ltr; }  mjx-container[jax="SVG"] > svg {   overflow: visible;   min-height: 1px;   min-width: 1px; }  mjx-container[jax="SVG"] > svg a {   fill: blue;   stroke: blue; }  mjx-assistive-mm...</div></div></div></a><a class="pagination-related" href="/2025/05/12/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vaspkit%E7%9A%84%E4%BD%BF%E7%94%A8/" title="Vaspkit的使用"><img class="cover" src="/2025/05/12/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vaspkit%E7%9A%84%E4%BD%BF%E7%94%A8/cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-05-12</div><div class="info-item-2">Vaspkit的使用</div></div><div class="info-2"><div class="info-item-1">安装、配置好vaspkit之后输入vaspkit可启动软件包 12345678910111213141516171819202122232425262728293031323334(base) storm@DESKTOP-HE4FQ8Q:~/my-learn/trash-vaspkit$ vaspkit            \\\///           / _  _ \         Hey, you must know what you are doing.         (| (o)(o) |)       Otherwise you might get wrong results. o-----.OOOo--()--oOOO.------------------------------------------o |         VASPKIT Standard Edition 1.5.1 (27 Jan. 2024)         | |         Lead Developer: Vei WANG (wangvei@icloud.com)       ...</div></div></div></a><a class="pagination-related" href="/2025/03/22/%E7%A7%91%E7%A0%94/first%20stage/%E5%85%B3%E4%BA%8E%E7%A9%BA%E4%BD%8D%E3%80%81%E7%A9%BA%E9%9A%99%E3%80%81%E9%97%B4%E9%9A%99%E7%9A%84%E7%AE%80%E5%8D%95%E8%AE%A8%E8%AE%BA/" title="关于空位、空隙、间隙的简单讨论"><img class="cover" src="/2025/03/22/%E7%A7%91%E7%A0%94/first%20stage/%E5%85%B3%E4%BA%8E%E7%A9%BA%E4%BD%8D%E3%80%81%E7%A9%BA%E9%9A%99%E3%80%81%E9%97%B4%E9%9A%99%E7%9A%84%E7%AE%80%E5%8D%95%E8%AE%A8%E8%AE%BA/cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-22</div><div class="info-item-2">关于空位、空隙、间隙的简单讨论</div></div><div class="info-2"><div class="info-item-1">¶离子掺杂可形成空位(vacancy) ¶1. 阳离子空位的产生机制 阳离子空位（即阳离子亚晶格中的空缺）通常由高价阳离子取代或低价阴离子取代引起，通过电荷补偿实现电中性。 ¶(1) 高价阳离子掺杂 → 产生阳离子空位 示例：在石榴石型电解质                   #mjx-76e951d{         display:contents;         mjx-assistive-mml {           user-select: text !important;           clip: auto !important;           color: rgba(0,0,0,0);         }          mjx-container[jax="SVG"] {   direction: ltr; }  mjx-container[jax="SVG"] > svg {   overflow: visible;   min-height: 1px;   min-width: 1px; }  mjx-container[jax="SVG"...</div></div></div></a><a class="pagination-related" href="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/formula/" title="一些简单的Linux命令"><img class="cover" src="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/formula/cover.png" alt="cover"><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2025-04-14</div><div class="info-item-2">一些简单的Linux命令</div></div><div class="info-2"><div class="info-item-1">使用for循环批量创建文件夹 1for i in &#123;2..9&#125;; do cp 0.01 0.0$i -r ; done 使用sed命令不打开文件而进行替换 1sed &#x27;3s/0.01/0.02/g&#x27; ICNAR  对第三行(3)出现的所有0.01(g,全局替换)进行替换(s表示替换操作)，替换为0.02，只输出替换后的结果 sed ‘3/0.01/0.02/g’ INCAR &gt; INCAR最后什么也没有 加上-i参数可以直接进行编辑  结合for循环和sed批量命名 1234567891011[storm@cachyos-x8664 ex03]$ for i in *; do sed -i &quot;3s/0.05/$i/g&quot; $i/INCAR ; done[storm@cachyos-x8664 ex03]$ grep SIGMA */INCAR0.01/INCAR:SIGMA = 0.010.02/INCAR:SIGMA = 0.020.03/INCAR:SIGMA = 0.030.04/INCAR:SIGMA = 0...</div></div></div></a></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://s2.loli.net/2026/02/08/GvfVnlgAeFHszc3.jpg" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="avatar"/></div><div class="author-info-name">Storm Talia</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">104</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">15</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/hydrogen1222"><i class="fab fa-github"></i><span>GitHub</span></a><div class="card-info-social-icons"><a class="social-icon" href="mailto:2170147489@qq.com" target="_blank" title="你的邮箱"><i class="fas fa-envelope"></i></a><a class="social-icon" href="/img/wechat.jpg" target="_blank" title="微信 (这里通常放二维码图片链接)"><i class="fab fa-weixin"></i></a><a class="social-icon" href="tencent://message/?uin=2170147489" target="_blank" title="QQ"><i class="fab fa-qq"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">哈喽！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">后记</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91HDF5"><span class="toc-number">1.1.</span> <span class="toc-text">编译HDF5</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Wannier%E5%AE%89%E8%A3%85"><span class="toc-number">1.2.</span> <span class="toc-text">Wannier安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VTST%E7%9A%84%E5%AE%89%E8%A3%85"><span class="toc-number">1.3.</span> <span class="toc-text">VTST的安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91vasp"><span class="toc-number">1.4.</span> <span class="toc-text">编译vasp</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A8%E6%A0%B8%E5%B9%B6%E8%A1%8C"><span class="toc-number">1.5.</span> <span class="toc-text">全核并行</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">Advancements in Single-Atom Photocatalysts for CO2 Reduction: Mechanisms, Materials, and Challenges</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2026/07/03/%E7%A7%91%E7%A0%94/next%20stage/%E6%96%87%E7%8C%AE%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="文献复现（二）"><img src="/2026/07/03/%E7%A7%91%E7%A0%94/next%20stage/%E6%96%87%E7%8C%AE%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%BA%8C%EF%BC%89/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="文献复现（二）"/></a><div class="content"><a class="title" href="/2026/07/03/%E7%A7%91%E7%A0%94/next%20stage/%E6%96%87%E7%8C%AE%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%BA%8C%EF%BC%89/" title="文献复现（二）">文献复现（二）</a><time datetime="2026-07-21T03:47:39.000Z" title="更新于 2026-07-21 11:47:39">2026-07-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/06/25/%E7%A7%91%E7%A0%94/next%20stage/%E6%96%87%E7%8C%AE%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%B8%80%EF%BC%89/" title="文献复现（一）"><img src="/2026/06/25/%E7%A7%91%E7%A0%94/next%20stage/%E6%96%87%E7%8C%AE%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%B8%80%EF%BC%89/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="文献复现（一）"/></a><div class="content"><a class="title" href="/2026/06/25/%E7%A7%91%E7%A0%94/next%20stage/%E6%96%87%E7%8C%AE%E5%A4%8D%E7%8E%B0%EF%BC%88%E4%B8%80%EF%BC%89/" title="文献复现（一）">文献复现（一）</a><time datetime="2026-07-21T03:15:41.000Z" title="更新于 2026-07-21 11:15:41">2026-07-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/07/08/%E7%A7%91%E7%A0%94/next%20stage/%E7%B2%BE%E7%B2%A4%E5%8F%8C%E8%B7%AFX99%E5%AF%A8%E6%9D%BF%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="从零打造的outdated工作站"><img src="/2026/07/08/%E7%A7%91%E7%A0%94/next%20stage/%E7%B2%BE%E7%B2%A4%E5%8F%8C%E8%B7%AFX99%E5%AF%A8%E6%9D%BF%E6%9C%8D%E5%8A%A1%E5%99%A8/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="从零打造的outdated工作站"/></a><div class="content"><a class="title" href="/2026/07/08/%E7%A7%91%E7%A0%94/next%20stage/%E7%B2%BE%E7%B2%A4%E5%8F%8C%E8%B7%AFX99%E5%AF%A8%E6%9D%BF%E6%9C%8D%E5%8A%A1%E5%99%A8/" title="从零打造的outdated工作站">从零打造的outdated工作站</a><time datetime="2026-07-21T03:15:41.000Z" title="更新于 2026-07-21 11:15:41">2026-07-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/" title="VASP学习笔记"><img src="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="VASP学习笔记"/></a><div class="content"><a class="title" href="/2025/04/14/%E7%A7%91%E7%A0%94/VASP/Starry%20Sky/Vasp-note/" title="VASP学习笔记">VASP学习笔记</a><time datetime="2026-07-15T14:12:08.000Z" title="更新于 2026-07-15 22:12:08">2026-07-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/02/08/hexo%E5%8D%9A%E5%AE%A2%E5%AE%89%E8%A3%85/" title="hexo框架下博客的改造与主题迁移"><img src="/2026/02/08/hexo%E5%8D%9A%E5%AE%A2%E5%AE%89%E8%A3%85/cover.png" onerror="this.onerror=null;this.src='/img/favicon.jpg'" alt="hexo框架下博客的改造与主题迁移"/></a><div class="content"><a class="title" href="/2026/02/08/hexo%E5%8D%9A%E5%AE%A2%E5%AE%89%E8%A3%85/" title="hexo框架下博客的改造与主题迁移">hexo框架下博客的改造与主题迁移</a><time datetime="2026-06-23T05:14:11.000Z" title="更新于 2026-06-23 13:14:11">2026-06-23</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/2025/05/19/%E7%A7%91%E7%A0%94/VASP/vasp6.5.1+HDF5+Wannier90%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85/cover.png);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Storm Talia</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.2</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div><div class="footer_custom_text">欢迎来到我的个人博客！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">简</button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="前往评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><script src="/js/tw_cn.js?v=5.5.4"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@6.1.9/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@5.2.0/instantpage.min.js" type="module"></script><div class="js-pjax"><script>(() => {
+  const isShuoshuo = GLOBAL_CONFIG_SITE.pageType === 'shuoshuo'
+  const option = null
+
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://comments.hydrogen1222.com.cn',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = (el = document, path = location.pathname) => {
+    twikoo.init({
+      el: el.querySelector('#twikoo-wrap'),
+      envId: 'https://comments.hydrogen1222.com.cn',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      },
+      ...option,
+      path: isShuoshuo ? path : (option && option.path) || path
+    })
+
+    
+
+    isShuoshuo && (window.shuoshuoComment.destroyTwikoo = () => {
+      if (el.children.length) {
+        el.innerHTML = ''
+        el.classList.add('no-comment')
+      }
+    })
+  }
+
+  const loadTwikoo = (el, path) => {
+    if (typeof twikoo === 'object') setTimeout(() => init(el, path), 0)
+    else btf.getScript('https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.all.min.js').then(() => init(el, path))
+  }
+
+  if (isShuoshuo) {
+    'Twikoo' === 'Twikoo'
+      ? window.shuoshuoComment = { loadComment: loadTwikoo }
+      : window.loadOtherComment = loadTwikoo
+    return
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script defer src="/js/blog-music-config.js?v=09fd9ee6"></script><script defer src="/js/blog-music-player.js?v=f792ab00"></script><script defer src="/js/toc-h1-fix.js?v=7f7bc652"></script><canvas class="fireworks" mobile="true"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/fireworks.min.js"></script><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="true" data-click="true"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><i class="fas fa-spinner fa-pulse" id="loading-status" hidden="hidden"></i><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="text-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据加载中</span></div><div class="local-search-input"><input placeholder="嗖一下~好奇宝宝~😯" type="text"/></div><hr/><div id="local-search-results"></div><div class="ais-Pagination" id="local-search-pagination" style="display:none;"><ul class="ais-Pagination-list"></ul></div><div id="local-search-stats"></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=5.5.4"></script></div></div></body></html>

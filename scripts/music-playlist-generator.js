@@ -77,17 +77,6 @@ function loadPlaylistYml() {
   }
 }
 
-function scanMp3() {
-  if (!fs.existsSync(MUSIC_DIR)) {
-    return [];
-  }
-
-  return fs.readdirSync(MUSIC_DIR)
-    .filter((f) => f.toLowerCase().endsWith('.mp3'))
-    .sort()
-    .map((f) => ({ file: f }));
-}
-
 function buildPlaylist() {
   const ymlEntries = loadPlaylistYml();
   const ymlByFile = new Map();
@@ -108,27 +97,12 @@ function buildPlaylist() {
     ymlByFile.set(file, entry);
   });
 
-  const mp3List = scanMp3();
-  const ordered = [];
-  const seen = new Set();
-
-  ymlEntries.forEach((entry) => {
-    if (entry && entry.file && !seen.has(entry.file)) {
-      ordered.push(entry.file);
-      seen.add(entry.file);
-    }
-  });
-
-  mp3List.forEach((mp3) => {
-    if (!seen.has(mp3.file)) {
-      ordered.push(mp3.file);
-      seen.add(mp3.file);
-    }
-  });
+  // YAML 是歌单的唯一来源。目录中的临时或旧音频不会被偷偷追加。
+  const ordered = ymlEntries.map((entry) => entry.file);
 
   return ordered.map((file) => {
     const entry = ymlByFile.get(file) || { file };
-    const baseName = file.replace(/\.mp3$/i, '');
+    const baseName = path.parse(file).name;
     const audioPath = path.join(MUSIC_DIR, file);
     if (!resolveIfExists(audioPath)) {
       throw new Error(`歌单引用的音频不存在：${file}`);

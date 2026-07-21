@@ -118,8 +118,12 @@
 
     rawLines.sort((a, b) => a.start - b.start || b.tagCount - a.tagCount);
 
+    const startTolerance = 0.14;
+
     rawLines.forEach((line, index) => {
-      const nextLine = rawLines[index + 1];
+      // 双语/逐字 LRC 常有多行共享起始时间；只用下一组时间来限制本行结束时间。
+      const nextLine = rawLines.slice(index + 1)
+        .find((candidate) => candidate.start - line.start > startTolerance);
       const fallbackEnd = nextLine
         ? Math.max(line.start + 0.08, nextLine.start - 0.04)
         : line.start + 4.5;
@@ -136,8 +140,6 @@
     });
 
     const groupedLines = [];
-    const startTolerance = 0.14;
-
     rawLines.forEach((line) => {
       const lastGroup = groupedLines[groupedLines.length - 1];
       if (!lastGroup || Math.abs(line.start - lastGroup.start) > startTolerance) {

@@ -2,19 +2,23 @@
 # file 必填；其他字段缺省时自动按 <basename>.{lrc,jpg,jpeg,png,webp,svg} 匹配
 # lyricsMode: dual(双语对照) | original(仅原文) | translation(仅译文)
 
-- file: 夢をあきらめないで.mp3
-  title: 夢をあきらめないで
+- file: 永遠の夏.m4a
+  title: 永遠の夏
   artist: Takako Okamura
-  subtitle: Liberté
+  subtitle: 四つ葉のクローバー
   eyebrow: Stormy Broadcast
   ambience: 本地自托管单曲 · 玻璃氛围播放器 · LRC 时序歌词
-  cover: liberte.jpg
+  cover: 永遠の夏.jpg
   lyricsMode: dual
   loop: false
 
-- file: evening-journey.mp3
-  title: Evening Journey
-  artist: Storm Talia
+- file: Believe.m4a
+  title: Believe.jpg
+  artist: Takako Okamura
+  subtitle: SOLEIL
+  eyebrow: Stormy Broadcast
+  ambience: 本地自托管单曲 · 玻璃氛围播放器 · LRC 时序歌词
+  cover: SOLEIL.jpg
   lyricsMode: dual
   loop: false
   # 无 .lrc / 无同名封面 → 纯音乐降级显示

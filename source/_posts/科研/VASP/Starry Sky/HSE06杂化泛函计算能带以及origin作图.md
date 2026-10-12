@@ -46,7 +46,7 @@ cover: cover.png
 
 VASP的计算中PBE泛函是被使用最广泛的，需要修改K点和输入文件。参考vaspkit官网的教程：http://vaspkit.cn/index.php/27.html
 
-PBE能带的计算<mark>可以<mark>分两步进行。
+PBE能带的计算可以分两步进行。
 
 首先进行自洽计算，此时也即（最常用的）静态计算，将变胞优化的`CONTCAR`更名为`POSCAR`，使用`vaspkit`的101功能，选择Static-Calculation，k点选择可以不变。
 
@@ -59,7 +59,7 @@ HIGH_SYMMETRY_POINTS  INCAR  KPATH.in  KPOINTS  POSCAR  POTCAR  PRIMCELL.vasp  S
 
 可以看到，303功能也生成了原胞结构，当然前面我们已经提到过。
 
-在进行能带计算的目录中，将上一步自洽计算的`CHGCAR`文件拷贝过来并在`INCAR`中设置电荷密度<mark>不更新<mark>，即`ICHARG=11`，这是必须的，为了加速计算，建议读取上一步的`WAVECAR`文件，虽然`ISTART`设置为1或者2程序都可以读取`WAVECAR`，但是为了保持整个计算任务中（第一步和第二步）的平面波基组一致，建议使用`ISTART=2`。
+在进行能带计算的目录中，将上一步自洽计算的`CHGCAR`文件拷贝过来并在`INCAR`中设置电荷密度不更新，即`ICHARG=11`，这是必须的，为了加速计算，建议读取上一步的`WAVECAR`文件，虽然`ISTART`设置为1或者2程序都可以读取`WAVECAR`，但是为了保持整个计算任务中（第一步和第二步）的平面波基组一致，建议使用`ISTART=2`。
 
 此种方法计算能带分两步的原因是使用高密度 k 点网格进行计算时耗时较长，因此用不耗时的普通静态计算多次迭代得到的`CHGCAR`和`WAVECAR`来加速高密度k点网格的计算。
 
@@ -87,9 +87,9 @@ CHGCAR    EIGENVAL  KPATH.in              OUTCAR   POTCAR  REPORT         vasp.e
 
 PBE最常被诟病的方面即能带计算，它常常低估带隙。By the way，Materials Project上的能带数据刚好能和我用PBE算出来的能带数据对上，明显小于HSE06泛函计算的数据，估计是使用PBE算的。
 
-HSE (Heyd–Scuseria–Ernzerhof)杂化泛函在2003年首次被提出（HSE03），在2006年HSE06被提出，它能更加精确地计算能带。使用HSE06杂化泛函做计算是<mark>十分昂贵<mark>的，用时是PBE泛函的<mark>数十倍不止<mark>。
+HSE (Heyd–Scuseria–Ernzerhof)杂化泛函在2003年首次被提出（HSE03），在2006年HSE06被提出，它能更加精确地计算能带。使用HSE06杂化泛函做计算是十分昂贵的，用时是PBE泛函的数十倍不止。
 
-受vasp算法所限制，使用HSE06杂化泛函计算能带时<mark>只能使用自洽计算（此时为静态计算），不能进行非自洽计算<mark>。中文互联网上有一些教程是错误的，PBE可以自洽+非自洽两步，也可以自洽一步，但是HSE06杂化泛函只能一步自洽。<mark>不过可以在能带计算之前也先做一下静态计算（自洽计算），然后将产生的`WAVECAR`文件用于能带计算以加速<mark>。
+受算法(HSE06杂化泛函的计算)所限制，使用HSE06杂化泛函计算能带时只能使用自洽计算（此时为静态计算），不能进行非自洽计算。中文互联网上有一些教程是错误的，PBE可以自洽+非自洽两步，也可以自洽一步，但是HSE06杂化泛函只能一步自洽。不过可以在能带计算之前也先做一下静态计算（自洽计算），然后将产生的`WAVECAR`文件用于能带计算以加速。
 
 使用`vaspkit`的251功能生成所需要的`KPOINTS`文件，这是一个“混合”的文件：
 
@@ -151,6 +151,24 @@ HSE06杂化泛函极为昂贵，大概在第五个电子步时，用时超过8h�
  PROFILE, used timers:     405
  =============================
 ```
+
+# 使用Wannier90计算能带
+
+尝试使用wiki推荐的一步方法(VASP 6.6.0 with openACC GPU)，`KPOINTS`中存放SCF所用的均匀k点，然后`KPOINTS_OPT`中存放高对称点路径。
+
+在HSE06 SCF的部分，GPU满载，但是到了KPOINTS_OPT的部分，GPU空载，CPU 开始工作(开发者给出的答案是“Currently the KPOINTS_OPT is not ported to the GPU.”)整体突然巨慢，这种情况持续了30h+，OUTCAR仍未有任何变化，就不等了。
+![KPOINTS_OPT部分目前由CPU完成](HSE06杂化泛函计算能带以及origin作图/file-20260823155349936.png)
+
+尝试使用Wannier90插值计算能带吧(wiki: https://vasp.at/wiki/index.php/Si_HSE_bandstructure)，在完成HSE06杂化泛函下的静态计算后，带隙值已经求得，原始 HSE06 Γ 点带隙：3.351999213 eV。
+
+后续的处理可以使用脚本[vasp_wannier90_workflow.zip](HSE06杂化泛函计算能带以及origin作图/vasp_wannier90_workflow.zip)完成，使用`./run_vasp_wannier.sh ../ results`类似的命令处理。
+
+对于金刚石结构的Si，在PBE下拟合的能带结果为0.622775013 eV，与数据库记载一致，参考的是文献J. Chem. Theory Comput. 2019, 15, 5069−5079。在HSE06下拟合的结果是1.183 eV
+
+
+
+
+
 
 # 数据后处理与Origin绘图
 

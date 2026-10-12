@@ -334,6 +334,9 @@ Reciprocal lattice
 因此得到了上述的IBZKPT文件。关于此文件，wiki给两个用途：
 - 第一，检查你的 KPOINTS 到底被程序解释成什么，因为自动模式最终都会写成 IBZKPT 这种显式格式，理解它有助于排错。
 - 第二，别手搓复杂显式列表，优先从IBZKPT改
+
+
+
 ## POSCAR
 
 POSCAR==至少==包括实空间晶格结构和离子的位置坐标，比如：
@@ -364,7 +367,166 @@ CHGCAR文件存储电荷密度和PAW单中心占据数，默认写入，CHG 文�
 ## WAVECAR
 二进制文件，体积大，可用于初猜来续算、加快计算
 
-能带结构的继续
+
+
+# K-Point sampling
+
+在YouTube上看官方教程(Symmetry and sampling in reciprocal space )看到了，还是蛮有意思的，关于k点采样。
+
+用三维语言，一个晶格矢量是:
+$$
+\mathbf R=n_1\mathbf a_1+n_2\mathbf a_2+n_3 \mathbf a_3
+$$
+晶体满足:
+$$
+V(\mathbf{r+R})=V(\mathbf r)
+$$
+
+看看Schrödinger方程:
+$$
+H\Psi_n=\varepsilon_n\Psi_n
+$$
+方程的本征值即为电子态的能量，这里的 nn 暂时就是:第一个态、第二个态、第三个态……
+
+现在引入一个非常简单的操作算符，平移算符$T_{\mathbf R}$，定义为:
+$$
+T_{\mathbf R}f(\mathbf r)=f(\mathbf{r+R})
+$$
+即把函数沿一个实空间晶格矢量平移。由于晶体具有周期性，所以把电子波函数向某方向移动一个晶胞，它面对的物理环境没有改变，有两种做事顺序：
+$$
+\Psi \xrightarrow{T_R} T_R \Psi \xrightarrow{H} H(T_R \Psi)
+$$
+$$
+\Psi \xrightarrow{H} H\Psi \xrightarrow{T_R} T_R(H\Psi)
+$$
+由于两个晶胞环境完全相同，两者结果一样，即哈密顿算符和平移算符对易，$HT_R=T_RH$，$[H,T_R]=0$
+
+所以有:
+$$T_R(H\Psi_n) = T_R(\varepsilon_n\Psi_n) = \varepsilon_nT_R\Psi_n.$$
+即平移前后同一个电子态，能量不会发生改变。波函数是一个复函数，所有模长为1的数都可以写成:
+$$
+
+\lambda=e^{i\phi}
+
+$$
+相乘后不改变大小，只把复数(波函数)的方向转一个角度ϕ。所以:
+$$
+T_R\Psi=e^{i\phi}\Psi
+$$
+我们真正关心的概率密度是$|\Psi|^2$，乘以相位前后的概率密度并不会发生改变。总之，每到下一个晶胞，电子波函数的“形状和概率密度”重复，但允许整体相位转一点。
+
+平移操作具有一个很自然的性质，先走$\mathbf R_1$，再走$\mathbf R_2$，应该等于一次走$\mathbf {R_1+R_2}$，所以:
+$$
+T_{R_1}T_{R_2}=T_{R_1+R_2}
+$$
+那么相位也需要满足:
+$$e^{i\phi(\mathbf{R}_1)} e^{i\phi(\mathbf{R}_2)} = e^{i\phi(\mathbf{R}_1 + \mathbf{R}_2)}$$
+对应的最简单、也正是数学上允许的形式就是:
+$$
+\phi(\mathbf R)=\mathbf {k\cdot R}
+$$
+这个 $\mathbf k$，就是 Bloch vector / crystal momentum，它描述的是电子波函数跨越不同晶胞时，相位如何变化，$\mathbf R$是实空间晶格矢量。
+
+以一维的情况为例:
+
+$$\Psi(x + a) = e^{ika}\Psi(x)$$
+如果k=0，那么:
+$$\Psi(x + a) = \Psi(x).$$
+每个晶胞完全同相，这也就对应着Gamma点时的情况，也就是$\mathbf k=0$。
+如果$ka = \pi$，那么$\Psi(x + a) = -\Psi(x)$，概率密度仍然相同，但是相位翻转了，不同k对应的是同一个周期晶体中，不同的Bloch相位模式，这个关系可以写成更熟悉的形式，即Bloch定理:
+$$\Psi_{nk}(\mathbf{r}) = e^{i\mathbf{k} \cdot \mathbf{r}} u_{nk}(\mathbf{r})$$
+其中:
+$$u_{nk}(\mathbf{r} + \mathbf{R}) = u_{nk}(\mathbf{r}).$$
+即u本身只在一个晶胞里重复，原来需要处理的无限大晶体的波函数就简化为了一个晶胞，再附加一个由$\mathbf k$控制的跨晶胞相位条件。
+数学上，Hamiltonian 被平移对称性“分块”了：
+$$
+H\longrightarrow H(\mathbf k_1),H(\mathbf k_2),H(\mathbf k_3),\dots
+$$
+现在，每个$\mathbf k$的问题可以独立求:
+$$
+H(\mathbf k)u_{nk}=\varepsilon_{nk}u_{nk}
+$$
+能量写为$\varepsilon_{nk}$，这也就是能带结构，通常写作:
+$$
+E_n(\mathbf k)
+$$
+同一个 band n，随着 k 改变，能量也改变。
+
+在倒易空间(即k空间)中定义倒格子基矢，他它们与实空间基失的关系为:
+$$
+\mathbf a_i\cdot \mathbf b_i=2\pi\delta_{ij}
+$$
+对于$\mathbf {k+G}$，其中$\mathbf G$是任意倒格矢(倒格子基矢线性组合而来)，那么有:
+$$
+e^{i(\mathbf{k+G})\mathbf R}=e^{i\mathbf k\cdot \mathbf R}e^{i\mathbf G\cdot \mathbf R}
+$$
+由倒格矢的定义有: $\mathbf G \cdot \mathbf R=2\pi m$，所以:$\mathbf k$和$\mathbf {k+G}$是等价的，在整个无限倒空间中，我们只需要选一个基本区域，通常选择**第一Brillouin zone**
+
+假设是我们需要求某个物理量F，由于每种不同$\mathbf k$的Bloch态都有贡献，所以不能只看一个$\mathbf k$，理论上要把整个第一Brillouin区都考虑进去:
+$$
+\langle F \rangle = \frac{1}{\Omega_{\mathrm{BZ}}} \int_{\mathrm{BZ}} F(\mathbf{k}) \, d^3k
+$$
+利用周期性，把无限大的晶体拆分成不同k的小问题，这是一个连续的k空间，但是有无穷多个k点。数值计算时，VASP不可能真的积分无穷多个k空间，所以将积分转换为有权重的求和:
+$$
+\dfrac{1}{\Omega_{\rm BZ}}\int_{\rm BZ} d^3kF(\mathbf{k})\longrightarrow\sum_i w_iF(\mathbf{k_i})
+
+$$
+右边这些离散的$\mathbf k_i$，就是所谓的k-points，本质是 **Brillouin 区积分的数值求积网格**。
+
+引入对称性，比如假设完整网格有12个点，但是晶体有某个旋转对称性，发现$k_1$，$k_2$，$k_3$，$k_4$其实相互等价，那么VASP就可以只算$k_1$，现在$k_1$的权重就是$\dfrac{4}{12}$
+
+
+在KPOINTS文件中，Gamma 和 Monkhorst-Pack本质仍然是同一张规则网格，只是**网格相对 Γ点的位置不同**。
+假设某个方向上的倒格矢是$\mathbf b$，我们撒N=4个点，那么Gamma网格就是:
+$$
+k_n=\dfrac{n}{N}\mathbf b~,n=0,1,2,3
+$$
+得到0，1/4，1/2，3/4
+但由于倒空间具有周期性，因此k~k+G，所以这个网格也可以看成-1/2，-1/4，0，1/4，它包含Gamma点
+
+而Monkhorst-Pack网格则是-3/8，-1/8，1/8，3/8
+
+两者的关系有点像:
+```示意图
+Gamma 4:
+
+----●----●----●----●----
+  -1/2 -1/4   0   +1/4
+
+
+MP 4:
+
+------●----●----●----●------
+    -3/8 -1/8 +1/8 +3/8
+```
+MP 整张网格相对于 Gamma 网格移动了**半个网格间距**。
+
+对于$N_i$为奇数的方向上的点，Gamma方案与Monkhorst-Pack方案完全等价
+
+在某些体系里，Monkhorst-Pack在计算时可能拥有更少的不可约k点，这使得计算速度比Gamma撒点更快，
+> MP meshes **may converge faster** than Gamma-centered meshes。
+
+但Gamma撒点始终是更稳健的选择。VASP默认利用晶体的旋转对称性(**这一步发生在建立k点网格之前**，先检测晶体对称性，然后生成k mesh，检查k mesh是否保持这些对称性，如果不兼容，即下面这种情况，VASP就会发出警告)，把完整网格的一部分映射到另一部分，从而减少实际需要计算的点。对于拥有三重选转轴或六重旋转轴的六方晶系结构，使用偶数个MP点可能出现旋转后移位后k点无法映射回原网格的情况，这是不合理的。In a word，六方格子遵循旋转对称操作OK，但是此时的MP k点网格并不遵循旋转对称操作。
+
+除此半自动写法之外，当然也可以手动指定MP网格的相对网格的移动距离，这被称为Explicitly specifying shift，比如下面这个写法:
+```KPOINTS
+Shifted grid
+0
+Gamma
+4 4 4
+0.5 0.5 0.5
+```
+这种写法可以移动半个网格间距，最终得到的撒点网格和Gamma撒点方案完全相同。第五行也可以写成"`0.5 0.5 0.0`这样的混合型，让某些轴表现得像 MP、其他轴保持 Gamma-centered，不过实际并不常用。
+
+VASP移动网格间距的公式为:
+$$
+
+\mathbf k_{\Gamma}=\sum_i\dfrac{n_i+s_i}{N_i}\mathbf b_i
+$$
+$$
+
+\mathbf k_{\rm MP}=\sum_i\dfrac{n_i+s_i+\frac{1-N_i}{2}}{N_i}\mathbf b_i
+$$
 
 
 # INCAR中的参数（高版本VASP）
@@ -623,6 +785,18 @@ Reciprocal
 
 
 接下来使用`vaspkit`生成`KPOINTS`就好，使用251功能，`INCAR`的话用101功能生成就好，然后就可以计算了。
+
+## Density of states
+
+$$
+D(\varepsilon)=\sum_{n \mathbf k}w_{\mathbf k}\delta(\varepsilon-\varepsilon_{n\mathbf k})
+$$
+$$
+N_e=\int^{E_{\rm F}}d\varepsilon D(\varepsilon)
+$$
+态密度指的是在某个能量附近，有多少个允许的电子态，表示的是单位能量区间里有多少个电子态。
+
+
 
 # 记录一些警告Warning
 不论是源代码编译还是VASP计算，或多或少都会遇到一些Warning，但他们毕竟不是Error不太可能会对最终结果产生影响，就放过了，在此凭借着“完美主义”精神，刨根问底，将它们记录下来。

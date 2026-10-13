@@ -16,7 +16,11 @@ cover:
 - https://github.com/hydrogen1222/Stormy-drawing
 
 效果见下图：
-![[Pasted image 20261012222642.png]]![[Pasted image 20261012222656.png]]![[Pasted image 20261012222700.png]]![[Pasted image 20261012222731.png]]![[Pasted image 20261012222736.png]]
+![Stormy-drawing 绘图效果 1](Stormy-drawing/file-20261012222642.png)
+![Stormy-drawing 绘图效果 2](Stormy-drawing/file-20261012222656.png)
+![Stormy-drawing 绘图效果 3](Stormy-drawing/file-20261012222700.png)
+![Stormy-drawing 绘图效果 4](Stormy-drawing/file-20261012222731.png)
+![Stormy-drawing 绘图效果 5](Stormy-drawing/file-20261012222736.png)
 python个人习惯是用`uv`管理（如果你只用python的话其实完全没必要是用miniconda甚至anaconda，可以使用uv等轻量化、现代化的包管理器），在Windows上使用需要允许是用PowerShell脚本。模型推荐是用有多模态的，原生agent推荐：
 - Codex
 - dsh web或者dsh-tui
